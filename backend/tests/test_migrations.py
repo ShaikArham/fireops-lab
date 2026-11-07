@@ -11,7 +11,10 @@ from app.db.base import Base
 from app.models import PaymentInstruction, SourceFile  # noqa: F401
 
 
-def test_alembic_upgrade_creates_phase_two_schema(tmp_path: Path) -> None:
+def test_alembic_upgrade_creates_phase_two_schema(
+    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.delenv("DATABASE_URL", raising=False)
     database_path = tmp_path / "phase_two.db"
     config = Config(str(Path(__file__).resolve().parents[1] / "alembic.ini"))
     config.set_main_option("sqlalchemy.url", f"sqlite:///{database_path}")
