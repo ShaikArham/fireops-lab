@@ -29,7 +29,7 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 5 · investigation cases | Complete | Exception queue and source evidence, assignment, analyst notes, controlled statuses, escalation, resolution, justified reopen, and case activity audit trail. Backend and migration tests plus Chromium case journey passed. |
 
 | 6 · monitoring and human review | Complete | Four deterministic rules, evidence and benign explanations, reasoned human disposition, append-only review history, and simulated escalation summary. PR #12 and post-merge CI passed. |
-| 7 · reporting and operational insights | In progress | Run-scoped metrics, CSV export parity, case root-cause capture, case ageing/timings and distinct-input reconciliation history are being implemented and tested. |
+| 7 · reporting and operational insights | Complete | Run-scoped metrics, same-run CSV export, analyst-selected root-cause audit history, case timing/ageing, currency-separated review exposure and distinct-input run history. PR #13 and post-merge CI passed. |
 
 Eight of eleven phase gates (0–10) are complete (about 73% by gate count only, not a weighted estimate of all deliverables). Phase 8 is active; Phases 9–10 remain pending.
 
@@ -46,11 +46,15 @@ Eight of eleven phase gates (0–10) are complete (about 73% by gate count only,
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
 - Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
-## Current work: Phase 7
+## Phase 7 close evidence
 
-Operational insights are being built from saved reconciliation runs, cases, and alert review events. The current branch adds explicit KPI definitions, run history, case ageing and timings, analyst-selected root causes, report CSV export, and an assumptions-only improvement exercise. Verify API/UI/export parity and the browser journey before closing the gate.
+Phase 7 is complete. PR [#13](https://github.com/ShaikArham/fireops-lab/pull/13) merged as `1be1a4c2622bba7a76cadf5d562cabd67274799e`. PR CI [42426952469](https://github.com/ShaikArham/fireops-lab/actions/runs/42426952469) and post-merge `main` CI [42427034900](https://github.com/ShaikArham/fireops-lab/actions/runs/42427034900) passed. Local SQLite migration/schema check, Ruff, 86 backend tests, frontend formatting/lint/typecheck, two Vitest tests and production build also passed. The Chromium suite covered operational insights and the exported run-specific CSV.
 
-Do not start Phase 8 until Phase 7's API, migration, frontend, export-parity, and browser checks pass and evidence is recorded in `docs/RELEASE_CHECKLIST.md`.
+## Current work: Phase 8
+
+Review the mobile experience, keyboard access, semantic structure, color contrast and reduced-motion behavior. Check static-page performance with documented Lighthouse evidence where available, then refine the application journey so a recruiter can quickly understand the operations problem, inspect a reconciliation exception, follow its investigation and see report definitions. Preserve the free GitHub Pages deployment path and explain that the public site is read-only while the API/database are not hosted.
+
+Do not start Phase 9 until Phase 8 mobile, accessibility, performance and recruiter-journey acceptance checks are recorded and pass.
 
 ## Later phases still pending
 
@@ -99,6 +103,6 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 ## Next-session checklist
 
 1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
-2. Continue Phase 7 only; inspect `phase7/operational-insights` and its latest CI before making changes.
-3. Fix any migration, API, UI, CSV or Chromium test failures before closing the Phase 7 gate.
-4. Record actual workflow identifiers. Leave Phases 8–10 pending until their own evidence exists.
+2. Continue Phase 8 only. Review the site at desktop and narrow/mobile viewports, then address verified usability and accessibility issues.
+3. Run applicable frontend checks and Chromium journeys; record actual Lighthouse results without inventing metrics.
+4. Keep the site static and free. Do not claim API/database hosting. Leave Phases 9–10 pending until their own gates pass.
