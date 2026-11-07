@@ -5,7 +5,7 @@ This checklist is a living release record. Do not check an item until evidence e
 ## Phase gates
 
 - [x] Phase 0: scope, architecture, requirement traceability, independence, cost and acceptance criteria reviewed.
-- [ ] Phase 1: repository, clean-clone instructions, exact dependency locks, local skeleton, tests, CI and preview foundation verified.
+- [x] Phase 1: repository, clean-clone instructions, exact dependency locks, local skeleton, tests, CI and static preview foundation verified.
 - [ ] Phase 2: schema, migrations, reproducible synthetic data and validation pass.
 - [ ] Phase 3: lifecycle and idempotent imports pass.
 - [ ] Phase 4: deterministic reconciliation scenarios and invariants pass.
@@ -21,8 +21,8 @@ This checklist is a living release record. Do not check an item until evidence e
 | Field | Value |
 |---|---|
 | Date / timezone | 2026-11-07, Europe/London |
-| Branch / commit SHA | `main` / `165d31f5cb880b320a4426328261f5e400346a41` (foundation source) |
-| CI run | [Run 1 passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42412228377) on the foundation source commit |
+| Branch / commit SHA | `main` / `5ea83f544762bef96a11a605f6f4e6298cec78fa` |
+| CI run | [Run 2 passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42412354648) |
 | Commands / results | Frontend: Biome format/lint, TypeScript, Vitest (2 passed), static export build with GitHub Pages base path, and output-file check passed. Backend: `uv sync --frozen`, Ruff, pytest (1 passed). `npm audit --audit-level=high`: 0 vulnerabilities. `git diff --check` and secret-pattern scan passed. Local Playwright could not start because Chromium is absent in this environment. GitHub Actions installed Chromium and passed both browser E2E tests. |
 | Preview and production URLs | Not deployed |
 | Desktop/mobile/manual results | Not recorded |
@@ -31,11 +31,11 @@ This checklist is a living release record. Do not check an item until evidence e
 ## Current evidence (2026-11-07)
 
 - Phase 0 documents created: project brief, architecture/cost/acceptance criteria, requirement traceability, and decision log.
-- Phase 1 local skeleton created and clean-cloned from local Git; phase is **in progress**, not complete.
+- Phase 1 is **complete**: the public GitHub repository contains the committed skeleton, dependency locks, CI, and a manual-only static Pages publishing workflow. Phase 1 does not publish or deploy the application.
 - Frontend: Biome format check/lint, TypeScript check, Vitest (2 tests), static GitHub Pages export and output-file check passed locally; GitHub Actions passed the same checks plus both Chromium E2E tests.
 - Backend: Ruff and pytest (1 test) passed; HTTPX2 avoids the Starlette test-client deprecation warning.
 - Local Playwright E2E could not launch because the Chromium executable is not installed. Remote GitHub Actions installed Chromium and both page tests passed.
-- The foundation is pushed to the public `main` branch. GitHub Actions run 1 passed on source commit `165d31f5cb880b320a4426328261f5e400346a41`.
+- The foundation is pushed to the public `main` branch. GitHub Actions run 2 passed on `5ea83f544762bef96a11a605f6f4e6298cec78fa`.
 - Free release target is GitHub Pages static export with the manual publishing workflow; publishing remains deferred to Phase 10. Local GitHub Pages base-path export passed.
 - Docker is not installed in the current workspace. Phase 1 does not require a database to run the local skeleton; container smoke remains open if the Docker Compose path is introduced.
 
