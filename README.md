@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–3 are complete. Phase 4 reconciliation is in development and must pass CI before its gate is closed. GitHub Pages remains a static frontend; its Phase 4 preview is read-only and uses fictional fixture data.
+> **Build status:** Phases 0–4 are complete. The public GitHub Pages site hosts a read-only reconciliation demo using fictional fixtures. The API/database are not deployed; case management, monitoring and reporting remain in later phases.
 
 ## Project boundaries
 
@@ -43,7 +43,7 @@ Open `http://localhost:3000` for the frontend and `http://localhost:8000/health`
 
 The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation requires an explicit payment batch and settlement batch selection. Runs are saved with rule version, source hashes, classification counts and paginated results. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed imports and runs require a separately operated backend. The API does not execute payments.
 
-The GitHub Pages publishing workflow is manual-only. GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database are not hosted by that workflow.
+The GitHub Pages publishing workflow is manual-only. The current static demo is available at [fireops-lab on GitHub Pages](https://shaikarham.github.io/fireops-lab/). GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database are not hosted by that workflow.
 
 ## Generate the synthetic datasets
 
