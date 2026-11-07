@@ -5,7 +5,7 @@ from sqlalchemy import engine_from_config, pool
 
 from alembic import context
 from app.db.base import Base
-from app.models import PaymentInstruction, SettlementRecord, SourceFile  # noqa: F401
+from app.models import PaymentEvent, PaymentInstruction, SettlementRecord, SourceFile  # noqa: F401
 
 config = context.config
 if config.config_file_name is not None:

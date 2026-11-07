@@ -39,3 +39,13 @@ This checklist is a living release record. Do not check an item until evidence e
 - Free release target is GitHub Pages static export with the manual publishing workflow; publishing remains deferred to Phase 10. Local GitHub Pages base-path export passed.
 - Docker is not installed in the local workspace; the PostgreSQL service and migration were exercised in GitHub Actions.
 
+## Phase 3 candidate evidence (2026-11-08; gate remains open pending GitHub CI)
+
+- Implemented checksum-idempotent, all-or-nothing payment and settlement CSV imports; preview returns at most 25 records. Conflicting identifiers reject and roll back the whole import.
+- Added the payment event table and Alembic migration `0002_payment_events`. Lifecycle transitions permit `CREATED -> VALIDATED -> PROCESSING -> SETTLED|FAILED`; transitions record actor, reason, correlation ID, and monotonically ordered UTC events.
+- Added deterministic batch simulation, settlement source records, per-currency batch control totals, payment event history, and API-backed browser controls. Simulation does not transmit money.
+- Local checks: Ruff passed; 68 backend tests passed, including the full 25-pair state transition matrix; Alembic upgrade and schema comparison passed against temporary SQLite; frontend formatting, lint, TypeScript, 2 Vitest tests, static export, and output-file check passed.
+- Local Playwright could not launch a browser in this sandbox. Playwright's browser download returned a truncated archive, and the system Chromium process is blocked by the container. The new browser workflow must pass GitHub Actions before Phase 3 can be checked.
+- No deployment has happened. Before any public API deployment, Phase 9 must review public write isolation, rate limits, CORS origins, and demo reset behavior.
+- Phase 3 is **not yet complete**. PostgreSQL 17 CI, GitHub Actions browser tests, a clean main-branch merge, and post-merge verification are still required.
+

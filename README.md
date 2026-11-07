@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–2 are complete. Phase 3 payment lifecycle simulation has not started. Reconciliation, investigation, monitoring, and reporting are not implemented yet.
+> **Build status:** Phases 0–2 are complete. Phase 3 lifecycle and import implementation is in progress and must pass CI before its gate is closed. Reconciliation, investigation, monitoring, and reporting are not implemented yet.
 
 ## Project boundaries
 
@@ -24,18 +24,24 @@ See [development workflow](docs/DEVELOPMENT.md) for branch and local setup conve
 Requirements: Node.js 24, Python 3.12, npm, and `uv`.
 
 ```bash
-# Terminal 1: frontend
+# Terminal 1: backend database and API
+cd backend
+export DATABASE_URL=sqlite:///./fireops.db
+export FIREOPS_CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
+uv sync --frozen
+uv run alembic upgrade head
+uv run uvicorn app.main:app --reload --port 8000
+
+# Terminal 2: frontend
 cd frontend
 npm ci
+export NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 npm run dev
-
-# Terminal 2: backend
-cd backend
-uv sync --frozen
-uv run uvicorn app.main:app --reload --port 8000
 ```
 
-Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Neither process needs a database in Phase 1. Database-backed features begin only after the relevant phase gate.
+Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Phase 3 API operations require a database. The default local setup uses SQLite; CI also verifies migrations with PostgreSQL 17.
+
+The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions and inspect event history. The API does not execute payments. Configure the frontend API URL at build time for a static deployment; leave it unset to show the disconnected-backend notice.
 
 The GitHub Pages publishing workflow is manual-only and will be used at the final release gate. GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database will need separate free-tier hosting.
 
@@ -46,7 +52,7 @@ cd backend
 uv run python -m app.synthetic.generate
 ```
 
-The command writes deterministic CSV fixtures and `data/synthetic/manifest.json`. To validate a supplied instruction CSV from Python, call `app.services.csv_validation.validate_csv(content, "payment_instructions")`; use `"settlement_records"` for settlement data. Validation is all-or-nothing and returns row-level errors without persisting data.
+The command writes deterministic CSV fixtures and `data/synthetic/manifest.json`. The API exposes `POST /api/v1/source-files/preview?kind=payment_instructions`, `POST /api/v1/source-files/import/payment_instructions`, the equivalent settlement routes, `GET /api/v1/batches`, and payment event history. Imports use a SHA-256 plus source type as their idempotency key. Validation is all-or-nothing. See the OpenAPI page at `http://localhost:8000/docs` while the API is running.
 
 ## Checks
 

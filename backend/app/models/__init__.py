@@ -1,3 +1,3 @@
-from app.models.records import PaymentInstruction, SettlementRecord, SourceFile
+from app.models.records import PaymentEvent, PaymentInstruction, SettlementRecord, SourceFile
 
-__all__ = ["PaymentInstruction", "SettlementRecord", "SourceFile"]
+__all__ = ["PaymentEvent", "PaymentInstruction", "SettlementRecord", "SourceFile"]
