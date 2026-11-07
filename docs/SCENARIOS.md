@@ -14,5 +14,9 @@ The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. 
 
 The Phase 4 reconciliation engine first uses exact payment reference, matching currency and direction, integer minor units, and a configurable date window (default three days). If the reference is absent, a fallback is accepted only when exactly one payment and one settlement agree on amount, currency, direction, and date. Candidate pairs outside that window or with duplicate/ambiguous source references remain unmatched. The static Pages display uses a generated subset of the same fictional fixtures and is read-only; API-backed runs persist their full result rows.
 
+## Phase 6 monitoring scenarios
+
+The monitoring workspace evaluates four versioned rules against fictional payment/event records: high-value amount, payer velocity in a short window, repeated failed events, and duplicate client reference within a batch. Every alert displays the rule threshold and matched source evidence plus a possible benign explanation. Examples include a legitimate payroll, treasury, or supplier payment triggering the high-value threshold; batching activity creating a velocity signal; transient technical failures; or a reused client reference. These are review prompts only. A dismissal or escalation requires an analyst reason, review activity is appended to history, and the escalation summary is a simulated internal note, not a suspicious activity report or regulatory filing. No alert establishes fraud or money laundering.
+
 Include normal records and false positives. Do not display target sample counts or match rates until fixtures and tests establish the exact values.
 
