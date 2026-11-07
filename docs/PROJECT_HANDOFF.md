@@ -26,8 +26,9 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 2 · data model and fixtures | Complete | PostgreSQL schema/migration, validation, reproducible synthetic fixtures, manifest and data dictionary. |
 | 3 · payment lifecycle | Complete | Atomic/idempotent CSV imports, validated previews, lifecycle transitions/events, settlement simulation and batch controls. |
 | 4 · reconciliation | Complete | Versioned deterministic engine, saved runs and results, source hashes, side-by-side comparison, expected exception cases and read-only Pages preview. |
+| 5 · investigation cases | Complete | Exception queue and source evidence, assignment, analyst notes, controlled statuses, escalation, resolution, justified reopen, and case activity audit trail. Backend and migration tests plus Chromium case journey passed. |
 
-Five of eleven phase gates (0–10) are complete. That is 45% by gate count only, not a weighted estimate of all deliverables.
+Six of eleven phase gates (0–10) are complete. That is 55% by gate count only, not a weighted estimate of all deliverables.
 
 ## Phase 4 details and verified evidence
 
@@ -40,12 +41,13 @@ Five of eleven phase gates (0–10) are complete. That is 45% by gate count only
 - The manual Pages workflow succeeded in [run 42420334086](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). GitHub Pages was enabled with Actions as its source. The live page was opened in Chromium; the side-by-side mismatch, late, missing-reference, duplicate and unique-fallback samples plus the read-only/API-not-hosted notice were observed.
 - Mobile viewport/manual QA remains for Phase 8. Local Playwright could not launch because Chromium is not installed in the workspace; CI browser tests passed.
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
+- Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
-## Next work: Phase 5
+## Next work: Phase 6
 
-Start only Phase 5, investigation case management and audit history. Implement it against reconciled exceptions and source evidence. Expected work includes a filterable case queue, ownership/assignment, analyst notes, controlled status transitions, escalation, resolution and justified reopen, with a complete audit trail. Preserve fictional-data boundaries.
+Start only Phase 6, rule-based transaction monitoring and human-review controls. Build explainable signals on synthetic operational records, retain human disposition and audit history, and avoid claims of confirmed fraud or AML findings. Preserve fictional-data boundaries.
 
-Before closing Phase 5, run the required backend, migration, frontend and browser checks. Demonstrate an exception from the queue through review and disposition, confirm the audit history records every action, and record the test evidence in `docs/RELEASE_CHECKLIST.md`. Do not start Phase 6 if any gate check fails.
+Do not start Phase 7 until Phase 6's unit, API, migration, frontend and browser checks pass and its evidence is recorded in `docs/RELEASE_CHECKLIST.md`.
 
 ## Later phases still pending
 
