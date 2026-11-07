@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Current verified `main` before Phase 6 merge:** `df19a1a691a7622fddb547206287a6fa92d5d58d`
+**Current verified `main`:** `20229274ce98dddc6fd11e614dcec825a71c1bcc` (Phase 6 merge; post-merge CI run 42425109153 passed).
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -28,7 +28,7 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 4 · reconciliation | Complete | Versioned deterministic engine, saved runs and results, source hashes, side-by-side comparison, expected exception cases and read-only Pages preview. |
 | 5 · investigation cases | Complete | Exception queue and source evidence, assignment, analyst notes, controlled statuses, escalation, resolution, justified reopen, and case activity audit trail. Backend and migration tests plus Chromium case journey passed. |
 
-Seven of eleven phase gates (0–10) are complete once Phase 6 is merged and post-merge CI passes. That is 64% by gate count only, not a weighted estimate of all deliverables.
+Seven of eleven phase gates (0–10) are complete. That is 64% by gate count only, not a weighted estimate of all deliverables.
 
 ## Phase 4 details and verified evidence
 
@@ -45,7 +45,7 @@ Seven of eleven phase gates (0–10) are complete once Phase 6 is merged and pos
 
 ## Next work: Phase 7
 
-Phase 6 PR #12 has passed local checks and CI run 42424710402. Merge it only after its documentation follow-up CI passes, then confirm post-merge `main` CI. After that, start Phase 7: operational metrics and exports that reconcile exactly to source records. Preserve the synthetic-data and human-review boundaries.
+Phase 6 PR #12 merged as `20229274ce98dddc6fd11e614dcec825a71c1bcc`; post-merge `main` CI run 42425109153 passed. Start Phase 7: operational metrics and exports that reconcile exactly to source records. Preserve the synthetic-data and human-review boundaries.
 
 ## Later phases still pending
 
@@ -94,7 +94,6 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 
 ## Next-session checklist
 
-1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; confirm PR #12's documentation follow-up CI is green.
-2. Merge Phase 6, then verify CI on `main` before beginning Phase 7.
-3. Build operational metrics and export files from saved reconciliation/source records, with API/UI/export parity tests.
-4. Record actual test and workflow-run identifiers. Leave Phases 7–10 pending until their gates pass.
+1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
+2. Begin Phase 7 only: build operational metrics and export files from saved reconciliation/source records, with API/UI/export parity tests.
+3. Record actual test and workflow-run identifiers. Leave Phases 7–10 pending until their gates pass.
