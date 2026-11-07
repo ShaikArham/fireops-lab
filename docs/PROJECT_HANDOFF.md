@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Phase 6 verified merge:** `20229274ce98dddc6fd11e614dcec825a71c1bcc` (PR #12; post-merge CI run 42425109153 passed). **Current work:** Phase 7 on `phase7/operational-insights`.
+**Phase 7 verified merge:** `1be1a4c2622bba7a76cadf5d562cabd67274799e` (PR #13; PR run 42426952469 and post-merge CI run 42427034900 passed). **Current work:** Phase 8, mobile, accessibility, performance and recruiter journey.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -31,7 +31,7 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 6 · monitoring and human review | Complete | Four deterministic rules, evidence and benign explanations, reasoned human disposition, append-only review history, and simulated escalation summary. PR #12 and post-merge CI passed. |
 | 7 · reporting and operational insights | In progress | Run-scoped metrics, CSV export parity, case root-cause capture, case ageing/timings and distinct-input reconciliation history are being implemented and tested. |
 
-Seven of eleven phase gates (0–10) are complete. That is 64% by gate count only, not a weighted estimate of all deliverables. Phase 7 is not counted complete until its PR and post-merge checks pass.
+Eight of eleven phase gates (0–10) are complete (about 73% by gate count only, not a weighted estimate of all deliverables). Phase 8 is active; Phases 9–10 remain pending.
 
 ## Phase 4 details and verified evidence
 
