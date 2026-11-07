@@ -1,6 +1,7 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import OperationsWorkspace from "./operations-workspace";
 import ReconciliationWorkspace from "./reconciliation-workspace";
+import MonitoringWorkspace from "./monitoring-workspace";
 
 export default function Home() {
   return (
@@ -64,13 +65,13 @@ export default function Home() {
 
         <ReconciliationWorkspace />
         <OperationsWorkspace />
+        <MonitoringWorkspace />
 
         <section id="method" className="pb-10 text-sm leading-6 text-slate-600">
           <h2 className="text-base font-semibold text-slate-900">Method and limits</h2>
           <p className="mt-2 max-w-3xl">
-            Planned monitoring signals will be explainable prompts for human review. They will not
-            be presented as proven fraud, money laundering, regulatory reporting, or legal
-            compliance.
+            Monitoring alerts are explainable prompts for human review. They are not presented as
+            proven fraud, money laundering, regulatory reporting, or legal compliance.
           </p>
         </section>
       </div>

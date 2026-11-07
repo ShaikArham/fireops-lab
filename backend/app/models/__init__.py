@@ -1,6 +1,9 @@
 from app.models.records import (
     CaseActivity,
     ExceptionCase,
+    MonitoringActivity,
+    MonitoringAlert,
+    MonitoringRun,
     PaymentEvent,
     PaymentInstruction,
     ReconciliationResult,
@@ -12,6 +15,9 @@ from app.models.records import (
 __all__ = [
     "CaseActivity",
     "ExceptionCase",
+    "MonitoringActivity",
+    "MonitoringAlert",
+    "MonitoringRun",
     "PaymentEvent",
     "PaymentInstruction",
     "ReconciliationResult",

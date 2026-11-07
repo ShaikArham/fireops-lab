@@ -8,6 +8,9 @@ from app.db.base import Base
 from app.models import (  # noqa: F401
     CaseActivity,
     ExceptionCase,
+    MonitoringActivity,
+    MonitoringAlert,
+    MonitoringRun,
     PaymentEvent,
     PaymentInstruction,
     ReconciliationResult,

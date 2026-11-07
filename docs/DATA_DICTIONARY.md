@@ -38,8 +38,11 @@
 | `payment_events` | Append-only lifecycle history for each payment. | Event type constraint, required payment foreign key, timestamp and actor, correlation identifier. |
 | `reconciliation_runs` | Versioned reconciliation run summary and source hashes. | Completed status, non-negative totals, stable rule version, amount differences aggregated by currency. |
 | `reconciliation_results` | Per-run classification linked to at most one payment and at most one settlement. | Unique run/payment and run/settlement pairs; explainable classification and matching method; source record required. |
+| `monitoring_runs` | Idempotent evaluation of an identified synthetic source set and rules version. | Source hash and rules version; repeated unchanged inputs do not create duplicate runs. |
+| `monitoring_alerts` | A rule hit with source-linked evidence and threshold context. | Rule ID/version, severity and controlled review status; an alert is not a fraud finding. |
+| `monitoring_activities` | Append-only notes and human disposition history for a monitoring alert. | Actor, timestamp, correlation ID and reason for dismissal/escalation. |
 
-`status` is stored as a constrained string so lifecycle changes can be introduced without changing the CSV schema. Cases, monitoring alerts, and case audit events belong to later phases.
+`status` is stored as a constrained string so lifecycle changes can be introduced without changing the CSV schema. Exception cases and monitoring alerts are stored separately from immutable source records. Monitoring runs are source-hash idempotent; alert records retain rule/version, matched evidence and threshold context. Human disposition and notes are represented as append-only activity records with actor and timestamp.
 
 ## Deterministic sample fixtures
 

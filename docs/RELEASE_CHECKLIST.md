@@ -10,7 +10,7 @@ This checklist is a living release record. Do not check an item until evidence e
 - [x] Phase 3: lifecycle and idempotent imports pass.
 - [x] Phase 4: deterministic reconciliation scenarios and invariants pass.
 - [x] Phase 5: investigation workflow and audit history pass.
-- [ ] Phase 6: monitoring and human-review controls pass.
+- [x] Phase 6: monitoring and human-review controls pass.
 - [ ] Phase 7: metrics and exports reconcile with source records.
 - [ ] Phase 8: mobile, accessibility, performance and recruiter journey pass.
 - [ ] Phase 9: regression, security and release-blocker review pass.
@@ -21,14 +21,17 @@ This checklist is a living release record. Do not check an item until evidence e
 | Field | Value |
 |---|---|
 | Date / timezone | 2026-11-07, Europe/Dublin |
-| Verified implementation SHA | Phase 5 implementation: `f247329f2c9d940068681dd9a98c02acb4e9cb28` |
-| CI runs | Phase 5 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) (includes PostgreSQL migration/schema verification and Chromium E2E). Phase 4 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544) and [post-merge `main`](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755); Pages publish [run](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). Earlier phase evidence is recorded below. |
-| Commands / results | Local: Ruff; 77 backend tests; temporary SQLite migration and schema comparison; frontend Biome, TypeScript, 2 Vitest tests and static export passed. GitHub Actions verified PostgreSQL 17.11 and 6 Chromium E2E tests, including a missing-settlement case through assignment, note, review, resolution and audit history (1.3 seconds in the browser run). |
+| Verified implementation SHA | Phase 6 implementation: `27526f36fce55742d67cd1c73524002ba3ae1d56` (PR #12); docs follow-up commit recorded in PR history. |
+| CI runs | Phase 6 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42424710402) (PostgreSQL migration/schema, 84 backend tests, frontend checks, and Chromium E2E); Phase 5 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998). Phase 4 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544) and [post-merge `main`](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755); Pages publish [run](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). Earlier phase evidence is recorded below. |
+| Commands / results | Phase 6 local: Ruff; 84 backend tests; temporary SQLite migration and schema comparison; frontend format, lint, TypeScript, 2 Vitest tests, and static export passed. GitHub Actions run 42424710402 passed PostgreSQL migration/schema checks, all 84 backend tests, frontend checks, 2 Vitest tests, 7 Chromium E2E tests including the monitoring review journey, and static export. |
 | Preview and production URLs | Static preview: https://shaikarham.github.io/fireops-lab/ · API/database and full production release not deployed. |
 | Desktop/mobile/manual results | Phase 5 frontend case workflow passed in Chromium CI against a mocked API; backend persistence and rules passed API tests against SQLite and PostgreSQL CI. Public Pages remains a read-only Phase 4 demo; mobile QA remains in Phase 8. |
-| Known P0/P1/P2/P3 issues | No open Phase 5 gate blocker. API/database hosting is intentionally pending; public Pages does not yet expose API-backed case management. |
+| Known P0/P1/P2/P3 issues | No open Phase 6 gate blocker. API/database hosting is intentionally pending; public Pages does not expose API-backed case management or monitoring. |
 
 ## Current evidence (2026-11-07)
+
+- Phase 6 is **complete on its PR branch**: four explainable rules (high-value, payer velocity, repeated failures, duplicate reference), source evidence and possible benign explanations, idempotent runs, severity/status/rule filters, controlled human review, reasoned dismissal/escalation, notes and append-only activity history, and a simulated internal escalation summary. UI and API state clearly that an alert is not proof of fraud or money laundering and the summary is not a suspicious activity report or regulatory filing. Local Ruff and 84 backend tests passed; migration upgrade/schema check, frontend checks, two Vitest tests and static build passed. GitHub Actions [run 42424710402](https://github.com/ShaikArham/fireops-lab/actions/runs/42424710402) passed PostgreSQL migration/schema checks, all 84 backend tests, frontend checks, 2 unit tests, 7 Chromium E2E tests and static export. PR #12: https://github.com/ShaikArham/fireops-lab/pull/12. Awaiting merge and post-merge `main` verification.
+
 
 - Phase 0 documents created: project brief, architecture/cost/acceptance criteria, requirement traceability, and decision log.
 - Phase 5 is **complete**: exception cases link to saved reconciliation results; the queue filters by status, owner and exception type; assignment, notes, review, escalation, resolution and justified reopening append actor-attributed, timestamped audit activities. Duplicate and matched-result cases are rejected, state transitions are controlled, and escalation/resolution/reopen require reasons. Local Ruff and 77 backend tests passed; migration upgrade/schema check passed; frontend lint, TypeScript, 2 Vitest tests and static export passed. Phase 5 PR checks passed with PostgreSQL 17.11 and 6 Chromium E2E tests, including the missing-settlement investigation journey. The public Pages preview remains read-only and does not host the API/database.

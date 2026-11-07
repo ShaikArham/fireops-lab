@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Current verified `main` before this handoff note:** `eca6acd184c2a6c20a9299304a2094efaeff3cd6`
+**Current verified `main` before Phase 6 merge:** `df19a1a691a7622fddb547206287a6fa92d5d58d`
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -28,7 +28,7 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 4 · reconciliation | Complete | Versioned deterministic engine, saved runs and results, source hashes, side-by-side comparison, expected exception cases and read-only Pages preview. |
 | 5 · investigation cases | Complete | Exception queue and source evidence, assignment, analyst notes, controlled statuses, escalation, resolution, justified reopen, and case activity audit trail. Backend and migration tests plus Chromium case journey passed. |
 
-Six of eleven phase gates (0–10) are complete. That is 55% by gate count only, not a weighted estimate of all deliverables.
+Seven of eleven phase gates (0–10) are complete once Phase 6 is merged and post-merge CI passes. That is 64% by gate count only, not a weighted estimate of all deliverables.
 
 ## Phase 4 details and verified evidence
 
@@ -43,15 +43,12 @@ Six of eleven phase gates (0–10) are complete. That is 55% by gate count only,
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
 - Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
-## Next work: Phase 6
+## Next work: Phase 7
 
-Start only Phase 6, rule-based transaction monitoring and human-review controls. Build explainable signals on synthetic operational records, retain human disposition and audit history, and avoid claims of confirmed fraud or AML findings. Preserve fictional-data boundaries.
-
-Do not start Phase 7 until Phase 6's unit, API, migration, frontend and browser checks pass and its evidence is recorded in `docs/RELEASE_CHECKLIST.md`.
+Phase 6 PR #12 has passed local checks and CI run 42424710402. Merge it only after its documentation follow-up CI passes, then confirm post-merge `main` CI. After that, start Phase 7: operational metrics and exports that reconcile exactly to source records. Preserve the synthetic-data and human-review boundaries.
 
 ## Later phases still pending
 
-- **Phase 6:** explainable transaction-monitoring rules, thresholds and human-review/dismissal controls.
 - **Phase 7:** operational metrics, reconciliation-backed exports and consistent API/UI/report totals.
 - **Phase 8:** mobile and accessibility review, performance checks and a clear recruiter journey.
 - **Phase 9:** regression, security and release-blocker review, including CORS, public write isolation, rate limits and reset behavior before exposing an API.
@@ -95,10 +92,9 @@ npm run dev
 
 Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv run --frozen alembic upgrade head`, then `uv run --frozen alembic check` with `DATABASE_URL` set to a fresh local database. Frontend gate: `npm run format:check`, `npm run lint`, `npm run typecheck`, `npm run test`, `npm run test:e2e`, and a GitHub Pages export/build check. Follow existing CI if local browser dependencies are unavailable.
 
-## Tomorrow's starting checklist
+## Next-session checklist
 
-1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
-2. Do not redo Phases 0–4 or redeploy the static preview unless it is broken.
-3. Begin Phase 5 only; inspect current reconciled-result models/routes before designing case persistence.
-4. Add tests alongside each case workflow and fix failures before closing the Phase 5 gate.
-5. Update the release checklist with actual test/run identifiers. Leave Phases 6–10 pending until their own evidence exists.
+1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; confirm PR #12's documentation follow-up CI is green.
+2. Merge Phase 6, then verify CI on `main` before beginning Phase 7.
+3. Build operational metrics and export files from saved reconciliation/source records, with API/UI/export parity tests.
+4. Record actual test and workflow-run identifiers. Leave Phases 7–10 pending until their gates pass.

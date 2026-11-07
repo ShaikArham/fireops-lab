@@ -14,7 +14,7 @@ test("project boundaries explain the simulator", async ({ page }) => {
   await page.goto("/#method");
 
   await expect(page.getByRole("heading", { name: "Method and limits" })).toBeVisible();
-  await expect(page.getByText(/not be presented as proven fraud/i)).toBeVisible();
+  await expect(page.getByText(/not presented as proven fraud/i)).toBeVisible();
 });
 
 test("static reconciliation preview compares synthetic source records side by side", async ({
@@ -90,7 +90,7 @@ test("API-backed reconciliation selects two batches and shows saved comparison",
   });
 
   await page.goto("/");
-  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Payment batch").first().selectOption("BATCH-QA-1");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
   await expect(page.getByText("Saved run run-qa-1")).toBeVisible();
@@ -246,7 +246,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   });
 
   await page.goto("/");
-  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Payment batch").first().selectOption("BATCH-QA-1");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
   await expect(page.getByRole("heading", { name: "UNMATCHED INSTRUCTION" })).toBeVisible();
@@ -269,6 +269,194 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   await expect(audit.getByText("NOTE ADDED", { exact: true })).toBeVisible();
   await expect(audit.getByText("RESOLVED", { exact: true })).toBeVisible();
   await expect(audit.getByText("Source evidence shows a 50 minor-unit difference.")).toBeVisible();
+});
+
+test("monitoring alerts show evidence, allow human triage, and produce only a mock escalation note", async ({
+  page,
+}) => {
+  const activities: Array<Record<string, string | null>> = [];
+  let currentStatus = "OPEN";
+  let disposition: string | null = null;
+  const alertData = () => ({
+    alert_id: "ALERT-QA-1",
+    run_id: "MON-QA-1",
+    rule_id: "DUPLICATE_REFERENCE",
+    group_key: "REF-QA-1",
+    title: "Repeated client reference",
+    severity: "INFO",
+    status: currentStatus,
+    explanation:
+      "Two fictional instructions share this client reference. Compare source records before taking action.",
+    threshold: "two or more distinct instructions in one batch",
+    false_positive_example: "A client may reuse a reference for legitimate split payments.",
+    evidence: { client_reference: "REF-QA-1", payment_ids: ["PAY-QA-1", "PAY-QA-2"] },
+    activities: activities.map((activity, index) => ({
+      activity_id: `ACT-${index}`,
+      activity_type: activity.type,
+      occurred_at: "2026-11-07T12:00:00Z",
+      actor: activity.actor,
+      reason: activity.reason,
+      from_status: activity.from,
+      to_status: activity.to,
+      correlation_id: `CORR-${index}`,
+    })),
+  });
+
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (url.pathname.endsWith("/batches")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({ batches: [{ batch_id: "BATCH-MON-1" }], settlement_batches: [] }),
+      });
+    } else if (url.pathname.endsWith("/monitoring/rules")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          rules_version: "monitoring-1.0",
+          rules: [
+            {
+              rule_id: "DUPLICATE_REFERENCE",
+              title: "Repeated client reference",
+              severity: "INFO",
+              threshold: "two or more distinct instructions in one batch",
+              purpose: "Compare repeated references.",
+              false_positive_example:
+                "A client may reuse a reference for legitimate split payments.",
+            },
+          ],
+        }),
+      });
+    } else if (url.pathname.endsWith("/monitoring/alerts") && request.method() === "GET") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          alerts: activities.length ? [alertData()] : [],
+          limit: 25,
+          offset: 0,
+        }),
+      });
+    } else if (
+      url.pathname.endsWith("/monitoring/alerts/ALERT-QA-1") &&
+      request.method() === "GET"
+    ) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(alertData()),
+      });
+    } else if (url.pathname.endsWith("/monitoring/runs")) {
+      activities.push({
+        type: "DETECTED",
+        actor: "system:monitoring",
+        reason: null,
+        from: null,
+        to: "OPEN",
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "MON-QA-1",
+          batch_id: "BATCH-MON-1",
+          alert_count: 1,
+          idempotent: false,
+          alerts: [alertData()],
+        }),
+      });
+    } else if (url.pathname.endsWith("/notes")) {
+      const body = request.postDataJSON() as { note: string };
+      activities.push({
+        type: "NOTE_ADDED",
+        actor: "demo-analyst",
+        reason: body.note,
+        from: null,
+        to: null,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(alertData()),
+      });
+    } else if (url.pathname.endsWith("/transitions")) {
+      const body = request.postDataJSON() as { target_status: string; reason?: string };
+      const previous = currentStatus;
+      currentStatus = body.target_status;
+      disposition = body.reason ?? "Analyst started review.";
+      activities.push({
+        type: currentStatus === "IN_REVIEW" ? "REVIEW_STARTED" : "ESCALATED",
+        actor: "demo-analyst",
+        reason: disposition,
+        from: previous,
+        to: currentStatus,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(alertData()),
+      });
+    } else if (url.pathname.endsWith("/escalation-summary")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          summary_type: "SIMULATED_INTERNAL_ESCALATION_NOTE",
+          rule_title: "Repeated client reference",
+          severity: "INFO",
+          explanation: "Review the synthetic payment references.",
+          threshold: "two distinct instructions",
+          evidence: { payment_ids: ["PAY-QA-1", "PAY-QA-2"] },
+          analyst_reason: disposition,
+          analyst: "demo-analyst",
+          created_at: "2026-11-07T12:00:00Z",
+          disclaimer:
+            "Fictional example only. This is not a suspicious activity report, a regulatory filing, or a determination of fraud or money laundering.",
+        }),
+      });
+    } else {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Not found" }),
+      });
+    }
+  });
+
+  await page.goto("/");
+  await expect(
+    page.getByRole("heading", { name: "Review explainable operational alerts" }),
+  ).toBeVisible();
+  await expect(page.getByText("Multiple instructions in a short window")).toBeVisible();
+  await page.getByLabel("Synthetic payment batch").selectOption("BATCH-MON-1");
+  await page.getByRole("button", { name: "Run monitoring rules" }).click();
+  await expect(page.getByText("1 rule alert created.")).toBeVisible();
+  await page
+    .getByRole("button", { name: /Repeated client reference/ })
+    .last()
+    .click();
+  await expect(
+    page.getByText("A client may reuse a reference for legitimate split payments.").first(),
+  ).toBeVisible();
+  await expect(page.getByText("PAY-QA-1, PAY-QA-2")).toBeVisible();
+  await page.getByRole("button", { name: "Start review" }).click();
+  await page
+    .getByLabel("Analyst note")
+    .fill("Reference reuse matches the documented synthetic split-payment scenario.");
+  await page.getByRole("button", { name: "Add note" }).click();
+  await page.getByLabel("Review reason").fill("Escalate for a second-person operational review.");
+  await page.getByRole("button", { name: "Escalate for review" }).click();
+  await page.getByRole("button", { name: "View simulated escalation summary" }).click();
+  const summary = page.getByRole("article", { name: "Simulated escalation summary" });
+  await expect(summary.getByText("Simulated internal escalation note")).toBeVisible();
+  await expect(summary.getByText(/not a suspicious activity report/i)).toBeVisible();
+  const history = page.getByRole("list", { name: "Alert review history" });
+  await expect(history.getByText("Detected", { exact: true })).toBeVisible();
+  await expect(history.getByText("Note added", { exact: true })).toBeVisible();
+  await expect(history.getByText("Escalated", { exact: true })).toBeVisible();
 });
 
 test("CSV preview, idempotent batch controls, and processing history work together", async ({

@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–5 are complete. The public GitHub Pages site hosts a read-only reconciliation demo using fictional fixtures. Case management is available when the frontend is configured with the API. The API/database are not deployed; monitoring and reporting remain in later phases.
+> **Build status:** Phases 0–6 are complete. The public GitHub Pages site hosts a read-only reconciliation demo using fictional fixtures. Case management and rule-based monitoring are available when the frontend is configured with the API. The API/database are not deployed; reporting, product-quality review, and release remain in later phases.
 
 ## Project boundaries
 
@@ -41,7 +41,7 @@ npm run dev
 
 Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Phase 3 API operations require a database. The default local setup uses SQLite; CI also verifies migrations with PostgreSQL 17.
 
-The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation requires an explicit payment batch and settlement batch selection. Runs are saved with rule version, source hashes, classification counts and paginated results. API-backed exception cases support assignment, notes, controlled review, escalation, resolution and justified reopening, with an actor-attributed audit history. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed operations require a separately operated backend. The API does not execute payments.
+The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation requires an explicit payment batch and settlement batch selection. Runs are saved with rule version, source hashes, classification counts and paginated results. API-backed exception cases support assignment, notes, controlled review, escalation, resolution and justified reopening, with an actor-attributed audit history. Monitoring uses four versioned deterministic rules with source evidence, benign explanations, human dispositions and audit history. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed operations require a separately operated backend. The API does not execute payments.
 
 The GitHub Pages publishing workflow is manual-only. The current static demo is available at [fireops-lab on GitHub Pages](https://shaikarham.github.io/fireops-lab/). GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database are not hosted by that workflow.
 

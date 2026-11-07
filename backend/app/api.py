@@ -7,11 +7,14 @@ from sqlalchemy.orm import Session
 from app.db.session import get_session
 from app.models import PaymentEvent, PaymentInstruction, SettlementRecord
 from app.schemas.operations import (
+    AlertNoteRequest,
+    AlertTransitionRequest,
     CaseAssignRequest,
     CaseCreateRequest,
     CaseNoteRequest,
     CaseTransitionRequest,
     ImportResponse,
+    MonitoringRunRequest,
     PaymentTransitionRequest,
     PaymentTransitionResponse,
     ReconciliationRunRequest,
@@ -30,6 +33,17 @@ from app.services.case_management import (
     transition_case,
 )
 from app.services.csv_validation import DatasetKind
+from app.services.monitoring_operations import (
+    InvalidAlertAction,
+    MonitoringNotFound,
+    add_alert_note,
+    escalation_summary,
+    get_alert,
+    list_alerts,
+    list_rules,
+    run_monitoring,
+    transition_alert,
+)
 from app.services.payment_operations import (
     ImportConflict,
     ImportRejected,
@@ -453,6 +467,117 @@ def change_case_status(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
     except InvalidCaseAction as error:
         session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.get("/monitoring/rules")
+def monitoring_rules_catalog() -> dict[str, object]:
+    return list_rules()
+
+
+@router.post("/monitoring/runs")
+def create_monitoring_run(
+    payload: MonitoringRunRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = run_monitoring(session, payload.batch_id, payload.actor)
+        session.commit()
+        return result
+    except MonitoringNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.get("/monitoring/alerts")
+def monitoring_alert_queue(
+    session: Annotated[Session, Depends(get_session)],
+    alert_status: Annotated[
+        str | None, Query(alias="status", pattern="^(OPEN|IN_REVIEW|DISMISSED|ESCALATED)$")
+    ] = None,
+    severity: Annotated[str | None, Query(pattern="^(INFO|REVIEW|PRIORITY)$")] = None,
+    rule_id: Annotated[
+        str | None,
+        Query(
+            pattern="^(HIGH_VALUE_PAYMENT|PAYER_VELOCITY|REPEATED_FAILURES|DUPLICATE_REFERENCE)$"
+        ),
+    ] = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict[str, object]:
+    return list_alerts(
+        session,
+        alert_status=alert_status,
+        severity=severity,
+        rule_id=rule_id,
+        limit=limit,
+        offset=offset,
+    )
+
+
+@router.get("/monitoring/alerts/{alert_id}")
+def monitoring_alert_detail(
+    alert_id: str,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        return get_alert(session, alert_id)
+    except MonitoringNotFound as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.post("/monitoring/alerts/{alert_id}/transitions")
+def review_monitoring_alert(
+    alert_id: str,
+    payload: AlertTransitionRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = transition_alert(
+            session,
+            alert_id,
+            payload.target_status,
+            payload.actor,
+            payload.reason,
+        )
+        session.commit()
+        return result
+    except MonitoringNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidAlertAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.post("/monitoring/alerts/{alert_id}/notes")
+def note_monitoring_alert(
+    alert_id: str,
+    payload: AlertNoteRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = add_alert_note(session, alert_id, payload.actor, payload.note)
+        session.commit()
+        return result
+    except MonitoringNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidAlertAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.get("/monitoring/alerts/{alert_id}/escalation-summary")
+def get_escalation_summary(
+    alert_id: str,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        return escalation_summary(session, alert_id)
+    except MonitoringNotFound as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidAlertAction as error:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
 
 
