@@ -12,11 +12,12 @@
         "amount_mismatch": 1,
         "duplicate_instruction": 10,
         "late_settlement": 1,
-        "missing_settlement": 10
+        "missing_settlement": 10,
+        "reference_fallback": 1
       },
       "sha256": {
         "payment_instructions.csv": "0c64b97e52dc1cc8a3aa1504a4d105aa7aed0a904dfa3f4b9802c6d46bae4a05",
-        "settlement_records.csv": "2073767ba783ac3b72b8836a173176c564bd23d5656fbcba82a397fbd82964e7"
+        "settlement_records.csv": "9a6173a9e65025eda1bd6bc0af8d89d870a5d27a27ab70f1d800f726ef47c529"
       }
     },
     "normal_day": {
@@ -29,7 +30,8 @@
         "amount_mismatch": 0,
         "duplicate_instruction": 0,
         "late_settlement": 0,
-        "missing_settlement": 0
+        "missing_settlement": 0,
+        "reference_fallback": 0
       },
       "sha256": {
         "payment_instructions.csv": "9b696abf8d8cb985255e186ea65828977a682efd7db398a24ddb0ef44371e932",

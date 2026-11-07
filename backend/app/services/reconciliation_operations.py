@@ -36,7 +36,7 @@ def _settlement_data(row: SettlementRecord) -> dict[str, object]:
 
 
 def run_reconciliation(
-    session: Session, payment_batch_id: str, settlement_batch_id: str | None, late_window_days: int
+    session: Session, payment_batch_id: str, settlement_batch_id: str, late_window_days: int
 ) -> dict[str, object]:
     started = datetime.now(UTC)
     payments_db = list(
@@ -48,13 +48,11 @@ def run_reconciliation(
     )
     if not payments_db:
         raise LookupError("Payment batch not found or empty.")
-    statement = select(SettlementRecord).order_by(SettlementRecord.settlement_id)
-    if settlement_batch_id:
-        statement = statement.where(SettlementRecord.settlement_batch_id == settlement_batch_id)
-    else:
-        refs = {p.client_reference for p in payments_db}
-        if refs:
-            statement = statement.where(SettlementRecord.payment_reference.in_(refs))
+    statement = (
+        select(SettlementRecord)
+        .where(SettlementRecord.settlement_batch_id == settlement_batch_id)
+        .order_by(SettlementRecord.settlement_id)
+    )
     settlements_db = list(session.scalars(statement))
     payments = [_payment_data(row) for row in payments_db]
     settlements = [_settlement_data(row) for row in settlements_db]

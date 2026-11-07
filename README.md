@@ -41,7 +41,7 @@ npm run dev
 
 Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Phase 3 API operations require a database. The default local setup uses SQLite; CI also verifies migrations with PostgreSQL 17.
 
-The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation runs are saved with rule version, source hashes, classification counts and paginated results. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed imports and runs require a separately operated backend. The API does not execute payments.
+The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation requires an explicit payment batch and settlement batch selection. Runs are saved with rule version, source hashes, classification counts and paginated results. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed imports and runs require a separately operated backend. The API does not execute payments.
 
 The GitHub Pages publishing workflow is manual-only. GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database are not hosted by that workflow.
 

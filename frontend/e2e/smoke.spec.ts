@@ -31,6 +31,73 @@ test("static reconciliation preview compares synthetic source records side by si
   await expect(page.getByText("DUPLICATE CANDIDATE").first()).toBeVisible();
 });
 
+test("API-backed reconciliation selects two batches and shows saved comparison", async ({
+  page,
+}) => {
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("/batches")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          batches: [{ batch_id: "BATCH-QA-1", control_totals: [] }],
+          settlement_batches: [{ settlement_batch_id: "SETTLE-QA-1", control_totals: [] }],
+        }),
+      });
+    } else if (url.pathname.endsWith("/reconciliation/runs")) {
+      const request = route.request().postDataJSON() as Record<string, string>;
+      expect(request.payment_batch_id).toBe("BATCH-QA-1");
+      expect(request.settlement_batch_id).toBe("SETTLE-QA-1");
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "run-qa-1",
+          payment_batch_id: "BATCH-QA-1",
+          settlement_batch_id: "SETTLE-QA-1",
+          matched_count: 1,
+          unmatched_count: 0,
+          exception_count: 0,
+          result_count: 1,
+          classification_counts: { MATCHED_EXACT: 1 },
+          results: [
+            {
+              classification: "MATCHED_EXACT",
+              difference_minor: 0,
+              explanation_code: "REFERENCE_AMOUNT_DATE_WINDOW",
+              payment: {
+                payment_id: "PAY-QA-1",
+                client_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                expected_settlement_date: "2026-10-15",
+              },
+              settlement: {
+                settlement_id: "SET-QA-1",
+                payment_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                settlement_date: "2026-10-15",
+              },
+            },
+          ],
+        }),
+      });
+    } else {
+      await route.fulfill({ status: 404, body: "Not found" });
+    }
+  });
+
+  await page.goto("/");
+  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
+  await page.getByRole("button", { name: "Run reconciliation" }).click();
+  await expect(page.getByText("Saved run run-qa-1")).toBeVisible();
+  await expect(page.getByText("PAY-QA-1")).toBeVisible();
+  await expect(page.getByText("SET-QA-1")).toBeVisible();
+});
+
 test("CSV preview, idempotent batch controls, and processing history work together", async ({
   page,
 }) => {

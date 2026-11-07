@@ -1,8 +1,10 @@
 from datetime import date
+from pathlib import Path
 
 import pytest
 
 from app.services.reconciliation import reconcile, stable_hash
+from app.synthetic.generate_reconciliation_preview import build_preview
 
 
 def payment(**overrides: object) -> dict[str, object]:
@@ -76,3 +78,43 @@ def test_run_is_deterministic_and_enforces_one_to_one() -> None:
     )
     with pytest.raises(ValueError, match="between 0 and 30"):
         reconcile(payments, settlements, 31)
+
+
+def test_controlled_fallback_requires_a_mutual_unique_candidate() -> None:
+    payment_row = payment()
+    settlement_row = settlement(payment_reference="ALTERNATE-REF")
+    result = reconcile([payment_row], [settlement_row])
+    assert len(result) == 1
+    assert result[0].classification == "MATCHED_EXACT"
+    assert result[0].match_method == "REFERENCE_AMOUNT_DATE_WINDOW"
+    assert result[0].explanation_code == "UNIQUE_AMOUNT_DATE_FALLBACK"
+
+    competing = settlement(settlement_id="SET-2", payment_reference="OTHER-REF")
+    ambiguous = reconcile([payment_row], [settlement_row, competing])
+    assert {row.classification for row in ambiguous} == {
+        "UNMATCHED_INSTRUCTION",
+        "UNMATCHED_SETTLEMENT",
+    }
+
+
+def test_static_preview_is_generated_by_the_same_reconciliation_engine(tmp_path: Path) -> None:
+    project = Path(__file__).resolve().parents[2]
+    fixture = project / "data" / "synthetic" / "exception_day"
+    output = tmp_path / "preview.json"
+    preview = build_preview(
+        fixture / "payment_instructions.csv",
+        fixture / "settlement_records.csv",
+        output,
+    )
+    assert preview["result_count"] == 1260
+    assert preview["classification_counts"]["MATCHED_EXACT"] == 1218
+    assert any(
+        row["explanation_code"] == "UNIQUE_AMOUNT_DATE_FALLBACK" for row in preview["samples"]
+    )
+    first_output = output.read_bytes()
+    build_preview(
+        fixture / "payment_instructions.csv",
+        fixture / "settlement_records.csv",
+        output,
+    )
+    assert output.read_bytes() == first_output

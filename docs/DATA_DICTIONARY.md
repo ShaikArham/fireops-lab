@@ -48,6 +48,6 @@ The checked-in fixtures are regenerated with `uv run python -m app.synthetic.gen
 | Dataset | Instructions | Settlements | Intentional exception candidates |
 |---|---:|---:|---|
 | `normal_day` | 100 | 100 | 0 |
-| `exception_day` | 1,250 | 1,230 | 10 missing settlements, 10 duplicate groups (20 candidate instructions), 1 amount mismatch and 1 late settlement. |
+| `exception_day` | 1,250 | 1,230 | 10 missing settlements, 10 duplicate groups (20 candidate instructions), 1 amount mismatch, 1 late settlement and 1 unique amount/date fallback. |
 
-These are fixture counts, not observed production volumes or performance claims. Phase 4 classifies this fixture as 1,218 exact matches, 1 late match, 1 amount mismatch, 20 duplicate candidates, 10 unmatched instructions and 10 unmatched settlements. All matching uses the exact reference, currency, direction, integer minor units and a default three-day date window; ambiguous records are never force-matched.
+These are fixture counts, not observed production volumes or performance claims. Phase 4 classifies this fixture as 1,218 exact matches (including the one explicitly explained unique fallback), 1 late match, 1 amount mismatch, 20 duplicate candidates, 10 unmatched instructions and 10 unmatched settlements. Exact matching uses reference, currency, direction, integer minor units and a default three-day date window. Fallback requires a mutual single candidate on amount, currency, direction and date; ambiguous records are never force-matched.

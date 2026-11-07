@@ -12,7 +12,7 @@ The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. 
 | High-value transaction | Threshold indicator | Review rule threshold and synthetic evidence without criminal attribution |
 | Repeated failures then success | Potential indicator | Review failure pattern and possible benign explanation |
 
-The Phase 4 reconciliation engine uses exact payment reference, matching currency and direction, integer minor units, and a configurable date window (default three days). Candidate pairs outside that window or with duplicate/ambiguous source references remain unmatched. The static Pages display uses a generated subset of the same fictional fixtures and is read-only; API-backed runs persist their full result rows.
+The Phase 4 reconciliation engine first uses exact payment reference, matching currency and direction, integer minor units, and a configurable date window (default three days). If the reference is absent, a fallback is accepted only when exactly one payment and one settlement agree on amount, currency, direction, and date. Candidate pairs outside that window or with duplicate/ambiguous source references remain unmatched. The static Pages display uses a generated subset of the same fictional fixtures and is read-only; API-backed runs persist their full result rows.
 
 Include normal records and false positives. Do not display target sample counts or match rates until fixtures and tests establish the exact values.
 

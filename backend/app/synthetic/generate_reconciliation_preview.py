@@ -46,6 +46,17 @@ def build_preview(
                     "settlement": settlement_map.get(found["settlement_id"]),
                 }
             )
+    fallback = next(
+        (row for row in result if row["explanation_code"] == "UNIQUE_AMOUNT_DATE_FALLBACK"), None
+    )
+    if fallback:
+        samples.append(
+            {
+                **fallback,
+                "payment": payment_map.get(fallback["payment_id"]),
+                "settlement": settlement_map.get(fallback["settlement_id"]),
+            }
+        )
     payload = {
         "title": "Exception day · 15 Oct 2026",
         "rules_version": RULES_VERSION,

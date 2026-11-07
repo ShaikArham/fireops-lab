@@ -106,6 +106,7 @@ def generate_datasets(output_dir: Path, seed: int = DEFAULT_SEED) -> dict[str, o
             "duplicate_instruction": 0,
             "amount_mismatch": 0,
             "late_settlement": 0,
+            "reference_fallback": 0,
         },
     }
 
@@ -131,6 +132,7 @@ def generate_datasets(output_dir: Path, seed: int = DEFAULT_SEED) -> dict[str, o
     exception_settlements[11]["settlement_date"] = (
         date.fromisoformat(exception_settlements[11]["settlement_date"]) + timedelta(days=2)
     ).isoformat()
+    exception_settlements[12]["payment_reference"] = "ALT-REF-E-0013"
     datasets["exception_day"] = {
         "day": exception_day.isoformat(),
         "payment_instructions": exception_payments,
@@ -140,6 +142,7 @@ def generate_datasets(output_dir: Path, seed: int = DEFAULT_SEED) -> dict[str, o
             "duplicate_instruction": 10,
             "amount_mismatch": 1,
             "late_settlement": 1,
+            "reference_fallback": 1,
         },
     }
 

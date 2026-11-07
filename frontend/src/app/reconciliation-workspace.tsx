@@ -180,7 +180,7 @@ export default function ReconciliationWorkspace() {
               value={settlementBatch}
               onChange={(event) => setSettlementBatch(event.target.value)}
             >
-              <option value="">Auto-select matching references</option>
+              <option value="">Select a settlement batch</option>
               {settlementBatches.map((batch) => (
                 <option key={batch}>{batch}</option>
               ))}
@@ -189,7 +189,7 @@ export default function ReconciliationWorkspace() {
           <button
             className="min-h-11 rounded-lg bg-slate-900 px-4 font-medium text-white disabled:opacity-50"
             type="button"
-            disabled={busy || !paymentBatch}
+            disabled={busy || !paymentBatch || !settlementBatch}
             onClick={startRun}
           >
             {busy ? "Reconciling…" : "Run reconciliation"}

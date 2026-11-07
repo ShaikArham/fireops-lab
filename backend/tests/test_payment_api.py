@@ -124,7 +124,11 @@ def test_reconciliation_api_persists_results_and_returns_side_by_side_records(ap
         )
         assert imported.status_code == 200
     run = api_client.post(
-        "/api/v1/reconciliation/runs", json={"payment_batch_id": "BATCH-N-20261014"}
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-N-20261014",
+            "settlement_batch_id": "SETTLE-N-20261015",
+        },
     )
     assert run.status_code == 201
     body = run.json()
@@ -151,7 +155,11 @@ def test_exception_fixture_reconciliation_surfaces_expected_classes(api_client) 
         )
         assert imported.status_code == 200
     run = api_client.post(
-        "/api/v1/reconciliation/runs", json={"payment_batch_id": "BATCH-E-20261015"}
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-E-20261015",
+            "settlement_batch_id": "SETTLE-E-20261016",
+        },
     )
     assert run.status_code == 201
     counts = run.json()["classification_counts"]

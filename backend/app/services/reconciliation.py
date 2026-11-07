@@ -45,6 +45,7 @@ def reconcile(
 
     rows: list[ReconciliationRow] = []
     consumed: set[str] = set()
+    missing_reference_payments: list[dict[str, Any]] = []
     for payment in sorted(payments, key=lambda item: item["payment_id"]):
         reference = payment["client_reference"]
         candidates = settlement_refs.get(reference, [])
@@ -62,16 +63,7 @@ def reconcile(
             )
             continue
         if not candidates:
-            rows.append(
-                ReconciliationRow(
-                    payment["payment_id"],
-                    None,
-                    "UNMATCHED_INSTRUCTION",
-                    None,
-                    "NO_SETTLEMENT_REFERENCE",
-                    "NONE",
-                )
-            )
+            missing_reference_payments.append(payment)
             continue
         if len(candidates) > 1:
             rows.append(
@@ -156,6 +148,62 @@ def reconcile(
                     0,
                     "REFERENCE_AMOUNT_DATE_WINDOW",
                     "EXACT_REFERENCE",
+                )
+            )
+
+    # Controlled fallback: accept only a mutual single candidate with exact amount,
+    # currency and direction, a settlement date on/after expected, and no exact ref.
+    fallback_settlements = [
+        settlement
+        for settlement in settlements
+        if settlement["settlement_id"] not in consumed
+        and settlement["payment_reference"] not in payment_refs
+    ]
+    payment_candidates: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    settlement_candidates: dict[str, list[dict[str, Any]]] = defaultdict(list)
+    for payment in missing_reference_payments:
+        for settlement in fallback_settlements:
+            days = (settlement["settlement_date"] - payment["expected_settlement_date"]).days
+            if (
+                payment["amount_minor"] == settlement["amount_minor"]
+                and payment["currency"] == settlement["currency"]
+                and payment["direction"] == settlement["direction"]
+                and 0 <= days <= late_window_days
+            ):
+                payment_candidates[payment["payment_id"]].append(settlement)
+                settlement_candidates[settlement["settlement_id"]].append(payment)
+    fallback_matched: set[str] = set()
+    payments_by_id = {payment["payment_id"]: payment for payment in missing_reference_payments}
+    for payment_id, candidates in payment_candidates.items():
+        if len(candidates) != 1:
+            continue
+        settlement = candidates[0]
+        if len(settlement_candidates[settlement["settlement_id"]]) != 1:
+            continue
+        payment = payments_by_id[payment_id]
+        days = (settlement["settlement_date"] - payment["expected_settlement_date"]).days
+        fallback_matched.add(payment_id)
+        consumed.add(settlement["settlement_id"])
+        rows.append(
+            ReconciliationRow(
+                payment_id,
+                settlement["settlement_id"],
+                "MATCHED_LATE" if days else "MATCHED_EXACT",
+                0,
+                "UNIQUE_AMOUNT_DATE_FALLBACK",
+                "REFERENCE_AMOUNT_DATE_WINDOW",
+            )
+        )
+    for payment in missing_reference_payments:
+        if payment["payment_id"] not in fallback_matched:
+            rows.append(
+                ReconciliationRow(
+                    payment["payment_id"],
+                    None,
+                    "UNMATCHED_INSTRUCTION",
+                    None,
+                    "NO_SETTLEMENT_REFERENCE",
+                    "NONE",
                 )
             )
 
