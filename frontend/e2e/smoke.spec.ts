@@ -122,6 +122,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
       occurred_at: "2026-11-07T12:00:00Z",
       actor: activity.actor,
       reason: activity.reason,
+      root_cause: activity.root_cause ?? null,
       from_value: activity.from,
       to_value: activity.to,
       correlation_id: `CORR-${index}`,
