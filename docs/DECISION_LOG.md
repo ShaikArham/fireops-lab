@@ -43,3 +43,17 @@
 - **Decision:** Use `ShaikArham/fireops-lab` as the new project repository. Keep LedgerPoint and OpsResolve untouched. Build on `main` for the initial repository foundation, then use feature branches and pull requests for later phases.
 - **Reason:** The user supplied the empty FireOps repository and requested work to start there.
 
+## D-007 — Immutable normalized source records
+
+- **Date:** 2026-11-07
+- **Decision:** Phase 2 stores source-file metadata, payment instruction rows, and settlement rows in separate tables. Preserve repeated business references so later reconciliation can classify ambiguity instead of discarding source evidence.
+- **Reason:** Input records must remain inspectable and reconciliation candidates must be explainable. IDs and idempotency keys are unique; client and payment references are indexed, not globally unique.
+- **Trade-off:** The initial schema is deliberately limited to import sources. Lifecycle events, reconciliation runs, cases, alerts, and audit records will be added only in their planned phases.
+
+## D-008 — Bounded, all-or-nothing CSV validation
+
+- **Date:** 2026-11-07
+- **Decision:** Validate UTF-8 CSVs against exact schemas, allow at most 5 MiB and 10,000 data rows, require timezone-aware timestamps, positive integer minor units, supported currencies, and `SYN-` account tokens. Reject formula-like cells, duplicate row identifiers, malformed structure, and any file containing an invalid row without returning partial records.
+- **Reason:** Keep source data synthetic and prevent malformed or spreadsheet-active content from entering later workflows.
+- **Trade-off:** This phase exposes validation as a Python service only. Upload endpoints, persistence, and repeat-import idempotency are Phase 3 work.
+

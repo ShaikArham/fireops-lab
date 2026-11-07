@@ -2,6 +2,7 @@
 
 | Fire Operations Analyst responsibility | Planned visible feature | Data / rules evidence | Verification gate |
 |---|---|---|---|
+| Payment file intake and data quality | Synthetic CSV preview with all-or-nothing validation and row-level errors | Exact schema, byte/row bounds, SHA-256, synthetic account tokens, integer minor units, deterministic fixtures | Phase 2: import validation tests; Phase 3: persistence and idempotent import tests |
 | Daily payment processing | Instruction intake, validation, lifecycle simulation, batch control totals | PaymentInstruction, PaymentEvent, allowed state transitions | Phase 3: transition and import integration tests |
 | Payment and settlement reconciliation | Run summary, result list, source comparison, totals by currency | Versioned deterministic one-to-one matching; minor-unit amounts | Phase 4: exact/missing/duplicate/late/mismatch cases and invariants |
 | Investigate operational exceptions | Filterable queue, evidence view, notes, ownership, next action, status history | ExceptionCase, CaseActivity, AuditEvent | Phase 5: missing-settlement journey under two minutes and full audit trail |
