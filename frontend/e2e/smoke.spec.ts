@@ -1,108 +1,432 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíçmvN‹Z–‹­¦ëeŠw¬Õ¥µÁ½ÉÐì•áÁ•Ð°Ñ•ÍÐô™É½´€‰Á±…åÝÉ¥¡Ð½Ñ•ÍÐˆì)¥µÁ½ÉÐÁ…Ñ ™É½´€‰¹½‘”éÁ…Ñ ˆì()Ñ•ÍÐ ‰¡½µ”Á…”ÁÉ•Í•¹ÑÌÑ¡”¥¹‘•Á•¹‘•¹Ð™¥Ñ¥½¹…°µ‘…Ñ„‰½Õ¹‘…Éäˆ°…Íå¹Œ€¡ìÁ…”ô¤€ôøì(€…Ý…¥ÐÁ…”¹½Ñ¼ ˆ¼ˆ¤ì((€…Ý…¥Ð•áÁ•Ð¡Á…”¤¹Ñ½!…Ù•Q¥Ñ±” ½¥É•=ÁÌ1…ˆ¼¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åI½±” ‰¡•…‘¥¹œˆ°ì¹…µ”è€½I•½¹¥±”Ñ¡”‘…ä½¤ô¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰¥Ñ¥½¹…°‘…Ñ„½¹±äˆ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ½¹½Ð…™™¥±¥…Ñ•Ý¥Ñ °½µµ¥ÍÍ¥½¹•‰ä°•¹‘½ÉÍ•‰ä½¤¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì)ô¤ì()Ñ•ÍÐ ‰ÁÉ½©•Ð‰½Õ¹‘…É¥•Ì•áÁ±…¥¸Ñ¡”Í¥µÕ±…Ñ½Èˆ°…Íå¹Œ€¡ìÁ…”ô¤€ôøì(€…Ý…¥ÐÁ…”¹½Ñ¼ ˆ¼µ•Ñ¡½ˆ¤ì((€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åI½±” ‰¡•…‘¥¹œˆ°ì¹…µ”è€‰5•Ñ¡½…¹±¥µ¥ÑÌˆô¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ½¹½Ð‰”ÁÉ•Í•¹Ñ•…ÌÁÉ½Ù•¸™É…Õ½¤¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì)ô¤ì()Ñ•ÍÐ ‰ÍÑ…Ñ¥ŒÉ•½¹¥±¥…Ñ¥½¸ÁÉ•Ù¥•Ü½µÁ…É•ÌÍå¹Ñ¡•Ñ¥ŒÍ½ÕÉ”É•½É‘ÌÍ¥‘”‰äÍ¥‘”ˆ°…Íå¹Œ€¡ì(€Á…”°)ô¤€ôøì(€…Ý…¥ÐÁ…”¹½Ñ¼ ˆ¼ˆ¤ì((€…Ý…¥Ð•áÁ•Ð (€€€Á…”¹•Ñ	åI½±” ‰¡•…‘¥¹œˆ°ì¹…µ”è€‰½µÁ…É”•Ù•ÉäÁ…åµ•¹ÐÝ¥Ñ ¥ÑÌÍ•ÑÑ±•µ•¹Ðˆô¤°(€€¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åI½±” ‰¡•…‘¥¹œˆ°ì¹…µ”è€‰5=U9P5%M5Q ˆô¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰A…åµ•¹Ð¥¹ÍÑÉÕÑ¥½¸ˆ°ì•á…ÐèÑÉÕ”ô¤¹™¥ÉÍÐ ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰M•ÑÑ±•µ•¹ÐÉ•½Éˆ°ì•á…ÐèÑÉÕ”ô¤¹™¥ÉÍÐ ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰UA1%Q9%Qˆ¤¹™¥ÉÍÐ ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì)ô¤ì()Ñ•ÍÐ ‰A$µ‰…­•É•½¹¥±¥…Ñ¥½¸Í•±•ÑÌÑÝ¼‰…Ñ¡•Ì…¹Í¡½ÝÌÍ…Ù•½µÁ…É¥Í½¸ˆ°…Íå¹Œ€¡ì(€Á…”°)ô¤€ôøì(€…Ý…¥ÐÁ…”¹É½ÕÑ” ‰¡ÑÑÁÌè¼½…Á¤¹™¥É•½ÁÌ¹Ñ•ÍÐ½…Á¤½ØÄ¼¨¨ˆ°…Íå¹Œ€¡É½ÕÑ”¤€ôøì(€€€½¹ÍÐÕÉ°€ô¹•ÜUI0¡É½ÕÑ”¹É•ÅÕ•ÍÐ ¤¹ÕÉ° ¤¤ì(€€€¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½‰…Ñ¡•Ìˆ¤¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÀ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ì(€€€€€€€€€‰…Ñ¡•Ìèmì‰…Ñ¡}¥è€‰	Q µE´Äˆ°½¹ÑÉ½±}Ñ½Ñ…±Ìèmtõt°(€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•ÌèmìÍ•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥è€‰MQQ1µE´Äˆ°½¹ÑÉ½±}Ñ½Ñ…±Ìèmtõt°(€€€€€€€ô¤°(€€€€€ô¤ì(€€€ô•±Í”¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½É•½¹¥±¥…Ñ¥½¸½ÉÕ¹Ìˆ¤¤ì(€€€€€½¹ÍÐÉ•ÅÕ•ÍÐ€ôÉ½ÕÑ”¹É•ÅÕ•ÍÐ ¤¹Á½ÍÑ…Ñ…)M=8 ¤…ÌI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œøì(€€€€€•áÁ•Ð¡É•ÅÕ•ÍÐ¹Á…åµ•¹Ñ}‰…Ñ¡}¥¤¹Ñ½	” ‰	Q µE´Äˆ¤ì(€€€€€•áÁ•Ð¡É•ÅÕ•ÍÐ¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥¤¹Ñ½	” ‰MQQ1µE´Äˆ¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÄ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ì(€€€€€€€€€ÉÕ¹}¥è€‰ÉÕ¸µÅ„´Äˆ°(€€€€€€€€€Á…åµ•¹Ñ}‰…Ñ¡}¥è€‰	Q µE´Äˆ°(€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥è€‰MQQ1µE´Äˆ°(€€€€€€€€€µ…Ñ¡•‘}½Õ¹Ðè€Ä°(€€€€€€€€€Õ¹µ…Ñ¡•‘}½Õ¹Ðè€À°(€€€€€€€€€•á•ÁÑ¥½¹}½Õ¹Ðè€À°(€€€€€€€€€É•ÍÕ±Ñ}½Õ¹Ðè€Ä°(€€€€€€€€€±…ÍÍ¥™¥…Ñ¥½¹}½Õ¹ÑÌèì5Q!}aPè€Äô°(€€€€€€€€€É•ÍÕ±ÑÌèl(€€€€€€€€€€€ì(€€€€€€€€€€€€€±…ÍÍ¥™¥…Ñ¥½¸è€‰5Q!}aPˆ°(€€€€€€€€€€€€€‘¥™™•É•¹•}µ¥¹½Èè€À°(€€€€€€€€€€€€€•áÁ±…¹…Ñ¥½¹}½‘”è€‰II9}5=U9Q}Q}]%9=\ˆ°(€€€€€€€€€€€€€Á…åµ•¹Ðèì(€€€€€€€€€€€€€€€Á…åµ•¹Ñ}¥è€‰AdµE´Äˆ°(€€€€€€€€€€€€€€€±¥•¹Ñ}É•™•É•¹”è€‰IµE´Äˆ°(€€€€€€€€€€€€€€€…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÔÀ°(€€€€€€€€€€€€€€€ÕÉÉ•¹äè€‰UHˆ°(€€€€€€€€€€€€€€€•áÁ•Ñ•‘}Í•ÑÑ±•µ•¹Ñ}‘…Ñ”è€ˆÈÀÈØ´ÄÀ´ÄÔˆ°(€€€€€€€€€€€€€ô°(€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ðèì(€€€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}¥è€‰MPµE´Äˆ°(€€€€€€€€€€€€€€€Á…åµ•¹Ñ}É•™•É•¹”è€‰IµE´Äˆ°(€€€€€€€€€€€€€€€…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÔÀ°(€€€€€€€€€€€€€€€ÕÉÉ•¹äè€‰UHˆ°(€€€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‘…Ñ”è€ˆÈÀÈØ´ÄÀ´ÄÔˆ°(€€€€€€€€€€€€€ô°(€€€€€€€€€€€ô°(€€€€€€€€€t°(€€€€€€€ô¤°(€€€€€ô¤ì(€€€ô•±Í”ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ìÍÑ…ÑÕÌè€ÐÀÐ°‰½‘äè€‰9½Ð™½Õ¹ˆô¤ì(€€€ô(€ô¤ì((€…Ý…¥ÐÁ…”¹½Ñ¼ ˆ¼ˆ¤ì(€…Ý…¥ÐÁ…”¹•Ñ	å1…‰•° ‰A…åµ•¹Ð‰…Ñ ˆ¤¹Í•±•Ñ=ÁÑ¥½¸ ‰	Q µE´Äˆ¤ì(€…Ý…¥ÐÁ…”¹•Ñ	å1…‰•° ‰M•ÑÑ±•µ•¹Ð‰…Ñ ˆ¤¹Í•±•Ñ=ÁÑ¥½¸ ‰MQQ1µE´Äˆ¤ì(€…Ý…¥ÐÁ…”¹•Ñ	åI½±” ‰‰ÕÑÑ½¸ˆ°ì¹…µ”è€‰IÕ¸É•½¹¥±¥…Ñ¥½¸ˆô¤¹±¥¬ ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰M…Ù•ÉÕ¸ÉÕ¸µÅ„´Äˆ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰AdµE´Äˆ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì(€…Ý…¥Ð•áÁ•Ð¡Á…”¹•Ñ	åQ•áÐ ‰MPµE´Äˆ¤¤¹Ñ½	•Y¥Í¥‰±” ¤ì)ô¤ì()Ñ•ÍÐ ‰…¸•á•ÁÑ¥½¸¥Ì…ÍÍ¥¹•°¥¹Ù•ÍÑ¥…Ñ•°É•Í½±Ù•°…¹É•Ñ…¥¹•¥¸¥ÑÌ…Õ‘¥ÐÑÉ…¥°ˆ°…Íå¹Œ€¡ì(€Á…”°)ô¤€ôøì(€½¹ÍÐ…Ñ¥Ù¥Ñ¥•ÌèÉÉ…äñI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œð¹Õ±°øø€ômtì(€±•ÐÕÉÉ•¹ÑMÑ…ÑÕÌ€ô€‰=A8ˆì(€±•Ð…ÍÍ¥¹•‘Q¼èÍÑÉ¥¹œð¹Õ±°€ô¹Õ±°ì(€½¹ÍÐ…Í•…Ñ„€ô€ ¤€ôø€¡ì(€€€…Í•}¥è€‰MµE´Äˆ°(€€€É•ÍÕ±Ñ}¥è€‰IMU1PµE´Äˆ°(€€€ÉÕ¹}¥è€‰IU8µE´Äˆ°(€€€±…ÍÍ¥™¥…Ñ¥½¸è€‰5=U9Q}5%M5Q ˆ°(€€€ÍÑ…ÑÕÌèÕÉÉ•¹ÑMÑ…ÑÕÌ°(€€€ÁÉ¥½É¥Ñäè€‰9=I50ˆ°(€€€…ÍÍ¥¹•‘}Ñ¼è…ÍÍ¥¹•‘Q¼°(€€€Á…åµ•¹ÐèìÁ…åµ•¹Ñ}¥è€‰AdµE´Äˆ°…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÔÀ°ÕÉÉ•¹äè€‰UHˆô°(€€€Í•ÑÑ±•µ•¹ÐèìÍ•ÑÑ±•µ•¹Ñ}¥è€‰MPµE´Äˆ°…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÀÀ°ÕÉÉ•¹äè€‰UHˆô°(€€€…Ñ¥Ù¥Ñ¥•Ìè…Ñ¥Ù¥Ñ¥•Ì¹µ…À ¡…Ñ¥Ù¥Ñä°¥¹‘•à¤€ôø€¡ì(€€€€€…Ñ¥Ù¥Ñå}¥èP´‘í¥¹‘•áõ€°(€€€€€…Ñ¥Ù¥Ñå}ÑåÁ”è…Ñ¥Ù¥Ñä¹ÑåÁ”°(€€€€€½ÕÉÉ•‘}…Ðè€ˆÈÀÈØ´ÄÄ´ÀÝPÄÈèÀÀèÀÁhˆ°(€€€€€…Ñ½Èè…Ñ¥Ù¥Ñä¹…Ñ½È°(€€€€€É•…Í½¸è…Ñ¥Ù¥Ñä¹É•…Í½¸°(€€€€€™É½µ}Ù…±Õ”è…Ñ¥Ù¥Ñä¹™É½´°(€€€€€Ñ½}Ù…±Õ”è…Ñ¥Ù¥Ñä¹Ñ¼°(€€€€€½ÉÉ•±…Ñ¥½¹}¥è=IH´‘í¥¹‘•áõ€°(€€€ô¤¤°(€ô¤ì((€…Ý…¥ÐÁ…”¹É½ÕÑ” ‰¡ÑÑÁÌè¼½…Á¤¹™¥É•½ÁÌ¹Ñ•ÍÐ½…Á¤½ØÄ¼¨¨ˆ°…Íå¹Œ€¡É½ÕÑ”¤€ôøì(€€€½¹ÍÐÉ•ÅÕ•ÍÐ€ôÉ½ÕÑ”¹É•ÅÕ•ÍÐ ¤ì(€€€½¹ÍÐÕÉ°€ô¹•ÜUI0¡É•ÅÕ•ÍÐ¹ÕÉ° ¤¤ì(€€€¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½‰…Ñ¡•Ìˆ¤¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÀ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ì(€€€€€€€€€‰…Ñ¡•Ìèmì‰…Ñ¡}¥è€‰	Q µE´Äˆõt°(€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•ÌèmìÍ•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥è€‰MQQ1µE´Äˆõt°(€€€€€€€ô¤°(€€€€€ô¤ì(€€€ô•±Í”¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½É•½¹¥±¥…Ñ¥½¸½ÉÕ¹Ìˆ¤¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÄ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ì(€€€€€€€€€ÉÕ¹}¥è€‰IU8µE´Äˆ°(€€€€€€€€€Á…åµ•¹Ñ}‰…Ñ¡}¥è€‰	Q µE´Äˆ°(€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥è€‰MQQ1µE´Äˆ°(€€€€€€€€€µ…Ñ¡•‘}½Õ¹Ðè€À°(€€€€€€€€€Õ¹µ…Ñ¡•‘}½Õ¹Ðè€À°(€€€€€€€€€•á•ÁÑ¥½¹}½Õ¹Ðè€Ä°(€€€€€€€€€É•ÍÕ±Ñ}½Õ¹Ðè€Ä°(€€€€€€€€€±…ÍÍ¥™¥…Ñ¥½¹}½Õ¹ÑÌèì5=U9Q}5%M5Q è€Äô°(€€€€€€€€€É•ÍÕ±ÑÌèl(€€€€€€€€€€€ì(€€€€€€€€€€€€€É•ÍÕ±Ñ}¥è€‰IMU1PµE´Äˆ°(€€€€€€€€€€€€€±…ÍÍ¥™¥…Ñ¥½¸è€‰5=U9Q}5%M5Q ˆ°(€€€€€€€€€€€€€‘¥™™•É•¹•}µ¥¹½Èè€´ÔÀ°(€€€€€€€€€€€€€•áÁ±…¹…Ñ¥½¹}½‘”è€‰5=U9Q}%I9ˆ°(€€€€€€€€€€€€€Á…åµ•¹Ðèì(€€€€€€€€€€€€€€€Á…åµ•¹Ñ}¥è€‰AdµE´Äˆ°(€€€€€€€€€€€€€€€±¥•¹Ñ}É•™•É•¹”è€‰IµE´Äˆ°(€€€€€€€€€€€€€€€…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÔÀ°(€€€€€€€€€€€€€€€ÕÉÉ•¹äè€‰UHˆ°(€€€€€€€€€€€€€€€•áÁ•Ñ•‘}Í•ÑÑ±•µ•¹Ñ}‘…Ñ”è€ˆÈÀÈØ´ÄÀ´ÄÔˆ°(€€€€€€€€€€€€€ô°(€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ðèì(€€€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}¥è€‰MPµE´Äˆ°(€€€€€€€€€€€€€€€Á…åµ•¹Ñ}É•™•É•¹”è€‰IµE´Äˆ°(€€€€€€€€€€€€€€€…µ½Õ¹Ñ}µ¥¹½Èè€ÄÈÀÀ°(€€€€€€€€€€€€€€€ÕÉÉ•¹äè€‰UHˆ°(€€€€€€€€€€€€€€€Í•ÑÑ±•µ•¹Ñ}‘…Ñ”è€ˆÈÀÈØ´ÄÀ´ÄÔˆ°(€€€€€€€€€€€€€ô°(€€€€€€€€€€€ô°(€€€€€€€€€t°(€€€€€€€ô¤°(€€€€€ô¤ì(€€€ô•±Í”¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½…Í•Ìˆ¤€˜˜É•ÅÕ•ÍÐ¹µ•Ñ¡½ ¤€ôôô€‰Pˆ¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÀ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ì(€€€€€€€€€…Í•Ìè…Ñ¥Ù¥Ñ¥•Ì¹±•¹Ñ €üm…Í•…Ñ„ ¥t€èmt°(€€€€€€€€€±¥µ¥Ðè€ÈÔ°(€€€€€€€€€½™™Í•Ðè€À°(€€€€€€€ô¤°(€€€€€ô¤ì(€€€ô•±Í”¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½…Í•Ìˆ¤€˜˜É•ÅÕ•ÍÐ¹µ•Ñ¡½ ¤€ôôô€‰A=MPˆ¤ì(€€€€€…Ñ¥Ù¥Ñ¥•Ì¹ÁÕÍ ¡ì(€€€€€€€ÑåÁ”è€‰IQˆ°(€€€€€€€…Ñ½Èè€‰‘•µ¼µ…¹…±åÍÐˆ°(€€€€€€€É•…Í½¸è¹Õ±°°(€€€€€€€™É½´è¹Õ±°°(€€€€€€€Ñ¼è€‰=A8ˆ°(€€€€€ô¤ì(€€€€€…Ý…¥ÐÉ½ÕÑ”¹™Õ±™¥±°¡ì(€€€€€€€ÍÑ…ÑÕÌè€ÈÀÄ°(€€€€€€€½¹Ñ•¹ÑQåÁ”è€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡…Í•…Ñ„ ¤¤°(€€€€€ô¤ì(€€€ô•±Í”¥˜€¡ÕÉ°¹Á…Ñ¡¹…µ”¹•¹‘Í]¥Ñ  ˆ½…ÍÍ¥¹µ•¹Ðˆ¤¤ì(€€€€€…ÍÍ¥¹•‘Q¼€ô€¡É•ÅÕ•ÍÐ¹Á½ÍÑ…Ñ…)M=8 ¤…Ìì…ÍÍ¥¹•‘}Ñ¼èÍÑÉ¥¹œô¤¹…ÍÍ¥¹•‘}Ñ¼ì(€€€€€…Ñ¥Ù¥Ñ¥•Ì¹ÁÕÍ ¡ì(€€€€€€€ÑåÁ”è€‰MM%9ˆ°(€€€€€€€…Ñ½Èè€‰‘•µ¼µ…¹…³mv¶‰žËkºwµçBˆH[ÙHYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹Ý˜[œÚ][ÛœÈŠJHÂˆÛÛœÝ›ÙHH™\]Y\ÝœÜÝ]R”ÓÓŠ
-H\ÈÈ\™Ù]ÜÝ]\ÎˆÝš[™ÎÈ™X\ÛÛÎˆÝš[™ÈNÂˆÛÛœÝ™]š[Ý\ÈHÝ\œ™[Ý]\ÎÂˆÝ\œ™[Ý]\ÈH›ÙK\™Ù]ÜÝ]\ÎÂˆXÝ]š]Y\Ëœ\Ú
-Âˆ\NˆÝ\œ™[Ý]\ÈOOH”‘TÓÓ‘QˆÈ”‘TÓÓ‘Qˆˆ”ÕUT×ÐÒS‘ÑQ‹ˆXÝÜŽˆ™[[ËX[˜[\Ý‹ˆ™X\ÛÛŽˆ›ÙKœ™X\ÛÛˆÏÈ[ˆœ›ÛNˆ™]š[Ý\ËˆÎˆÝ\œ™[Ý]\ËˆJNÂˆ]ØZ]›Ý]K™[š[
-ÂˆÝ]\ÎˆŒˆÛÛ[\Nˆ˜\XØ][Û‹ÚœÛÛˆ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJØ\ÙQ]J
-JKˆJNÂˆH[ÙHÂˆ]ØZ]›Ý]K™[š[
-ÂˆÝ]\ÎˆˆÛÛ[\Nˆ˜\XØ][Û‹ÚœÛÛˆ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ]Z[ˆ“›Ý›Ý[™ˆJKˆJNÂˆBˆJNÂ‚ˆ]ØZ]YÙK™ÛÝÊ‹ÈŠNÂˆ]ØZ]YÙK™Ù]žSX™[
-”^[Y[˜]ÚŠKœÙ[XÝÜ[ÛŠUÒTPKLHŠNÂˆ]ØZ]YÙK™Ù]žSX™[
-”Ù][Y[˜]ÚŠKœÙ[XÝÜ[ÛŠ”ÑUKTPKLHŠNÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”[ˆ™XÛÛ˜Ú[X][ÛˆˆJK˜ÛXÚÊ
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ“Ü[ˆ[™\ÝYØ][ÛˆØ\ÙHˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žT›ÛJšXY[™È‹È˜[YNˆØ\ÙH[™\ÝYØ][ÛˆˆJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žSX™[
-\ÜÚYÛˆÈ[˜[\ÝŠK™š[
-˜[˜[\ÝÛÈŠNÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ\ÜÚYÛˆ‹^XÝˆYHJK˜ÛXÚÊ
-NÂˆ]ØZ]YÙBˆ™Ù]žSX™[
-’[™\ÝYØ][Ûˆ›ÝHŠBˆ™š[
-”ÛÝ\˜ÙH]šY[˜ÙHÚÝÜÈHLZ[›Ü‹][š]Y™™\™[˜ÙKˆŠNÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆY›ÝHˆJK˜ÛXÚÊ
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”Ý\™]šY]ÈˆJK˜ÛXÚÊ
-NÂˆ]ØZ]YÙBˆ™Ù]žSX™[
-XÝ[Ûˆ™X\ÛÛˆŠBˆ™š[
-“Ü\˜][ÛœÈÛÛ™š\›YYH˜\šX[˜ÙH[ˆHÙ][Y[ÛÝ\˜ÙKˆŠNÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”™\ÛÛ™HØ\ÙHˆJK˜ÛXÚÊ
-NÂˆÛÛœÝ]Y]HYÙK™Ù]žT›ÛJ›\Ý‹È˜[YNˆØ\ÙH]Y]\ÝÜžHˆJNÂˆ]ØZ]^XÝ
-]Y]™Ù]žU^
-Ô‘PUQ‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-]Y]™Ù]žU^
-TÔÒQÓ‘Q‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-]Y]™Ù]žU^
-““ÕHQQ‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-]Y]™Ù]žU^
-”‘TÓÓ‘Q‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-]Y]™Ù]žU^
-”ÛÝ\˜ÙH]šY[˜ÙHÚÝÜÈHLZ[›Ü‹][š]Y™™\™[˜ÙKˆŠJKÐ™Uš\ÚX›J
-NÂŸJNÂ‚\Ý
-ÔÕˆ™]šY]ËY[\Ý[˜]ÚÛÛ›ÛË[™›ØÙ\ÜÚ[™È\ÝÜžHÛÜšÈÙÙ]\ˆ‹\Þ[˜È
-ÂˆYÙKŸJHOˆÂˆ]›ØÙ\ÜÙYH˜[ÙNÂˆ]ØZ]YÙKœ›Ý]JšÎ‹ËØ\K™š\™[ÜË\ÝØ\KÝŒKÊŠˆ‹\Þ[˜È
-›Ý]JHOˆÂˆÛÛœÝ™\]Y\ÝH›Ý]Kœ™\]Y\Ý
+import { expect, test } from "@playwright/test";
+import path from "node:path";
 
-NÂˆÛÛœÝ\›H™]ÈT“
-™\]Y\Ý\›
+test("home page presents the independent fictional-data boundary", async ({ page }) => {
+  await page.goto("/");
 
-JNÂˆYˆ
-™\]Y\Ý›Y]Ù
+  await expect(page).toHaveTitle(/FireOps Lab/);
+  await expect(page.getByRole("heading", { name: /Reconcile the day/i })).toBeVisible();
+  await expect(page.getByText("Fictional data only")).toBeVisible();
+  await expect(page.getByText(/not affiliated with, commissioned by, endorsed by/i)).toBeVisible();
+});
 
-HOOH“ÔSÓ”ÈŠHÂˆ]ØZ]›Ý]K™[š[
-ÂˆÝ]\ÎˆŒˆXY\œÎˆÂˆXØÙ\ÜËPÛÛ›ÛP[ÝËSÜšYÚ[ˆŽˆš‹ËÌLËŒŒŒNŒÌ‹ˆXØÙ\ÜËPÛÛ›ÛP[ÝËSY]ÙÈŽˆ‘ÑUÔÕÔSÓ”È‹ˆXØÙ\ÜËPÛÛ›ÛP[ÝËRXY\œÈŽˆ˜ÛÛ[]\H‹ˆKˆJNÂˆ™]\›ŽÂˆBˆ]›ÙNˆ[šÛ›ÝÛŽÂ‚ˆYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹ÜÛÝ\˜ÙKYš[\ËÜ™]šY]ÈŠJHÂˆ›ÙHHÂˆÚ[™ˆœ^[Y[Ú[œÝXÝ[ÛœÈ‹ˆÚXÚÜÝ[WÜÚLMŽˆ˜H‹œ™\X]
-
-Kˆ]WÜ›Ý×ØÛÝ[ˆKˆ\×Ý˜[YˆYKˆ\ÜÝY\×Ý[˜Ø]Yˆ˜[ÙKˆ\ÜÝY\Îˆ×Kˆ™]šY]ÎˆÂˆÂˆ^[Y[ÚYˆ”VKTPKLH‹ˆÛY[Ü™Y™\™[˜ÙNˆ”‘Q‹TPKLH‹ˆÜ™X]YØ]ˆŒŒ‹LLKLÕŒŒˆ‹ˆ[œÝXÝYØ]ˆŒŒ‹LLKLÕŒNŒˆ‹ˆ[[Ý[ÛZ[›ÜŽˆLLˆÝ\œ™[˜ÞNˆ‘UTˆ‹ˆKˆKˆNÂˆH[ÙHYˆ
-\›œ]˜[YKš[˜ÛY\Ê‹ÜÛÝ\˜ÙKYš[\ËÚ[\ÜÈŠJHÂˆ›ÙHHÂˆÛÝ\˜ÙWÙš[WÚYˆœÛÝ\˜ÙK\XKLH‹ˆÛÝ\˜ÙWÝ\Nˆ”VSQS•ÒS”Õ•PÕSÓˆ‹ˆÚXÚÜÝ[WÜÚLMŽˆ˜H‹œ™\X]
-
-Kˆ›Ý×ØÛÝ[ˆKˆ[\ÜYØÛÝ[ˆKˆY[\Ý[ˆ˜[ÙKˆNÂˆH[ÙHYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹Ø˜]Ú\ÈŠJHÂˆ›ÙHHÂˆ˜]Ú\ÎˆÂˆÂˆ˜]ÚÚYˆUÒTPKLH‹ˆÛÛ›ÛÝÝ[ÎˆÂˆÂˆÝ\œ™[˜ÞNˆ‘UTˆ‹ˆ\™XÝ[ÛŽˆ“ÕU“ÕS‘‹ˆÝ]\Îˆ›ØÙ\ÜÙYÈ”ÑUQˆˆÔ‘PUQ‹ˆ™XÛÜ™ØÛÝ[ˆKˆÝ[ÛZ[›ÜŽˆLLˆKˆKˆKˆKˆÙ][Y[Ø˜]Ú\Îˆ›ØÙ\ÜÙYˆÈÂˆÂˆÙ][Y[Ø˜]ÚÚYˆ”ÒSP‹TPKLH‹ˆÛÛ›ÛÝÝ[ÎˆÂˆÂˆÝ\œ™[˜ÞNˆ‘UTˆ‹ˆ\™XÝ[ÛŽˆ“ÕU“ÕS‘‹ˆ™XÛÜ™ØÛÝ[ˆKˆÝ[ÛZ[›ÜŽˆLLˆKˆKˆKˆBˆˆ×KˆNÂˆH[ÙHYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹ÜÚ[][]HŠJHÂˆÛÛœÝY[\Ý[H›ØÙ\ÜÙYÂˆ›ØÙ\ÜÙYHYNÂˆ›ÙHHÂˆ˜]ÚÚYˆUÒTPKLH‹ˆ›ØÙ\ÜÙYØÛÝ[ˆY[\Ý[ÈˆËˆÙ]YØÛÝ[ˆY[\Ý[ÈˆKˆ˜Z[YØÛÝ[ˆˆÙ][Y[ØÛÝ[ˆY[\Ý[ÈˆKˆÙ][Y[ÝÝ[×ÛZ[›ÜŽˆÈUTŽˆLLKˆY[\Ý[ˆNÂˆH[ÙHYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹Ü^[Y[ÈŠJHÂˆ›ÙHHÂˆ˜]ÚÚYˆUÒTPKLH‹ˆ[Z]ˆKˆ^[Y[ÎˆÂˆÂˆ^[Y[ÚYˆ”VKTPKLH‹ˆÛY[Ü™Y™\™[˜ÙNˆ”‘Q‹TPKLH‹ˆÝ]\Îˆ›ØÙ\ÜÙYÈ”ÑUQˆˆÔ‘PUQ‹ˆ[[Ý[ÛZ[›ÜŽˆLLˆÝ\œ™[˜ÞNˆ‘UTˆ‹ˆ\™XÝ[ÛŽˆ“ÕU“ÕS‘‹ˆKˆKˆNÂˆH[ÙHYˆ
-\›œ]˜[YK™[™ÕÚ]
-‹Ù]™[ÈŠJHÂˆ›ÙHHÂˆ]™[ÎˆÈ’STÔ•Q‹•SQUQ‹”“ÐÑTÔÒS‘È‹”ÑUQ—K›X\
+test("project boundaries explain the simulator", async ({ page }) => {
+  await page.goto("/#method");
 
-]™[Ý\K[™^
-HOˆ
-Âˆ]™[ÚYˆ]™[IÚ[™^Xˆ]™[Ý\KˆØØÝ\œ™YØ]ˆŒ‹LLKLÕŒ	Ú[™^NŒ˜ˆXÝÜŽˆœÞ\Ý[NœÚ[][][Ûˆ‹ˆY]Y]NˆßKˆJJKˆNÂˆH[ÙHÂˆ]ØZ]›Ý]K™[š[
-ÈÝ]\Îˆ›ÙNˆ“›Ý›Ý[™ˆJNÂˆ™]\›ŽÂˆB‚ˆ]ØZ]›Ý]K™[š[
-ÂˆÝ]\ÎˆŒˆÛÛ[\Nˆ˜\XØ][Û‹ÚœÛÛˆ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJ›ÙJKˆJNÂˆJNÂ‚ˆ]ØZ]YÙK™ÛÝÊ‹ÈŠNÂˆÛÛœÝš^\™T]H]œ™\ÛÛ™Jˆ›ØÙ\ÜË˜ÝÙ
+  await expect(page.getByRole("heading", { name: "Method and limits" })).toBeVisible();
+  await expect(page.getByText(/not be presented as proven fraud/i)).toBeVisible();
+});
 
-Kˆ‹‹‹Ù]KÜÞ[]XËÛ›Ü›X[Ù^KÜ^[Y[Ú[œÝXÝ[ÛœË˜ÜÝˆ‹ˆ
-NÂˆ]ØZ]YÙK™Ù]žSX™[
-ÔÕˆš[HŠKœÙ][œ]š[\Êš^\™T]
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”™]šY]Èš[HˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žU^
-ÌH›ÝÜÈ\ÜÙY˜[Y][Û‹ÊJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ’[\Ü˜[Y]Yš[HˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žU^
-Ò[\ÜYH™XÛÜ™È]ÛZXØ[KÊJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žT›ÛJšXY[™È‹È˜[YNˆUÒTPKLHˆJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ’[œÜXÝ˜]ÚˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-ˆYÙK™Ù]žT›ÛJšXY[™È‹È˜[YNˆ”›ØÙ\ÜÚ[™È\ÝÜžH0­ÈUÒTPKLHˆJKˆ
-KÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”Ú[][]H›ØÙ\ÜÚ[™ÈˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žU^
-ÌHÙ]Y[™˜Z[YÊJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žT›ÛJšXY[™È‹È˜[YNˆ”ÒSP‹TPKLHˆJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ”Ú[][]H›ØÙ\ÜÚ[™ÈˆJK˜ÛXÚÊ
-NÂˆ]ØZ]^XÝ
-YÙK™Ù]žU^
-Ø[™XYH›ØÙ\ÜÙYˆ›È™XÛÜ™ÈÜˆÝ[ÈÚ[™ÙYÊJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]YÙK™Ù]žT›ÛJ˜]Ûˆ‹È˜[YNˆ•šY]È]™[\ÝÜžHˆJK˜ÛXÚÊ
-NÂˆÛÛœÝ\ÝÜžHHYÙK™Ù]žT›ÛJ›\Ý‹È˜[YNˆ‘]™[\ÝÜžH›ÜˆVKTPKLHˆJNÂˆ]ØZ]^XÝ
-\ÝÜžK™Ù]žU^
-’STÔ•Q‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂˆ]ØZ]^XÝ
-\ÝÜžK™Ù]žU^
-”ÑUQ‹È^XÝˆYHJJKÐ™Uš\ÚX›J
-NÂŸJNÂ
+test("static reconciliation preview compares synthetic source records side by side", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await expect(
+    page.getByRole("heading", { name: "Compare every payment with its settlement" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AMOUNT MISMATCH" })).toBeVisible();
+  await expect(page.getByText("Payment instruction", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Settlement record", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("DUPLICATE CANDIDATE").first()).toBeVisible();
+});
+
+test("API-backed reconciliation selects two batches and shows saved comparison", async ({
+  page,
+}) => {
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("/batches")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          batches: [{ batch_id: "BATCH-QA-1", control_totals: [] }],
+          settlement_batches: [{ settlement_batch_id: "SETTLE-QA-1", control_totals: [] }],
+        }),
+      });
+    } else if (url.pathname.endsWith("/reconciliation/runs")) {
+      const request = route.request().postDataJSON() as Record<string, string>;
+      expect(request.payment_batch_id).toBe("BATCH-QA-1");
+      expect(request.settlement_batch_id).toBe("SETTLE-QA-1");
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "run-qa-1",
+          payment_batch_id: "BATCH-QA-1",
+          settlement_batch_id: "SETTLE-QA-1",
+          matched_count: 1,
+          unmatched_count: 0,
+          exception_count: 0,
+          result_count: 1,
+          classification_counts: { MATCHED_EXACT: 1 },
+          results: [
+            {
+              classification: "MATCHED_EXACT",
+              difference_minor: 0,
+              explanation_code: "REFERENCE_AMOUNT_DATE_WINDOW",
+              payment: {
+                payment_id: "PAY-QA-1",
+                client_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                expected_settlement_date: "2026-10-15",
+              },
+              settlement: {
+                settlement_id: "SET-QA-1",
+                payment_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                settlement_date: "2026-10-15",
+              },
+            },
+          ],
+        }),
+      });
+    } else {
+      await route.fulfill({ status: 404, body: "Not found" });
+    }
+  });
+
+  await page.goto("/");
+  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
+  await page.getByRole("button", { name: "Run reconciliation" }).click();
+  await expect(page.getByText("Saved run run-qa-1")).toBeVisible();
+  await expect(page.getByText("PAY-QA-1")).toBeVisible();
+  await expect(page.getByText("SET-QA-1")).toBeVisible();
+});
+
+test("an exception is assigned, investigated, resolved, and retained in its audit trail", async ({
+  page,
+}) => {
+  const activities: Array<Record<string, string | null>> = [];
+  let currentStatus = "OPEN";
+  let assignedTo: string | null = null;
+  const caseData = () => ({
+    case_id: "CASE-QA-1",
+    result_id: "RESULT-QA-1",
+    run_id: "RUN-QA-1",
+    classification: "AMOUNT_MISMATCH",
+    status: currentStatus,
+    priority: "NORMAL",
+    assigned_to: assignedTo,
+    payment: { payment_id: "PAY-QA-1", amount_minor: 1250, currency: "EUR" },
+    settlement: { settlement_id: "SET-QA-1", amount_minor: 1200, currency: "EUR" },
+    activities: activities.map((activity, index) => ({
+      activity_id: `ACT-${index}`,
+      activity_type: activity.type,
+      occurred_at: "2026-11-07T12:00:00Z",
+      actor: activity.actor,
+      reason: activity.reason,
+      from_value: activity.from,
+      to_value: activity.to,
+      correlation_id: `CORR-${index}`,
+    })),
+  });
+
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (url.pathname.endsWith("/batches")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          batches: [{ batch_id: "BATCH-QA-1" }],
+          settlement_batches: [{ settlement_batch_id: "SETTLE-QA-1" }],
+        }),
+      });
+    } else if (url.pathname.endsWith("/reconciliation/runs")) {
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "RUN-QA-1",
+          payment_batch_id: "BATCH-QA-1",
+          settlement_batch_id: "SETTLE-QA-1",
+          matched_count: 0,
+          unmatched_count: 0,
+          exception_count: 1,
+          result_count: 1,
+          classification_counts: { AMOUNT_MISMATCH: 1 },
+          results: [
+            {
+              result_id: "RESULT-QA-1",
+              classification: "AMOUNT_MISMATCH",
+              difference_minor: -50,
+              explanation_code: "AMOUNT_DIFFERENCE",
+              payment: {
+                payment_id: "PAY-QA-1",
+                client_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                expected_settlement_date: "2026-10-15",
+              },
+              settlement: {
+                settlement_id: "SET-QA-1",
+                payment_reference: "REF-QA-1",
+                amount_minor: 1200,
+                currency: "EUR",
+                settlement_date: "2026-10-15",
+              },
+            },
+          ],
+        }),
+      });
+    } else if (url.pathname.endsWith("/cases") && request.method() === "GET") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          cases: activities.length ? [caseData()] : [],
+          limit: 25,
+          offset: 0,
+        }),
+      });
+    } else if (url.pathname.endsWith("/cases") && request.method() === "POST") {
+      activities.push({
+        type: "CREATED",
+        actor: "demo-analyst",
+        reason: null,
+        from: null,
+        to: "OPEN",
+      });
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/assignment")) {
+      assignedTo = (request.postDataJSON() as { assigned_to: string }).assigned_to;
+      activities.push({
+        type: "ASSIGNED",
+        actor: "demo-analyst",
+        reason: null,
+        from: null,
+        to: assignedTo,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/notes")) {
+      const body = request.postDataJSON() as { note: string };
+      activities.push({
+        type: "NOTE_ADDED",
+        actor: "demo-analyst",
+        reason: body.note,
+        from: null,
+        to: null,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/transitions")) {
+      const body = request.postDataJSON() as { target_status: string; reason?: string };
+      const previous = currentStatus;
+      currentStatus = body.target_status;
+      activities.push({
+        type: currentStatus === "RESOLVED" ? "RESOLVED" : "STATUS_CHANGED",
+        actor: "demo-analyst",
+        reason: body.reason ?? null,
+        from: previous,
+        to: currentStatus,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Not found" }),
+      });
+    }
+  });
+
+  await page.goto("/");
+  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
+  await page.getByRole("button", { name: "Run reconciliation" }).click();
+  await page.getByRole("button", { name: "Open investigation case" }).click();
+  await expect(page.getByRole("heading", { name: "Case investigation" })).toBeVisible();
+  await page.getByLabel("Assign to analyst").fill("analyst.two");
+  await page.getByRole("button", { name: "Assign", exact: true }).click();
+  await page
+    .getByLabel("Investigation note")
+    .fill("Source evidence shows a 50 minor-unit difference.");
+  await page.getByRole("button", { name: "Add note" }).click();
+  await page.getByRole("button", { name: "Start review" }).click();
+  await page
+    .getByLabel("Action reason")
+    .fill("Operations confirmed the variance in the settlement source.");
+  await page.getByRole("button", { name: "Resolve case" }).click();
+  const audit = page.getByRole("list", { name: "Case audit history" });
+  await expect(audit.getByText("CREATED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("ASSIGNED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("NOTE ADDED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("RESOLVED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("Source evidence shows a 50 minor-unit difference.")).toBeVisible();
+});
+
+test("CSV preview, idempotent batch controls, and processing history work together", async ({
+  page,
+}) => {
+  let processed = false;
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (request.method() === "OPTIONS") {
+      await route.fulfill({
+        status: 204,
+        headers: {
+          "Access-Control-Allow-Origin": "http://127.0.0.1:3000",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "content-type",
+        },
+      });
+      return;
+    }
+    let body: unknown;
+
+    if (url.pathname.endsWith("/source-files/preview")) {
+      body = {
+        kind: "payment_instructions",
+        checksum_sha256: "a".repeat(64),
+        data_row_count: 1,
+        is_valid: true,
+        issues_truncated: false,
+        issues: [],
+        preview: [
+          {
+            payment_id: "PAY-QA-0001",
+            client_reference: "REF-QA-0001",
+            created_at: "2026-11-07T08:00:00Z",
+            instructed_at: "2026-11-07T08:01:00Z",
+            amount_minor: 1250,
+            currency: "EUR",
+          },
+        ],
+      };
+    } else if (url.pathname.includes("/source-files/import/")) {
+      body = {
+        source_file_id: "source-qa-1",
+        source_type: "PAYMENT_INSTRUCTION",
+        checksum_sha256: "a".repeat(64),
+        row_count: 1,
+        imported_count: 1,
+        idempotent: false,
+      };
+    } else if (url.pathname.endsWith("/batches")) {
+      body = {
+        batches: [
+          {
+            batch_id: "BATCH-QA-1",
+            control_totals: [
+              {
+                currency: "EUR",
+                direction: "OUTBOUND",
+                status: processed ? "SETTLED" : "CREATED",
+                record_count: 1,
+                total_minor: 1250,
+              },
+            ],
+          },
+        ],
+        settlement_batches: processed
+          ? [
+              {
+                settlement_batch_id: "SIMB-QA-1",
+                control_totals: [
+                  {
+                    currency: "EUR",
+                    direction: "OUTBOUND",
+                    record_count: 1,
+                    total_minor: 1250,
+                  },
+                ],
+              },
+            ]
+          : [],
+      };
+    } else if (url.pathname.endsWith("/simulate")) {
+      const idempotent = processed;
+      processed = true;
+      body = {
+        batch_id: "BATCH-QA-1",
+        processed_count: idempotent ? 0 : 3,
+        settled_count: idempotent ? 0 : 1,
+        failed_count: 0,
+        settlement_count: idempotent ? 0 : 1,
+        settlement_totals_minor: { EUR: 1250 },
+        idempotent,
+      };
+    } else if (url.pathname.endsWith("/payments")) {
+      body = {
+        batch_id: "BATCH-QA-1",
+        limit: 25,
+        payments: [
+          {
+            payment_id: "PAY-QA-0001",
+            client_reference: "REF-QA-0001",
+            status: processed ? "SETTLED" : "CREATED",
+            amount_minor: 1250,
+            currency: "EUR",
+            direction: "OUTBOUND",
+          },
+        ],
+      };
+    } else if (url.pathname.endsWith("/events")) {
+      body = {
+        events: ["IMPORTED", "VALIDATED", "PROCESSING", "SETTLED"].map((event_type, index) => ({
+          event_id: `event-${index}`,
+          event_type,
+          occurred_at: `2026-11-07T08:0${index}:00Z`,
+          actor: "system:simulation",
+          metadata: {},
+        })),
+      };
+    } else {
+      await route.fulfill({ status: 404, body: "Not found" });
+      return;
+    }
+
+    await route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify(body),
+    });
+  });
+
+  await page.goto("/");
+  const fixturePath = path.resolve(
+    process.cwd(),
+    "../data/synthetic/normal_day/payment_instructions.csv",
+  );
+  await page.getByLabel("CSV file").setInputFiles(fixturePath);
+  await page.getByRole("button", { name: "Preview file" }).click();
+  await expect(page.getByText(/1 rows passed validation/)).toBeVisible();
+  await page.getByRole("button", { name: "Import validated file" }).click();
+  await expect(page.getByText(/Imported 1 records atomically/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "BATCH-QA-1" })).toBeVisible();
+  await page.getByRole("button", { name: "Inspect batch" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Processing history Â· BATCH-QA-1" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Simulate processing" }).click();
+  await expect(page.getByText(/1 settled and 0 failed/)).toBeVisible();
+  await expect(page.getByRole("heading", { name: "SIMB-QA-1" })).toBeVisible();
+  await page.getByRole("button", { name: "Simulate processing" }).click();
+  await expect(page.getByText(/already processed. No records or totals changed/)).toBeVisible();
+  await page.getByRole("button", { name: "View event history" }).click();
+  const history = page.getByRole("list", { name: "Event history for PAY-QA-0001" });
+  await expect(history.getByText("IMPORTED", { exact: true })).toBeVisible();
+  await expect(history.getByText("SETTLED", { exact: true })).toBeVisible();
+});

@@ -1,73 +1,408 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíçŽ5N‹Z–‹­¦ëeŠw¬Ô‰ÕÍ”±¥•¹Ðˆì()¥µÁ½ÉÐìÕÍ•…±±‰…¬°ÕÍ•™™•Ð°ÕÍ•MÑ…Ñ”ô™É½´€‰É•…Ðˆì()½¹ÍÐA$€ôÁÉ½•ÍÌ¹•¹Ø¹9aQ}AU	1%}A%}	M}UI0ü¹É•Á±…” ½p¼¼°€ˆˆ¤€üü€ˆˆì)½¹ÍÐaAQ%=9L€ô¹•ÜM•Ð¡l(€€‰U95Q!}%9MQIUQ%=8ˆ°(€€‰U95Q!}MQQ159Pˆ°(€€‰5=U9Q}5%M5Q ˆ°(€€‰UA1%Q}9%Qˆ°(€€‰5	%U=UM}5Q ˆ°)t¤ì()¥¹Ñ•É™…”I•ÍÕ±Ñ=ÁÑ¥½¸ì(€É•ÍÕ±Ñ}¥üèÍÑÉ¥¹œì(€±…ÍÍ¥™¥…Ñ¥½¸èÍÑÉ¥¹œì(€Á…åµ•¹ÐüèI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œð¹Õµ‰•Èøð¹Õ±°ì(€Í•ÑÑ±•µ•¹ÐüèI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œð¹Õµ‰•Èøð¹Õ±°ì)ô()¥¹Ñ•É™…”Ñ¥Ù¥Ñäì(€…Ñ¥Ù¥Ñå}¥èÍÑÉ¥¹œì(€…Ñ¥Ù¥Ñå}ÑåÁ”èÍÑÉ¥¹œì(€½ÕÉÉ•‘}…ÐèÍÑÉ¥¹œì(€…Ñ½ÈèÍÑÉ¥¹œì(€É•…Í½¸èÍÑÉ¥¹œð¹Õ±°ì(€™É½µ}Ù…±Õ”èÍÑÉ¥¹œð¹Õ±°ì(€Ñ½}Ù…±Õ”èÍÑÉ¥¹œð¹Õ±°ì)ô()¥¹Ñ•É™…”…Í•I•½Éì(€…Í•}¥èÍÑÉ¥¹œì(€É•ÍÕ±Ñ}¥èÍÑÉ¥¹œì(€ÉÕ¹}¥èÍÑÉ¥¹œì(€±…ÍÍ¥™¥…Ñ¥½¸èÍÑÉ¥¹œì(€ÍÑ…ÑÕÌè€‰=A8ˆð€‰%9}IY%\ˆð€‰M1Qˆð€‰IM=1Yˆì(€ÁÉ¥½É¥ÑäèÍÑÉ¥¹œì(€…ÍÍ¥¹•‘}Ñ¼èÍÑÉ¥¹œð¹Õ±°ì(€…Ñ¥Ù¥Ñ¥•ÌüèÑ¥Ù¥Ñåmtì(€Á…åµ•¹ÐèI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œð¹Õµ‰•Èøð¹Õ±°ì(€Í•ÑÑ±•µ•¹ÐèI•½ÉñÍÑÉ¥¹œ°ÍÑÉ¥¹œð¹Õµ‰•Èøð¹Õ±°ì)ô()…Íå¹Œ™Õ¹Ñ¥½¸É•ÅÕ•ÍÐñPø¡Á…Ñ èÍÑÉ¥¹œ°¥¹¥ÐüèI•ÅÕ•ÍÑ%¹¥Ð¤èAÉ½µ¥Í”ñPøì(€½¹ÍÐÉ•ÍÁ½¹Í”€ô…Ý…¥Ð™•Ñ ¡€‘íA%ô½…Á¤½ØÄ‘íÁ…Ñ¡õ€°ì(€€€€¸¸¹¥¹¥Ð°(€€€¡•…‘•ÉÌèì€‰½¹Ñ•¹ÐµQåÁ”ˆè€‰…ÁÁ±¥…Ñ¥½¸½©Í½¸ˆ°€¸¸¹¥¹¥Ðü¹¡•…‘•ÉÌô°(€ô¤ì(€½¹ÍÐ‰½‘ä€ô€¡…Ý…¥ÐÉ•ÍÁ½¹Í”¹©Í½¸ ¤¤…ÌP€˜ì‘•Ñ…¥°üèÍÑÉ¥¹œôì(€¥˜€ …É•ÍÁ½¹Í”¹½¬¤Ñ¡É½Ü¹•ÜÉÉ½È¡‰½‘ä¹‘•Ñ…¥°€üü€‰…Í”…Ñ¥½¸™…¥±•¸ˆ¤ì(€É•ÑÕÉ¸‰½‘äì)ô()•áÁ½ÉÐ‘•™…Õ±Ð™Õ¹Ñ¥½¸…Í•]½É­ÍÁ…”¡ìÉ•ÍÕ±ÑÌôèìÉ•ÍÕ±ÑÌèI•ÍÕ±Ñ=ÁÑ¥½¹mtô¤ì(€½¹ÍÐm…Í•Ì°Í•Ñ…Í•Ít€ôÕÍ•MÑ…Ñ”ñ…Í•I•½É‘mtø¡mt¤ì(€½¹ÍÐmÍ•±•Ñ•°Í•ÑM•±•Ñ•‘t€ôÕÍ•MÑ…Ñ”ñ…Í•I•½Éð¹Õ±°ø¡¹Õ±°¤ì(€½¹ÍÐmÍÑ…ÑÕÍ¥±Ñ•È°Í•ÑMÑ…ÑÕÍ¥±Ñ•Ét€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm…ÍÍ¥¹•‘¥±Ñ•È°Í•ÑÍÍ¥¹•‘¥±Ñ•Ét€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm…ÍÍ¥¹•”°Í•ÑÍÍ¥¹••t€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm¹½Ñ”°Í•Ñ9½Ñ•t€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm…Ñ¥½¹I•…Í½¸°Í•ÑÑ¥½¹I•…Í½¹t€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm•ÉÉ½È°Í•ÑÉÉ½Ét€ôÕÍ•MÑ…Ñ” ˆˆ¤ì(€½¹ÍÐm‰ÕÍä°Í•Ñ	ÕÍåt€ôÕÍ•MÑ…Ñ”¡™…±Í”¤ì((€½¹ÍÐ±½…‘…Í•Ì€ôÕÍ•…±±‰…¬¡…Íå¹Œ€ ¤€ôøì(€€€¥˜€ …A$¤É•ÑÕÉ¸ì(€€€½¹ÍÐÅÕ•Éä€ô¹•ÜUI1M•…É¡A…É…µÌ ¤ì(€€€¥˜€¡ÍÑ…ÑÕÍ¥±Ñ•È¤ÅÕ•Éä¹Í•Ð ‰ÍÑ…ÑÕÌˆ°ÍÑ…ÑÕÍ¥±Ñ•È¤ì(€€€¥˜€¡…ÍÍ¥¹•‘¥±Ñ•È¤ÅÕ•Éä¹Í•Ð ‰…ÍÍ¥¹•‘}Ñ¼ˆ°…ÍÍ¥¹•‘¥±Ñ•È¤ì(€€€½¹ÍÐÁ…å±½…€ô…Ý…¥ÐÉ•ÅÕ•ÍÐñì…Í•Ìè…Í•I•½É‘mtôø¡€½…Í•Ìü‘íÅÕ•Éä¹Ñ½MÑÉ¥¹œ ¥õ€¤ì(€€€Í•Ñ…Í•Ì¡Á…å±½…¹…Í•Ì¤ì(€ô°mÍÑ…ÑÕÍ¥±Ñ•È°…ÍÍ¥¹•‘¥±Ñ•Ét¤ì((€ÕÍ•™™•Ð  ¤€ôøì(€€€Ù½¥±½…‘…Í•Ì ¤¹…Ñ  ¡…ÕÍ”èÕ¹­¹½Ý¸¤€ôø(€€€€€Í•ÑÉÉ½È¡…ÕÍ”¥¹ÍÑ…¹•½˜ÉÉ½È€ü…ÕÍ”¹µ•ÍÍ…”€è€‰½Õ±¹½Ð±½……Í•Ì¸ˆ¤°(€€€€¤ì(€ô°m±½…‘…Í•Ít¤ì((€½¹ÍÐ…Ð€ô…Íå¹Œ€¡½Á•É…Ñ¥½¸è€ ¤€ôøAÉ½µ¥Í”ñ…Í•I•½Éø¤€ôøì(€€€Í•Ñ	ÕÍä¡ÑÉÕ”¤ì(€€€Í•ÑÉÉ½È ˆˆ¤ì(€€€ÑÉäì(€€€€€½¹ÍÐÕÁ‘…Ñ•€ô…Ý…¥Ð½Á•É…Ñ¥½¸ ¤ì(€€€€€Í•ÑM•±•Ñ•¡ÕÁ‘…Ñ•¤ì(€€€€€…Ý…¥Ð±½…‘…Í•Ì ¤ì(€€€ô…Ñ €¡…ÕÍ”¤ì(€€€€€Í•ÑÉÉ½È¡…ÕÍ”¥¹ÍÑ…¹•½˜ÉÉ½È€ü…ÕÍ”¹µ•ÍÍ…”€è€‰…Í”…Ñ¥½¸™…¥±•¸ˆ¤ì(€€€ô™¥¹…±±äì(€€€€€Í•Ñ	ÕÍä¡™…±Í”¤ì(€€€ô(€ôì((€½¹ÍÐ½Á•¹…Í”€ô€¡É•ÍÕ±ÐèI•ÍÕ±Ñ=ÁÑ¥½¸¤€ôøì(€€€¥˜€ …É•ÍÕ±Ð¹É•ÍÕ±Ñ}¥¤É•ÑÕÉ¸ì(€€€Ù½¥…Ð¡…Íå¹Œ€ ¤€ôøì(€€€€€½¹ÍÐÉ•…Ñ•€ô…Ý…¥ÐÉ•ÅÕ•ÍÐñ…Í•I•½Éø ˆ½…Í•Ìˆ°ì(€€€€€€€µ•Ñ¡½è€‰A=MPˆ°(€€€€€€€‰½‘äè)M=8¹ÍÑÉ¥¹¥™ä¡ìÉ•ÍÕ±Ñ}¥èÉ•ÍÕ±Ð¹É•ÍÕ±Ñ}¥°ÁÉ¥½É¥Ñäè€‰9=I50ˆô¤°(€€€€€ô¤ì(€€€€€É•ÑÕÉ¸É•…Ñ•ì(€€€ô¤ì(€ôì((€¥˜€ …A$¤É•ÑÕÉ¸¹Õ±°ì(€½¹ÍÐ¡…Í=Á•¸€ô¹•ÜM•Ð¡…Í•Ì¹µ…À ¡¥Ñ•´¤€ôø¥Ñ•´¹É•ÍÕ±Ñ}¥¤¤ì((€É•ÑÕÉ¸€ (€€€€ñÍ•Ñ¥½¸(€€€€€±…ÍÍ9…µ”ô‰É½Õ¹‘•´Éá°‰½É‘•È‰½É‘•ÈµÍ±…Ñ”´ÈÀÀ‰œµÝ¡¥Ñ”À´ÔÍ¡…‘½ÜµÍ´Í´éÀ´àˆ(€€€€€…É¥„µ±…‰•±±•‘‰äô‰…Í”µ¡•…‘¥¹œˆ(€€€€ø(€€€€€€ñÀ±…ÍÍ9…µ”ô‰Ñ•áÐµÍ´™½¹ÐµÍ•µ¥‰½±ÕÁÁ•É…Í”ÑÉ…­¥¹œµlÀ¸ÄÑ•µtÑ•áÐµÑ•…°´àÀÀˆø(€€€€€€€A¡…Í”€Ôƒ
-Ü¥¹Ù•ÍÑ¥…Ñ¥½¹Ì(€€€€€€ð½Àø(€€€€€€ñ È¥ô‰…Í”µ¡•…‘¥¹œˆ±…ÍÍ9…µ”ô‰µÐ´ÈÑ•áÐ´Éá°™½¹ÐµÍ•µ¥‰½±Ñ•áÐµÍ±…Ñ”´äÔÀˆø(€€€€€€€á•ÁÑ¥½¸…Í•Ì…¹…Õ‘¥Ð¡¥ÍÑ½Éä(€€€€€€ð½ Èø(€€€€€€ñÀ±…ÍÍ9…µ”ô‰µÐ´Ìµ…àµÜ´Íá°±•…‘¥¹œ´ÜÑ•áÐµÍ±…Ñ”´ØÀÀˆø(€€€€€€€=Á•¸„…Í”™É½´„É•½¹¥±¥…Ñ¥½¸•á•ÁÑ¥½¸°…ÍÍ¥¸…¸…¹…±åÍÐ°É•½É•Ù¥‘•¹”°…¹µ½Ù”¥Ð(€€€€€€€Ñ¡É½Õ ½¹ÑÉ½±±•É•Ù¥•Ü¸Ù•Éä…Ñ¥½¸¥ÌÉ•Ñ…¥¹•¥¸Ñ¡”…Í”¡¥ÍÑ½Éä¸(€€€€€€ð½Àø(€€€€€íÉ•ÍÕ±ÑÌ¹±•¹Ñ €ø€À€˜˜€ (€€€€€€€€ñ‘¥Ø±…ÍÍ9…µ”ô‰µÐ´ÔÉ½Õ¹‘•µá°‰½É‘•È‰½É‘•ÈµÍ±…Ñ”´ÈÀÀ‰œµÍ±…Ñ”´ÔÀÀ´Ðˆø(€€€€€€€€€€ñ Ì±…ÍÍ9…µ”ô‰™½¹ÐµÍ•µ¥‰½±ˆùÕÉÉ•¹ÐÉÕ¸•á•ÁÑ¥½¹Ìð½ Ìø(€€€€€€€€€€ñÕ°±…ÍÍ9…µ”ô‰µÐ´ÈÉ¥…À´Èˆø(€€€€€€€€€€€íÉ•ÍÕ±ÑÌ(€€€€€€€€€€€€€€¹™¥±Ñ•È ¡¥Ñ•´¤€ôøaAQ%=9L¹¡…Ì¡¥Ñ•´¹±…ÍÍ¥™¥…Ñ¥½¸¤¤(€€€€€€€€€€€€€€¹µ…À ¡¥Ñ•´¤€ôø€ (€€€€€€€€€€€€€€€€ñ±¤(€€€€€€€€€€€€€€€€€­•äõí¥Ñ•´¹É•ÍÕ±Ñ}¥€üü¥Ñ•´¹±…ÍÍ¥™¥…Ñ¥½¹ô(€€€€€€€€€€€€€€€€€±…ÍÍ9…µ”ô‰™±•à™±•àµÝÉ…À¥Ñ•µÌµ•¹Ñ•È©ÕÍÑ¥™äµ‰•ÑÝ••¸…À´ÈÉ½Õ¹‘•µ±œ‰œµÝ¡¥Ñ”À´ÌÑ•áÐµÍ´ˆ(€€€€€€€€€€€€€€€€ø(€€€€€€€€€€€€€€€€€€ñÍÁ…¸ø(€€€€€€€€€€€€€€€€€€€í¥Ñ•´¹±…ÍÍ¥™¥…Ñ¥½¸¹É•Á±…•±° ‰|ˆ°€ˆ€ˆ¥ôƒ
-Ýìˆ€‰ô(€€€€€€€€€€€€€€€€€€€íMÑÉ¥¹œ (€€€€€€€€€€€€€€€€€€€€€¥Ñ•´¹Á…åµ•¹Ðü¹Á…åµ•¹Ñ}¥€üü¥Ñ•´¹Í•ÑÑ±•µ•¹Ðü¹Í•ÑÑ±•µ•¹Ñ}¥€üü€‰Í½ÕÉ”É•½Éˆ°(€€€€€€€€€€€€€€€€€€€€¥ô(€€€€€€€€€€€€€€€€€€ð½ÍÁ…¸ø(€€€€€€€€€€€€€€€€€í¥Ñ•´¹É•ÍÕ±Ñ}¥€˜˜€ (€€€€€€€€€€€€€€€€€€€€ñ‰ÕÑÑ½¸(€€€€€€€€€€€€€€€€€€€€€ÑåÁ”ô‰‰ÕÑÑ½¸ˆ(€€€€€€€€€€€€€€€€€€€€€±…ÍÍ9…µ”ô‰µ¥¸µ ´ÄÀÉ½Õ¹‘•µ±œ‰½É‘•È‰½É‘•ÈµÍ±…Ñ”´ÌÀÀÁà´Ì™½¹Ðµµ•‘¥Õ´‘¥Í…‰±•é½Á…¥Ñä´ÔÀˆ(€€€€€€€€€€€€€€€€€€€€€‘¥Í…‰±•õí‰ÕÍäñð¡…Í=Á•¸¹¡…Ì¡¥Ñ•´¹É•ÍÕ±Ñ}¥¥ô(€€€€€€€€€€€€€€€€€€€€€½¹±¥¬õì ¤€ôø½Á•¹…Í”¡¥Ñ•´¥ô(€€€€€€€€€€€€€€€€€€€€ø(€€€€€€€€€€€€€€€€€€€€€í¡…Í=Á•¸¹¡…Ì¡¥Ñ•´¹É•ÍÕ±Ñ}¥¤(€€€€€€€€€€€€€€€€€€€€€€€€ü€‰…Í”…±É•…‘ä½Á•¸ˆ(€€€€€€€€€€€€€€€€€€€€€€€€è€‰=Á•¸¥¹Ù•ÍÑ¥…Ñ¥½¸…Í”‰ô(€€€€€€€€€€€€€€€€€€€€ð½‰ÕÑÑ½¸ø(€€€€€€€€€€€€€€€€€€¥ô(€€€€€€€€€€€€€€€€ð½±¤ø(€€€€€€€€€€€€€€¤¥ô(€€€€€€€€€€ð½Õ°ø(€€€€€€€€ð½‘¥Øø(€€€€€€¥ô((€€€€€€ñ‘¥Ø±…ÍÍ9…µ”ô‰µÐ´ÔÉ¥…À´Ô±œéÉ¥µ½±ÌµlÀ¸á™É|Ä¸É™Étˆø(€€€€€€€€ñ‘¥Øø(€€€€€€€€€€ñ‘¥Ø±…ÍÍ9…µ”ô‰É¥…À´ÈÍ´éÉ¥µ½±Ì´Èˆø(€€€€€€€€€€€€ñ±…‰•°±…ÍÍ9…µ”ô‰É¥…À´ÄÑ•áÐµÍ´™½¹Ðµµ•‘¥Õ´ˆø(€€€€€€€€€€€€€¥±Ñ•ÈÍÑ…ÑÕÌ(€€€€€€€€€€€€€€ñÍ•±•Ð(€€€€€€€€€€€€€€€…É¥„µ±…‰•°ô‰¥±Ñ•È…Í•Ì‰äÍÑ…ÑÕÌˆ(€€€€€€€€€€€€€€€±…ÍÍ9…µ”ô‰µ¥¸µ ´ÄÄÉ½Õ¹‘•µ±œ‰½É‘•È‰½É‘•ÈµÍ±…Ñ”´ÌÀÀ‰œµÝ¡¥Ñ”Áà´Ìˆ(€€€€€€€€€€€€€€€Ù…±Õ”õíÍÑ…ÑÕÍ¥±Ñ•Éô(€€€€€€€€€€€€€€€½¹¡…¹”õì¡•Ù•¹Ð¤€ôøÍ•ÑMÑ…ÑÕÍ¥±Ñ•È¡•Ù•¹Ð¹Ñ…É•Ð¹Ù…±Õ”¥ô(€€€€€€€€€€€€€€ø(€€€€€€€€€€€€€€€€ñ½ÁÑ¥½¸Ù…±Õ”ôˆˆù±°ÍÑ…ÑÕÍ•Ìð½½ÁÑ¥½¸ø(€€€€€€€€€€€€€€€€ñ½ÁÑ¥½¸ù=A8ð½½ÁÑ¥½¸ø(€€€€€€€€€€€€€€€€ñ½ÁÑ¥½¸ù%9}IY%\ð½½ÁÑ¥½¸ø(€€€€€€€€€€€€€€€€ñ½ÁÑ¥½¸ùM1Qð½½ÁÑ¥½¸ø(€€€€€€€€€€€€€€€€ñ½ÁÑ¥½¸ùIM=1Yð½½ÁÑ¥½¸ø(€€€€€€€€€€€€€€ð½Í•±•Ðø(€€€€€€€€€€€€ð½±…‰•°ø(€€€€€€€€€€€€ñ±…‰•°±…ÍÍ9…µ”ô‰É¥…À´ÄÑ•áÐµÍ´™½¹Ðµµ•‘¥Õ´ˆø(€€€€€€€€€€€€€¥±Ñ•È½Ý¹•È(€€€€€€€€€€€€€€ñ¥¹ÁÕÐ(€€€€€€€€€€€€€€€…É¥„µ±…‰•°ô‰¥±Ñ•È…Í•Ì‰ä½Ý¹•Èˆ(€€€€€€€€€€€€€€€±…ÍÍ9…µ”ô‰µ¥¸µ ´ÄÄÉ½Õ¹‘•µ±œ‰½É‘•È‰½É‘•ÈµÍ±…Ñ”´ÌÀÀÁà´Ìˆ(€€€€€€€€€€€€€€€Ù…±Õ”õí…ÍÍ¥¹•‘¥±Ñ•Éô(€€€€€€€€€€€€€€€½¹¡…¹”õì¡•Ù•¹Ð¤€ôøÍ•ÑÍÍ¥¹•‘¥±Ñ•È¡•Ù•¹Ð¹Ñ…É•Ð¹Ù…±Õ”¥ô(€€€€€€€€€€€€€€€Á±…•¡½±‘•Èô‰¹…±åÍÐ¹…µ”ˆ(€€€€€€€€€€€€€€¼ø(€€€€€€€€€€€€ð½±…‰•°ø(€€€€€€€€€€ð½‘¥Øø(€€€€€€€€€€ñÕ°…É¥„µ±…‰•°ô‰á•ÁÑ¥½¸…Í”ÅÕ•Õ”ˆ±…ÍÍ9…µ”ô‰µÐ´ÌÉ¥…À´Èˆø(€€€€€€€€€€€í…Í•Ì¹µ…À ¡¥Ñ•´¤€ôø€ (€€€€€€€€€€€€€€ñ±¤­•äõí¥Ñ•´¹…Í•}¥‘ôø(€€€€€€€€€€€€€€€€ñ‰ÕÑÑ½¸(€€€€€€€€€€€€€€€€€ÑåÁ”ô‰‰ÕÑÑ½¸ˆ(€€€€€€€€€€€€€€€€€±…ÍÍ9…µ”õíµ¥¸µ ´ÄÐÜµ™Õ±°É½Õ¹‘•µ±œ‰½É‘•ÈÀ´ÌÑ•áÐµ±•™Ð€‘íÍ•±•Ñ•ü¹…Í•}¥€ôôô¥Ñ•´¹…Í•}¥€ü€‰‰½É‘•ÈµÑ•…°´ÜÀÀ‰œµÑ•…°´ÔÀˆ€è€‰‰½É‘•ÈµÍ±…Ñ”´ÈÀÀ‰œµÝ¡¥Ñ”‰õô(€€€€€€€€€€€€€€€€€½¹±¥¬õì ¤€ôø(€€€€€€€€€€€€€€€€€€€Ù½¥É•ÅÕ•ÍÐñ…Í•I•½Éø¡€½…Í•Ì¼‘í¥Ñ•´¹…Í•}¥‘õ€¤(€€€€€€€€€€€€€€€€€€€€€€¹Ñ¡•¸¡Í•ÑM•±•Ñ•¤(€€€€€€€€€€€€€€€€€€€€€€¹…Ñ  ¡…ÕÍ”èÕ¹­¹½Ý¸¤€ôø(€€€€€€€€€€€€€€€€€€€€€€€Í•ÑÉÉ½È¡…ÕÍ”¥¹ÍÑ…¹•½˜ÉÉ½È€ü…ÕÍ”¹µ•ÍÍ…”€è€‰½Õ±¹½Ð±½……Í”¸ˆ¤°(€€€€€€€€€€€€€€€€€€€€€€¤(€€€€€€€€€€€€€€€€€ô(€€€€€€€€€€€€€€€€ø(€€€€€€€€€€€€€€€€€€ñÍÁ…¸±…ÍÍ9…µ”ô‰‰±½¬™½¹ÐµÍ•µ¥‰½±ˆø(€€€€€€€€€€€€€€€€€€€ïŽ5¶‰žËkºwµçLˆÛN™ÜšYXÛÛËVÌYœ—Ø]]×H‚ˆX™[Û\ÜÓ˜[YOH™ÜšYØ\LH^\ÛH‚ˆ\ÜÚYÛˆÈ[˜[\Ýˆ[œ]ˆÛ\ÜÓ˜[YOH›Z[‹ZLLH›Ý[™Y[È›Ü™\ˆ›Ü™\‹\Û]KLÌLÈ‚ˆ˜[YO^Ø\ÜÚYÛ™Y_BˆÛÚ[™ÙO^Ê]™[
-HOˆÙ]\ÜÚYÛ™YJ]™[\™Ù]˜[YJ_BˆXÙZÛ\H™K™Ëˆ[˜[\Ý›Û™H‚ˆÏ‚ˆÛX™[‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLLHÙ[‹Y[™›Ý[™Y[È›Ü™\ˆ›Ü™\‹\Û]KLÌLÈ›Û[YY][H\ØX›Y›ÜXÚ]KML‚ˆ\ØX›Y^Ø\ÞHÙ[XÝYœÝ]\ÈOOH”‘TÓÓ‘QˆX\ÜÚYÛ™YKš[J
-_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+"use client";
 
+import { useCallback, useEffect, useState } from "react";
 
-HO‚ˆ™\]Y\Ý
-ØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKØ\ÜÚYÛ›Y[ÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ\ÜÚYÛ™YÝÎˆ\ÜÚYÛ™YHJKˆJKˆ
-BˆBˆ‚ˆ\ÜÚYÛ‚ˆØ]Û‚ˆÙ]‚ˆ]ˆÛ\ÜÓ˜[YOH›]LÈÜšYØ\LˆÛN™ÜšYXÛÛËVÌYœ—Ø]]×H‚ˆX™[Û\ÜÓ˜[YOH™ÜšYØ\LH^\ÛH‚ˆ[™\ÝYØ][Ûˆ›ÝBˆ^\™XBˆÛ\ÜÓ˜[YOH›Z[‹ZLŒ›Ý[™Y[È›Ü™\ˆ›Ü™\‹\Û]KLÌLÈ‚ˆ˜[YO^Û›Ý_BˆÛÚ[™ÙO^Ê]™[
-HOˆÙ]›ÝJ]™[\™Ù]˜[YJ_BˆXÙZÛ\H”™XÛÜ™Ú]HÛÝ\˜ÙH]šY[˜ÙHÚÝÜÈ‚ˆÏ‚ˆÛX™[‚ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLLHÙ[‹Y[™›Ý[™Y[È™Ë\Û]KNLLÈ›Û[YY][H^]Ú]H\ØX›Y›ÜXÚ]KML‚ˆ\ØX›Y^Ø\ÞHÙ[XÝYœÝ]\ÈOOH”‘TÓÓ‘Qˆ[›ÝKš[J
-_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const EXCEPTIONS = new Set([
+  "UNMATCHED_INSTRUCTION",
+  "UNMATCHED_SETTLEMENT",
+  "AMOUNT_MISMATCH",
+  "DUPLICATE_CANDIDATE",
+  "AMBIGUOUS_MATCH",
+]);
 
+interface ResultOption {
+  result_id?: string;
+  classification: string;
+  payment?: Record<string, string | number> | null;
+  settlement?: Record<string, string | number> | null;
+}
 
-HO‚ˆ™\]Y\ÝØ\ÙT™XÛÜ™ŠØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKÛ›Ý\ØÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ›ÝHJKˆJK[Š
-™\Ý[
-HOˆÂˆÙ]›ÝJˆŠNÂˆ™]\›ˆ™\Ý[ÂˆJKˆ
-BˆBˆ‚ˆY›ÝBˆØ]Û‚ˆÙ]‚ˆX™[Û\ÜÓ˜[YOH›]LÈÜšYØ\LH^\ÛH‚ˆXÝ[Ûˆ™X\ÛÛ‚ˆ^\™XBˆÛ\ÜÓ˜[YOH›Z[‹ZLMˆ›Ý[™Y[È›Ü™\ˆ›Ü™\‹\Û]KLÌLÈ‚ˆ˜[YO^ØXÝ[Û”™X\ÛÛŸBˆÛÚ[™ÙO^Ê]™[
-HOˆÙ]XÝ[Û”™X\ÛÛŠ]™[\™Ù]˜[YJ_BˆXÙZÛ\H”™\]Z\™YÈ\ØØ[]K™\ÛÛ™KÜˆ™[Ü[ˆ‚ˆÏ‚ˆÛX™[‚ˆ]ˆÛ\ÜÓ˜[YOH›]LÈ›^›^]Ü˜\Ø\Lˆ‚ˆÜÙ[XÝYœÝ]\ÈOOH“ÔSˆˆ	‰ˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLL›Ý[™Y[È›Ü™\ˆ›Ü™\‹\Û]KLÌLÈ^\ÛH‚ˆ\ØX›Y^Ø\Þ_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+interface Activity {
+  activity_id: string;
+  activity_type: string;
+  occurred_at: string;
+  actor: string;
+  reason: string | null;
+  from_value: string | null;
+  to_value: string | null;
+}
 
+interface CaseRecord {
+  case_id: string;
+  result_id: string;
+  run_id: string;
+  classification: string;
+  status: "OPEN" | "IN_REVIEW" | "ESCALATED" | "RESOLVED";
+  priority: string;
+  assigned_to: string | null;
+  activities?: Activity[];
+  payment: Record<string, string | number> | null;
+  settlement: Record<string, string | number> | null;
+}
 
-HO‚ˆ™\]Y\Ý
-ØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKÝ˜[œÚ][ÛœØÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ\™Ù]ÜÝ]\Îˆ’S—Ô‘U’QUÈˆJKˆJKˆ
-BˆBˆ‚ˆÝ\™]šY]ÂˆØ]Û‚ˆ
-_BˆÜÙ[XÝYœÝ]\ÈOOH”‘TÓÓ‘Qˆ	‰ˆÙ[XÝYœÝ]\ÈOOH‘TÐÐSUQˆ	‰ˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLL›Ý[™Y[È›Ü™\ˆ›Ü™\‹X[X™\‹LÌLÈ^\ÛH^X[X™\‹NL\ØX›Y›ÜXÚ]KML‚ˆ\ØX›Y^Ø\ÞHXXÝ[Û”™X\ÛÛ‹š[J
-_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+async function request<T>(path: string, init?: RequestInit): Promise<T> {
+  const response = await fetch(`${API}/api/v1${path}`, {
+    ...init,
+    headers: { "Content-Type": "application/json", ...init?.headers },
+  });
+  const body = (await response.json()) as T & { detail?: string };
+  if (!response.ok) throw new Error(body.detail ?? "Case action failed.");
+  return body;
+}
 
+export default function CaseWorkspace({ results }: { results: ResultOption[] }) {
+  const [cases, setCases] = useState<CaseRecord[]>([]);
+  const [selected, setSelected] = useState<CaseRecord | null>(null);
+  const [statusFilter, setStatusFilter] = useState("");
+  const [assignedFilter, setAssignedFilter] = useState("");
+  const [assignee, setAssignee] = useState("");
+  const [note, setNote] = useState("");
+  const [actionReason, setActionReason] = useState("");
+  const [error, setError] = useState("");
+  const [busy, setBusy] = useState(false);
 
-HO‚ˆ™\]Y\Ý
-ØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKÝ˜[œÚ][ÛœØÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÂˆ\™Ù]ÜÝ]\Îˆ‘TÐÐSUQ‹ˆ™X\ÛÛŽˆXÝ[Û”™X\ÛÛ‹ˆJKˆJKˆ
-BˆBˆ‚ˆ\ØØ[]BˆØ]Û‚ˆ
-_BˆÜÙ[XÝYœÝ]\ÈOOH”‘TÓÓ‘Qˆ	‰ˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLL›Ý[™Y[È›Ü™\ˆ›Ü™\‹Y[Y\˜[LÌLÈ^\ÛH^Y[Y\˜[NL\ØX›Y›ÜXÚ]KML‚ˆ\ØX›Y^Ø\ÞHXXÝ[Û”™X\ÛÛ‹š[J
-_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+  const loadCases = useCallback(async () => {
+    if (!API) return;
+    const query = new URLSearchParams();
+    if (statusFilter) query.set("status", statusFilter);
+    if (assignedFilter) query.set("assigned_to", assignedFilter);
+    const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
+    setCases(payload.cases);
+  }, [statusFilter, assignedFilter]);
 
+  useEffect(() => {
+    void loadCases().catch((cause: unknown) =>
+      setError(cause instanceof Error ? cause.message : "Could not load cases."),
+    );
+  }, [loadCases]);
 
-HO‚ˆ™\]Y\Ý
-ØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKÝ˜[œÚ][ÛœØÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ\™Ù]ÜÝ]\Îˆ”‘TÓÓ‘Q‹™X\ÛÛŽˆXÝ[Û”™X\ÛÛˆJKˆJKˆ
-BˆBˆ‚ˆ™\ÛÛ™HØ\ÙBˆØ]Û‚ˆ
-_BˆÜÙ[XÝYœÝ]\ÈOOH”‘TÓÓ‘Qˆ	‰ˆ
-ˆ]Û‚ˆ\OH˜]Ûˆ‚ˆÛ\ÜÓ˜[YOH›Z[‹ZLL›Ý[™Y[È›Ü™\ˆ›Ü™\‹\›ÜÙKLÌLÈ^\ÛH^\›ÜÙKNL\ØX›Y›ÜXÚ]KML‚ˆ\ØX›Y^Ø\ÞHXXÝ[Û”™X\ÛÛ‹š[J
-_BˆÛÛXÚÏ^Ê
-HO‚ˆ›ÚYXÝ
+  const act = async (operation: () => Promise<CaseRecord>) => {
+    setBusy(true);
+    setError("");
+    try {
+      const updated = await operation();
+      setSelected(updated);
+      await loadCases();
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Case action failed.");
+    } finally {
+      setBusy(false);
+    }
+  };
 
+  const openCase = (result: ResultOption) => {
+    if (!result.result_id) return;
+    void act(async () => {
+      const created = await request<CaseRecord>("/cases", {
+        method: "POST",
+        body: JSON.stringify({ result_id: result.result_id, priority: "NORMAL" }),
+      });
+      return created;
+    });
+  };
 
-HO‚ˆ™\]Y\Ý
-ØØ\Ù\ËÉÜÙ[XÝY˜Ø\ÙWÚYKÝ˜[œÚ][ÛœØÂˆY]Ùˆ”ÔÕ‹ˆ›ÙNˆ”ÓÓ‹œÝš[™ÚYžJÈ\™Ù]ÜÝ]\Îˆ“ÔSˆ‹™X\ÛÛŽˆXÝ[Û”™X\ÛÛˆJKˆJKˆ
-BˆBˆ‚ˆ™[Ü[ˆÚ]™X\ÛÛ‚ˆØ]Û‚ˆ
-_BˆÙ]‚ˆÛ\ÜÓ˜[YOH›]MH›Û\Ù[ZX›Û]Y]\ÝÜžOÚ‚ˆÛˆ\šXK[X™[HØ\ÙH]Y]\ÝÜžH‚ˆÛ\ÜÓ˜[YOH›]LˆÜšYØ\Lˆ›Ü™\‹[›Ü™\‹\Û]KLŒLÈ‚ˆ‚ˆÊÙ[XÝY˜XÝ]š]Y\ÈÏÈ×JK›X\
+  if (!API) return null;
+  const hasOpen = new Set(cases.map((item) => item.result_id));
 
-XÝ]š]JHOˆ
-ˆHÙ^O^ØXÝ]š]K˜XÝ]š]WÚYHÛ\ÜÓ˜[YOH^\ÛH‚ˆÜ[ˆÛ\ÜÓ˜[YOH™›Û[YY][H‚ˆØXÝ]š]K˜XÝ]š]WÝ\Kœ™\XÙP[
-—È‹ˆŠ_BˆÜÜ[‚ˆÜ[ˆÛ\ÜÓ˜[YOH›[Lˆ^^È^\Û]KML‚ˆØXÝ]š]K˜XÝÜŸH0­ÈÛ™]È]JXÝ]š]K›ØØÝ\œ™YØ]
-KÓØØ[TÝš[™Ê
-_BˆÜÜ[‚ˆØXÝ]š]Kœ™X\ÛÛˆ	‰ˆ
-ˆÛ\ÜÓ˜[YOH›]LHœ™XZË]ÛÜ™È^\Û]KMŒžØXÝ]š]Kœ™X\ÛÛŸOÜ‚ˆ
-_BˆØXÝ]š]K™œ›ÛWÝ˜[YH	‰ˆ
-ˆÛ\ÜÓ˜[YOH^^È^\Û]KML‚ˆØXÝ]š]K™œ›ÛWÝ˜[Y_H8¡¤ˆØXÝ]š]K×Ý˜[Y_BˆÜ‚ˆ
-_BˆÛO‚ˆ
-J_BˆÛÛ‚ˆÏ‚ˆ
-Hˆ
-ˆÛ\ÜÓ˜[YOH^\ÛH^\Û]KMŒ‚ˆÙ[XÝHØ\ÙHœ›ÛHH]Y]YHÈ™]šY]È]šY[˜ÙH[™XÝ]š]K‚ˆÜ‚ˆ
-_BˆÙ]‚ˆÙ]‚ˆÙ\œ›Üˆ	‰ˆ
-ˆ›ÛOH˜[\ˆÛ\ÜÓ˜[YOH›]M›Ý[™Y[È™Ë\›ÜÙKMLLÈ^\ÛH^\›ÜÙKNL‚ˆÙ\œ›ÜŸBˆÜ‚ˆ
-_BˆÜÙXÝ[Û‚ˆ
-NÂŸB
+  return (
+    <section
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
+      aria-labelledby="case-heading"
+    >
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
+        Phase 5 Â· investigations
+      </p>
+      <h2 id="case-heading" className="mt-2 text-2xl font-semibold text-slate-950">
+        Exception cases and audit history
+      </h2>
+      <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+        Open a case from a reconciliation exception, assign an analyst, record evidence, and move it
+        through controlled review. Every action is retained in the case history.
+      </p>
+      {results.length > 0 && (
+        <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+          <h3 className="font-semibold">Current run exceptions</h3>
+          <ul className="mt-2 grid gap-2">
+            {results
+              .filter((item) => EXCEPTIONS.has(item.classification))
+              .map((item) => (
+                <li
+                  key={item.result_id ?? item.classification}
+                  className="flex flex-wrap items-center justify-between gap-2 rounded-lg bg-white p-3 text-sm"
+                >
+                  <span>
+                    {item.classification.replaceAll("_", " ")} Â·{" "}
+                    {String(
+                      item.payment?.payment_id ?? item.settlement?.settlement_id ?? "source record",
+                    )}
+                  </span>
+                  {item.result_id && (
+                    <button
+                      type="button"
+                      className="min-h-10 rounded-lg border border-slate-300 px-3 font-medium disabled:opacity-50"
+                      disabled={busy || hasOpen.has(item.result_id)}
+                      onClick={() => openCase(item)}
+                    >
+                      {hasOpen.has(item.result_id)
+                        ? "Case already open"
+                        : "Open investigation case"}
+                    </button>
+                  )}
+                </li>
+              ))}
+          </ul>
+        </div>
+      )}
+
+      <div className="mt-5 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
+        <div>
+          <div className="grid gap-2 sm:grid-cols-2">
+            <label className="grid gap-1 text-sm font-medium">
+              Filter status
+              <select
+                aria-label="Filter cases by status"
+                className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+                value={statusFilter}
+                onChange={(event) => setStatusFilter(event.target.value)}
+              >
+                <option value="">All statuses</option>
+                <option>OPEN</option>
+                <option>IN_REVIEW</option>
+                <option>ESCALATED</option>
+                <option>RESOLVED</option>
+              </select>
+            </label>
+            <label className="grid gap-1 text-sm font-medium">
+              Filter owner
+              <input
+                aria-label="Filter cases by owner"
+                className="min-h-11 rounded-lg border border-slate-300 px-3"
+                value={assignedFilter}
+                onChange={(event) => setAssignedFilter(event.target.value)}
+                placeholder="Analyst name"
+              />
+            </label>
+          </div>
+          <ul aria-label="Exception case queue" className="mt-3 grid gap-2">
+            {cases.map((item) => (
+              <li key={item.case_id}>
+                <button
+                  type="button"
+                  className={`min-h-14 w-full rounded-lg border p-3 text-left ${selected?.case_id === item.case_id ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}
+                  onClick={() =>
+                    void request<CaseRecord>(`/cases/${item.case_id}`)
+                      .then(setSelected)
+                      .catch((cause: unknown) =>
+                        setError(cause instanceof Error ? cause.message : "Could not load case."),
+                      )
+                  }
+                >
+                  <span className="block font-semibold">
+                    {item.classification.replaceAll("_", " ")}
+                  </span>
+                  <span className="text-xs text-slate-600">
+                    {item.status} Â· {item.assigned_to ?? "Unassigned"} Â· {item.case_id.slice(0, 8)}
+                  </span>
+                </button>
+              </li>
+            ))}
+            {cases.length === 0 && (
+              <li className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
+                No cases match these filters.
+              </li>
+            )}
+          </ul>
+        </div>
+        <div className="rounded-xl border border-slate-200 p-4">
+          {selected ? (
+            <>
+              <div className="flex flex-wrap items-start justify-between gap-2">
+                <div>
+                  <h3 className="font-semibold">Case investigation</h3>
+                  <p className="mt-1 text-xs text-slate-600">
+                    {selected.classification.replaceAll("_", " ")} Â· {selected.status} Â· priority{" "}
+                    {selected.priority}
+                  </p>
+                </div>
+                <span className="rounded-full bg-slate-100 px-2 py-1 text-xs">
+                  {selected.case_id.slice(0, 8)}
+                </span>
+              </div>
+              <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+                <label className="grid gap-1 text-sm">
+                  Assign to analyst
+                  <input
+                    className="min-h-11 rounded-lg border border-slate-300 px-3"
+                    value={assignee}
+                    onChange={(event) => setAssignee(event.target.value)}
+                    placeholder="e.g. analyst.one"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="min-h-11 self-end rounded-lg border border-slate-300 px-3 font-medium disabled:opacity-50"
+                  disabled={busy || selected.status === "RESOLVED" || !assignee.trim()}
+                  onClick={() =>
+                    void act(() =>
+                      request(`/cases/${selected.case_id}/assignment`, {
+                        method: "POST",
+                        body: JSON.stringify({ assigned_to: assignee }),
+                      }),
+                    )
+                  }
+                >
+                  Assign
+                </button>
+              </div>
+              <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
+                <label className="grid gap-1 text-sm">
+                  Investigation note
+                  <textarea
+                    className="min-h-20 rounded-lg border border-slate-300 p-3"
+                    value={note}
+                    onChange={(event) => setNote(event.target.value)}
+                    placeholder="Record what the source evidence shows"
+                  />
+                </label>
+                <button
+                  type="button"
+                  className="min-h-11 self-end rounded-lg bg-slate-900 px-3 font-medium text-white disabled:opacity-50"
+                  disabled={busy || selected.status === "RESOLVED" || !note.trim()}
+                  onClick={() =>
+                    void act(() =>
+                      request<CaseRecord>(`/cases/${selected.case_id}/notes`, {
+                        method: "POST",
+                        body: JSON.stringify({ note }),
+                      }).then((result) => {
+                        setNote("");
+                        return result;
+                      }),
+                    )
+                  }
+                >
+                  Add note
+                </button>
+              </div>
+              <label className="mt-3 grid gap-1 text-sm">
+                Action reason
+                <textarea
+                  className="min-h-16 rounded-lg border border-slate-300 p-3"
+                  value={actionReason}
+                  onChange={(event) => setActionReason(event.target.value)}
+                  placeholder="Required to escalate, resolve, or reopen"
+                />
+              </label>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {selected.status === "OPEN" && (
+                  <button
+                    type="button"
+                    className="min-h-10 rounded-lg border border-slate-300 px-3 text-sm"
+                    disabled={busy}
+                    onClick={() =>
+                      void act(() =>
+                        request(`/cases/${selected.case_id}/transitions`, {
+                          method: "POST",
+                          body: JSON.stringify({ target_status: "IN_REVIEW" }),
+                        }),
+                      )
+                    }
+                  >
+                    Start review
+                  </button>
+                )}
+                {selected.status !== "RESOLVED" && selected.status !== "ESCALATED" && (
+                  <button
+                    type="button"
+                    className="min-h-10 rounded-lg border border-amber-300 px-3 text-sm text-amber-900 disabled:opacity-50"
+                    disabled={busy || !actionReason.trim()}
+                    onClick={() =>
+                      void act(() =>
+                        request(`/cases/${selected.case_id}/transitions`, {
+                          method: "POST",
+                          body: JSON.stringify({
+                            target_status: "ESCALATED",
+                            reason: actionReason,
+                          }),
+                        }),
+                      )
+                    }
+                  >
+                    Escalate
+                  </button>
+                )}
+                {selected.status !== "RESOLVED" && (
+                  <button
+                    type="button"
+                    className="min-h-10 rounded-lg border border-emerald-300 px-3 text-sm text-emerald-900 disabled:opacity-50"
+                    disabled={busy || !actionReason.trim()}
+                    onClick={() =>
+                      void act(() =>
+                        request(`/cases/${selected.case_id}/transitions`, {
+                          method: "POST",
+                          body: JSON.stringify({ target_status: "RESOLVED", reason: actionReason }),
+                        }),
+                      )
+                    }
+                  >
+                    Resolve case
+                  </button>
+                )}
+                {selected.status === "RESOLVED" && (
+                  <button
+                    type="button"
+                    className="min-h-10 rounded-lg border border-rose-300 px-3 text-sm text-rose-900 disabled:opacity-50"
+                    disabled={busy || !actionReason.trim()}
+                    onClick={() =>
+                      void act(() =>
+                        request(`/cases/${selected.case_id}/transitions`, {
+                          method: "POST",
+                          body: JSON.stringify({ target_status: "OPEN", reason: actionReason }),
+                        }),
+                      )
+                    }
+                  >
+                    Reopen with reason
+                  </button>
+                )}
+              </div>
+              <h4 className="mt-5 font-semibold">Audit history</h4>
+              <ol
+                aria-label="Case audit history"
+                className="mt-2 grid gap-2 border-l border-slate-200 pl-3"
+              >
+                {(selected.activities ?? []).map((activity) => (
+                  <li key={activity.activity_id} className="text-sm">
+                    <span className="font-medium">
+                      {activity.activity_type.replaceAll("_", " ")}
+                    </span>
+                    <span className="ml-2 text-xs text-slate-500">
+                      {activity.actor} Â· {new Date(activity.occurred_at).toLocaleString()}
+                    </span>
+                    {activity.reason && (
+                      <p className="mt-1 break-words text-slate-600">{activity.reason}</p>
+                    )}
+                    {activity.from_value && (
+                      <p className="text-xs text-slate-500">
+                        {activity.from_value} â†’ {activity.to_value}
+                      </p>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </>
+          ) : (
+            <p className="text-sm text-slate-600">
+              Select a case from the queue to review evidence and activity.
+            </p>
+          )}
+        </div>
+      </div>
+      {error && (
+        <p role="alert" className="mt-4 rounded-lg bg-rose-50 p-3 text-sm text-rose-900">
+          {error}
+        </p>
+      )}
+    </section>
+  );
+}

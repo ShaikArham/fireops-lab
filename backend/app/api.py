@@ -1,64 +1,460 @@
-YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíçmöN‹Z–‹­¦ëeŠw¬Õ™É½´ÑåÁ¥¹œ¥µÁ½ÉÐ¹¹½Ñ…Ñ•°¹ä()™É½´™…ÍÑ…Á¤¥µÁ½ÉÐA%I½ÕÑ•È°•Á•¹‘Ì°!QQAá•ÁÑ¥½¸°EÕ•Éä°I•ÅÕ•ÍÐ°ÍÑ…ÑÕÌ)™É½´ÍÅ±…±¡•µä¥µÁ½ÉÐ™Õ¹Œ°Í•±•Ð)™É½´ÍÅ±…±¡•µä¹½É´¥µÁ½ÉÐM•ÍÍ¥½¸()™É½´…ÁÀ¹‘ˆ¹Í•ÍÍ¥½¸¥µÁ½ÉÐ•Ñ}Í•ÍÍ¥½¸)™É½´…ÁÀ¹µ½‘•±Ì¥µÁ½ÉÐA…åµ•¹ÑÙ•¹Ð°A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸°M•ÑÑ±•µ•¹ÑI•½É)™É½´…ÁÀ¹Í¡•µ…Ì¹½Á•É…Ñ¥½¹Ì¥µÁ½ÉÐ€ (€€€…Í•ÍÍ¥¹I•ÅÕ•ÍÐ°(€€€…Í•É•…Ñ•I•ÅÕ•ÍÐ°(€€€…Í•9½Ñ•I•ÅÕ•ÍÐ°(€€€…Í•QÉ…¹Í¥Ñ¥½¹I•ÅÕ•ÍÐ°(€€€%µÁ½ÉÑI•ÍÁ½¹Í”°(€€€A…åµ•¹ÑQÉ…¹Í¥Ñ¥½¹I•ÅÕ•ÍÐ°(€€€A…åµ•¹ÑQÉ…¹Í¥Ñ¥½¹I•ÍÁ½¹Í”°(€€€I•½¹¥±¥…Ñ¥½¹IÕ¹I•ÅÕ•ÍÐ°(€€€M¥µÕ±…Ñ•	…Ñ¡I•ÅÕ•ÍÐ°(€€€M¥µÕ±…Ñ•	…Ñ¡I•ÍÁ½¹Í”°(€€€M½ÕÉ•AÉ•Ù¥•ÝI•ÍÁ½¹Í”°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹…Í•}µ…¹…•µ•¹Ð¥µÁ½ÉÐ€ (€€€…Í•9½Ñ½Õ¹°(€€€%¹Ù…±¥‘…Í•Ñ¥½¸°(€€€…‘‘}¹½Ñ”°(€€€…ÍÍ¥¹}…Í”°(€€€É•…Ñ•}…Í”°(€€€•Ñ}…Í”°(€€€±¥ÍÑ}…Í•Ì°(€€€ÑÉ…¹Í¥Ñ¥½¹}…Í”°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹ÍÙ}Ù…±¥‘…Ñ¥½¸¥µÁ½ÉÐ…Ñ…Í•Ñ-¥¹)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹Á…åµ•¹Ñ}½Á•É…Ñ¥½¹Ì¥µÁ½ÉÐ€ (€€€%µÁ½ÉÑ½¹™±¥Ð°(€€€%µÁ½ÉÑI•©•Ñ•°(€€€%¹Ù…±¥‘QÉ…¹Í¥Ñ¥½¸°(€€€U¹­¹½Ý¹	…Ñ °(€€€U¹­¹½Ý¹A…åµ•¹Ð°(€€€¥µÁ½ÉÑ}Í½ÕÉ•}™¥±”°(€€€ÁÉ•Ù¥•Ý}Í½ÕÉ•}™¥±”°(€€€Í¥µÕ±…Ñ•}Á…åµ•¹Ñ}‰…Ñ °(€€€ÑÉ…¹Í¥Ñ¥½¹}Á…åµ•¹Ð°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹É•½¹¥±¥…Ñ¥½¹}½Á•É…Ñ¥½¹Ì¥µÁ½ÉÐ•Ñ}ÉÕ¸°ÉÕ¹}É•½¹¥±¥…Ñ¥½¸()É½ÕÑ•È€ôA%I½ÕÑ•È¡ÁÉ•™¥àôˆ½…Á¤½ØÄˆ°Ñ…Ìõl‰Á…åµ•¹Ð½Á•É…Ñ¥½¹Ì‰t¤)5a}%5A=IQ}	eQL€ô€Ô€¨€ÄÀÈÐ€¨€ÄÀÈÐ(()…Íå¹Œ‘•˜}É•…‘}ÍØ¡É•ÅÕ•ÍÐèI•ÅÕ•ÍÐ¤€´ø‰åÑ•Ìè(€€€½¹Ñ•¹Ñ}±•¹Ñ €ôÉ•ÅÕ•ÍÐ¹¡•…‘•ÉÌ¹•Ð ‰½¹Ñ•¹Ðµ±•¹Ñ ˆ¤(€€€¥˜½¹Ñ•¹Ñ}±•¹Ñ …¹½¹Ñ•¹Ñ}±•¹Ñ ¹¥Í‘¥¥Ð ¤…¹¥¹Ð¡½¹Ñ•¹Ñ}±•¹Ñ ¤€ø5a}%5A=IQ}	eQLè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÌ¹!QQA|ÐÄÍ}=9Q9Q}Q==}1I°(€€€€€€€€€€€€‰¥±”•á••‘ÌÑ¡”€Ô5¥±¥µ¥Ð¸ˆ°(€€€€€€€€¤(€€€¡Õ¹­Ìè±¥ÍÑm‰åÑ•Ít€ômt(€€€Ñ½Ñ…±}‰åÑ•Ì€ô€À(€€€…Íå¹Œ™½È¡Õ¹¬¥¸É•ÅÕ•ÍÐ¹ÍÑÉ•…´ ¤è(€€€€€€€Ñ½Ñ…±}‰åÑ•Ì€¬ô±•¸¡¡Õ¹¬¤(€€€€€€€¥˜Ñ½Ñ…±}‰åÑ•Ì€ø5a}%5A=IQ}	eQLè(€€€€€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€€€€€ÍÑ…ÑÕÌ¹!QQA|ÐÄÍ}=9Q9Q}Q==}1I°(€€€€€€€€€€€€€€€€‰¥±”•á••‘ÌÑ¡”€Ô5¥±¥µ¥Ð¸ˆ°(€€€€€€€€€€€€¤(€€€€€€€¡Õ¹­Ì¹…ÁÁ•¹¡¡Õ¹¬¤(€€€É•ÑÕÉ¸ˆˆˆ¹©½¥¸¡¡Õ¹­Ì¤(()É½ÕÑ•È¹Á½ÍÐ ˆ½Í½ÕÉ”µ™¥±•Ì½ÁÉ•Ù¥•Üˆ°É•ÍÁ½¹Í•}µ½‘•°õM½ÕÉ•AÉ•Ù¥•ÝI•ÍÁ½¹Í”¤)…Íå¹Œ‘•˜ÁÉ•Ù¥•Ý}Í½ÕÉ” (€€€É•ÅÕ•ÍÐèI•ÅÕ•ÍÐ°(€€€­¥¹è¹¹½Ñ…Ñ•‘m…Ñ…Í•Ñ-¥¹°EÕ•Éä ¥t°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€½¹Ñ•¹Ð€ô…Ý…¥Ð}É•…‘}ÍØ¡É•ÅÕ•ÍÐ¤(€€€Ù…±¥‘…Ñ¥½¸°ÁÉ•Ù¥•Ü€ôÁÉ•Ù¥•Ý}Í½ÕÉ•}™¥±”¡½¹Ñ•¹Ð°­¥¹¤(€€€É•ÑÕÉ¸ì(€€€€€€€€‰­¥¹ˆèÙ…±¥‘…Ñ¥½¸¹­¥¹°(€€€€€€€€‰¡•­ÍÕµ}Í¡„ÈÔØˆèÙ…±¥‘…Ñ¥½¸¹¡•­ÍÕµ}Í¡„ÈÔØ°(€€€€€€€€‰‘…Ñ…}É½Ý}½Õ¹ÐˆèÙ…±¥‘…Ñ¥½¸¹‘…Ñ…}É½Ý}½Õ¹Ð°(€€€€€€€€‰¥Í}Ù…±¥ˆèÙ…±¥‘…Ñ¥½¸¹¥Í}Ù…±¥°(€€€€€€€€‰¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•ˆèÙ…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•°(€€€€€€€€‰¥ÍÍÕ•Ìˆèm¥ÍÍÕ”¹}}‘¥Ñ}|™½È¥ÍÍÕ”¥¸Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Ít°(€€€€€€€€‰ÁÉ•Ù¥•ÜˆèÁÉ•Ù¥•Ü°(€€€ô(()É½ÕÑ•È¹Á½ÍÐ ˆ½Í½ÕÉ”µ™¥±•Ì½¥µÁ½ÉÐ½í­¥¹‘ôˆ°É•ÍÁ½¹Í•}µ½‘•°õ%µÁ½ÉÑI•ÍÁ½¹Í”¤)…Íå¹Œ‘•˜¥µÁ½ÉÑ}Í½ÕÉ” (€€€­¥¹è…Ñ…Í•Ñ-¥¹°(€€€É•ÅÕ•ÍÐèI•ÅÕ•ÍÐ°(€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(€€€™¥±•}¹…µ”è¹¹½Ñ…Ñ•‘mÍÑÈ°EÕ•Éä¡µ¥¹}±•¹Ñ ôÄ°µ…á}±•¹Ñ ôÈÔÔ¥t€ô€‰Íå¹Ñ¡•Ñ¥Œ¹ÍØˆ°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€½¹Ñ•¹Ð€ô…Ý…¥Ð}É•…‘}ÍØ¡É•ÅÕ•ÍÐ¤(€€€ÑÉäè(€€€€€€€É••¥ÁÐ€ô¥µÁ½ÉÑ}Í½ÕÉ•}™¥±”¡Í•ÍÍ¥½¸°™¥±•}¹…µ”õ™¥±•}¹…µ”°½¹Ñ•¹Ðõ½¹Ñ•¹Ð°­¥¹õ­¥¹¤(€€€•á•ÁÐ%µÁ½ÉÑI•©•Ñ•…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ÐÈÉ}U9AI=MM	1}=9Q9P°(€€€€€€€€€€€‘•Ñ…¥°õì(€€€€€€€€€€€€€€€€‰µ•ÍÍ…”ˆèÍÑÈ¡•ÉÉ½È¤°(€€€€€€€€€€€€€€€€‰¥ÍÍÕ•Ìˆèm¥ÍÍÕ”¹}}‘¥Ñ}|™½È¥ÍÍÕ”¥¸•ÉÉ½È¹Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Ít°(€€€€€€€€€€€€€€€€‰¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•ˆè•ÉÉ½È¹Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•°(€€€€€€€€€€€ô°(€€€€€€€€¤™É½´•ÉÉ½È(€€€•á•ÁÐ%µÁ½ÉÑ½¹™±¥Ð…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸¡ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ÐÀå}=91%P°‘•Ñ…¥°õÍÑÈ¡•ÉÉ½È¤¤™É½´•ÉÉ½È(€€€•á•ÁÐY…±Õ•ÉÉ½È…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ÐÈÉ}U9AI=MM	1}=9Q9P°(€€€€€€€€€€€‘•Ñ…¥°õÍÑÈ¡•ÉÉ½È¤°(€€€€€€€€¤™É½´•ÉÉ½È(€€€É•ÑÕÉ¸ì(€€€€€€€€‰Í½ÕÉ•}™¥±•}¥ˆèÉ••¥ÁÐ¹Í½ÕÉ•}™¥±•}¥°(€€€€€€€€‰Í½ÕÉ•}ÑåÁ”ˆèÉ••¥ÁÐ¹Í½ÕÉ•}ÑåÁ”°(€€€€€€€€‰¡•­ÍÕµ}Í¡„ÈÔØˆèÉ••¥ÁÐ¹¡•­ÍÕµ}Í¡„ÈÔØ°(€€€€€€€€‰É½Ý}½Õ¹ÐˆèÉ••¥ÁÐ¹É½Ý}½Õ¹Ð°(€€€€€€€€‰¥µÁ½ÉÑ•‘}½Õ¹ÐˆèÉ••¥ÁÐ¹¥µÁ½ÉÑ•‘}½Õ¹Ð°(€€€€€€€€‰¥‘•µÁ½Ñ•¹ÐˆèÉ••¥ÁÐ¹¥‘•µÁ½Ñ•¹Ð°(€€€ô(()É½ÕÑ•È¹•Ð ˆ½‰…Ñ¡•Ìˆ¤)‘•˜±¥ÍÑ}Á…åµ•¹Ñ}‰…Ñ¡•Ì (€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(¤€´ø‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuutè(€€€É½ÝÌ€ôÍ•ÍÍ¥½¸¹•á•ÕÑ” (€€€€€€€Í•±•Ð (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€™Õ¹Œ¹½Õ¹Ð¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹Á…åµ•¹Ñ}¥¤¹±…‰•° ‰É•½É‘}½Õ¹Ðˆ¤°(€€€€€€€€€€€™Õ¹Œ¹ÍÕ´¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹…µ½Õ¹Ñ}µ¥¹½È¤¹±…‰•° ‰Ñ½Ñ…±}µ¥¹½Èˆ¤°(€€€€€€€€¤(€€€€€€€€¹É½ÕÁ}‰ä (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€¤(€€€€€€€€¹½É‘•É}‰ä (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€¤(€€€€¤(€€€‰…Ñ¡•Ìè‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuut€ôíô(€€€™½ÈÉ½Ü¥¸É½ÝÌè(€€€€€€€‰…Ñ¡•Ì¹Í•Ñ‘•™…Õ±Ð¡É½Ü¹‰…Ñ¡}¥°mt¤¹…ÁÁ•¹ (€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÉ½Ü¹ÕÉÉ•¹ä°(€€€€€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÉ½Ü¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€€€€€€‰ÍÑ…ÑÕÌˆèÉ½Ü¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€€€€€€‰É•½É‘}½Õ¹ÐˆèÉ½Ü¹É•½É‘}½Õ¹Ð°(€€€€€€€€€€€€€€€€‰Ñ½Ñ…±}µ¥¹½ÈˆèÉ½Ü¹Ñ½Ñ…±}µ¥¹½È°(€€€€€€€€€€€ô(€€€€€€€€¤(€€€Í•ÑÑ±•µ•¹Ñ}É½ÝÌ€ôÍ•ÍÍ¥½¸¹•á•ÕÑ” (€€€€€€€Í•±•Ð (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€™Õ¹Œ¹½Õ¹Ð¡M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}¥¤¹±…‰•° ‰É•½É‘}½Õ¹Ðˆ¤°(€€€€€€€€€€€™Õ¹Œ¹ÍÕ´¡M•ÑÑ±•µ•¹ÑI•½É¹…µ½Õ¹Ñ}µ¥¹½È¤¹±…‰•° ‰Ñ½Ñ…±}µ¥¹½Èˆ¤°(€€€€€€€€¤(€€€€€€€€¹É½ÕÁ}‰ä (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€¤(€€€€€€€€¹½É‘•É}‰ä (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€¤(€€€€¤(€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ìè‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuut€ôíô(€€€™½ÈÉ½Ü¥¸Í•ÑÑ±•µ•¹Ñ}É½ÝÌè(€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ì¹Í•Ñ‘•™…Õ±Ð¡É½Ü¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°mt¤¹…ÁÁ•¹ (€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÉ½Ü¹ÕÉÉ•¹ä°(€€€€€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÉ½Ü¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€€€€€€‰É•½É‘}½Õ¹ÐˆèÉ½Ü¹É•½É‘}½Õ¹Ð°(€€€€€€€€€€€€€€€€‰Ñ½Ñ…±}µ¥¹½ÈˆèÉ½Ü¹Ñ½Ñ…±}µ¥¹½È°(€€€€€€€€€€€ô(€€€€€€€€¤(€€€É•ÑÕÉ¸ì(€€€€€€€€‰‰…Ñ¡•Ìˆèl(€€€€€€€€€€€ì‰‰…Ñ¡}¥ˆè‰…Ñ¡}¥°€‰½¹ÑÉ½±}Ñ½Ñ…±ÌˆèÑ½Ñ…±Íô(€€€€€€€€€€€™½È‰…Ñ¡}¥°Ñ½Ñ…±Ì¥¸Í½ÉÑ•¡‰…Ñ¡•Ì¹¥Ñ•µÌ ¤¤(€€€€€€€t°(€€€€€€€€‰Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ìˆèl(€€€€€€€€€€€ì‰Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥ˆè‰…Ñ¡}¥°€‰½¹ÑÉ½±}Ñ½Ñ…±ÌˆèÑ½Ñ…±Íô(€€€€€€€€€€€™½È‰…Ñ¡}¥°Ñ½Ñ…±Ì¥¸Í½ÉÑ•¡Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ì¹¥Ñ•µÌ ¤¤(€€€€€€€t°(€€€ô(()É½ÕÑ•È¹•Ð ˆ½‰…Ñ¡•Ì½í‰…Ñ¡}¥‘ô½Á…åµ•¹ÑÌˆ¤)‘•˜±¥ÍÑ}‰…Ñ¡}Á…åµ•¹ÑÌ (€€€‰…Ñ¡}¥èÍÑÈ°(€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(€€€±¥µ¥Ðè¹¹½Ñ…Ñ•‘m¥¹Ð°EÕ•Éä¡”ôÄ°±”ôÄÀÀ¥t€ô€ÈÔ°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€Á…åµ•¹ÑÌ€ôÍ•ÍÍ¥½¸¹Í…±…ÉÌ (€€€€€€€Í•±•Ð¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¤(€€€€€€€€¹Ý¡•É”¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥€ôô‰…Ñ¡}¥¤(€€€€€€€€¹½É‘•É}‰ä¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹Á…åµ•¹Ñ}¥¤(€€€€€€€€¹±¥µ¥Ð¡±¥µ¥Ð¤(€€€€¤(€€€É•½É‘Ì€ôl(€€€€€€€ì(€€€€€€€€€€€€‰Á…åµ•¹Ñ}¥ˆèÁ…åµ•¹Ð¹Á…åµ•¹Ñ}¥°(€€€€€€€€€€€€‰±¥•¹Ñ}É•™•É•¹”ˆèÁ…åµ•¹Ð¹±¥•¹Ñ}É•™•É•¹”°(€€€€€€€€€€€€‰ÍÑ…ÑÕÌˆèÁ…åµ•¹Ð¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€€‰…µ½Õ¹Ñ}µ¥¹½ÈˆèÁ…åµ•¹Ð¹…µ½Õ¹Ñ}µ¥¹½È°(€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÁ…åµ•¹Ð¹ÕÉÉ•¹ä°(€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÁ…åµ•¹Ð¹‘¥É•Ñ¥½¸°(€€€€€€€ô(€€€€€€€™½ÈÁ…åµ•¹Ð¥¸Á…åµ•¹ÑÌ+mö¶‰žËkºwµç\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠˆÝ]\×ØÛÙO\Ý]\Ë’ÍŒ—ÕS”“ÐÑTÔÐP“WÐÓÓ•S•ˆ]Z[\ÝŠ\œ›ÜŠKˆ
-Hœ›ÛH\œ›Ü‚‚‚›Ý]\‹œÜÝ
-‹Ü^[Y[ËÞÜ^[Y[ÚYKÝ˜[œÚ][ÛœÈ‹™\ÜÛœÙWÛ[Ù[T^[Y[˜[œÚ][Û”™\ÜÛœÙJB™YˆÚ[™ÙWÜ^[Y[ÜÝ]\Êˆ^[Y[ÚYˆÝ‹ˆ^[ØYˆ^[Y[˜[œÚ][Û”™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹Ý—N‚ˆžN‚ˆ^[Y[H˜[œÚ][Û—Ü^[Y[
-ˆÙ\ÜÚ[Û‹ˆ^[Y[ÚY\^[Y[ÚYˆ\™Ù]ÜÝ]\Ï\^[ØY\™Ù]ÜÝ]\ËˆXÝÜ\^[ØY˜XÝÜ‹ˆ™X\ÛÛ\^[ØYœ™X\ÛÛ‹ˆ
-BˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
+from typing import Annotated, Any
 
-Bˆ^Ù\[šÛ›ÝÛ”^[Y[\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠˆÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘ˆ]Z[H”^[Y[›Ý›Ý[™ˆ‹ˆ
-Hœ›ÛH\œ›Ü‚ˆ^Ù\[˜[Y˜[œÚ][Ûˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍWÐÓÓ‘“PÕ]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠˆÝ]\×ØÛÙO\Ý]\Ë’ÍŒ—ÕS”“ÐÑTÔÐP“WÐÓÓ•S•ˆ]Z[\ÝŠ\œ›ÜŠKˆ
-Hœ›ÛH\œ›Ü‚ˆ™]\›ˆÂˆœ^[Y[ÚYŽˆ^[Y[œ^[Y[ÚYˆœÝ]\ÈŽˆ^[Y[œÝ]\Ëˆ˜˜]ÚÚYŽˆ^[Y[˜˜]ÚÚYˆB‚‚›Ý]\‹™Ù]
-‹Ü^[Y[ËÞÜ^[Y[ÚYKÙ]™[ÈŠB™Yˆ^[Y[Ù]™[Ú\ÝÜžJˆ^[Y[ÚYˆÝ‹Ù\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWBŠHOˆXÝÜÝ‹\ÝÙXÝÜÝ‹[žWWWN‚ˆYˆÙ\ÜÚ[Û‹™Ù]
-^[Y[[œÝXÝ[Û‹^[Y[ÚY
-H\È›Û™N‚ˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[H”^[Y[›Ý›Ý[™ˆŠBˆ]™[ÈHÙ\ÜÚ[Û‹œØØ[\œÊˆÙ[XÝ
-^[Y[]™[
-BˆÚ\™J^[Y[]™[œ^[Y[ÚYOH^[Y[ÚY
-Bˆ›Ü™\—ØžJ^[Y[]™[›ØØÝ\œ™YØ]^[Y[]™[™]™[ÚY
-Bˆ
-Bˆ™]\›ˆÂˆ™]™[ÈŽˆÂˆÂˆ™]™[ÚYŽˆ]™[™]™[ÚYˆœ^[Y[ÚYŽˆ]™[œ^[Y[ÚYˆ™]™[Ý\HŽˆ]™[™]™[Ý\Kˆ›ØØÝ\œ™YØ]Žˆ]™[›ØØÝ\œ™YØ]ˆ›Y]Y]HŽˆ]™[›Y]Y]WÚœÛÛ‹ˆ˜XÝÜˆŽˆ]™[˜XÝÜ‹ˆ˜ÛÜœ™[][Û—ÚYŽˆ]™[˜ÛÜœ™[][Û—ÚYˆBˆ›Üˆ]™[[ˆ]™[ÂˆBˆB‚‚›Ý]\‹œÜÝ
-‹Ü™XÛÛ˜Ú[X][Û‹Ü[œÈ‹Ý]\×ØÛÙO\Ý]\Ë’ÌŒWÐÔ‘PUQ
-B™YˆÜ™X]WÜ™XÛÛ˜Ú[X][Û—Ü[Šˆ^[ØYˆ™XÛÛ˜Ú[X][Û”[”™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹[žWN‚ˆžN‚ˆ™]\›ˆ[—Ü™XÛÛ˜Ú[X][ÛŠˆÙ\ÜÚ[Û‹ˆ^[ØYœ^[Y[Ø˜]ÚÚYˆ^[ØYœÙ][Y[Ø˜]ÚÚYˆ^[ØY›]WÝÚ[™Ý×Ù^\Ëˆ
-Bˆ^Ù\ÛÚÝ\\œ›Üˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠˆÝ]\×ØÛÙO\Ý]\Ë’ÍŒ—ÕS”“ÐÑTÔÐP“WÐÓÓ•S•]Z[\ÝŠ\œ›ÜŠBˆ
-Hœ›ÛH\œ›Ü‚‚‚›Ý]\‹™Ù]
-‹Ü™XÛÛ˜Ú[X][Û‹Ü[œËÞÜ[—ÚYHŠB™Yˆ™XYÜ™XÛÛ˜Ú[X][Û—Ü[Šˆ[—ÚYˆÝ‹ˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKˆ[Z]ˆ[››Ý]YÚ[]Y\žJÙOLKOML
-WHHLˆÙ™œÙ]ˆ[››Ý]YÚ[]Y\žJÙOL
-WHHŠHOˆXÝÜÝ‹[žWN‚ˆžN‚ˆ™]\›ˆÙ]Ü[ŠÙ\ÜÚ[Û‹[—ÚY[Z]Ù™œÙ]
-Bˆ^Ù\ÛÚÝ\\œ›Üˆ\È\œ›ÜŽ‚ˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›Ý]\‹œÜÝ
-‹ØØ\Ù\È‹Ý]\×ØÛÙO\Ý]\Ë’ÌŒWÐÔ‘PUQ
-B™YˆÜ[—ØØ\ÙJˆ^[ØYˆØ\ÙPÜ™X]T™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹[žWN‚ˆžN‚ˆØ\ÙHHÜ™X]WØØ\ÙJÙ\ÜÚ[Û‹^[ØYœ™\Ý[ÚY^[ØY˜XÝÜ‹^[ØYœš[Üš]JBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from sqlalchemy import func, select
+from sqlalchemy.orm import Session
 
-Bˆ™]\›ˆØ\ÙBˆ^Ù\Ø\ÙS›Ý›Ý[™\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXÝ[Ûˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍWÐÓÓ‘“PÕ]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›Ý]\‹™Ù]
-‹ØØ\Ù\ÈŠB™YˆØ\Ù\×Ü]Y]YJˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKˆØ\ÙWÜÝ]\Îˆ[››Ý]YÂˆÝˆ›Û™K]Y\žJ[X\ÏHœÝ]\È‹]\›H—ŠÔSŸS—Ô‘U’QUßTÐÐSUQ‘TÓÓ‘Q
-IŠBˆHH›Û™Kˆ\ÜÚYÛ™YÝÎˆ[››Ý]YÜÝˆ›Û™K]Y\žJZ[—Û[™ÝLKX^Û[™ÝLLŽ
-WHH›Û™KˆÛ\ÜÚYšXØ][ÛŽˆ[››Ý]YÂˆÝˆ›Û™Kˆ]Y\žJˆ]\›H—ŠS“PUÒQÒS”Õ•PÕSÓŸS“PUÒQÔÑUSQS•SSÕS•ÓRTÓPUÒTPÐUWÐÐS‘QU_SP’QÕSÕT×ÓPUÒ
-I‚ˆ
-KˆHH›Û™Kˆ[Z]ˆ[››Ý]YÚ[]Y\žJÙOLKOLL
-WHHKˆÙ™œÙ]ˆ[››Ý]YÚ[]Y\žJÙOL
-WHHŠHOˆXÝÜÝ‹Øš™XÝN‚ˆ™]\›ˆ\ÝØØ\Ù\ÊˆÙ\ÜÚ[Û‹ˆØ\ÙWÜÝ]\ÏXØ\ÙWÜÝ]\Ëˆ\ÜÚYÛ™YÝÏX\ÜÚYÛ™YÝËˆÛ\ÜÚYšXØ][ÛXÛ\ÜÚYšXØ][Û‹ˆ[Z][[Z]ˆÙ™œÙ][Ù™œÙ]ˆ
-B‚‚›Ý]\‹™Ù]
-‹ØØ\Ù\ËÞØØ\ÙWÚYHŠB™Yˆ™XYØØ\ÙJØ\ÙWÚYˆÝ‹Ù\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWJHOˆXÝÜÝ‹Øš™XÝN‚ˆžN‚ˆ™]\›ˆÙ]ØØ\ÙJÙ\ÜÚ[Û‹Ø\ÙWÚY
-Bˆ^Ù\Ø\ÙS›Ý›Ý[™\È\œ›ÜŽ‚ˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›Ý]\‹œÜÝ
-‹ØØ\Ù\ËÞØØ\ÙWÚYKØ\ÜÚYÛ›Y[ŠB™YˆÚ[™ÙWØØ\ÙWØ\ÜÚYÛ›Y[
-ˆØ\ÙWÚYˆÝ‹ˆ^[ØYˆØ\ÙP\ÜÚYÛ”™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹Øš™XÝN‚ˆžN‚ˆ™\Ý[H\ÜÚYÛ—ØØ\ÙJÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY˜\ÜÚYÛ™YÝË^[ØY˜XÝÜŠBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
+from app.db.session import get_session
+from app.models import PaymentEvent, PaymentInstruction, SettlementRecord
+from app.schemas.operations import (
+    CaseAssignRequest,
+    CaseCreateRequest,
+    CaseNoteRequest,
+    CaseTransitionRequest,
+    ImportResponse,
+    PaymentTransitionRequest,
+    PaymentTransitionResponse,
+    ReconciliationRunRequest,
+    SimulateBatchRequest,
+    SimulateBatchResponse,
+    SourcePreviewResponse,
+)
+from app.services.case_management import (
+    CaseNotFound,
+    InvalidCaseAction,
+    add_note,
+    assign_case,
+    create_case,
+    get_case,
+    list_cases,
+    transition_case,
+)
+from app.services.csv_validation import DatasetKind
+from app.services.payment_operations import (
+    ImportConflict,
+    ImportRejected,
+    InvalidTransition,
+    UnknownBatch,
+    UnknownPayment,
+    import_source_file,
+    preview_source_file,
+    simulate_payment_batch,
+    transition_payment,
+)
+from app.services.reconciliation_operations import get_run, run_reconciliation
 
-Bˆ™]\›ˆ™\Ý[ˆ^Ù\Ø\ÙS›Ý›Ý[™\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXÝ[Ûˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍWÐÓÓ‘“PÕ]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›Ý]\‹œÜÝ
-‹ØØ\Ù\ËÞØØ\ÙWÚYKÛ›Ý\ÈŠB™YˆÜš]WØØ\ÙWÛ›ÝJˆØ\ÙWÚYˆÝ‹ˆ^[ØYˆØ\ÙS›ÝT™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹Øš™XÝN‚ˆžN‚ˆ™\Ý[HYÛ›ÝJÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY››ÝK^[ØY˜XÝÜŠBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
+router = APIRouter(prefix="/api/v1", tags=["payment operations"])
+MAX_IMPORT_BYTES = 5 * 1024 * 1024
 
-Bˆ™]\›ˆ™\Ý[ˆ^Ù\Ø\ÙS›Ý›Ý[™\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXÝ[Ûˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍWÐÓÓ‘“PÕ]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›Ý]\‹œÜÝ
-‹ØØ\Ù\ËÞØØ\ÙWÚYKÝ˜[œÚ][ÛœÈŠB™YˆÚ[™ÙWØØ\ÙWÜÝ]\ÊˆØ\ÙWÚYˆÝ‹ˆ^[ØYˆØ\ÙU˜[œÚ][Û”™\]Y\ÝˆÙ\ÜÚ[ÛŽˆ[››Ý]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXÝÜÝ‹Øš™XÝN‚ˆžN‚ˆ™\Ý[H˜[œÚ][Û—ØØ\ÙJˆÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY\™Ù]ÜÝ]\Ë^[ØY˜XÝÜ‹^[ØYœ™X\ÛÛ‚ˆ
-BˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
-Bˆ™]\›ˆ™\Ý[ˆ^Ù\Ø\ÙS›Ý›Ý[™\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXÝ[Ûˆ\È\œ›ÜŽ‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
-Bˆ˜Z\ÙH^Ù\[ÛŠÝ]\×ØÛÙO\Ý]\Ë’ÍWÐÓÓ‘“PÕ]Z[\ÝŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚™Yˆ[œÝ[Ü›Ý]\Ê\ˆ[žJHOˆ›Û™N‚ˆ\š[˜ÛYWÜ›Ý]\Š›Ý]\ŠB
+async def _read_csv(request: Request) -> bytes:
+    content_length = request.headers.get("content-length")
+    if content_length and content_length.isdigit() and int(content_length) > MAX_IMPORT_BYTES:
+        raise HTTPException(
+            status.HTTP_413_CONTENT_TOO_LARGE,
+            "File exceeds the 5 MiB limit.",
+        )
+    chunks: list[bytes] = []
+    total_bytes = 0
+    async for chunk in request.stream():
+        total_bytes += len(chunk)
+        if total_bytes > MAX_IMPORT_BYTES:
+            raise HTTPException(
+                status.HTTP_413_CONTENT_TOO_LARGE,
+                "File exceeds the 5 MiB limit.",
+            )
+        chunks.append(chunk)
+    return b"".join(chunks)
+
+
+@router.post("/source-files/preview", response_model=SourcePreviewResponse)
+async def preview_source(
+    request: Request,
+    kind: Annotated[DatasetKind, Query()],
+) -> dict[str, Any]:
+    content = await _read_csv(request)
+    validation, preview = preview_source_file(content, kind)
+    return {
+        "kind": validation.kind,
+        "checksum_sha256": validation.checksum_sha256,
+        "data_row_count": validation.data_row_count,
+        "is_valid": validation.is_valid,
+        "issues_truncated": validation.issues_truncated,
+        "issues": [issue.__dict__ for issue in validation.issues],
+        "preview": preview,
+    }
+
+
+@router.post("/source-files/import/{kind}", response_model=ImportResponse)
+async def import_source(
+    kind: DatasetKind,
+    request: Request,
+    session: Annotated[Session, Depends(get_session)],
+    file_name: Annotated[str, Query(min_length=1, max_length=255)] = "synthetic.csv",
+) -> dict[str, Any]:
+    content = await _read_csv(request)
+    try:
+        receipt = import_source_file(session, file_name=file_name, content=content, kind=kind)
+    except ImportRejected as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail={
+                "message": str(error),
+                "issues": [issue.__dict__ for issue in error.validation.issues],
+                "issues_truncated": error.validation.issues_truncated,
+            },
+        ) from error
+    except ImportConflict as error:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from error
+    return {
+        "source_file_id": receipt.source_file_id,
+        "source_type": receipt.source_type,
+        "checksum_sha256": receipt.checksum_sha256,
+        "row_count": receipt.row_count,
+        "imported_count": receipt.imported_count,
+        "idempotent": receipt.idempotent,
+    }
+
+
+@router.get("/batches")
+def list_payment_batches(
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, list[dict[str, Any]]]:
+    rows = session.execute(
+        select(
+            PaymentInstruction.batch_id,
+            PaymentInstruction.currency,
+            PaymentInstruction.direction,
+            PaymentInstruction.status,
+            func.count(PaymentInstruction.payment_id).label("record_count"),
+            func.sum(PaymentInstruction.amount_minor).label("total_minor"),
+        )
+        .group_by(
+            PaymentInstruction.batch_id,
+            PaymentInstruction.currency,
+            PaymentInstruction.direction,
+            PaymentInstruction.status,
+        )
+        .order_by(
+            PaymentInstruction.batch_id,
+            PaymentInstruction.currency,
+            PaymentInstruction.status,
+        )
+    )
+    batches: dict[str, list[dict[str, Any]]] = {}
+    for row in rows:
+        batches.setdefault(row.batch_id, []).append(
+            {
+                "currency": row.currency,
+                "direction": row.direction,
+                "status": row.status,
+                "record_count": row.record_count,
+                "total_minor": row.total_minor,
+            }
+        )
+    settlement_rows = session.execute(
+        select(
+            SettlementRecord.settlement_batch_id,
+            SettlementRecord.currency,
+            SettlementRecord.direction,
+            func.count(SettlementRecord.settlement_id).label("record_count"),
+            func.sum(SettlementRecord.amount_minor).label("total_minor"),
+        )
+        .group_by(
+            SettlementRecord.settlement_batch_id,
+            SettlementRecord.currency,
+            SettlementRecord.direction,
+        )
+        .order_by(
+            SettlementRecord.settlement_batch_id,
+            SettlementRecord.currency,
+            SettlementRecord.direction,
+        )
+    )
+    settlement_batches: dict[str, list[dict[str, Any]]] = {}
+    for row in settlement_rows:
+        settlement_batches.setdefault(row.settlement_batch_id, []).append(
+            {
+                "currency": row.currency,
+                "direction": row.direction,
+                "record_count": row.record_count,
+                "total_minor": row.total_minor,
+            }
+        )
+    return {
+        "batches": [
+            {"batch_id": batch_id, "control_totals": totals}
+            for batch_id, totals in sorted(batches.items())
+        ],
+        "settlement_batches": [
+            {"settlement_batch_id": batch_id, "control_totals": totals}
+            for batch_id, totals in sorted(settlement_batches.items())
+        ],
+    }
+
+
+@router.get("/batches/{batch_id}/payments")
+def list_batch_payments(
+    batch_id: str,
+    session: Annotated[Session, Depends(get_session)],
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+) -> dict[str, Any]:
+    payments = session.scalars(
+        select(PaymentInstruction)
+        .where(PaymentInstruction.batch_id == batch_id)
+        .order_by(PaymentInstruction.payment_id)
+        .limit(limit)
+    )
+    records = [
+        {
+            "payment_id": payment.payment_id,
+            "client_reference": payment.client_reference,
+            "status": payment.status,
+            "amount_minor": payment.amount_minor,
+            "currency": payment.currency,
+            "direction": payment.direction,
+        }
+        for payment in payments
+    ]
+    return {"batch_id": batch_id, "payments": records, "limit": limit}
+
+
+@router.post("/batches/{batch_id}/simulate", response_model=SimulateBatchResponse)
+def simulate_batch(
+    batch_id: str,
+    payload: SimulateBatchRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    try:
+        return simulate_payment_batch(
+            session,
+            batch_id=batch_id,
+            failed_payment_ids=set(payload.failed_payment_ids),
+            actor=payload.actor,
+        )
+    except UnknownBatch as error:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Payment batch not found.",
+        ) from error
+    except ValueError as error:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from error
+
+
+@router.post("/payments/{payment_id}/transitions", response_model=PaymentTransitionResponse)
+def change_payment_status(
+    payment_id: str,
+    payload: PaymentTransitionRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, str]:
+    try:
+        payment = transition_payment(
+            session,
+            payment_id=payment_id,
+            target_status=payload.target_status,
+            actor=payload.actor,
+            reason=payload.reason,
+        )
+        session.commit()
+    except UnknownPayment as error:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Payment not found.",
+        ) from error
+    except InvalidTransition as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+    except ValueError as error:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=str(error),
+        ) from error
+    return {
+        "payment_id": payment.payment_id,
+        "status": payment.status,
+        "batch_id": payment.batch_id,
+    }
+
+
+@router.get("/payments/{payment_id}/events")
+def payment_event_history(
+    payment_id: str, session: Annotated[Session, Depends(get_session)]
+) -> dict[str, list[dict[str, Any]]]:
+    if session.get(PaymentInstruction, payment_id) is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Payment not found.")
+    events = session.scalars(
+        select(PaymentEvent)
+        .where(PaymentEvent.payment_id == payment_id)
+        .order_by(PaymentEvent.occurred_at, PaymentEvent.event_id)
+    )
+    return {
+        "events": [
+            {
+                "event_id": event.event_id,
+                "payment_id": event.payment_id,
+                "event_type": event.event_type,
+                "occurred_at": event.occurred_at,
+                "metadata": event.metadata_json,
+                "actor": event.actor,
+                "correlation_id": event.correlation_id,
+            }
+            for event in events
+        ]
+    }
+
+
+@router.post("/reconciliation/runs", status_code=status.HTTP_201_CREATED)
+def create_reconciliation_run(
+    payload: ReconciliationRunRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    try:
+        return run_reconciliation(
+            session,
+            payload.payment_batch_id,
+            payload.settlement_batch_id,
+            payload.late_window_days,
+        )
+    except LookupError as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except ValueError as error:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(error)
+        ) from error
+
+
+@router.get("/reconciliation/runs/{run_id}")
+def read_reconciliation_run(
+    run_id: str,
+    session: Annotated[Session, Depends(get_session)],
+    limit: Annotated[int, Query(ge=1, le=500)] = 100,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict[str, Any]:
+    try:
+        return get_run(session, run_id, limit, offset)
+    except LookupError as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.post("/cases", status_code=status.HTTP_201_CREATED)
+def open_case(
+    payload: CaseCreateRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    try:
+        case = create_case(session, payload.result_id, payload.actor, payload.priority)
+        session.commit()
+        return case
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.get("/cases")
+def cases_queue(
+    session: Annotated[Session, Depends(get_session)],
+    case_status: Annotated[
+        str | None, Query(alias="status", pattern="^(OPEN|IN_REVIEW|ESCALATED|RESOLVED)$")
+    ] = None,
+    assigned_to: Annotated[str | None, Query(min_length=1, max_length=128)] = None,
+    classification: Annotated[
+        str | None,
+        Query(
+            pattern="^(UNMATCHED_INSTRUCTION|UNMATCHED_SETTLEMENT|AMOUNT_MISMATCH|DUPLICATE_CANDIDATE|AMBIGUOUS_MATCH)$"
+        ),
+    ] = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict[str, object]:
+    return list_cases(
+        session,
+        case_status=case_status,
+        assigned_to=assigned_to,
+        classification=classification,
+        limit=limit,
+        offset=offset,
+    )
+
+
+@router.get("/cases/{case_id}")
+def read_case(case_id: str, session: Annotated[Session, Depends(get_session)]) -> dict[str, object]:
+    try:
+        return get_case(session, case_id)
+    except CaseNotFound as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/assignment")
+def change_case_assignment(
+    case_id: str,
+    payload: CaseAssignRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = assign_case(session, case_id, payload.assigned_to, payload.actor)
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/notes")
+def write_case_note(
+    case_id: str,
+    payload: CaseNoteRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = add_note(session, case_id, payload.note, payload.actor)
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/transitions")
+def change_case_status(
+    case_id: str,
+    payload: CaseTransitionRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = transition_case(
+            session, case_id, payload.target_status, payload.actor, payload.reason
+        )
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+def install_routes(app: Any) -> None:
+    app.include_router(router)
