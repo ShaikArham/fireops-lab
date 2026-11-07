@@ -45,7 +45,7 @@ This checklist is a living release record. Do not check an item until evidence e
 - Added the payment event table and Alembic migration `0002_payment_events`. Lifecycle transitions permit `CREATED -> VALIDATED -> PROCESSING -> SETTLED|FAILED`; transitions record actor, reason, correlation ID, and monotonically ordered UTC events.
 - Added deterministic batch simulation, settlement source records, per-currency batch control totals, payment event history, and API-backed browser controls. Simulation does not transmit money.
 - Local checks: Ruff passed; 68 backend tests passed, including the full 25-pair state transition matrix; Alembic upgrade and schema comparison passed against temporary SQLite; frontend formatting, lint, TypeScript, 2 Vitest tests, static export, and output-file check passed.
-- Local Playwright could not launch a browser in this sandbox. Playwright's browser download returned a truncated archive, and the system Chromium process is blocked by the container. The new browser workflow must pass GitHub Actions before Phase 3 can be checked.
+- Local Playwright could not launch a browser in this sandbox. Playwright's browser download returned a truncated archive, and the system Chromium process is blocked by the container. [GitHub Actions run 42417429326 passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42417429326), including PostgreSQL CI, all backend checks, frontend checks, static export, and all 3 Chromium end-to-end tests.
 - No deployment has happened. Before any public API deployment, Phase 9 must review public write isolation, rate limits, CORS origins, and demo reset behavior.
-- Phase 3 is **not yet complete**. PostgreSQL 17 CI, GitHub Actions browser tests, a clean main-branch merge, and post-merge verification are still required.
+- Phase 3 remains **unchecked** until the PR is merged and the post-merge `main` CI passes. No deployment has happened.
 
