@@ -38,11 +38,8 @@
 | `payment_events` | Append-only lifecycle history for each payment. | Event type constraint, required payment foreign key, timestamp and actor, correlation identifier. |
 | `reconciliation_runs` | Versioned reconciliation run summary and source hashes. | Completed status, non-negative totals, stable rule version, amount differences aggregated by currency. |
 | `reconciliation_results` | Per-run classification linked to at most one payment and at most one settlement. | Unique run/payment and run/settlement pairs; explainable classification and matching method; source record required. |
-| `monitoring_runs` | Idempotent evaluation of an identified synthetic source set and rules version. | Source hash and rules version; repeated unchanged inputs do not create duplicate runs. |
-| `monitoring_alerts` | A rule hit with source-linked evidence and threshold context. | Rule ID/version, severity and controlled review status; an alert is not a fraud finding. |
-| `monitoring_activities` | Append-only notes and human disposition history for a monitoring alert. | Actor, timestamp, correlation ID and reason for dismissal/escalation. |
 
-`status` is stored as a constrained string so lifecycle changes can be introduced without changing the CSV schema. Exception cases and monitoring alerts are stored separately from immutable source records. Monitoring runs are source-hash idempotent; alert records retain rule/version, matched evidence and threshold context. Human disposition and notes are represented as append-only activity records with actor and timestamp.
+`status` is stored as a constrained string so lifecycle changes can be introduced without changing the CSV schema. Exception cases store a controlled analyst-selected root cause on resolution, and the resolution activity retains the same category for audit. Monitoring runs and alerts are separate from reconciliation results.
 
 ## Deterministic sample fixtures
 
@@ -54,3 +51,13 @@ The checked-in fixtures are regenerated with `uv run python -m app.synthetic.gen
 | `exception_day` | 1,250 | 1,230 | 10 missing settlements, 10 duplicate groups (20 candidate instructions), 1 amount mismatch, 1 late settlement and 1 unique amount/date fallback. |
 
 These are fixture counts, not observed production volumes or performance claims. Phase 4 classifies this fixture as 1,218 exact matches (including the one explicitly explained unique fallback), 1 late match, 1 amount mismatch, 20 duplicate candidates, 10 unmatched instructions and 10 unmatched settlements. Exact matching uses reference, currency, direction, integer minor units and a default three-day date window. Fallback requires a mutual single candidate on amount, currency, direction and date; ambiguous records are never force-matched.
+
+## Operational insight definitions
+
+- Exact-match rate is `MATCHED_EXACT / payment instruction count` for one saved run's payment batch. Late matches remain separate.
+- Exception review exposure sums distinct payment-side and settlement-side minor-unit amounts attached to actionable exception rows, grouped by currency. It is not a loss estimate or confirmed impact.
+- Average triage time runs from case creation to its first `IN_REVIEW` activity. Median resolution time runs from creation to resolution for resolved cases.
+- Open-case age buckets are computed at report generation: under 24 hours, 1–3 days, and over 3 days.
+- Alert review rate is alerts not in `OPEN` divided by alerts in the latest monitoring run for the same payment batch.
+- Root-cause distribution counts analyst-selected causes on resolved cases. Exception classification recurrence is an observed pattern, not a diagnosed root cause.
+- Reconciliation run history deduplicates identical input hashes and rules version. It is run history, not a daily time series.

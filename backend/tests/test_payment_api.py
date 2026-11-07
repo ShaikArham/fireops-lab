@@ -1,3 +1,6 @@
+import csv
+import io
+import json
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -244,13 +247,25 @@ def test_case_workflow_records_complete_immutable_actions(api_client) -> None:
         ).json()["status"]
         == "IN_REVIEW"
     )
+    missing_root_cause = api_client.post(
+        f"/api/v1/cases/{case_id}/transitions",
+        json={"target_status": "RESOLVED", "reason": "Operations confirmed the variance."},
+    )
+    assert missing_root_cause.status_code == 409
     assert (
         api_client.post(
             f"/api/v1/cases/{case_id}/transitions",
-            json={"target_status": "RESOLVED", "reason": "Operations confirmed the variance."},
+            json={
+                "target_status": "RESOLVED",
+                "reason": "Operations confirmed the variance.",
+                "root_cause": "SOURCE_DATA_QUALITY",
+            },
         ).json()["status"]
         == "RESOLVED"
     )
+    resolved_case = api_client.get(f"/api/v1/cases/{case_id}").json()
+    assert resolved_case["root_cause"] == "SOURCE_DATA_QUALITY"
+    assert resolved_case["activities"][-1]["root_cause"] == "SOURCE_DATA_QUALITY"
     assert (
         api_client.post(
             f"/api/v1/cases/{case_id}/notes", json={"note": "Resolved cases cannot be edited."}
@@ -289,6 +304,110 @@ def test_case_workflow_records_complete_immutable_actions(api_client) -> None:
     assert len(queue.json()["cases"]) == 1
     assert queue.json()["cases"][0]["case_id"] == case_id
     assert api_client.get(f"/api/v1/cases/{case_id}").json()["activities"] == activities
+
+
+def test_operational_report_and_csv_share_run_scoped_metrics(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", EXCEPTION_PAYMENTS, "exception-payments.csv"),
+        ("settlement_records", EXCEPTION_SETTLEMENTS, "exception-settlements.csv"),
+    ):
+        imported = api_client.post(
+            f"/api/v1/source-files/import/{kind}?file_name={filename}",
+            content=path.read_bytes(),
+            headers={"content-type": "text/csv"},
+        )
+        assert imported.status_code == 200
+
+    run_response = api_client.post(
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-E-20261015",
+            "settlement_batch_id": "SETTLE-E-20261016",
+        },
+    )
+    assert run_response.status_code == 201
+    run = run_response.json()
+    mismatch = next(row for row in run["results"] if row["classification"] == "AMOUNT_MISMATCH")
+    case = api_client.post("/api/v1/cases", json={"result_id": mismatch["result_id"]}).json()
+    reviewed = api_client.post(
+        f"/api/v1/cases/{case['case_id']}/transitions",
+        json={"target_status": "IN_REVIEW"},
+    )
+    assert reviewed.status_code == 200
+    resolved = api_client.post(
+        f"/api/v1/cases/{case['case_id']}/transitions",
+        json={
+            "target_status": "RESOLVED",
+            "reason": "Synthetic settlement evidence confirms a source amount issue.",
+            "root_cause": "SOURCE_DATA_QUALITY",
+        },
+    )
+    assert resolved.status_code == 200
+
+    monitoring = api_client.post("/api/v1/monitoring/runs", json={"batch_id": "BATCH-E-20261015"})
+    assert monitoring.status_code == 200
+    monitoring_alerts = monitoring.json()["alerts"]
+    assert monitoring_alerts
+    alert_review = api_client.post(
+        f"/api/v1/monitoring/alerts/{monitoring_alerts[0]['alert_id']}/transitions",
+        json={"target_status": "IN_REVIEW"},
+    )
+    assert alert_review.status_code == 200
+
+    report_response = api_client.get("/api/v1/insights/latest")
+    assert report_response.status_code == 200
+    report = report_response.json()
+    assert report["run_id"] == run["run_id"]
+    assert report["metrics"]["payment_count"] == 1250
+    assert report["metrics"]["matched_exact_count"] == 1218
+    assert report["metrics"]["exact_match_rate_pct"] == 97.44
+    assert report["metrics"]["unmatched_instruction_count"] == 10
+    assert report["metrics"]["unmatched_settlement_count"] == 10
+    assert report["metrics"]["exception_result_count"] == 41
+    assert report["improvement_exercise"]["exception_review_items"] == 41
+    assert report["metrics"]["alert_review_rate_pct"] is not None
+    assert report["metrics"]["average_minutes_to_triage"] is not None
+    assert report["metrics"]["median_minutes_to_resolution"] is not None
+    assert report["root_cause_distribution"] == [
+        {"root_cause": "SOURCE_DATA_QUALITY", "resolved_cases": 1}
+    ]
+    assert len(report["reconciliation_run_trend"]) == 1
+    assert report["recurring_exception_patterns"]
+    assert report["definitions"]["exception_review_value_by_currency_minor"].endswith(
+        "not loss or confirmed financial impact."
+    )
+
+    by_run = api_client.get(f"/api/v1/insights/runs/{run['run_id']}")
+    assert by_run.status_code == 200
+    by_run_report = by_run.json()
+    assert by_run_report["run_id"] == report["run_id"]
+    assert by_run_report["metrics"] == report["metrics"]
+    assert by_run_report["exception_categories"] == report["exception_categories"]
+
+    exported = api_client.get(f"/api/v1/insights/runs/{run['run_id']}/export.csv")
+    assert exported.status_code == 200
+    assert exported.headers["content-type"].startswith("text/csv")
+    rows = list(csv.DictReader(io.StringIO(exported.text)))
+    csv_metrics = {row["metric"]: row["value"] for row in rows if row["section"] == "metric"}
+    assert csv_metrics["payment_count"] == str(report["metrics"]["payment_count"])
+    assert csv_metrics["matched_exact_count"] == str(report["metrics"]["matched_exact_count"])
+    assert csv_metrics["exact_match_rate_pct"] == str(report["metrics"]["exact_match_rate_pct"])
+    assert csv_metrics["exception_review_value_by_currency_minor"] == json.dumps(
+        report["metrics"]["exception_review_value_by_currency_minor"],
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+    assert any(
+        row["section"] == "root_cause" and row["metric"] == "SOURCE_DATA_QUALITY" for row in rows
+    )
+    assert any(row["section"] == "reconciliation_run" for row in rows)
+    assert api_client.get("/api/v1/insights/runs/not-a-run").status_code == 404
+
+
+def test_latest_operational_report_requires_a_saved_reconciliation(api_client) -> None:
+    response = api_client.get("/api/v1/insights/latest")
+    assert response.status_code == 404
+    assert "Run a reconciliation" in response.json()["detail"]
 
 
 def test_cases_reject_matched_results_and_filter_by_exception_class(api_client) -> None:

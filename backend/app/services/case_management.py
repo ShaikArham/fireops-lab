@@ -21,6 +21,15 @@ EXCEPTION_CLASSES = {
     "DUPLICATE_CANDIDATE",
     "AMBIGUOUS_MATCH",
 }
+ROOT_CAUSES = {
+    "SETTLEMENT_DELAY",
+    "SOURCE_DATA_QUALITY",
+    "DUPLICATE_INSTRUCTION",
+    "PROCESSING_FAILURE",
+    "INCOMPLETE_BATCH",
+    "OTHER",
+    "UNCONFIRMED",
+}
 TRANSITIONS = {
     "OPEN": {"IN_REVIEW", "ESCALATED", "RESOLVED"},
     "IN_REVIEW": {"ESCALATED", "RESOLVED"},
@@ -44,6 +53,7 @@ def _activity(
     actor: str,
     *,
     reason: str | None = None,
+    root_cause: str | None = None,
     from_value: str | None = None,
     to_value: str | None = None,
 ) -> None:
@@ -55,6 +65,7 @@ def _activity(
             occurred_at=datetime.now(UTC),
             actor=actor,
             reason=reason,
+            root_cause=root_cause,
             from_value=from_value,
             to_value=to_value,
             correlation_id=str(uuid4()),
@@ -85,6 +96,7 @@ def _case_data(
         "created_at": case.created_at,
         "updated_at": case.updated_at,
         "resolved_at": case.resolved_at,
+        "root_cause": case.root_cause,
         "version": case.version,
         "payment": (
             {
@@ -122,6 +134,7 @@ def _case_data(
                 "occurred_at": item.occurred_at,
                 "actor": item.actor,
                 "reason": item.reason,
+                "root_cause": item.root_cause,
                 "from_value": item.from_value,
                 "to_value": item.to_value,
                 "correlation_id": item.correlation_id,
@@ -230,6 +243,7 @@ def transition_case(
     target_status: str,
     actor: str,
     reason: str | None,
+    root_cause: str | None = None,
 ) -> dict[str, object]:
     case = session.get(ExceptionCase, case_id)
     if case is None:
@@ -239,6 +253,10 @@ def transition_case(
         raise InvalidCaseAction(f"Transition from {previous} to {target_status} is not allowed.")
     if target_status in {"ESCALATED", "RESOLVED"} and not reason:
         raise InvalidCaseAction("A reason is required for escalation and resolution.")
+    if target_status == "RESOLVED" and root_cause not in ROOT_CAUSES:
+        raise InvalidCaseAction("A controlled root cause is required to resolve a case.")
+    if target_status != "RESOLVED" and root_cause is not None:
+        raise InvalidCaseAction("A root cause can only be recorded when resolving a case.")
     if previous == "RESOLVED" and (target_status != "OPEN" or not reason):
         raise InvalidCaseAction("Reopening a resolved case requires a justification.")
     if target_status == "ESCALATED":
@@ -253,6 +271,7 @@ def transition_case(
     case.status = target_status
     case.updated_at = now
     case.resolved_at = now if target_status == "RESOLVED" else None
+    case.root_cause = root_cause if target_status == "RESOLVED" else None
     case.version += 1
     _activity(
         session,
@@ -260,6 +279,7 @@ def transition_case(
         activity_type,
         actor,
         reason=reason,
+        root_cause=root_cause,
         from_value=previous,
         to_value=target_status,
     )

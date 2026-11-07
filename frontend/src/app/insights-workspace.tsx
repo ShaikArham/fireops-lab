@@ -1,0 +1,421 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+
+interface Report {
+  run_id: string;
+  payment_batch_id: string;
+  settlement_batch_id: string | null;
+  generated_at: string;
+  metrics: {
+    payment_count: number;
+    settled_payment_count: number;
+    matched_exact_count: number;
+    exact_match_rate_pct: number;
+    unmatched_instruction_count: number;
+    unmatched_settlement_count: number;
+    exception_result_count: number;
+    exception_review_value_by_currency_minor: Record<string, number>;
+    average_minutes_to_triage: number | null;
+    median_minutes_to_resolution: number | null;
+    open_case_count: number;
+    open_case_ageing: { under_24h: number; "1_to_3_days": number; over_3_days: number };
+    monitoring_alert_count: number;
+    reviewed_alert_count: number;
+    alert_review_rate_pct: number | null;
+  };
+  exception_categories: Array<{ classification: string; count: number }>;
+  root_cause_distribution: Array<{ root_cause: string; resolved_cases: number }>;
+  reconciliation_run_trend: Array<{
+    run_id: string;
+    finished_at: string;
+    payment_batch_id: string;
+    payment_count: number;
+    exact_match_rate_pct: number;
+    exception_result_count: number;
+    exception_categories: Record<string, number>;
+  }>;
+  recurring_exception_patterns: Array<{
+    classification: string;
+    distinct_source_runs: number;
+    result_rows_across_runs: number;
+  }>;
+  definitions: Record<string, string>;
+  improvement_exercise: {
+    label: string;
+    basis: string;
+    exception_review_items: number;
+  };
+}
+
+async function fetchReport(): Promise<Report> {
+  const response = await fetch(`${API}/api/v1/insights/latest`);
+  const body = (await response.json()) as Report & { detail?: string };
+  if (!response.ok) throw new Error(body.detail ?? "Could not load operational insights.");
+  return body;
+}
+
+function minutes(value: number | null): string {
+  return value === null ? "Not available yet" : `${value.toLocaleString()} min`;
+}
+
+function currencyBreakdown(values: Record<string, number>): string {
+  const entries = Object.entries(values);
+  if (!entries.length) return "€0.00";
+  return entries
+    .map(([currency, minor]) =>
+      new Intl.NumberFormat("en-IE", { style: "currency", currency }).format(minor / 100),
+    )
+    .join(" · ");
+}
+
+function Metric({
+  label,
+  value,
+  definition,
+}: {
+  label: string;
+  value: string;
+  definition: string;
+}) {
+  return (
+    <article className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+      <h3 className="text-sm font-medium text-slate-600">{label}</h3>
+      <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p>
+      <p className="mt-2 text-xs leading-5 text-slate-600">{definition}</p>
+    </article>
+  );
+}
+
+export default function InsightsWorkspace() {
+  const [report, setReport] = useState<Report | null>(null);
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [baselineMinutes, setBaselineMinutes] = useState("");
+  const [assistedMinutes, setAssistedMinutes] = useState("");
+
+  useEffect(() => {
+    if (!API) return;
+    setLoading(true);
+    void fetchReport()
+      .then(setReport)
+      .catch((cause: unknown) =>
+        setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
+      )
+      .finally(() => setLoading(false));
+  }, []);
+
+  const baseline = Number(baselineMinutes);
+  const assisted = Number(assistedMinutes);
+  const exerciseReady =
+    report !== null &&
+    baselineMinutes !== "" &&
+    assistedMinutes !== "" &&
+    Number.isFinite(baseline) &&
+    Number.isFinite(assisted) &&
+    baseline >= 0 &&
+    assisted >= 0;
+  const hypotheticalDifference = exerciseReady
+    ? (baseline - assisted) * report.improvement_exercise.exception_review_items
+    : null;
+
+  return (
+    <section
+      id="insights"
+      className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
+      aria-labelledby="insights-heading"
+    >
+      <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
+        Phase 7 · operational insights
+      </p>
+      <h2 id="insights-heading" className="mt-2 text-2xl font-semibold text-slate-950">
+        Measure the payment day and review workload
+      </h2>
+      <p className="mt-3 max-w-3xl leading-7 text-slate-600">
+        Metrics are derived from one saved reconciliation run and its linked cases and monitoring
+        review. Each value has a stated denominator and boundary. Currency amounts stay grouped by
+        currency.
+      </p>
+
+      {!API ? (
+        <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
+          <strong>Read-only Pages preview.</strong> Operational metrics and CSV exports require a
+          configured API and database. No live service is connected to this static site.
+        </p>
+      ) : loading ? (
+        <p role="status" className="mt-5 text-sm text-slate-600">
+          Loading the latest saved report…
+        </p>
+      ) : error ? (
+        <p role="alert" className="mt-5 rounded-lg bg-rose-50 p-4 text-sm text-rose-900">
+          {error}
+        </p>
+      ) : report ? (
+        <>
+          <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 p-4">
+            <div className="text-sm">
+              <p className="font-semibold text-slate-900">Report source</p>
+              <p className="mt-1 text-slate-600">
+                Run {report.run_id} · {report.payment_batch_id}
+                {report.settlement_batch_id ? ` · ${report.settlement_batch_id}` : ""}
+              </p>
+            </div>
+            <a
+              className="inline-flex min-h-11 items-center rounded-lg bg-slate-900 px-4 font-medium text-white hover:bg-slate-700"
+              href={`${API}/api/v1/insights/runs/${encodeURIComponent(report.run_id)}/export.csv`}
+              download
+            >
+              Download this run’s CSV
+            </a>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <Metric
+              label="Payment instructions"
+              value={report.metrics.payment_count.toLocaleString()}
+              definition="Distinct instruction rows in the selected payment batch."
+            />
+            <Metric
+              label="Settled payments"
+              value={report.metrics.settled_payment_count.toLocaleString()}
+              definition="Instructions currently in SETTLED state in that batch."
+            />
+            <Metric
+              label="Exact match rate"
+              value={`${report.metrics.exact_match_rate_pct.toFixed(2)}%`}
+              definition={report.definitions.exact_match_rate_pct}
+            />
+            <Metric
+              label="Exception results"
+              value={report.metrics.exception_result_count.toLocaleString()}
+              definition="Exception classifications in the selected saved reconciliation run."
+            />
+            <Metric
+              label="Unmatched instructions"
+              value={report.metrics.unmatched_instruction_count.toLocaleString()}
+              definition="Payment-side records without an accepted settlement match."
+            />
+            <Metric
+              label="Unmatched settlements"
+              value={report.metrics.unmatched_settlement_count.toLocaleString()}
+              definition="Settlement-side records without an accepted payment match."
+            />
+            <Metric
+              label="Exception review exposure"
+              value={currencyBreakdown(report.metrics.exception_review_value_by_currency_minor)}
+              definition={report.definitions.exception_review_value_by_currency_minor}
+            />
+            <Metric
+              label="Average time to triage"
+              value={minutes(report.metrics.average_minutes_to_triage)}
+              definition={report.definitions.average_minutes_to_triage}
+            />
+            <Metric
+              label="Median time to resolution"
+              value={minutes(report.metrics.median_minutes_to_resolution)}
+              definition={report.definitions.median_minutes_to_resolution}
+            />
+            <Metric
+              label="Open investigation cases"
+              value={report.metrics.open_case_count.toLocaleString()}
+              definition="Cases linked to this run that do not have a resolution timestamp."
+            />
+            <Metric
+              label="Alert review rate"
+              value={
+                report.metrics.alert_review_rate_pct === null
+                  ? "Not available yet"
+                  : `${report.metrics.alert_review_rate_pct.toFixed(2)}%`
+              }
+              definition={report.definitions.alert_review_rate_pct}
+            />
+            <Metric
+              label="Reviewed alerts"
+              value={`${report.metrics.reviewed_alert_count} / ${report.metrics.monitoring_alert_count}`}
+              definition="Alerts not in OPEN status divided by alerts in the latest monitoring run for this batch."
+            />
+          </div>
+
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <section
+              className="rounded-xl border border-slate-200 p-4"
+              aria-labelledby="categories-heading"
+            >
+              <h3 id="categories-heading" className="font-semibold text-slate-950">
+                Exception categories
+              </h3>
+              {report.exception_categories.length ? (
+                <ul className="mt-3 divide-y divide-slate-100">
+                  {report.exception_categories.map((item) => (
+                    <li
+                      key={item.classification}
+                      className="flex justify-between gap-4 py-2 text-sm"
+                    >
+                      <span>{item.classification.replaceAll("_", " ")}</span>
+                      <span className="font-semibold tabular-nums">{item.count}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-sm text-slate-600">No exception results in this run.</p>
+              )}
+            </section>
+            <section
+              className="rounded-xl border border-slate-200 p-4"
+              aria-labelledby="ageing-heading"
+            >
+              <h3 id="ageing-heading" className="font-semibold text-slate-950">
+                Open case ageing
+              </h3>
+              <dl className="mt-3 grid gap-2 text-sm sm:grid-cols-3">
+                <div>
+                  <dt className="text-slate-600">Under 24 hours</dt>
+                  <dd className="font-semibold">{report.metrics.open_case_ageing.under_24h}</dd>
+                </div>
+                <div>
+                  <dt className="text-slate-600">1–3 days</dt>
+                  <dd className="font-semibold">
+                    {report.metrics.open_case_ageing["1_to_3_days"]}
+                  </dd>
+                </div>
+                <div>
+                  <dt className="text-slate-600">Over 3 days</dt>
+                  <dd className="font-semibold">{report.metrics.open_case_ageing.over_3_days}</dd>
+                </div>
+              </dl>
+              <p className="mt-3 text-xs leading-5 text-slate-600">
+                {report.definitions.open_case_ageing}
+              </p>
+            </section>
+          </div>
+
+          <div className="mt-5 grid gap-5 lg:grid-cols-2">
+            <section
+              className="rounded-xl border border-slate-200 p-4"
+              aria-labelledby="root-causes-heading"
+            >
+              <h3 id="root-causes-heading" className="font-semibold text-slate-950">
+                Analyst-recorded root causes
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-slate-600">
+                Only resolved cases with an analyst-selected root cause are counted. This is not
+                inferred from the exception type.
+              </p>
+              {report.root_cause_distribution.length ? (
+                <ul className="mt-3 divide-y divide-slate-100">
+                  {report.root_cause_distribution.map((item) => (
+                    <li key={item.root_cause} className="flex justify-between gap-4 py-2 text-sm">
+                      <span>{item.root_cause.replaceAll("_", " ")}</span>
+                      <span className="font-semibold tabular-nums">{item.resolved_cases}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-2 text-sm text-slate-600">
+                  No resolved cases have a recorded root cause yet.
+                </p>
+              )}
+            </section>
+            <section
+              className="rounded-xl border border-slate-200 p-4"
+              aria-labelledby="trend-heading"
+            >
+              <h3 id="trend-heading" className="font-semibold text-slate-950">
+                Reconciliation run history
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-slate-600">
+                Distinct source inputs only. Re-running the same input does not create a new trend
+                point. This is run history, not a daily time series.
+              </p>
+              {report.reconciliation_run_trend.length ? (
+                <ol className="mt-3 grid gap-2">
+                  {report.reconciliation_run_trend.map((item) => (
+                    <li
+                      key={item.run_id}
+                      className="flex flex-wrap justify-between gap-x-4 gap-y-1 border-b border-slate-100 pb-2 text-sm"
+                    >
+                      <span>{item.payment_batch_id}</span>
+                      <span className="font-medium tabular-nums">
+                        {item.exact_match_rate_pct.toFixed(2)}% exact ·{" "}
+                        {item.exception_result_count} exceptions
+                      </span>
+                    </li>
+                  ))}
+                </ol>
+              ) : (
+                <p className="mt-2 text-sm text-slate-600">
+                  No saved reconciliation history is available.
+                </p>
+              )}
+              {report.recurring_exception_patterns.length > 0 && (
+                <p className="mt-3 text-xs leading-5 text-slate-600">
+                  Recurring patterns across distinct inputs:{" "}
+                  {report.recurring_exception_patterns
+                    .map(
+                      (item) =>
+                        `${item.classification.replaceAll("_", " ")} (${item.distinct_source_runs} runs)`,
+                    )
+                    .join("; ")}
+                  . These are exception classifications, not diagnosed root causes.
+                </p>
+              )}
+            </section>
+          </div>
+
+          <section
+            className="mt-5 rounded-xl border border-amber-300 bg-amber-50 p-4"
+            aria-labelledby="exercise-heading"
+          >
+            <h3 id="exercise-heading" className="font-semibold text-amber-950">
+              Hypothetical process-improvement exercise
+            </h3>
+            <p className="mt-2 text-sm leading-6 text-amber-950">
+              The exception count is derived from this run. Enter your own illustrative minutes per
+              exception for a manual review and a rule-assisted review. This calculator compares
+              assumptions only. It does not report measured productivity or actual savings.
+            </p>
+            <div className="mt-4 grid gap-3 sm:grid-cols-2">
+              <label className="grid gap-1 text-sm font-medium text-slate-800">
+                Assumed manual minutes per item
+                <input
+                  className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={baselineMinutes}
+                  onChange={(event) => setBaselineMinutes(event.target.value)}
+                />
+              </label>
+              <label className="grid gap-1 text-sm font-medium text-slate-800">
+                Assumed assisted minutes per item
+                <input
+                  className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={assistedMinutes}
+                  onChange={(event) => setAssistedMinutes(event.target.value)}
+                />
+              </label>
+            </div>
+            {hypotheticalDifference !== null && (
+              <p role="status" className="mt-3 text-sm font-medium text-amber-950">
+                Assumption-based difference across{" "}
+                {report.improvement_exercise.exception_review_items} review items:{" "}
+                {hypotheticalDifference.toLocaleString()} minutes. A negative value means the
+                assisted assumption takes longer.
+              </p>
+            )}
+          </section>
+          <p className="mt-4 text-xs leading-5 text-slate-500">
+            Generated {new Date(report.generated_at).toLocaleString()}. Review exposure is not loss,
+            no currency conversion is applied, and timing metrics describe this fictional dataset
+            only.
+          </p>
+        </>
+      ) : null}
+    </section>
+  );
+}

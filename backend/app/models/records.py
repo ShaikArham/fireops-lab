@@ -213,6 +213,12 @@ class ExceptionCase(Base):
         CheckConstraint(
             "priority IN ('LOW', 'NORMAL', 'HIGH')", name="ck_exception_cases_priority"
         ),
+        CheckConstraint(
+            "root_cause IS NULL OR root_cause IN ('SETTLEMENT_DELAY', 'SOURCE_DATA_QUALITY', "
+            "'DUPLICATE_INSTRUCTION', 'PROCESSING_FAILURE', 'INCOMPLETE_BATCH', 'OTHER', "
+            "'UNCONFIRMED')",
+            name="ck_exception_cases_root_cause",
+        ),
         UniqueConstraint("result_id", name="uq_exception_cases_result"),
         Index("ix_exception_cases_status_updated", "status", "updated_at"),
         Index("ix_exception_cases_assignee_status", "assigned_to", "status"),
@@ -228,6 +234,7 @@ class ExceptionCase(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    root_cause: Mapped[str | None] = mapped_column(String(32), nullable=True)
     version: Mapped[int] = mapped_column(nullable=False, default=1)
 
 
@@ -250,6 +257,7 @@ class CaseActivity(Base):
     occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
     actor: Mapped[str] = mapped_column(String(128), nullable=False)
     reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    root_cause: Mapped[str | None] = mapped_column(String(32), nullable=True)
     from_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
     to_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
     correlation_id: Mapped[str] = mapped_column(String(64), nullable=False)
