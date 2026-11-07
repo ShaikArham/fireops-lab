@@ -11,7 +11,7 @@ This checklist is a living release record. Do not check an item until evidence e
 - [x] Phase 4: deterministic reconciliation scenarios and invariants pass.
 - [x] Phase 5: investigation workflow and audit history pass.
 - [x] Phase 6: monitoring and human-review controls pass.
-- [ ] Phase 7: metrics and exports reconcile with source records.
+- [x] Phase 7: run-scoped metrics, exception exposure by currency, analyst-selected root causes, saved-run history and CSV exports reconcile with source records and browser workflow.
 - [ ] Phase 8: mobile, accessibility, performance and recruiter journey pass.
 - [ ] Phase 9: regression, security and release-blocker review pass.
 - [ ] Phase 10: deployment, browser, downloads, video/captions (if included), CV evidence and public links pass.
