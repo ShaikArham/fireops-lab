@@ -14,7 +14,7 @@ test("project boundaries explain the simulator", async ({ page }) => {
   await page.goto("/#method");
 
   await expect(page.getByRole("heading", { name: "Method and limits" })).toBeVisible();
-  await expect(page.getByText(/not be presented as proven fraud/i)).toBeVisible();
+  await expect(page.getByText(/not presented as proven fraud/i)).toBeVisible();
 });
 
 test("static reconciliation preview compares synthetic source records side by side", async ({
@@ -90,7 +90,7 @@ test("API-backed reconciliation selects two batches and shows saved comparison",
   });
 
   await page.goto("/");
-  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Payment batch").first().selectOption("BATCH-QA-1");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
   await expect(page.getByText("Saved run run-qa-1")).toBeVisible();
@@ -246,7 +246,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   });
 
   await page.goto("/");
-  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Payment batch").first().selectOption("BATCH-QA-1");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
   await expect(page.getByRole("heading", { name: "UNMATCHED INSTRUCTION" })).toBeVisible();
@@ -454,9 +454,9 @@ test("monitoring alerts show evidence, allow human triage, and produce only a mo
   await expect(summary.getByText("Simulated internal escalation note")).toBeVisible();
   await expect(summary.getByText(/not a suspicious activity report/i)).toBeVisible();
   const history = page.getByRole("list", { name: "Alert review history" });
-  await expect(history.getByText("DETECTED", { exact: true })).toBeVisible();
-  await expect(history.getByText("NOTE ADDED", { exact: true })).toBeVisible();
-  await expect(history.getByText("ESCALATED", { exact: true })).toBeVisible();
+  await expect(history.getByText("Detected", { exact: true })).toBeVisible();
+  await expect(history.getByText("Note added", { exact: true })).toBeVisible();
+  await expect(history.getByText("Escalated", { exact: true })).toBeVisible();
 });
 
 test("CSV preview, idempotent batch controls, and processing history work together", async ({
