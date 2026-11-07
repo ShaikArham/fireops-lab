@@ -167,6 +167,7 @@ test("CSV preview, idempotent batch controls, and processing history work togeth
   await page.getByRole("button", { name: "Simulate processing" }).click();
   await expect(page.getByText(/already processed. No records or totals changed/)).toBeVisible();
   await page.getByRole("button", { name: "View event history" }).click();
-  await expect(page.getByText("IMPORTED")).toBeVisible();
-  await expect(page.getByText("SETTLED")).toBeVisible();
+  const history = page.getByRole("list", { name: "Event history for PAY-QA-0001" });
+  await expect(history.getByText("IMPORTED", { exact: true })).toBeVisible();
+  await expect(history.getByText("SETTLED", { exact: true })).toBeVisible();
 });
