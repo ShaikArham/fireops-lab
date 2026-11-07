@@ -1,339 +1,64 @@
-from typing import Annotated, Any
+YªçŠx-®éÜj×¢ëiºÚ+Š§j[h‘éÜ¢éíçmöN‹Z–‹­¦ëeŠw¬Õ™É½´ÑåÁ¥¹œ¥µÁ½ÉĞ¹¹½Ñ…Ñ•°¹ä()™É½´™…ÍÑ…Á¤¥µÁ½ÉĞA%I½ÕÑ•È°•Á•¹‘Ì°!QQAá•ÁÑ¥½¸°EÕ•Éä°I•ÅÕ•ÍĞ°ÍÑ…ÑÕÌ)™É½´ÍÅ±…±¡•µä¥µÁ½ÉĞ™Õ¹Œ°Í•±•Ğ)™É½´ÍÅ±…±¡•µä¹½É´¥µÁ½ÉĞM•ÍÍ¥½¸()™É½´…ÁÀ¹‘ˆ¹Í•ÍÍ¥½¸¥µÁ½ÉĞ•Ñ}Í•ÍÍ¥½¸)™É½´…ÁÀ¹µ½‘•±Ì¥µÁ½ÉĞA…åµ•¹ÑÙ•¹Ğ°A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸°M•ÑÑ±•µ•¹ÑI•½É)™É½´…ÁÀ¹Í¡•µ…Ì¹½Á•É…Ñ¥½¹Ì¥µÁ½ÉĞ€ (€€€…Í•ÍÍ¥¹I•ÅÕ•ÍĞ°(€€€…Í•É•…Ñ•I•ÅÕ•ÍĞ°(€€€…Í•9½Ñ•I•ÅÕ•ÍĞ°(€€€…Í•QÉ…¹Í¥Ñ¥½¹I•ÅÕ•ÍĞ°(€€€%µÁ½ÉÑI•ÍÁ½¹Í”°(€€€A…åµ•¹ÑQÉ…¹Í¥Ñ¥½¹I•ÅÕ•ÍĞ°(€€€A…åµ•¹ÑQÉ…¹Í¥Ñ¥½¹I•ÍÁ½¹Í”°(€€€I•½¹¥±¥…Ñ¥½¹IÕ¹I•ÅÕ•ÍĞ°(€€€M¥µÕ±…Ñ•	…Ñ¡I•ÅÕ•ÍĞ°(€€€M¥µÕ±…Ñ•	…Ñ¡I•ÍÁ½¹Í”°(€€€M½ÕÉ•AÉ•Ù¥•İI•ÍÁ½¹Í”°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹…Í•}µ…¹…•µ•¹Ğ¥µÁ½ÉĞ€ (€€€…Í•9½Ñ½Õ¹°(€€€%¹Ù…±¥‘…Í•Ñ¥½¸°(€€€…‘‘}¹½Ñ”°(€€€…ÍÍ¥¹}…Í”°(€€€É•…Ñ•}…Í”°(€€€•Ñ}…Í”°(€€€±¥ÍÑ}…Í•Ì°(€€€ÑÉ…¹Í¥Ñ¥½¹}…Í”°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹ÍÙ}Ù…±¥‘…Ñ¥½¸¥µÁ½ÉĞ…Ñ…Í•Ñ-¥¹)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹Á…åµ•¹Ñ}½Á•É…Ñ¥½¹Ì¥µÁ½ÉĞ€ (€€€%µÁ½ÉÑ½¹™±¥Ğ°(€€€%µÁ½ÉÑI•©•Ñ•°(€€€%¹Ù…±¥‘QÉ…¹Í¥Ñ¥½¸°(€€€U¹­¹½İ¹	…Ñ °(€€€U¹­¹½İ¹A…åµ•¹Ğ°(€€€¥µÁ½ÉÑ}Í½ÕÉ•}™¥±”°(€€€ÁÉ•Ù¥•İ}Í½ÕÉ•}™¥±”°(€€€Í¥µÕ±…Ñ•}Á…åµ•¹Ñ}‰…Ñ °(€€€ÑÉ…¹Í¥Ñ¥½¹}Á…åµ•¹Ğ°(¤)™É½´…ÁÀ¹Í•ÉÙ¥•Ì¹É•½¹¥±¥…Ñ¥½¹}½Á•É…Ñ¥½¹Ì¥µÁ½ÉĞ•Ñ}ÉÕ¸°ÉÕ¹}É•½¹¥±¥…Ñ¥½¸()É½ÕÑ•È€ôA%I½ÕÑ•È¡ÁÉ•™¥àôˆ½…Á¤½ØÄˆ°Ñ…Ìõl‰Á…åµ•¹Ğ½Á•É…Ñ¥½¹Ì‰t¤)5a}%5A=IQ}	eQL€ô€Ô€¨€ÄÀÈĞ€¨€ÄÀÈĞ(()…Íå¹Œ‘•˜}É•…‘}ÍØ¡É•ÅÕ•ÍĞèI•ÅÕ•ÍĞ¤€´ø‰åÑ•Ìè(€€€½¹Ñ•¹Ñ}±•¹Ñ €ôÉ•ÅÕ•ÍĞ¹¡•…‘•ÉÌ¹•Ğ ‰½¹Ñ•¹Ğµ±•¹Ñ ˆ¤(€€€¥˜½¹Ñ•¹Ñ}±•¹Ñ …¹½¹Ñ•¹Ñ}±•¹Ñ ¹¥Í‘¥¥Ğ ¤…¹¥¹Ğ¡½¹Ñ•¹Ñ}±•¹Ñ ¤€ø5a}%5A=IQ}	eQLè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÌ¹!QQA|ĞÄÍ}=9Q9Q}Q==}1I°(€€€€€€€€€€€€‰¥±”•á••‘ÌÑ¡”€Ô5¥±¥µ¥Ğ¸ˆ°(€€€€€€€€¤(€€€¡Õ¹­Ìè±¥ÍÑm‰åÑ•Ít€ômt(€€€Ñ½Ñ…±}‰åÑ•Ì€ô€À(€€€…Íå¹Œ™½È¡Õ¹¬¥¸É•ÅÕ•ÍĞ¹ÍÑÉ•…´ ¤è(€€€€€€€Ñ½Ñ…±}‰åÑ•Ì€¬ô±•¸¡¡Õ¹¬¤(€€€€€€€¥˜Ñ½Ñ…±}‰åÑ•Ì€ø5a}%5A=IQ}	eQLè(€€€€€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€€€€€ÍÑ…ÑÕÌ¹!QQA|ĞÄÍ}=9Q9Q}Q==}1I°(€€€€€€€€€€€€€€€€‰¥±”•á••‘ÌÑ¡”€Ô5¥±¥µ¥Ğ¸ˆ°(€€€€€€€€€€€€¤(€€€€€€€¡Õ¹­Ì¹…ÁÁ•¹¡¡Õ¹¬¤(€€€É•ÑÕÉ¸ˆˆˆ¹©½¥¸¡¡Õ¹­Ì¤(()É½ÕÑ•È¹Á½ÍĞ ˆ½Í½ÕÉ”µ™¥±•Ì½ÁÉ•Ù¥•Üˆ°É•ÍÁ½¹Í•}µ½‘•°õM½ÕÉ•AÉ•Ù¥•İI•ÍÁ½¹Í”¤)…Íå¹Œ‘•˜ÁÉ•Ù¥•İ}Í½ÕÉ” (€€€É•ÅÕ•ÍĞèI•ÅÕ•ÍĞ°(€€€­¥¹è¹¹½Ñ…Ñ•‘m…Ñ…Í•Ñ-¥¹°EÕ•Éä ¥t°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€½¹Ñ•¹Ğ€ô…İ…¥Ğ}É•…‘}ÍØ¡É•ÅÕ•ÍĞ¤(€€€Ù…±¥‘…Ñ¥½¸°ÁÉ•Ù¥•Ü€ôÁÉ•Ù¥•İ}Í½ÕÉ•}™¥±”¡½¹Ñ•¹Ğ°­¥¹¤(€€€É•ÑÕÉ¸ì(€€€€€€€€‰­¥¹ˆèÙ…±¥‘…Ñ¥½¸¹­¥¹°(€€€€€€€€‰¡•­ÍÕµ}Í¡„ÈÔØˆèÙ…±¥‘…Ñ¥½¸¹¡•­ÍÕµ}Í¡„ÈÔØ°(€€€€€€€€‰‘…Ñ…}É½İ}½Õ¹ĞˆèÙ…±¥‘…Ñ¥½¸¹‘…Ñ…}É½İ}½Õ¹Ğ°(€€€€€€€€‰¥Í}Ù…±¥ˆèÙ…±¥‘…Ñ¥½¸¹¥Í}Ù…±¥°(€€€€€€€€‰¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•ˆèÙ…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•°(€€€€€€€€‰¥ÍÍÕ•Ìˆèm¥ÍÍÕ”¹}}‘¥Ñ}|™½È¥ÍÍÕ”¥¸Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Ít°(€€€€€€€€‰ÁÉ•Ù¥•ÜˆèÁÉ•Ù¥•Ü°(€€€ô(()É½ÕÑ•È¹Á½ÍĞ ˆ½Í½ÕÉ”µ™¥±•Ì½¥µÁ½ÉĞ½í­¥¹‘ôˆ°É•ÍÁ½¹Í•}µ½‘•°õ%µÁ½ÉÑI•ÍÁ½¹Í”¤)…Íå¹Œ‘•˜¥µÁ½ÉÑ}Í½ÕÉ” (€€€­¥¹è…Ñ…Í•Ñ-¥¹°(€€€É•ÅÕ•ÍĞèI•ÅÕ•ÍĞ°(€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(€€€™¥±•}¹…µ”è¹¹½Ñ…Ñ•‘mÍÑÈ°EÕ•Éä¡µ¥¹}±•¹Ñ ôÄ°µ…á}±•¹Ñ ôÈÔÔ¥t€ô€‰Íå¹Ñ¡•Ñ¥Œ¹ÍØˆ°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€½¹Ñ•¹Ğ€ô…İ…¥Ğ}É•…‘}ÍØ¡É•ÅÕ•ÍĞ¤(€€€ÑÉäè(€€€€€€€É••¥ÁĞ€ô¥µÁ½ÉÑ}Í½ÕÉ•}™¥±”¡Í•ÍÍ¥½¸°™¥±•}¹…µ”õ™¥±•}¹…µ”°½¹Ñ•¹Ğõ½¹Ñ•¹Ğ°­¥¹õ­¥¹¤(€€€•á•ÁĞ%µÁ½ÉÑI•©•Ñ•…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ĞÈÉ}U9AI=MM	1}=9Q9P°(€€€€€€€€€€€‘•Ñ…¥°õì(€€€€€€€€€€€€€€€€‰µ•ÍÍ…”ˆèÍÑÈ¡•ÉÉ½È¤°(€€€€€€€€€€€€€€€€‰¥ÍÍÕ•Ìˆèm¥ÍÍÕ”¹}}‘¥Ñ}|™½È¥ÍÍÕ”¥¸•ÉÉ½È¹Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Ít°(€€€€€€€€€€€€€€€€‰¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•ˆè•ÉÉ½È¹Ù…±¥‘…Ñ¥½¸¹¥ÍÍÕ•Í}ÑÉÕ¹…Ñ•°(€€€€€€€€€€€ô°(€€€€€€€€¤™É½´•ÉÉ½È(€€€•á•ÁĞ%µÁ½ÉÑ½¹™±¥Ğ…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸¡ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ĞÀå}=91%P°‘•Ñ…¥°õÍÑÈ¡•ÉÉ½È¤¤™É½´•ÉÉ½È(€€€•á•ÁĞY…±Õ•ÉÉ½È…Ì•ÉÉ½Èè(€€€€€€€É…¥Í”!QQAá•ÁÑ¥½¸ (€€€€€€€€€€€ÍÑ…ÑÕÍ}½‘”õÍÑ…ÑÕÌ¹!QQA|ĞÈÉ}U9AI=MM	1}=9Q9P°(€€€€€€€€€€€‘•Ñ…¥°õÍÑÈ¡•ÉÉ½È¤°(€€€€€€€€¤™É½´•ÉÉ½È(€€€É•ÑÕÉ¸ì(€€€€€€€€‰Í½ÕÉ•}™¥±•}¥ˆèÉ••¥ÁĞ¹Í½ÕÉ•}™¥±•}¥°(€€€€€€€€‰Í½ÕÉ•}ÑåÁ”ˆèÉ••¥ÁĞ¹Í½ÕÉ•}ÑåÁ”°(€€€€€€€€‰¡•­ÍÕµ}Í¡„ÈÔØˆèÉ••¥ÁĞ¹¡•­ÍÕµ}Í¡„ÈÔØ°(€€€€€€€€‰É½İ}½Õ¹ĞˆèÉ••¥ÁĞ¹É½İ}½Õ¹Ğ°(€€€€€€€€‰¥µÁ½ÉÑ•‘}½Õ¹ĞˆèÉ••¥ÁĞ¹¥µÁ½ÉÑ•‘}½Õ¹Ğ°(€€€€€€€€‰¥‘•µÁ½Ñ•¹ĞˆèÉ••¥ÁĞ¹¥‘•µÁ½Ñ•¹Ğ°(€€€ô(()É½ÕÑ•È¹•Ğ ˆ½‰…Ñ¡•Ìˆ¤)‘•˜±¥ÍÑ}Á…åµ•¹Ñ}‰…Ñ¡•Ì (€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(¤€´ø‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuutè(€€€É½İÌ€ôÍ•ÍÍ¥½¸¹•á•ÕÑ” (€€€€€€€Í•±•Ğ (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€™Õ¹Œ¹½Õ¹Ğ¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹Á…åµ•¹Ñ}¥¤¹±…‰•° ‰É•½É‘}½Õ¹Ğˆ¤°(€€€€€€€€€€€™Õ¹Œ¹ÍÕ´¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹…µ½Õ¹Ñ}µ¥¹½È¤¹±…‰•° ‰Ñ½Ñ…±}µ¥¹½Èˆ¤°(€€€€€€€€¤(€€€€€€€€¹É½ÕÁ}‰ä (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€¤(€€€€€€€€¹½É‘•É}‰ä (€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÕÉÉ•¹ä°(€€€€€€€€€€€A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹ÍÑ…ÑÕÌ°(€€€€€€€€¤(€€€€¤(€€€‰…Ñ¡•Ìè‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuut€ôíô(€€€™½ÈÉ½Ü¥¸É½İÌè(€€€€€€€‰…Ñ¡•Ì¹Í•Ñ‘•™…Õ±Ğ¡É½Ü¹‰…Ñ¡}¥°mt¤¹…ÁÁ•¹ (€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÉ½Ü¹ÕÉÉ•¹ä°(€€€€€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÉ½Ü¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€€€€€€‰ÍÑ…ÑÕÌˆèÉ½Ü¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€€€€€€‰É•½É‘}½Õ¹ĞˆèÉ½Ü¹É•½É‘}½Õ¹Ğ°(€€€€€€€€€€€€€€€€‰Ñ½Ñ…±}µ¥¹½ÈˆèÉ½Ü¹Ñ½Ñ…±}µ¥¹½È°(€€€€€€€€€€€ô(€€€€€€€€¤(€€€Í•ÑÑ±•µ•¹Ñ}É½İÌ€ôÍ•ÍÍ¥½¸¹•á•ÕÑ” (€€€€€€€Í•±•Ğ (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€™Õ¹Œ¹½Õ¹Ğ¡M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}¥¤¹±…‰•° ‰É•½É‘}½Õ¹Ğˆ¤°(€€€€€€€€€€€™Õ¹Œ¹ÍÕ´¡M•ÑÑ±•µ•¹ÑI•½É¹…µ½Õ¹Ñ}µ¥¹½È¤¹±…‰•° ‰Ñ½Ñ…±}µ¥¹½Èˆ¤°(€€€€€€€€¤(€€€€€€€€¹É½ÕÁ}‰ä (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€¤(€€€€€€€€¹½É‘•É}‰ä (€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹ÕÉÉ•¹ä°(€€€€€€€€€€€M•ÑÑ±•µ•¹ÑI•½É¹‘¥É•Ñ¥½¸°(€€€€€€€€¤(€€€€¤(€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ìè‘¥ÑmÍÑÈ°±¥ÍÑm‘¥ÑmÍÑÈ°¹åuut€ôíô(€€€™½ÈÉ½Ü¥¸Í•ÑÑ±•µ•¹Ñ}É½İÌè(€€€€€€€Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ì¹Í•Ñ‘•™…Õ±Ğ¡É½Ü¹Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥°mt¤¹…ÁÁ•¹ (€€€€€€€€€€€ì(€€€€€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÉ½Ü¹ÕÉÉ•¹ä°(€€€€€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÉ½Ü¹‘¥É•Ñ¥½¸°(€€€€€€€€€€€€€€€€‰É•½É‘}½Õ¹ĞˆèÉ½Ü¹É•½É‘}½Õ¹Ğ°(€€€€€€€€€€€€€€€€‰Ñ½Ñ…±}µ¥¹½ÈˆèÉ½Ü¹Ñ½Ñ…±}µ¥¹½È°(€€€€€€€€€€€ô(€€€€€€€€¤(€€€É•ÑÕÉ¸ì(€€€€€€€€‰‰…Ñ¡•Ìˆèl(€€€€€€€€€€€ì‰‰…Ñ¡}¥ˆè‰…Ñ¡}¥°€‰½¹ÑÉ½±}Ñ½Ñ…±ÌˆèÑ½Ñ…±Íô(€€€€€€€€€€€™½È‰…Ñ¡}¥°Ñ½Ñ…±Ì¥¸Í½ÉÑ•¡‰…Ñ¡•Ì¹¥Ñ•µÌ ¤¤(€€€€€€€t°(€€€€€€€€‰Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ìˆèl(€€€€€€€€€€€ì‰Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡}¥ˆè‰…Ñ¡}¥°€‰½¹ÑÉ½±}Ñ½Ñ…±ÌˆèÑ½Ñ…±Íô(€€€€€€€€€€€™½È‰…Ñ¡}¥°Ñ½Ñ…±Ì¥¸Í½ÉÑ•¡Í•ÑÑ±•µ•¹Ñ}‰…Ñ¡•Ì¹¥Ñ•µÌ ¤¤(€€€€€€€t°(€€€ô(()É½ÕÑ•È¹•Ğ ˆ½‰…Ñ¡•Ì½í‰…Ñ¡}¥‘ô½Á…åµ•¹ÑÌˆ¤)‘•˜±¥ÍÑ}‰…Ñ¡}Á…åµ•¹ÑÌ (€€€‰…Ñ¡}¥èÍÑÈ°(€€€Í•ÍÍ¥½¸è¹¹½Ñ…Ñ•‘mM•ÍÍ¥½¸°•Á•¹‘Ì¡•Ñ}Í•ÍÍ¥½¸¥t°(€€€±¥µ¥Ğè¹¹½Ñ…Ñ•‘m¥¹Ğ°EÕ•Éä¡”ôÄ°±”ôÄÀÀ¥t€ô€ÈÔ°(¤€´ø‘¥ÑmÍÑÈ°¹åtè(€€€Á…åµ•¹ÑÌ€ôÍ•ÍÍ¥½¸¹Í…±…ÉÌ (€€€€€€€Í•±•Ğ¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¤(€€€€€€€€¹İ¡•É”¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹‰…Ñ¡}¥€ôô‰…Ñ¡}¥¤(€€€€€€€€¹½É‘•É}‰ä¡A…åµ•¹Ñ%¹ÍÑÉÕÑ¥½¸¹Á…åµ•¹Ñ}¥¤(€€€€€€€€¹±¥µ¥Ğ¡±¥µ¥Ğ¤(€€€€¤(€€€É•½É‘Ì€ôl(€€€€€€€ì(€€€€€€€€€€€€‰Á…åµ•¹Ñ}¥ˆèÁ…åµ•¹Ğ¹Á…åµ•¹Ñ}¥°(€€€€€€€€€€€€‰±¥•¹Ñ}É•™•É•¹”ˆèÁ…åµ•¹Ğ¹±¥•¹Ñ}É•™•É•¹”°(€€€€€€€€€€€€‰ÍÑ…ÑÕÌˆèÁ…åµ•¹Ğ¹ÍÑ…ÑÕÌ°(€€€€€€€€€€€€‰…µ½Õ¹Ñ}µ¥¹½ÈˆèÁ…åµ•¹Ğ¹…µ½Õ¹Ñ}µ¥¹½È°(€€€€€€€€€€€€‰ÕÉÉ•¹äˆèÁ…åµ•¹Ğ¹ÕÉÉ•¹ä°(€€€€€€€€€€€€‰‘¥É•Ñ¥½¸ˆèÁ…åµ•¹Ğ¹‘¥É•Ñ¥½¸°(€€€€€€€ô(€€€€€€€™½ÈÁ…åµ•¹Ğ¥¸Á…åµ•¹ÑÌ+mö¶‰Ëkºwµç\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠˆİ]\×ØÛÙO\İ]\Ë’ÍŒ—ÕS”“ĞÑTÔĞP“WĞÓÓ•S•ˆ]Z[\İŠ\œ›ÜŠKˆ
+Hœ›ÛH\œ›Ü‚‚‚›İ]\‹œÜİ
+‹Ü^[Y[ËŞÜ^[Y[ÚYKİ˜[œÚ][ÛœÈ‹™\ÜÛœÙWÛ[Ù[T^[Y[˜[œÚ][Û”™\ÜÛœÙJB™YˆÚ[™ÙWÜ^[Y[Üİ]\Êˆ^[Y[ÚYˆİ‹ˆ^[ØYˆ^[Y[˜[œÚ][Û”™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹İ—N‚ˆN‚ˆ^[Y[H˜[œÚ][Û—Ü^[Y[
+ˆÙ\ÜÚ[Û‹ˆ^[Y[ÚY\^[Y[ÚYˆ\™Ù]Üİ]\Ï\^[ØY\™Ù]Üİ]\ËˆXİÜ\^[ØY˜XİÜ‹ˆ™X\ÛÛ\^[ØYœ™X\ÛÛ‹ˆ
+BˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
-from sqlalchemy import func, select
-from sqlalchemy.orm import Session
+Bˆ^Ù\[šÛ›İÛ”^[Y[\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠˆİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘ˆ]Z[H”^[Y[›İ›İ[™ˆ‹ˆ
+Hœ›ÛH\œ›Ü‚ˆ^Ù\[˜[Y˜[œÚ][Ûˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍWĞÓÓ‘“PÕ]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠˆİ]\×ØÛÙO\İ]\Ë’ÍŒ—ÕS”“ĞÑTÔĞP“WĞÓÓ•S•ˆ]Z[\İŠ\œ›ÜŠKˆ
+Hœ›ÛH\œ›Ü‚ˆ™]\›ˆÂˆœ^[Y[ÚYˆ^[Y[œ^[Y[ÚYˆœİ]\Èˆ^[Y[œİ]\Ëˆ˜˜]ÚÚYˆ^[Y[˜˜]ÚÚYˆB‚‚›İ]\‹™Ù]
+‹Ü^[Y[ËŞÜ^[Y[ÚYKÙ]™[ÈŠB™Yˆ^[Y[Ù]™[Ú\İÜJˆ^[Y[ÚYˆİ‹Ù\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWBŠHOˆXİÜİ‹\İÙXİÜİ‹[WWWN‚ˆYˆÙ\ÜÚ[Û‹™Ù]
+^[Y[[œİXİ[Û‹^[Y[ÚY
+H\È›Û™N‚ˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[H”^[Y[›İ›İ[™ˆŠBˆ]™[ÈHÙ\ÜÚ[Û‹œØØ[\œÊˆÙ[Xİ
+^[Y[]™[
+BˆÚ\™J^[Y[]™[œ^[Y[ÚYOH^[Y[ÚY
+Bˆ›Ü™\—ØJ^[Y[]™[›ØØİ\œ™YØ]^[Y[]™[™]™[ÚY
+Bˆ
+Bˆ™]\›ˆÂˆ™]™[ÈˆÂˆÂˆ™]™[ÚYˆ]™[™]™[ÚYˆœ^[Y[ÚYˆ]™[œ^[Y[ÚYˆ™]™[İ\Hˆ]™[™]™[İ\Kˆ›ØØİ\œ™YØ]ˆ]™[›ØØİ\œ™YØ]ˆ›Y]Y]Hˆ]™[›Y]Y]WÚœÛÛ‹ˆ˜XİÜˆˆ]™[˜XİÜ‹ˆ˜ÛÜœ™[][Û—ÚYˆ]™[˜ÛÜœ™[][Û—ÚYˆBˆ›Üˆ]™[[ˆ]™[ÂˆBˆB‚‚›İ]\‹œÜİ
+‹Ü™XÛÛ˜Ú[X][Û‹Ü[œÈ‹İ]\×ØÛÙO\İ]\Ë’ÌŒWĞÔ‘PUQ
+B™YˆÜ™X]WÜ™XÛÛ˜Ú[X][Û—Ü[Šˆ^[ØYˆ™XÛÛ˜Ú[X][Û”[”™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹[WN‚ˆN‚ˆ™]\›ˆ[—Ü™XÛÛ˜Ú[X][ÛŠˆÙ\ÜÚ[Û‹ˆ^[ØYœ^[Y[Ø˜]ÚÚYˆ^[ØYœÙ][Y[Ø˜]ÚÚYˆ^[ØY›]WİÚ[™İ×Ù^\Ëˆ
+Bˆ^Ù\ÛÚİ\\œ›Üˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\˜[YQ\œ›Üˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠˆİ]\×ØÛÙO\İ]\Ë’ÍŒ—ÕS”“ĞÑTÔĞP“WĞÓÓ•S•]Z[\İŠ\œ›ÜŠBˆ
+Hœ›ÛH\œ›Ü‚‚‚›İ]\‹™Ù]
+‹Ü™XÛÛ˜Ú[X][Û‹Ü[œËŞÜ[—ÚYHŠB™Yˆ™XYÜ™XÛÛ˜Ú[X][Û—Ü[Šˆ[—ÚYˆİ‹ˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKˆ[Z]ˆ[››İ]YÚ[]Y\JÙOLKOML
+WHHLˆÙ™œÙ]ˆ[››İ]YÚ[]Y\JÙOL
+WHHŠHOˆXİÜİ‹[WN‚ˆN‚ˆ™]\›ˆÙ]Ü[ŠÙ\ÜÚ[Û‹[—ÚY[Z]Ù™œÙ]
+Bˆ^Ù\ÛÚİ\\œ›Üˆ\È\œ›Ü‚ˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›İ]\‹œÜİ
+‹ØØ\Ù\È‹İ]\×ØÛÙO\İ]\Ë’ÌŒWĞÔ‘PUQ
+B™YˆÜ[—ØØ\ÙJˆ^[ØYˆØ\ÙPÜ™X]T™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹[WN‚ˆN‚ˆØ\ÙHHÜ™X]WØØ\ÙJÙ\ÜÚ[Û‹^[ØYœ™\İ[ÚY^[ØY˜XİÜ‹^[ØYœš[Üš]JBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
-from app.db.session import get_session
-from app.models import PaymentEvent, PaymentInstruction, SettlementRecord
-from app.schemas.operations import (
-    ImportResponse,
-    PaymentTransitionRequest,
-    PaymentTransitionResponse,
-    ReconciliationRunRequest,
-    SimulateBatchRequest,
-    SimulateBatchResponse,
-    SourcePreviewResponse,
-)
-from app.services.csv_validation import DatasetKind
-from app.services.payment_operations import (
-    ImportConflict,
-    ImportRejected,
-    InvalidTransition,
-    UnknownBatch,
-    UnknownPayment,
-    import_source_file,
-    preview_source_file,
-    simulate_payment_batch,
-    transition_payment,
-)
-from app.services.reconciliation_operations import get_run, run_reconciliation
+Bˆ™]\›ˆØ\ÙBˆ^Ù\Ø\ÙS›İ›İ[™\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXİ[Ûˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍWĞÓÓ‘“PÕ]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›İ]\‹™Ù]
+‹ØØ\Ù\ÈŠB™YˆØ\Ù\×Ü]Y]YJˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKˆØ\ÙWÜİ]\Îˆ[››İ]YÂˆİˆ›Û™K]Y\J[X\ÏHœİ]\È‹]\›H—ŠÔSŸS—Ô‘U’QUßTĞĞSUQ‘TÓÓ‘Q
+IŠBˆHH›Û™Kˆ\ÜÚYÛ™YİÎˆ[››İ]YÜİˆ›Û™K]Y\JZ[—Û[™İLKX^Û[™İLL
+WHH›Û™KˆÛ\ÜÚYšXØ][Ûˆ[››İ]YÂˆİˆ›Û™Kˆ]Y\Jˆ]\›H—ŠS“PUÒQÒS”Õ•PÕSÓŸS“PUÒQÔÑUSQS•SSÕS•ÓRTÓPUÒTPĞUWĞĞS‘QU_SP’QÕSÕT×ÓPUÒ
+I‚ˆ
+KˆHH›Û™Kˆ[Z]ˆ[››İ]YÚ[]Y\JÙOLKOLL
+WHHKˆÙ™œÙ]ˆ[››İ]YÚ[]Y\JÙOL
+WHHŠHOˆXİÜİ‹Øš™XİN‚ˆ™]\›ˆ\İØØ\Ù\ÊˆÙ\ÜÚ[Û‹ˆØ\ÙWÜİ]\ÏXØ\ÙWÜİ]\Ëˆ\ÜÚYÛ™YİÏX\ÜÚYÛ™YİËˆÛ\ÜÚYšXØ][ÛXÛ\ÜÚYšXØ][Û‹ˆ[Z][[Z]ˆÙ™œÙ][Ù™œÙ]ˆ
+B‚‚›İ]\‹™Ù]
+‹ØØ\Ù\ËŞØØ\ÙWÚYHŠB™Yˆ™XYØØ\ÙJØ\ÙWÚYˆİ‹Ù\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWJHOˆXİÜİ‹Øš™XİN‚ˆN‚ˆ™]\›ˆÙ]ØØ\ÙJÙ\ÜÚ[Û‹Ø\ÙWÚY
+Bˆ^Ù\Ø\ÙS›İ›İ[™\È\œ›Ü‚ˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›İ]\‹œÜİ
+‹ØØ\Ù\ËŞØØ\ÙWÚYKØ\ÜÚYÛ›Y[ŠB™YˆÚ[™ÙWØØ\ÙWØ\ÜÚYÛ›Y[
+ˆØ\ÙWÚYˆİ‹ˆ^[ØYˆØ\ÙP\ÜÚYÛ”™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹Øš™XİN‚ˆN‚ˆ™\İ[H\ÜÚYÛ—ØØ\ÙJÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY˜\ÜÚYÛ™YİË^[ØY˜XİÜŠBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
-router = APIRouter(prefix="/api/v1", tags=["payment operations"])
-MAX_IMPORT_BYTES = 5 * 1024 * 1024
+Bˆ™]\›ˆ™\İ[ˆ^Ù\Ø\ÙS›İ›İ[™\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXİ[Ûˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍWĞÓÓ‘“PÕ]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›İ]\‹œÜİ
+‹ØØ\Ù\ËŞØØ\ÙWÚYKÛ›İ\ÈŠB™YˆÜš]WØØ\ÙWÛ›İJˆØ\ÙWÚYˆİ‹ˆ^[ØYˆØ\ÙS›İT™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹Øš™XİN‚ˆN‚ˆ™\İ[HYÛ›İJÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY››İK^[ØY˜XİÜŠBˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
+Bˆ™]\›ˆ™\İ[ˆ^Ù\Ø\ÙS›İ›İ[™\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXİ[Ûˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍWĞÓÓ‘“PÕ]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚›İ]\‹œÜİ
+‹ØØ\Ù\ËŞØØ\ÙWÚYKİ˜[œÚ][ÛœÈŠB™YˆÚ[™ÙWØØ\ÙWÜİ]\ÊˆØ\ÙWÚYˆİ‹ˆ^[ØYˆØ\ÙU˜[œÚ][Û”™\]Y\İˆÙ\ÜÚ[Ûˆ[››İ]YÔÙ\ÜÚ[Û‹\[™ÊÙ]ÜÙ\ÜÚ[ÛŠWKŠHOˆXİÜİ‹Øš™XİN‚ˆN‚ˆ™\İ[H˜[œÚ][Û—ØØ\ÙJˆÙ\ÜÚ[Û‹Ø\ÙWÚY^[ØY\™Ù]Üİ]\Ë^[ØY˜XİÜ‹^[ØYœ™X\ÛÛ‚ˆ
+BˆÙ\ÜÚ[Û‹˜ÛÛ[Z]
 
-async def _read_csv(request: Request) -> bytes:
-    content_length = request.headers.get("content-length")
-    if content_length and content_length.isdigit() and int(content_length) > MAX_IMPORT_BYTES:
-        raise HTTPException(
-            status.HTTP_413_CONTENT_TOO_LARGE,
-            "File exceeds the 5 MiB limit.",
-        )
-    chunks: list[bytes] = []
-    total_bytes = 0
-    async for chunk in request.stream():
-        total_bytes += len(chunk)
-        if total_bytes > MAX_IMPORT_BYTES:
-            raise HTTPException(
-                status.HTTP_413_CONTENT_TOO_LARGE,
-                "File exceeds the 5 MiB limit.",
-            )
-        chunks.append(chunk)
-    return b"".join(chunks)
-
-
-@router.post("/source-files/preview", response_model=SourcePreviewResponse)
-async def preview_source(
-    request: Request,
-    kind: Annotated[DatasetKind, Query()],
-) -> dict[str, Any]:
-    content = await _read_csv(request)
-    validation, preview = preview_source_file(content, kind)
-    return {
-        "kind": validation.kind,
-        "checksum_sha256": validation.checksum_sha256,
-        "data_row_count": validation.data_row_count,
-        "is_valid": validation.is_valid,
-        "issues_truncated": validation.issues_truncated,
-        "issues": [issue.__dict__ for issue in validation.issues],
-        "preview": preview,
-    }
-
-
-@router.post("/source-files/import/{kind}", response_model=ImportResponse)
-async def import_source(
-    kind: DatasetKind,
-    request: Request,
-    session: Annotated[Session, Depends(get_session)],
-    file_name: Annotated[str, Query(min_length=1, max_length=255)] = "synthetic.csv",
-) -> dict[str, Any]:
-    content = await _read_csv(request)
-    try:
-        receipt = import_source_file(session, file_name=file_name, content=content, kind=kind)
-    except ImportRejected as error:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-            detail={
-                "message": str(error),
-                "issues": [issue.__dict__ for issue in error.validation.issues],
-                "issues_truncated": error.validation.issues_truncated,
-            },
-        ) from error
-    except ImportConflict as error:
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
-    except ValueError as error:
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-            detail=str(error),
-        ) from error
-    return {
-        "source_file_id": receipt.source_file_id,
-        "source_type": receipt.source_type,
-        "checksum_sha256": receipt.checksum_sha256,
-        "row_count": receipt.row_count,
-        "imported_count": receipt.imported_count,
-        "idempotent": receipt.idempotent,
-    }
-
-
-@router.get("/batches")
-def list_payment_batches(
-    session: Annotated[Session, Depends(get_session)],
-) -> dict[str, list[dict[str, Any]]]:
-    rows = session.execute(
-        select(
-            PaymentInstruction.batch_id,
-            PaymentInstruction.currency,
-            PaymentInstruction.direction,
-            PaymentInstruction.status,
-            func.count(PaymentInstruction.payment_id).label("record_count"),
-            func.sum(PaymentInstruction.amount_minor).label("total_minor"),
-        )
-        .group_by(
-            PaymentInstruction.batch_id,
-            PaymentInstruction.currency,
-            PaymentInstruction.direction,
-            PaymentInstruction.status,
-        )
-        .order_by(
-            PaymentInstruction.batch_id,
-            PaymentInstruction.currency,
-            PaymentInstruction.status,
-        )
-    )
-    batches: dict[str, list[dict[str, Any]]] = {}
-    for row in rows:
-        batches.setdefault(row.batch_id, []).append(
-            {
-                "currency": row.currency,
-                "direction": row.direction,
-                "status": row.status,
-                "record_count": row.record_count,
-                "total_minor": row.total_minor,
-            }
-        )
-    settlement_rows = session.execute(
-        select(
-            SettlementRecord.settlement_batch_id,
-            SettlementRecord.currency,
-            SettlementRecord.direction,
-            func.count(SettlementRecord.settlement_id).label("record_count"),
-            func.sum(SettlementRecord.amount_minor).label("total_minor"),
-        )
-        .group_by(
-            SettlementRecord.settlement_batch_id,
-            SettlementRecord.currency,
-            SettlementRecord.direction,
-        )
-        .order_by(
-            SettlementRecord.settlement_batch_id,
-            SettlementRecord.currency,
-            SettlementRecord.direction,
-        )
-    )
-    settlement_batches: dict[str, list[dict[str, Any]]] = {}
-    for row in settlement_rows:
-        settlement_batches.setdefault(row.settlement_batch_id, []).append(
-            {
-                "currency": row.currency,
-                "direction": row.direction,
-                "record_count": row.record_count,
-                "total_minor": row.total_minor,
-            }
-        )
-    return {
-        "batches": [
-            {"batch_id": batch_id, "control_totals": totals}
-            for batch_id, totals in sorted(batches.items())
-        ],
-        "settlement_batches": [
-            {"settlement_batch_id": batch_id, "control_totals": totals}
-            for batch_id, totals in sorted(settlement_batches.items())
-        ],
-    }
-
-
-@router.get("/batches/{batch_id}/payments")
-def list_batch_payments(
-    batch_id: str,
-    session: Annotated[Session, Depends(get_session)],
-    limit: Annotated[int, Query(ge=1, le=100)] = 25,
-) -> dict[str, Any]:
-    payments = session.scalars(
-        select(PaymentInstruction)
-        .where(PaymentInstruction.batch_id == batch_id)
-        .order_by(PaymentInstruction.payment_id)
-        .limit(limit)
-    )
-    records = [
-        {
-            "payment_id": payment.payment_id,
-            "client_reference": payment.client_reference,
-            "status": payment.status,
-            "amount_minor": payment.amount_minor,
-            "currency": payment.currency,
-            "direction": payment.direction,
-        }
-        for payment in payments
-    ]
-    return {"batch_id": batch_id, "payments": records, "limit": limit}
-
-
-@router.post("/batches/{batch_id}/simulate", response_model=SimulateBatchResponse)
-def simulate_batch(
-    batch_id: str,
-    payload: SimulateBatchRequest,
-    session: Annotated[Session, Depends(get_session)],
-) -> dict[str, Any]:
-    try:
-        return simulate_payment_batch(
-            session,
-            batch_id=batch_id,
-            failed_payment_ids=set(payload.failed_payment_ids),
-            actor=payload.actor,
-        )
-    except UnknownBatch as error:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Payment batch not found.",
-        ) from error
-    except ValueError as error:
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-            detail=str(error),
-        ) from error
-
-
-@router.post("/payments/{payment_id}/transitions", response_model=PaymentTransitionResponse)
-def change_payment_status(
-    payment_id: str,
-    payload: PaymentTransitionRequest,
-    session: Annotated[Session, Depends(get_session)],
-) -> dict[str, str]:
-    try:
-        payment = transition_payment(
-            session,
-            payment_id=payment_id,
-            target_status=payload.target_status,
-            actor=payload.actor,
-            reason=payload.reason,
-        )
-        session.commit()
-    except UnknownPayment as error:
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Payment not found.",
-        ) from error
-    except InvalidTransition as error:
-        session.rollback()
-        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
-    except ValueError as error:
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
-            detail=str(error),
-        ) from error
-    return {
-        "payment_id": payment.payment_id,
-        "status": payment.status,
-        "batch_id": payment.batch_id,
-    }
-
-
-@router.get("/payments/{payment_id}/events")
-def payment_event_history(
-    payment_id: str, session: Annotated[Session, Depends(get_session)]
-) -> dict[str, list[dict[str, Any]]]:
-    if session.get(PaymentInstruction, payment_id) is None:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Payment not found.")
-    events = session.scalars(
-        select(PaymentEvent)
-        .where(PaymentEvent.payment_id == payment_id)
-        .order_by(PaymentEvent.occurred_at, PaymentEvent.event_id)
-    )
-    return {
-        "events": [
-            {
-                "event_id": event.event_id,
-                "payment_id": event.payment_id,
-                "event_type": event.event_type,
-                "occurred_at": event.occurred_at,
-                "metadata": event.metadata_json,
-                "actor": event.actor,
-                "correlation_id": event.correlation_id,
-            }
-            for event in events
-        ]
-    }
-
-
-@router.post("/reconciliation/runs", status_code=status.HTTP_201_CREATED)
-def create_reconciliation_run(
-    payload: ReconciliationRunRequest,
-    session: Annotated[Session, Depends(get_session)],
-) -> dict[str, Any]:
-    try:
-        return run_reconciliation(
-            session,
-            payload.payment_batch_id,
-            payload.settlement_batch_id,
-            payload.late_window_days,
-        )
-    except LookupError as error:
-        session.rollback()
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
-    except ValueError as error:
-        session.rollback()
-        raise HTTPException(
-            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(error)
-        ) from error
-
-
-@router.get("/reconciliation/runs/{run_id}")
-def read_reconciliation_run(
-    run_id: str,
-    session: Annotated[Session, Depends(get_session)],
-    limit: Annotated[int, Query(ge=1, le=500)] = 100,
-    offset: Annotated[int, Query(ge=0)] = 0,
-) -> dict[str, Any]:
-    try:
-        return get_run(session, run_id, limit, offset)
-    except LookupError as error:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
-
-
-def install_routes(app: Any) -> None:
-    app.include_router(router)
+Bˆ™]\›ˆ™\İ[ˆ^Ù\Ø\ÙS›İ›İ[™\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍÓ“ÕÑ“ÕS‘]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚ˆ^Ù\[˜[YØ\ÙPXİ[Ûˆ\È\œ›Ü‚ˆÙ\ÜÚ[Û‹œ›Û˜XÚÊ
+Bˆ˜Z\ÙH^Ù\[ÛŠİ]\×ØÛÙO\İ]\Ë’ÍWĞÓÓ‘“PÕ]Z[\İŠ\œ›ÜŠJHœ›ÛH\œ›Ü‚‚‚™Yˆ[œİ[Ü›İ]\Ê\ˆ[JHOˆ›Û™N‚ˆ\š[˜ÛYWÜ›İ]\Š›İ]\ŠB

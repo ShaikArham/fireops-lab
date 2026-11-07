@@ -4,6 +4,7 @@ from collections import Counter, defaultdict
 from datetime import UTC, datetime
 from uuid import uuid4
 
+from sqlalchemy import case as sql_case
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -124,6 +125,21 @@ def get_run(session: Session, run_id: str, limit: int = 100, offset: int = 0) ->
             select(ReconciliationResult)
             .where(ReconciliationResult.run_id == run_id)
             .order_by(
+                sql_case(
+                    (
+                        ReconciliationResult.classification.in_(
+                            (
+                                "UNMATCHED_INSTRUCTION",
+                                "UNMATCHED_SETTLEMENT",
+                                "AMOUNT_MISMATCH",
+                                "DUPLICATE_CANDIDATE",
+                                "AMBIGUOUS_MATCH",
+                            )
+                        ),
+                        0,
+                    ),
+                    else_=1,
+                ),
                 ReconciliationResult.classification,
                 ReconciliationResult.payment_id,
                 ReconciliationResult.settlement_id,

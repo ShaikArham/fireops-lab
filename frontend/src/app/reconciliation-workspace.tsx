@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
+import CaseWorkspace from "./case-workspace";
 
 type Item = Record<string, string | number> | null;
 interface ReconciliationItem {
+  result_id?: string;
   classification: string;
   difference_minor: number | null;
   explanation_code: string;
@@ -246,6 +248,7 @@ export default function ReconciliationWorkspace() {
           Saved run {run.run_id} · batch {run.payment_batch_id} · showing up to 30 results
         </p>
       )}
+      {run && <CaseWorkspace results={run.results} />}
       {!run && (
         <p className="mt-4 text-xs text-slate-500">
           {sample.title} · rules {sample.rules_version} ·{" "}
