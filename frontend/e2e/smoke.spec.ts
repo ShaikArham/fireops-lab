@@ -439,7 +439,7 @@ test("monitoring alerts show evidence, allow human triage, and produce only a mo
     .last()
     .click();
   await expect(
-    page.getByText("A client may reuse a reference for legitimate split payments."),
+    page.getByText("A client may reuse a reference for legitimate split payments.").first(),
   ).toBeVisible();
   await expect(page.getByText("PAY-QA-1, PAY-QA-2")).toBeVisible();
   await page.getByRole("button", { name: "Start review" }).click();
