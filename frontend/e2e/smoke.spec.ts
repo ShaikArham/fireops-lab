@@ -108,12 +108,12 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
     case_id: "CASE-QA-1",
     result_id: "RESULT-QA-1",
     run_id: "RUN-QA-1",
-    classification: "AMOUNT_MISMATCH",
+    classification: "UNMATCHED_INSTRUCTION",
     status: currentStatus,
     priority: "NORMAL",
     assigned_to: assignedTo,
     payment: { payment_id: "PAY-QA-1", amount_minor: 1250, currency: "EUR" },
-    settlement: { settlement_id: "SET-QA-1", amount_minor: 1200, currency: "EUR" },
+    settlement: null,
     activities: activities.map((activity, index) => ({
       activity_id: `ACT-${index}`,
       activity_type: activity.type,
@@ -147,16 +147,16 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
           payment_batch_id: "BATCH-QA-1",
           settlement_batch_id: "SETTLE-QA-1",
           matched_count: 0,
-          unmatched_count: 0,
+          unmatched_count: 1,
           exception_count: 1,
           result_count: 1,
-          classification_counts: { AMOUNT_MISMATCH: 1 },
+          classification_counts: { UNMATCHED_INSTRUCTION: 1 },
           results: [
             {
               result_id: "RESULT-QA-1",
-              classification: "AMOUNT_MISMATCH",
-              difference_minor: -50,
-              explanation_code: "AMOUNT_DIFFERENCE",
+              classification: "UNMATCHED_INSTRUCTION",
+              difference_minor: null,
+              explanation_code: "NO_SETTLEMENT_REFERENCE",
               payment: {
                 payment_id: "PAY-QA-1",
                 client_reference: "REF-QA-1",
@@ -164,13 +164,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
                 currency: "EUR",
                 expected_settlement_date: "2026-10-15",
               },
-              settlement: {
-                settlement_id: "SET-QA-1",
-                payment_reference: "REF-QA-1",
-                amount_minor: 1200,
-                currency: "EUR",
-                settlement_date: "2026-10-15",
-              },
+              settlement: null,
             },
           ],
         }),
@@ -255,6 +249,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
+  await expect(page.getByRole("heading", { name: "UNMATCHED INSTRUCTION" })).toBeVisible();
   await page.getByRole("button", { name: "Open investigation case" }).click();
   await expect(page.getByRole("heading", { name: "Case investigation" })).toBeVisible();
   await page.getByLabel("Assign to analyst").fill("analyst.two");
