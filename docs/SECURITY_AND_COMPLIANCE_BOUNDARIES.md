@@ -11,7 +11,8 @@ All sample people, companies, balances, account tokens, payment references, date
 Engineering controls to implement by phase:
 
 - Keep secrets in environment variables and out of git history and frontend bundles.
-- Bound and validate all uploads, including file size, row count, encoding, schema, and field values.
+- Bound and validate CSV input, including file size, row count, encoding, exact schema, and field values. Phase 2 rejects the entire preview if any row fails; it does not persist partial imports.
+- Require `SYN-`-prefixed account tokens, reject formula-like cell values, and never accept real account/customer identifiers in sample data.
 - Keep SQL parameterised; restrict CORS; use least-privilege database roles.
 - Escape spreadsheet formulas in CSV exports.
 - Keep shared sample data read-only or use an isolated resettable workspace.

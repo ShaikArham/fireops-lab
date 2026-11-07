@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phase 0 is complete. Phase 1 engineering foundation is in progress. Payment simulation, reconciliation, investigation, monitoring, and reporting features are not implemented yet.
+> **Build status:** Phases 0–1 are complete. Phase 2 data model, synthetic fixtures, and import validation are in progress. Payment processing, reconciliation, investigation, monitoring, and reporting features are not implemented yet.
 
 ## Project boundaries
 
@@ -13,13 +13,13 @@ An independent payment operations, reconciliation, and transaction investigation
 
 ## Architecture
 
-See [the project brief](docs/PROJECT_BRIEF.md), [architecture and cost decisions](docs/ARCHITECTURE.md), [requirement traceability](docs/REQUIREMENTS_TRACEABILITY.md), and [decision log](docs/DECISION_LOG.md).
+See [the project brief](docs/PROJECT_BRIEF.md), [architecture and cost decisions](docs/ARCHITECTURE.md), [data dictionary](docs/DATA_DICTIONARY.md), [requirement traceability](docs/REQUIREMENTS_TRACEABILITY.md), and [decision log](docs/DECISION_LOG.md).
 
 The planned product is a statically exported Next.js and TypeScript web app, a Python FastAPI API, and PostgreSQL. Domain logic will live in tested backend services, separate from HTTP routes and UI components. The target deployment is GitHub Pages plus free-tier API/database services, with the limits documented in the architecture decision.
 
 See [development workflow](docs/DEVELOPMENT.md) for branch and local setup conventions.
 
-## Run the Phase 1 skeleton
+## Run the local applications
 
 Requirements: Node.js 24, Python 3.12, npm, and `uv`.
 
@@ -37,7 +37,16 @@ uv run uvicorn app.main:app --reload --port 8000
 
 Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Neither process needs a database in Phase 1. Database-backed features begin only after the relevant phase gate.
 
-The production host will be chosen at the final release gate. GitHub Pages serves only static frontend files; the FastAPI service and PostgreSQL database will need separate free-tier hosting.
+The GitHub Pages publishing workflow is manual-only and will be used at the final release gate. GitHub Pages serves static frontend files; the FastAPI service and PostgreSQL database will need separate free-tier hosting.
+
+## Generate the synthetic datasets
+
+```bash
+cd backend
+uv run python -m app.synthetic.generate
+```
+
+The command writes deterministic CSV fixtures and `data/synthetic/manifest.json`. To validate a supplied instruction CSV from Python, call `app.services.csv_validation.validate_csv(content, "payment_instructions")`; use `"settlement_records"` for settlement data. Validation is all-or-nothing and returns row-level errors without persisting data.
 
 ## Checks
 
@@ -52,6 +61,8 @@ npx playwright install chromium
 npm run test:e2e
 
 cd ../backend
+uv run alembic upgrade head
+uv run alembic check
 uv run ruff check .
 uv run pytest
 ```

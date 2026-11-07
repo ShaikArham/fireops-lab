@@ -1,0 +1,38 @@
+{
+  "currency_policy": "Amounts use integer minor units. Currency is explicit per row.",
+  "data_policy": "Entirely synthetic. Account values use SYN-prefixed tokens.",
+  "datasets": {
+    "exception_day": {
+      "business_date": "2026-10-15",
+      "counts": {
+        "payment_instructions": 1250,
+        "settlement_records": 1230
+      },
+      "intentional_exceptions": {
+        "duplicate_instruction": 10,
+        "missing_settlement": 10
+      },
+      "sha256": {
+        "payment_instructions.csv": "0c64b97e52dc1cc8a3aa1504a4d105aa7aed0a904dfa3f4b9802c6d46bae4a05",
+        "settlement_records.csv": "d459a7480b385376a78d7e6e865b1e0e6e3c4afbf2916dc98241e3805522ee1b"
+      }
+    },
+    "normal_day": {
+      "business_date": "2026-10-14",
+      "counts": {
+        "payment_instructions": 100,
+        "settlement_records": 100
+      },
+      "intentional_exceptions": {
+        "duplicate_instruction": 0,
+        "missing_settlement": 0
+      },
+      "sha256": {
+        "payment_instructions.csv": "9b696abf8d8cb985255e186ea65828977a682efd7db398a24ddb0ef44371e932",
+        "settlement_records.csv": "74c8ba117473f4fc9d51a40113f1a731c4c810697014247a704e274b05f5b378"
+      }
+    }
+  },
+  "generator_version": "1.0.0",
+  "seed": 20261107
+}

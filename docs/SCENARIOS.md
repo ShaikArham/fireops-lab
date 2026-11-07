@@ -1,6 +1,6 @@
 # Planned demonstration scenarios
 
-These are design targets only; no scenario engine is implemented yet. Every scenario needs fixture inputs, expected output, analyst next action, a test assertion, and a truthful walkthrough script before it is shown in the app.
+The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. The `exception_day` fixture contains 1,250 instructions and 1,230 settlements, with 10 missing settlement references and 10 duplicate instruction references. These are data fixtures only; no lifecycle, reconciliation, or monitoring engine is implemented yet. Every scenario still needs an expected classification, analyst next action, a test assertion, and a truthful walkthrough script before it is shown in the app.
 
 | Scenario | Expected classification / alert | Analyst action |
 |---|---|---|

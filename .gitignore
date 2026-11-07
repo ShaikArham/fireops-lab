@@ -14,6 +14,7 @@ __pycache__/
 !.env.example
 uvicorn.log
 *.log
+*.db
 .DS_Store
 Thumbs.db
 playwright-report/

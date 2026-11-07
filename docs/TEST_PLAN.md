@@ -7,6 +7,15 @@
 - Repository: confirm `.env` and generated files are ignored; scan tracked content for obvious secrets.
 - Do not claim CI or preview deployment until a remote repository and CI run exist.
 
+## Phase 2 data and import checks
+
+- Apply Alembic migrations to PostgreSQL 17 in CI; verify the schema matches SQLAlchemy metadata.
+- Apply the migration to a temporary SQLite database in unit tests and enforce positive minor-unit amounts, supported currencies, status/direction constraints, foreign keys, and stable identifiers.
+- Generate normal and exception-day fixtures twice; assert byte-identical CSVs, fixed counts, manifest hashes, and documented intentional exceptions.
+- Validate both committed fixtures, including timezone-aware timestamps, supported currency, UTF-8/Unicode references, `SYN-` account tokens, duplicate IDs/idempotency keys, file-size and row-count limits, and formula-like cell rejection.
+- Confirm an invalid row rejects the complete preview and does not return partial import records.
+- Never use real account identifiers, IBANs, card numbers, customer data, or live records.
+
 ## Domain test matrix by phase
 
 | Area | Required cases |

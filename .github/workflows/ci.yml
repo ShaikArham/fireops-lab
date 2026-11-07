@@ -43,6 +43,22 @@ jobs:
 
   backend:
     runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: fireops
+          POSTGRES_PASSWORD: fireops_test
+          POSTGRES_DB: fireops_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fireops -d fireops_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+psycopg://fireops:fireops_test@127.0.0.1:5432/fireops_test
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
@@ -53,6 +69,10 @@ jobs:
         with:
           python-version: "3.12"
       - run: uv sync --frozen
+        working-directory: backend
+      - run: uv run alembic upgrade head
+        working-directory: backend
+      - run: uv run alembic check
         working-directory: backend
       - run: uv run ruff check .
         working-directory: backend
