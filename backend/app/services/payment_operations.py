@@ -244,9 +244,11 @@ def transition_payment(
 
 def _simulated_settlement(payment: PaymentInstruction, settlement_date: date) -> SettlementRecord:
     identity = hashlib.sha256(payment.payment_id.encode("utf-8")).hexdigest()[:32].upper()
-    batch_hash = hashlib.sha256(
-        f"{payment.batch_id}:{settlement_date.isoformat()}".encode()
-    ).hexdigest()[:20].upper()
+    batch_hash = (
+        hashlib.sha256(f"{payment.batch_id}:{settlement_date.isoformat()}".encode())
+        .hexdigest()[:20]
+        .upper()
+    )
     return SettlementRecord(
         settlement_id=f"SIMSET-{identity}",
         scheme_reference=f"SIMREF-{identity}",

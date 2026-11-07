@@ -65,3 +65,11 @@ class SimulateBatchResponse(BaseModel):
     settlement_count: int
     settlement_totals_minor: dict[str, int]
     idempotent: bool
+
+
+class ReconciliationRunRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    payment_batch_id: str = Field(min_length=1, max_length=64)
+    settlement_batch_id: str = Field(min_length=1, max_length=64)
+    late_window_days: int = Field(default=3, ge=0, le=30)

@@ -11,7 +11,7 @@ from app.db.base import Base
 from app.models import PaymentEvent, PaymentInstruction, SourceFile  # noqa: F401
 
 
-def test_alembic_upgrade_creates_phase_two_schema(
+def test_alembic_upgrade_creates_phase_four_schema(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     monkeypatch.delenv("DATABASE_URL", raising=False)
@@ -29,6 +29,8 @@ def test_alembic_upgrade_creates_phase_two_schema(
         "payment_instructions",
         "settlement_records",
         "payment_events",
+        "reconciliation_runs",
+        "reconciliation_results",
         "alembic_version",
     } <= table_names
     engine.dispose()

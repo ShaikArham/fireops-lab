@@ -43,6 +43,9 @@ def test_generated_datasets_have_repeatable_bytes_counts_and_checksums(tmp_path:
     assert first_manifest["datasets"]["exception_day"]["intentional_exceptions"] == {
         "missing_settlement": 10,
         "duplicate_instruction": 10,
+        "amount_mismatch": 1,
+        "late_settlement": 1,
+        "reference_fallback": 1,
     }
 
 
@@ -77,6 +80,7 @@ def test_exception_fixture_contains_only_expected_duplicate_references_and_synth
     assert len(duplicate_references) == 10
     with (fixture_root / "settlement_records.csv").open(encoding="utf-8", newline="") as handle:
         settlement_references = {row["payment_reference"] for row in csv.DictReader(handle)}
-    assert len(set(references) - settlement_references) == 10
+    assert len(set(references) - settlement_references) == 11
+    assert "ALT-REF-E-0013" in settlement_references
     assert all(row["payer_account_token"].startswith("SYN-") for row in payments)
     assert all(row["payee_account_token"].startswith("SYN-") for row in payments)

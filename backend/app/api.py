@@ -10,6 +10,7 @@ from app.schemas.operations import (
     ImportResponse,
     PaymentTransitionRequest,
     PaymentTransitionResponse,
+    ReconciliationRunRequest,
     SimulateBatchRequest,
     SimulateBatchResponse,
     SourcePreviewResponse,
@@ -26,6 +27,7 @@ from app.services.payment_operations import (
     simulate_payment_batch,
     transition_payment,
 )
+from app.services.reconciliation_operations import get_run, run_reconciliation
 
 router = APIRouter(prefix="/api/v1", tags=["payment operations"])
 MAX_IMPORT_BYTES = 5 * 1024 * 1024
@@ -78,9 +80,7 @@ async def import_source(
 ) -> dict[str, Any]:
     content = await _read_csv(request)
     try:
-        receipt = import_source_file(
-            session, file_name=file_name, content=content, kind=kind
-        )
+        receipt = import_source_file(session, file_name=file_name, content=content, kind=kind)
     except ImportRejected as error:
         raise HTTPException(
             status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
@@ -119,12 +119,14 @@ def list_payment_batches(
             PaymentInstruction.status,
             func.count(PaymentInstruction.payment_id).label("record_count"),
             func.sum(PaymentInstruction.amount_minor).label("total_minor"),
-        ).group_by(
+        )
+        .group_by(
             PaymentInstruction.batch_id,
             PaymentInstruction.currency,
             PaymentInstruction.direction,
             PaymentInstruction.status,
-        ).order_by(
+        )
+        .order_by(
             PaymentInstruction.batch_id,
             PaymentInstruction.currency,
             PaymentInstruction.status,
@@ -148,11 +150,13 @@ def list_payment_batches(
             SettlementRecord.direction,
             func.count(SettlementRecord.settlement_id).label("record_count"),
             func.sum(SettlementRecord.amount_minor).label("total_minor"),
-        ).group_by(
+        )
+        .group_by(
             SettlementRecord.settlement_batch_id,
             SettlementRecord.currency,
             SettlementRecord.direction,
-        ).order_by(
+        )
+        .order_by(
             SettlementRecord.settlement_batch_id,
             SettlementRecord.currency,
             SettlementRecord.direction,
@@ -294,6 +298,41 @@ def payment_event_history(
             for event in events
         ]
     }
+
+
+@router.post("/reconciliation/runs", status_code=status.HTTP_201_CREATED)
+def create_reconciliation_run(
+    payload: ReconciliationRunRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    try:
+        return run_reconciliation(
+            session,
+            payload.payment_batch_id,
+            payload.settlement_batch_id,
+            payload.late_window_days,
+        )
+    except LookupError as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except ValueError as error:
+        session.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=str(error)
+        ) from error
+
+
+@router.get("/reconciliation/runs/{run_id}")
+def read_reconciliation_run(
+    run_id: str,
+    session: Annotated[Session, Depends(get_session)],
+    limit: Annotated[int, Query(ge=1, le=500)] = 100,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict[str, Any]:
+    try:
+        return get_run(session, run_id, limit, offset)
+    except LookupError as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
 
 
 def install_routes(app: Any) -> None:

@@ -2,6 +2,9 @@ from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 NORMAL_PAYMENTS = PROJECT_ROOT / "data/synthetic/normal_day/payment_instructions.csv"
+NORMAL_SETTLEMENTS = PROJECT_ROOT / "data/synthetic/normal_day/settlement_records.csv"
+EXCEPTION_PAYMENTS = PROJECT_ROOT / "data/synthetic/exception_day/payment_instructions.csv"
+EXCEPTION_SETTLEMENTS = PROJECT_ROOT / "data/synthetic/exception_day/settlement_records.csv"
 
 
 def test_api_previews_source_without_persisting_records(api_client) -> None:
@@ -41,13 +44,9 @@ def test_api_import_batch_transition_history_and_simulation_are_connected(api_cl
     batches = api_client.get("/api/v1/batches")
     assert batches.status_code == 200
     assert batches.json()["batches"][0]["batch_id"] == "BATCH-N-20261014"
-    assert sum(
-        row["record_count"] for row in batches.json()["batches"][0]["control_totals"]
-    ) == 100
+    assert sum(row["record_count"] for row in batches.json()["batches"][0]["control_totals"]) == 100
 
-    sample_payments = api_client.get(
-        "/api/v1/batches/BATCH-N-20261014/payments?limit=1"
-    )
+    sample_payments = api_client.get("/api/v1/batches/BATCH-N-20261014/payments?limit=1")
     assert sample_payments.status_code == 200
     assert len(sample_payments.json()["payments"]) == 1
 
@@ -67,9 +66,9 @@ def test_api_import_batch_transition_history_and_simulation_are_connected(api_cl
     assert simulation.json()["failed_count"] == 1
     controls_after_processing = api_client.get("/api/v1/batches").json()
     generated_settlement_batch = controls_after_processing["settlement_batches"][0]
-    assert sum(
-        total["record_count"] for total in generated_settlement_batch["control_totals"]
-    ) == 99
+    assert (
+        sum(total["record_count"] for total in generated_settlement_batch["control_totals"]) == 99
+    )
     assert sum(
         total["total_minor"] for total in generated_settlement_batch["control_totals"]
     ) == sum(
@@ -79,9 +78,9 @@ def test_api_import_batch_transition_history_and_simulation_are_connected(api_cl
     ) - int(
         next(
             row["amount_minor"]
-            for row in api_client.get(
-                "/api/v1/batches/BATCH-N-20261014/payments?limit=100"
-            ).json()["payments"]
+            for row in api_client.get("/api/v1/batches/BATCH-N-20261014/payments?limit=100").json()[
+                "payments"
+            ]
             if row["payment_id"] == payment_id
         )
     )
@@ -112,3 +111,63 @@ def test_api_rejects_invalid_import_and_oversized_request(api_client) -> None:
     )
     assert oversized.status_code == 413
 
+
+def test_reconciliation_api_persists_results_and_returns_side_by_side_records(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", NORMAL_PAYMENTS, "payments.csv"),
+        ("settlement_records", NORMAL_SETTLEMENTS, "settlements.csv"),
+    ):
+        imported = api_client.post(
+            f"/api/v1/source-files/import/{kind}?file_name={filename}",
+            content=path.read_bytes(),
+            headers={"content-type": "text/csv"},
+        )
+        assert imported.status_code == 200
+    run = api_client.post(
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-N-20261014",
+            "settlement_batch_id": "SETTLE-N-20261015",
+        },
+    )
+    assert run.status_code == 201
+    body = run.json()
+    assert body["result_count"] == 100
+    assert body["matched_count"] == 100
+    assert body["classification_counts"] == {"MATCHED_EXACT": 100}
+    assert body["results"][0]["payment"]["payment_id"]
+    assert body["results"][0]["settlement"]["settlement_id"]
+    saved = api_client.get(f"/api/v1/reconciliation/runs/{body['run_id']}?limit=1&offset=99")
+    assert saved.status_code == 200
+    assert saved.json()["results"][0]["classification"] == "MATCHED_EXACT"
+    assert api_client.get("/api/v1/reconciliation/runs/not-a-run").status_code == 404
+
+
+def test_exception_fixture_reconciliation_surfaces_expected_classes(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", EXCEPTION_PAYMENTS, "exception-payments.csv"),
+        ("settlement_records", EXCEPTION_SETTLEMENTS, "exception-settlements.csv"),
+    ):
+        imported = api_client.post(
+            f"/api/v1/source-files/import/{kind}?file_name={filename}",
+            content=path.read_bytes(),
+            headers={"content-type": "text/csv"},
+        )
+        assert imported.status_code == 200
+    run = api_client.post(
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-E-20261015",
+            "settlement_batch_id": "SETTLE-E-20261016",
+        },
+    )
+    assert run.status_code == 201
+    counts = run.json()["classification_counts"]
+    assert counts == {
+        "AMOUNT_MISMATCH": 1,
+        "DUPLICATE_CANDIDATE": 20,
+        "MATCHED_EXACT": 1218,
+        "MATCHED_LATE": 1,
+        "UNMATCHED_INSTRUCTION": 10,
+        "UNMATCHED_SETTLEMENT": 10,
+    }
