@@ -104,6 +104,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   const activities: Array<Record<string, string | null>> = [];
   let currentStatus = "OPEN";
   let assignedTo: string | null = null;
+  let rootCause: string | null = null;
   const caseData = () => ({
     case_id: "CASE-QA-1",
     result_id: "RESULT-QA-1",
@@ -112,6 +113,7 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
     status: currentStatus,
     priority: "NORMAL",
     assigned_to: assignedTo,
+    root_cause: rootCause,
     payment: { payment_id: "PAY-QA-1", amount_minor: 1250, currency: "EUR" },
     settlement: null,
     activities: activities.map((activity, index) => ({
@@ -221,15 +223,21 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
         body: JSON.stringify(caseData()),
       });
     } else if (url.pathname.endsWith("/transitions")) {
-      const body = request.postDataJSON() as { target_status: string; reason?: string };
+      const body = request.postDataJSON() as {
+        target_status: string;
+        reason?: string;
+        root_cause?: string;
+      };
       const previous = currentStatus;
       currentStatus = body.target_status;
+      rootCause = body.root_cause ?? null;
       activities.push({
         type: currentStatus === "RESOLVED" ? "RESOLVED" : "STATUS_CHANGED",
         actor: "demo-analyst",
         reason: body.reason ?? null,
         from: previous,
         to: currentStatus,
+        root_cause: rootCause,
       });
       await route.fulfill({
         status: 200,
@@ -262,13 +270,105 @@ test("an exception is assigned, investigated, resolved, and retained in its audi
   await page
     .getByLabel("Action reason")
     .fill("Operations confirmed the variance in the settlement source.");
+  await page.getByLabel("Resolution root cause").selectOption("SOURCE_DATA_QUALITY");
   await page.getByRole("button", { name: "Resolve case" }).click();
   const audit = page.getByRole("list", { name: "Case audit history" });
   await expect(audit.getByText("CREATED", { exact: true })).toBeVisible();
   await expect(audit.getByText("ASSIGNED", { exact: true })).toBeVisible();
   await expect(audit.getByText("NOTE ADDED", { exact: true })).toBeVisible();
   await expect(audit.getByText("RESOLVED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("Root cause: SOURCE DATA QUALITY", { exact: true })).toBeVisible();
   await expect(audit.getByText("Source evidence shows a 50 minor-unit difference.")).toBeVisible();
+});
+
+test("operational insights use one saved run and export its report", async ({ page }) => {
+  await page.route("https://api.fireops.test/api/v1/insights/**", async (route) => {
+    const url = new URL(route.request().url());
+    if (url.pathname.endsWith("/insights/latest")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "run-insights-1",
+          payment_batch_id: "BATCH-QA-1",
+          settlement_batch_id: "SETTLE-QA-1",
+          generated_at: "2026-11-07T12:00:00Z",
+          metrics: {
+            payment_count: 125,
+            settled_payment_count: 120,
+            matched_exact_count: 100,
+            exact_match_rate_pct: 80,
+            unmatched_instruction_count: 10,
+            unmatched_settlement_count: 5,
+            exception_result_count: 20,
+            exception_review_value_by_currency_minor: { EUR: 125000 },
+            average_minutes_to_triage: 12.5,
+            median_minutes_to_resolution: 38,
+            open_case_count: 4,
+            open_case_ageing: { under_24h: 1, "1_to_3_days": 2, over_3_days: 1 },
+            monitoring_alert_count: 4,
+            reviewed_alert_count: 2,
+            alert_review_rate_pct: 50,
+          },
+          exception_categories: [
+            { classification: "UNMATCHED_INSTRUCTION", count: 10 },
+            { classification: "UNMATCHED_SETTLEMENT", count: 5 },
+            { classification: "DUPLICATE_CANDIDATE", count: 5 },
+          ],
+          root_cause_distribution: [{ root_cause: "SOURCE_DATA_QUALITY", resolved_cases: 1 }],
+          reconciliation_run_trend: [
+            {
+              run_id: "run-insights-1",
+              finished_at: "2026-11-07T12:00:00Z",
+              payment_batch_id: "BATCH-QA-1",
+              payment_count: 125,
+              exact_match_rate_pct: 80,
+              exception_result_count: 20,
+              exception_categories: { UNMATCHED_INSTRUCTION: 10 },
+            },
+          ],
+          recurring_exception_patterns: [],
+          definitions: {
+            exact_match_rate_pct: "Exact matches divided by instructions.",
+            exception_review_value_by_currency_minor: "Grouped by currency, not a loss estimate.",
+            average_minutes_to_triage: "Mean from case creation to first review.",
+            median_minutes_to_resolution: "Median among resolved cases.",
+            alert_review_rate_pct: "Reviewed alerts divided by latest run alerts.",
+            open_case_ageing: "Age buckets from report generation time.",
+          },
+          improvement_exercise: {
+            label: "Hypothetical workload exercise",
+            basis: "Analyst-entered assumptions only.",
+            exception_review_items: 20,
+          },
+        }),
+      });
+    } else {
+      expect(url.pathname).toBe("/api/v1/insights/runs/run-insights-1/export.csv");
+      await route.fulfill({
+        status: 200,
+        contentType: "text/csv",
+        headers: {
+          "content-disposition": 'attachment; filename="fireops-insights-run-insights-1.csv"',
+        },
+        body: "section,metric,value,unit,definition\nmetric,exact_match_rate_pct,80,percent,Exact matches divided by instructions.\n",
+      });
+    }
+  });
+
+  await page.goto("/#insights");
+  await expect(
+    page.getByRole("heading", { name: "Measure the payment day and review workload" }),
+  ).toBeVisible();
+  await expect(page.getByText("80.00%", { exact: true })).toBeVisible();
+  await expect(page.getByText("€1,250.00", { exact: true })).toBeVisible();
+  await expect(page.getByText("This calculator compares assumptions only.")).toBeVisible();
+  await expect(page.getByText("SOURCE DATA QUALITY", { exact: true })).toBeVisible();
+  await expect(page.getByText("80.00% exact · 20 exceptions")).toBeVisible();
+  const downloadPromise = page.waitForEvent("download");
+  await page.getByRole("link", { name: "Download this run’s CSV" }).click();
+  const download = await downloadPromise;
+  expect(download.suggestedFilename()).toBe("fireops-insights-run-insights-1.csv");
 });
 
 test("monitoring alerts show evidence, allow human triage, and produce only a mock escalation note", async ({

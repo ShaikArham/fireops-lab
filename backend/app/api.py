@@ -1,11 +1,11 @@
 from typing import Annotated, Any
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, Response, status
 from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app.db.session import get_session
-from app.models import PaymentEvent, PaymentInstruction, SettlementRecord
+from app.models import PaymentEvent, PaymentInstruction, ReconciliationRun, SettlementRecord
 from app.schemas.operations import (
     AlertNoteRequest,
     AlertTransitionRequest,
@@ -44,6 +44,7 @@ from app.services.monitoring_operations import (
     run_monitoring,
     transition_alert,
 )
+from app.services.operational_insights import build_report, report_csv
 from app.services.payment_operations import (
     ImportConflict,
     ImportRejected,
@@ -458,7 +459,12 @@ def change_case_status(
 ) -> dict[str, object]:
     try:
         result = transition_case(
-            session, case_id, payload.target_status, payload.actor, payload.reason
+            session,
+            case_id,
+            payload.target_status,
+            payload.actor,
+            payload.reason,
+            payload.root_cause,
         )
         session.commit()
         return result
@@ -579,6 +585,50 @@ def get_escalation_summary(
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
     except InvalidAlertAction as error:
         raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.get("/insights/latest")
+def latest_operational_insights(
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    run = session.scalar(
+        select(ReconciliationRun)
+        .order_by(ReconciliationRun.finished_at.desc(), ReconciliationRun.run_id)
+        .limit(1)
+    )
+    if run is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Run a reconciliation before viewing operational insights.",
+        )
+    return build_report(session, run.run_id)
+
+
+@router.get("/insights/runs/{run_id}")
+def operational_insights_for_run(
+    run_id: str,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        return build_report(session, run_id)
+    except LookupError as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.get("/insights/runs/{run_id}/export.csv")
+def export_operational_insights(
+    run_id: str,
+    session: Annotated[Session, Depends(get_session)],
+) -> Response:
+    try:
+        report = build_report(session, run_id)
+    except LookupError as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    return Response(
+        content=report_csv(report),
+        media_type="text/csv; charset=utf-8",
+        headers={"Content-Disposition": f'attachment; filename="fireops-insights-{run_id}.csv"'},
+    )
 
 
 def install_routes(app: Any) -> None:

@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Current verified `main`:** `20229274ce98dddc6fd11e614dcec825a71c1bcc` (Phase 6 merge; post-merge CI run 42425109153 passed).
+**Phase 6 verified merge:** `20229274ce98dddc6fd11e614dcec825a71c1bcc` (PR #12; post-merge CI run 42425109153 passed). **Current work:** Phase 7 on `phase7/operational-insights`.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -28,7 +28,10 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 4 · reconciliation | Complete | Versioned deterministic engine, saved runs and results, source hashes, side-by-side comparison, expected exception cases and read-only Pages preview. |
 | 5 · investigation cases | Complete | Exception queue and source evidence, assignment, analyst notes, controlled statuses, escalation, resolution, justified reopen, and case activity audit trail. Backend and migration tests plus Chromium case journey passed. |
 
-Seven of eleven phase gates (0–10) are complete. That is 64% by gate count only, not a weighted estimate of all deliverables.
+| 6 · monitoring and human review | Complete | Four deterministic rules, evidence and benign explanations, reasoned human disposition, append-only review history, and simulated escalation summary. PR #12 and post-merge CI passed. |
+| 7 · reporting and operational insights | In progress | Run-scoped metrics, CSV export parity, case root-cause capture, case ageing/timings and distinct-input reconciliation history are being implemented and tested. |
+
+Seven of eleven phase gates (0–10) are complete. That is 64% by gate count only, not a weighted estimate of all deliverables. Phase 7 is not counted complete until its PR and post-merge checks pass.
 
 ## Phase 4 details and verified evidence
 
@@ -43,13 +46,14 @@ Seven of eleven phase gates (0–10) are complete. That is 64% by gate count onl
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
 - Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
-## Next work: Phase 7
+## Current work: Phase 7
 
-Phase 6 PR #12 merged as `20229274ce98dddc6fd11e614dcec825a71c1bcc`; post-merge `main` CI run 42425109153 passed. Start Phase 7: operational metrics and exports that reconcile exactly to source records. Preserve the synthetic-data and human-review boundaries.
+Operational insights are being built from saved reconciliation runs, cases, and alert review events. The current branch adds explicit KPI definitions, run history, case ageing and timings, analyst-selected root causes, report CSV export, and an assumptions-only improvement exercise. Verify API/UI/export parity and the browser journey before closing the gate.
+
+Do not start Phase 8 until Phase 7's API, migration, frontend, export-parity, and browser checks pass and evidence is recorded in `docs/RELEASE_CHECKLIST.md`.
 
 ## Later phases still pending
 
-- **Phase 7:** operational metrics, reconciliation-backed exports and consistent API/UI/report totals.
 - **Phase 8:** mobile and accessibility review, performance checks and a clear recruiter journey.
 - **Phase 9:** regression, security and release-blocker review, including CORS, public write isolation, rate limits and reset behavior before exposing an API.
 - **Phase 10:** final free deployment decision and full browser verification; the 60–90 second introduction video (MP4, WebP thumbnail, VTT and transcript); one-page case study; Fire-specific two-page ATS CV; short application answers and follow-up message. Test the complete product and every download before calling the project 100% complete.
@@ -95,5 +99,6 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 ## Next-session checklist
 
 1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
-2. Begin Phase 7 only: build operational metrics and export files from saved reconciliation/source records, with API/UI/export parity tests.
-3. Record actual test and workflow-run identifiers. Leave Phases 7–10 pending until their gates pass.
+2. Continue Phase 7 only; inspect `phase7/operational-insights` and its latest CI before making changes.
+3. Fix any migration, API, UI, CSV or Chromium test failures before closing the Phase 7 gate.
+4. Record actual workflow identifiers. Leave Phases 8–10 pending until their own evidence exists.

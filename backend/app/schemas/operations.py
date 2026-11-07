@@ -12,6 +12,15 @@ OptionalActor = Annotated[
 ]
 CaseStatus = Literal["OPEN", "IN_REVIEW", "ESCALATED", "RESOLVED"]
 CasePriority = Literal["LOW", "NORMAL", "HIGH"]
+CaseRootCause = Literal[
+    "SETTLEMENT_DELAY",
+    "SOURCE_DATA_QUALITY",
+    "DUPLICATE_INSTRUCTION",
+    "PROCESSING_FAILURE",
+    "INCOMPLETE_BATCH",
+    "OTHER",
+    "UNCONFIRMED",
+]
 MonitoringStatus = Literal["IN_REVIEW", "DISMISSED", "ESCALATED"]
 
 
@@ -109,6 +118,7 @@ class CaseTransitionRequest(BaseModel):
     target_status: CaseStatus
     actor: Actor = "demo-analyst"
     reason: Reason | None = None
+    root_cause: CaseRootCause | None = None
 
 
 class MonitoringRunRequest(BaseModel):

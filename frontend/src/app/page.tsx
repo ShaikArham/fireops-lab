@@ -2,6 +2,7 @@ import { ArrowRight, ShieldCheck } from "lucide-react";
 import OperationsWorkspace from "./operations-workspace";
 import ReconciliationWorkspace from "./reconciliation-workspace";
 import MonitoringWorkspace from "./monitoring-workspace";
+import InsightsWorkspace from "./insights-workspace";
 
 export default function Home() {
   return (
@@ -66,6 +67,7 @@ export default function Home() {
         <ReconciliationWorkspace />
         <OperationsWorkspace />
         <MonitoringWorkspace />
+        <InsightsWorkspace />
 
         <section id="method" className="pb-10 text-sm leading-6 text-slate-600">
           <h2 className="text-base font-semibold text-slate-900">Method and limits</h2>

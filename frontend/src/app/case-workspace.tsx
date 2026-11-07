@@ -26,6 +26,7 @@ interface Activity {
   reason: string | null;
   from_value: string | null;
   to_value: string | null;
+  root_cause?: string | null;
 }
 
 interface CaseRecord {
@@ -36,6 +37,7 @@ interface CaseRecord {
   status: "OPEN" | "IN_REVIEW" | "ESCALATED" | "RESOLVED";
   priority: string;
   assigned_to: string | null;
+  root_cause: string | null;
   activities?: Activity[];
   payment: Record<string, string | number> | null;
   settlement: Record<string, string | number> | null;
@@ -59,6 +61,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
   const [assignee, setAssignee] = useState("");
   const [note, setNote] = useState("");
   const [actionReason, setActionReason] = useState("");
+  const [resolutionRootCause, setResolutionRootCause] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -293,6 +296,26 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   placeholder="Required to escalate, resolve, or reopen"
                 />
               </label>
+              {selected.status !== "RESOLVED" && (
+                <label className="mt-3 grid gap-1 text-sm">
+                  Resolution root cause
+                  <select
+                    aria-label="Resolution root cause"
+                    className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+                    value={resolutionRootCause}
+                    onChange={(event) => setResolutionRootCause(event.target.value)}
+                  >
+                    <option value="">Select only when resolving</option>
+                    <option value="SETTLEMENT_DELAY">Settlement delay</option>
+                    <option value="SOURCE_DATA_QUALITY">Source data quality</option>
+                    <option value="DUPLICATE_INSTRUCTION">Duplicate instruction</option>
+                    <option value="PROCESSING_FAILURE">Processing failure</option>
+                    <option value="INCOMPLETE_BATCH">Incomplete batch</option>
+                    <option value="OTHER">Other</option>
+                    <option value="UNCONFIRMED">Unconfirmed after review</option>
+                  </select>
+                </label>
+              )}
               <div className="mt-3 flex flex-wrap gap-2">
                 {selected.status === "OPEN" && (
                   <button
@@ -335,12 +358,16 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   <button
                     type="button"
                     className="min-h-10 rounded-lg border border-emerald-300 px-3 text-sm text-emerald-900 disabled:opacity-50"
-                    disabled={busy || !actionReason.trim()}
+                    disabled={busy || !actionReason.trim() || !resolutionRootCause}
                     onClick={() =>
                       void act(() =>
                         request(`/cases/${selected.case_id}/transitions`, {
                           method: "POST",
-                          body: JSON.stringify({ target_status: "RESOLVED", reason: actionReason }),
+                          body: JSON.stringify({
+                            target_status: "RESOLVED",
+                            reason: actionReason,
+                            root_cause: resolutionRootCause,
+                          }),
                         }),
                       )
                     }
@@ -385,6 +412,11 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                     {activity.from_value && (
                       <p className="text-xs text-slate-500">
                         {activity.from_value} → {activity.to_value}
+                      </p>
+                    )}
+                    {activity.root_cause && (
+                      <p className="text-xs font-medium text-teal-800">
+                        Root cause: {activity.root_cause.replaceAll("_", " ")}
                       </p>
                     )}
                   </li>
