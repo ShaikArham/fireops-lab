@@ -1,4 +1,5 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
+import OperationsWorkspace from "./operations-workspace";
 
 export default function Home() {
   return (
@@ -30,10 +31,10 @@ export default function Home() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#status"
+                href="#operations"
                 className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-700"
               >
-                View build status <ArrowRight aria-hidden="true" size={18} />
+                Open operations lab <ArrowRight aria-hidden="true" size={18} />
               </a>
               <a
                 href="#method"
@@ -60,26 +61,7 @@ export default function Home() {
           </aside>
         </section>
 
-        <section
-          id="status"
-          aria-labelledby="status-heading"
-          className="rounded-2xl border border-slate-200 bg-white p-6 sm:p-8"
-        >
-          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-            Current phase
-          </p>
-          <h2 id="status-heading" className="mt-2 text-2xl font-semibold text-slate-950">
-            Engineering foundation
-          </h2>
-          <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-            The project plan and application skeleton are being set up. Payment simulation,
-            reconciliation, investigation, monitoring, and reporting are not implemented yet.
-          </p>
-          <p className="mt-5 text-sm text-slate-500">
-            No sample transactions or performance metrics are shown until their fixtures and tests
-            exist.
-          </p>
-        </section>
+        <OperationsWorkspace />
 
         <section id="method" className="pb-10 text-sm leading-6 text-slate-600">
           <h2 className="text-base font-semibold text-slate-900">Method and limits</h2>

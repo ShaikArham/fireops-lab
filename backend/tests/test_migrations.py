@@ -8,7 +8,7 @@ from sqlalchemy.exc import IntegrityError
 
 from alembic import command
 from app.db.base import Base
-from app.models import PaymentInstruction, SourceFile  # noqa: F401
+from app.models import PaymentEvent, PaymentInstruction, SourceFile  # noqa: F401
 
 
 def test_alembic_upgrade_creates_phase_two_schema(
@@ -28,6 +28,7 @@ def test_alembic_upgrade_creates_phase_two_schema(
         "source_files",
         "payment_instructions",
         "settlement_records",
+        "payment_events",
         "alembic_version",
     } <= table_names
     engine.dispose()

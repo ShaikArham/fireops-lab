@@ -1,6 +1,7 @@
 from datetime import date, datetime
 
 from sqlalchemy import (
+    JSON,
     BigInteger,
     CheckConstraint,
     Date,
@@ -38,6 +39,27 @@ class SourceFile(Base):
     row_count: Mapped[int] = mapped_column(nullable=False)
     validation_status: Mapped[str] = mapped_column(String(16), nullable=False)
     source_type: Mapped[str] = mapped_column(String(24), nullable=False)
+
+
+class PaymentEvent(Base):
+    __tablename__ = "payment_events"
+    __table_args__ = (
+        CheckConstraint(
+            "event_type IN ('IMPORTED', 'VALIDATED', 'PROCESSING', 'SETTLED', 'FAILED')",
+            name="ck_payment_events_event_type",
+        ),
+        Index("ix_payment_events_payment_occurred", "payment_id", "occurred_at"),
+    )
+
+    event_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    payment_id: Mapped[str] = mapped_column(
+        ForeignKey("payment_instructions.payment_id", ondelete="RESTRICT"), nullable=False
+    )
+    event_type: Mapped[str] = mapped_column(String(16), nullable=False)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    metadata_json: Mapped[dict[str, object]] = mapped_column(JSON, nullable=False, default=dict)
+    actor: Mapped[str] = mapped_column(String(128), nullable=False)
+    correlation_id: Mapped[str] = mapped_column(String(64), nullable=False)
 
 
 class PaymentInstruction(Base):
