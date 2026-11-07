@@ -201,3 +201,55 @@ class ReconciliationResult(Base):
     difference_minor: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
     explanation_code: Mapped[str] = mapped_column(String(64), nullable=False)
     match_method: Mapped[str] = mapped_column(String(32), nullable=False)
+
+
+class ExceptionCase(Base):
+    __tablename__ = "exception_cases"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('OPEN', 'IN_REVIEW', 'ESCALATED', 'RESOLVED')",
+            name="ck_exception_cases_status",
+        ),
+        CheckConstraint(
+            "priority IN ('LOW', 'NORMAL', 'HIGH')", name="ck_exception_cases_priority"
+        ),
+        UniqueConstraint("result_id", name="uq_exception_cases_result"),
+        Index("ix_exception_cases_status_updated", "status", "updated_at"),
+        Index("ix_exception_cases_assignee_status", "assigned_to", "status"),
+    )
+
+    case_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    result_id: Mapped[str] = mapped_column(
+        ForeignKey("reconciliation_results.result_id", ondelete="RESTRICT"), nullable=False
+    )
+    status: Mapped[str] = mapped_column(String(16), nullable=False)
+    priority: Mapped[str] = mapped_column(String(16), nullable=False, default="NORMAL")
+    assigned_to: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    resolved_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    version: Mapped[int] = mapped_column(nullable=False, default=1)
+
+
+class CaseActivity(Base):
+    __tablename__ = "case_activities"
+    __table_args__ = (
+        CheckConstraint(
+            "activity_type IN ('CREATED', 'ASSIGNED', 'NOTE_ADDED', 'STATUS_CHANGED', "
+            "'ESCALATED', 'RESOLVED', 'REOPENED')",
+            name="ck_case_activities_type",
+        ),
+        Index("ix_case_activities_case_occurred", "case_id", "occurred_at", "activity_id"),
+    )
+
+    activity_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    case_id: Mapped[str] = mapped_column(
+        ForeignKey("exception_cases.case_id", ondelete="RESTRICT"), nullable=False
+    )
+    activity_type: Mapped[str] = mapped_column(String(16), nullable=False)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    actor: Mapped[str] = mapped_column(String(128), nullable=False)
+    reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    from_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    to_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    correlation_id: Mapped[str] = mapped_column(String(64), nullable=False)

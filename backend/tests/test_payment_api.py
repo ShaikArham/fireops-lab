@@ -171,3 +171,150 @@ def test_exception_fixture_reconciliation_surfaces_expected_classes(api_client) 
         "UNMATCHED_INSTRUCTION": 10,
         "UNMATCHED_SETTLEMENT": 10,
     }
+
+
+def test_case_workflow_records_complete_immutable_actions(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", EXCEPTION_PAYMENTS, "exception-payments.csv"),
+        ("settlement_records", EXCEPTION_SETTLEMENTS, "exception-settlements.csv"),
+    ):
+        assert (
+            api_client.post(
+                f"/api/v1/source-files/import/{kind}?file_name={filename}",
+                content=path.read_bytes(),
+                headers={"content-type": "text/csv"},
+            ).status_code
+            == 200
+        )
+    run = api_client.post(
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-E-20261015",
+            "settlement_batch_id": "SETTLE-E-20261016",
+        },
+    ).json()
+    exception = next(row for row in run["results"] if row["classification"] == "AMOUNT_MISMATCH")
+    created = api_client.post(
+        "/api/v1/cases", json={"result_id": exception["result_id"], "actor": "analyst.one"}
+    )
+    assert created.status_code == 201
+    case_id = created.json()["case_id"]
+    assert [item["activity_type"] for item in created.json()["activities"]] == ["CREATED"]
+    assert (
+        api_client.post("/api/v1/cases", json={"result_id": exception["result_id"]}).status_code
+        == 409
+    )
+
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/assignment",
+            json={"assigned_to": "analyst.two", "actor": "team.lead"},
+        ).json()["assigned_to"]
+        == "analyst.two"
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/notes",
+            json={"note": "Settlement file is missing the expected payment reference."},
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions", json={"target_status": "IN_REVIEW"}
+        ).json()["status"]
+        == "IN_REVIEW"
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions", json={"target_status": "ESCALATED"}
+        ).status_code
+        == 409
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions",
+            json={"target_status": "ESCALATED", "reason": "Needs settlement partner review."},
+        ).json()["status"]
+        == "ESCALATED"
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions", json={"target_status": "IN_REVIEW"}
+        ).json()["status"]
+        == "IN_REVIEW"
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions",
+            json={"target_status": "RESOLVED", "reason": "Operations confirmed the variance."},
+        ).json()["status"]
+        == "RESOLVED"
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/notes", json={"note": "Resolved cases cannot be edited."}
+        ).status_code
+        == 409
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/cases/{case_id}/transitions", json={"target_status": "OPEN"}
+        ).status_code
+        == 409
+    )
+    reopened = api_client.post(
+        f"/api/v1/cases/{case_id}/transitions",
+        json={"target_status": "OPEN", "reason": "New synthetic source file arrived."},
+    )
+    assert reopened.status_code == 200
+    assert reopened.json()["resolved_at"] is None
+    activities = reopened.json()["activities"]
+    assert [item["activity_type"] for item in activities] == [
+        "CREATED",
+        "ASSIGNED",
+        "NOTE_ADDED",
+        "STATUS_CHANGED",
+        "ESCALATED",
+        "STATUS_CHANGED",
+        "RESOLVED",
+        "REOPENED",
+    ]
+    assert all(item["actor"] and item["correlation_id"] for item in activities)
+    assert activities[2]["reason"].startswith("Settlement file")
+    assert activities[-1]["reason"] == "New synthetic source file arrived."
+
+    queue = api_client.get("/api/v1/cases?status=OPEN&assigned_to=analyst.two")
+    assert queue.status_code == 200
+    assert len(queue.json()["cases"]) == 1
+    assert queue.json()["cases"][0]["case_id"] == case_id
+    assert api_client.get(f"/api/v1/cases/{case_id}").json()["activities"] == activities
+
+
+def test_cases_reject_matched_results_and_filter_by_exception_class(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", NORMAL_PAYMENTS, "normal-payments.csv"),
+        ("settlement_records", NORMAL_SETTLEMENTS, "normal-settlements.csv"),
+    ):
+        assert (
+            api_client.post(
+                f"/api/v1/source-files/import/{kind}?file_name={filename}",
+                content=path.read_bytes(),
+                headers={"content-type": "text/csv"},
+            ).status_code
+            == 200
+        )
+    run = api_client.post(
+        "/api/v1/reconciliation/runs",
+        json={
+            "payment_batch_id": "BATCH-N-20261014",
+            "settlement_batch_id": "SETTLE-N-20261015",
+        },
+    ).json()
+    assert (
+        api_client.post(
+            "/api/v1/cases", json={"result_id": run["results"][0]["result_id"]}
+        ).status_code
+        == 409
+    )
+    assert api_client.get("/api/v1/cases?classification=AMOUNT_MISMATCH").json()["cases"] == []

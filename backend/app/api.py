@@ -7,6 +7,10 @@ from sqlalchemy.orm import Session
 from app.db.session import get_session
 from app.models import PaymentEvent, PaymentInstruction, SettlementRecord
 from app.schemas.operations import (
+    CaseAssignRequest,
+    CaseCreateRequest,
+    CaseNoteRequest,
+    CaseTransitionRequest,
     ImportResponse,
     PaymentTransitionRequest,
     PaymentTransitionResponse,
@@ -14,6 +18,16 @@ from app.schemas.operations import (
     SimulateBatchRequest,
     SimulateBatchResponse,
     SourcePreviewResponse,
+)
+from app.services.case_management import (
+    CaseNotFound,
+    InvalidCaseAction,
+    add_note,
+    assign_case,
+    create_case,
+    get_case,
+    list_cases,
+    transition_case,
 )
 from app.services.csv_validation import DatasetKind
 from app.services.payment_operations import (
@@ -333,6 +347,113 @@ def read_reconciliation_run(
         return get_run(session, run_id, limit, offset)
     except LookupError as error:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.post("/cases", status_code=status.HTTP_201_CREATED)
+def open_case(
+    payload: CaseCreateRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, Any]:
+    try:
+        case = create_case(session, payload.result_id, payload.actor, payload.priority)
+        session.commit()
+        return case
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.get("/cases")
+def cases_queue(
+    session: Annotated[Session, Depends(get_session)],
+    case_status: Annotated[
+        str | None, Query(alias="status", pattern="^(OPEN|IN_REVIEW|ESCALATED|RESOLVED)$")
+    ] = None,
+    assigned_to: Annotated[str | None, Query(min_length=1, max_length=128)] = None,
+    classification: Annotated[
+        str | None,
+        Query(
+            pattern="^(UNMATCHED_INSTRUCTION|UNMATCHED_SETTLEMENT|AMOUNT_MISMATCH|DUPLICATE_CANDIDATE|AMBIGUOUS_MATCH)$"
+        ),
+    ] = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    offset: Annotated[int, Query(ge=0)] = 0,
+) -> dict[str, object]:
+    return list_cases(
+        session,
+        case_status=case_status,
+        assigned_to=assigned_to,
+        classification=classification,
+        limit=limit,
+        offset=offset,
+    )
+
+
+@router.get("/cases/{case_id}")
+def read_case(case_id: str, session: Annotated[Session, Depends(get_session)]) -> dict[str, object]:
+    try:
+        return get_case(session, case_id)
+    except CaseNotFound as error:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/assignment")
+def change_case_assignment(
+    case_id: str,
+    payload: CaseAssignRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = assign_case(session, case_id, payload.assigned_to, payload.actor)
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/notes")
+def write_case_note(
+    case_id: str,
+    payload: CaseNoteRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = add_note(session, case_id, payload.note, payload.actor)
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
+
+
+@router.post("/cases/{case_id}/transitions")
+def change_case_status(
+    case_id: str,
+    payload: CaseTransitionRequest,
+    session: Annotated[Session, Depends(get_session)],
+) -> dict[str, object]:
+    try:
+        result = transition_case(
+            session, case_id, payload.target_status, payload.actor, payload.reason
+        )
+        session.commit()
+        return result
+    except CaseNotFound as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=str(error)) from error
+    except InvalidCaseAction as error:
+        session.rollback()
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail=str(error)) from error
 
 
 def install_routes(app: Any) -> None:

@@ -9,7 +9,7 @@ This checklist is a living release record. Do not check an item until evidence e
 - [x] Phase 2: schema, migrations, reproducible synthetic data and validation pass.
 - [x] Phase 3: lifecycle and idempotent imports pass.
 - [x] Phase 4: deterministic reconciliation scenarios and invariants pass.
-- [ ] Phase 5: investigation workflow and audit history pass.
+- [x] Phase 5: investigation workflow and audit history pass.
 - [ ] Phase 6: monitoring and human-review controls pass.
 - [ ] Phase 7: metrics and exports reconcile with source records.
 - [ ] Phase 8: mobile, accessibility, performance and recruiter journey pass.
@@ -21,16 +21,17 @@ This checklist is a living release record. Do not check an item until evidence e
 | Field | Value |
 |---|---|
 | Date / timezone | 2026-11-07, Europe/Dublin |
-| Verified implementation SHA | Phase 4 merge: `861a24f6984b954e73763cf2ed19de385567cbfe` |
-| CI runs | Phase 4 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544) and [post-merge `main`](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755); Pages publish [run](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). Earlier phase evidence is recorded below. |
-| Commands / results | Local: Ruff, 75 backend tests, temporary SQLite migration and schema comparison; frontend Biome, TypeScript, 2 Vitest tests, static export and output check passed. GitHub Actions verified PostgreSQL 17.11, all 5 Chromium E2E tests and static export. |
+| Verified implementation SHA | Phase 5 implementation: `f247329f2c9d940068681dd9a98c02acb4e9cb28` |
+| CI runs | Phase 5 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) (includes PostgreSQL migration/schema verification and Chromium E2E). Phase 4 [PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544) and [post-merge `main`](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755); Pages publish [run](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). Earlier phase evidence is recorded below. |
+| Commands / results | Local: Ruff; 77 backend tests; temporary SQLite migration and schema comparison; frontend Biome, TypeScript, 2 Vitest tests and static export passed. GitHub Actions verified PostgreSQL 17.11 and 6 Chromium E2E tests, including a missing-settlement case through assignment, note, review, resolution and audit history (1.3 seconds in the browser run). |
 | Preview and production URLs | Static preview: https://shaikarham.github.io/fireops-lab/ · API/database and full production release not deployed. |
-| Desktop/mobile/manual results | Public URL opened in Chromium; side-by-side amount mismatch, late, missing-reference and unique-fallback examples and read-only boundary verified. Mobile QA remains in Phase 8. |
-| Known P0/P1/P2/P3 issues | No open Phase 4 blocker. Static preview is read-only; API/database hosting is intentionally pending. |
+| Desktop/mobile/manual results | Phase 5 frontend case workflow passed in Chromium CI against a mocked API; backend persistence and rules passed API tests against SQLite and PostgreSQL CI. Public Pages remains a read-only Phase 4 demo; mobile QA remains in Phase 8. |
+| Known P0/P1/P2/P3 issues | No open Phase 5 gate blocker. API/database hosting is intentionally pending; public Pages does not yet expose API-backed case management. |
 
 ## Current evidence (2026-11-07)
 
 - Phase 0 documents created: project brief, architecture/cost/acceptance criteria, requirement traceability, and decision log.
+- Phase 5 is **complete**: exception cases link to saved reconciliation results; the queue filters by status, owner and exception type; assignment, notes, review, escalation, resolution and justified reopening append actor-attributed, timestamped audit activities. Duplicate and matched-result cases are rejected, state transitions are controlled, and escalation/resolution/reopen require reasons. Local Ruff and 77 backend tests passed; migration upgrade/schema check passed; frontend lint, TypeScript, 2 Vitest tests and static export passed. Phase 5 PR checks passed with PostgreSQL 17.11 and 6 Chromium E2E tests, including the missing-settlement investigation journey. The public Pages preview remains read-only and does not host the API/database.
 - Phase 1 is **complete**: the public GitHub repository contains the committed skeleton, dependency locks, CI, and a manual-only static Pages publishing workflow. Phase 1 does not publish or deploy the application.
 - Phase 2 is **complete and merged into `main`** through PR #4: PostgreSQL schema and migration, bounded CSV validation, reproducible normal and exception-day fixtures, checksummed manifest, and data dictionary. No upload endpoint or file persistence was added.
 - Backend Ruff and 34 pytest tests passed. Alembic upgrade and schema comparison passed with temporary SQLite locally and PostgreSQL 17.11 in GitHub Actions.

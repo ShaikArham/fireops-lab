@@ -98,6 +98,179 @@ test("API-backed reconciliation selects two batches and shows saved comparison",
   await expect(page.getByText("SET-QA-1")).toBeVisible();
 });
 
+test("an exception is assigned, investigated, resolved, and retained in its audit trail", async ({
+  page,
+}) => {
+  const activities: Array<Record<string, string | null>> = [];
+  let currentStatus = "OPEN";
+  let assignedTo: string | null = null;
+  const caseData = () => ({
+    case_id: "CASE-QA-1",
+    result_id: "RESULT-QA-1",
+    run_id: "RUN-QA-1",
+    classification: "UNMATCHED_INSTRUCTION",
+    status: currentStatus,
+    priority: "NORMAL",
+    assigned_to: assignedTo,
+    payment: { payment_id: "PAY-QA-1", amount_minor: 1250, currency: "EUR" },
+    settlement: null,
+    activities: activities.map((activity, index) => ({
+      activity_id: `ACT-${index}`,
+      activity_type: activity.type,
+      occurred_at: "2026-11-07T12:00:00Z",
+      actor: activity.actor,
+      reason: activity.reason,
+      from_value: activity.from,
+      to_value: activity.to,
+      correlation_id: `CORR-${index}`,
+    })),
+  });
+
+  await page.route("https://api.fireops.test/api/v1/**", async (route) => {
+    const request = route.request();
+    const url = new URL(request.url());
+    if (url.pathname.endsWith("/batches")) {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          batches: [{ batch_id: "BATCH-QA-1" }],
+          settlement_batches: [{ settlement_batch_id: "SETTLE-QA-1" }],
+        }),
+      });
+    } else if (url.pathname.endsWith("/reconciliation/runs")) {
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify({
+          run_id: "RUN-QA-1",
+          payment_batch_id: "BATCH-QA-1",
+          settlement_batch_id: "SETTLE-QA-1",
+          matched_count: 0,
+          unmatched_count: 1,
+          exception_count: 1,
+          result_count: 1,
+          classification_counts: { UNMATCHED_INSTRUCTION: 1 },
+          results: [
+            {
+              result_id: "RESULT-QA-1",
+              classification: "UNMATCHED_INSTRUCTION",
+              difference_minor: null,
+              explanation_code: "NO_SETTLEMENT_REFERENCE",
+              payment: {
+                payment_id: "PAY-QA-1",
+                client_reference: "REF-QA-1",
+                amount_minor: 1250,
+                currency: "EUR",
+                expected_settlement_date: "2026-10-15",
+              },
+              settlement: null,
+            },
+          ],
+        }),
+      });
+    } else if (url.pathname.endsWith("/cases") && request.method() === "GET") {
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify({
+          cases: activities.length ? [caseData()] : [],
+          limit: 25,
+          offset: 0,
+        }),
+      });
+    } else if (url.pathname.endsWith("/cases") && request.method() === "POST") {
+      activities.push({
+        type: "CREATED",
+        actor: "demo-analyst",
+        reason: null,
+        from: null,
+        to: "OPEN",
+      });
+      await route.fulfill({
+        status: 201,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/assignment")) {
+      assignedTo = (request.postDataJSON() as { assigned_to: string }).assigned_to;
+      activities.push({
+        type: "ASSIGNED",
+        actor: "demo-analyst",
+        reason: null,
+        from: null,
+        to: assignedTo,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/notes")) {
+      const body = request.postDataJSON() as { note: string };
+      activities.push({
+        type: "NOTE_ADDED",
+        actor: "demo-analyst",
+        reason: body.note,
+        from: null,
+        to: null,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else if (url.pathname.endsWith("/transitions")) {
+      const body = request.postDataJSON() as { target_status: string; reason?: string };
+      const previous = currentStatus;
+      currentStatus = body.target_status;
+      activities.push({
+        type: currentStatus === "RESOLVED" ? "RESOLVED" : "STATUS_CHANGED",
+        actor: "demo-analyst",
+        reason: body.reason ?? null,
+        from: previous,
+        to: currentStatus,
+      });
+      await route.fulfill({
+        status: 200,
+        contentType: "application/json",
+        body: JSON.stringify(caseData()),
+      });
+    } else {
+      await route.fulfill({
+        status: 404,
+        contentType: "application/json",
+        body: JSON.stringify({ detail: "Not found" }),
+      });
+    }
+  });
+
+  await page.goto("/");
+  await page.getByLabel("Payment batch").selectOption("BATCH-QA-1");
+  await page.getByLabel("Settlement batch").selectOption("SETTLE-QA-1");
+  await page.getByRole("button", { name: "Run reconciliation" }).click();
+  await expect(page.getByRole("heading", { name: "UNMATCHED INSTRUCTION" })).toBeVisible();
+  await page.getByRole("button", { name: "Open investigation case" }).click();
+  await expect(page.getByRole("heading", { name: "Case investigation" })).toBeVisible();
+  await page.getByLabel("Assign to analyst").fill("analyst.two");
+  await page.getByRole("button", { name: "Assign", exact: true }).click();
+  await page
+    .getByLabel("Investigation note")
+    .fill("Source evidence shows a 50 minor-unit difference.");
+  await page.getByRole("button", { name: "Add note" }).click();
+  await page.getByRole("button", { name: "Start review" }).click();
+  await page
+    .getByLabel("Action reason")
+    .fill("Operations confirmed the variance in the settlement source.");
+  await page.getByRole("button", { name: "Resolve case" }).click();
+  const audit = page.getByRole("list", { name: "Case audit history" });
+  await expect(audit.getByText("CREATED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("ASSIGNED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("NOTE ADDED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("RESOLVED", { exact: true })).toBeVisible();
+  await expect(audit.getByText("Source evidence shows a 50 minor-unit difference.")).toBeVisible();
+});
+
 test("CSV preview, idempotent batch controls, and processing history work together", async ({
   page,
 }) => {

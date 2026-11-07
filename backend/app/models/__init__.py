@@ -1,4 +1,6 @@
 from app.models.records import (
+    CaseActivity,
+    ExceptionCase,
     PaymentEvent,
     PaymentInstruction,
     ReconciliationResult,
@@ -8,6 +10,8 @@ from app.models.records import (
 )
 
 __all__ = [
+    "CaseActivity",
+    "ExceptionCase",
     "PaymentEvent",
     "PaymentInstruction",
     "ReconciliationResult",

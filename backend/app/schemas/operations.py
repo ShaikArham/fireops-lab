@@ -7,6 +7,11 @@ from app.services.csv_validation import DatasetKind
 PaymentStatus = Literal["CREATED", "VALIDATED", "PROCESSING", "SETTLED", "FAILED"]
 Actor = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=128)]
 Reason = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=500)]
+OptionalActor = Annotated[
+    str, StringConstraints(strip_whitespace=True, min_length=1, max_length=128)
+]
+CaseStatus = Literal["OPEN", "IN_REVIEW", "ESCALATED", "RESOLVED"]
+CasePriority = Literal["LOW", "NORMAL", "HIGH"]
 
 
 class ValidationIssueResponse(BaseModel):
@@ -73,3 +78,33 @@ class ReconciliationRunRequest(BaseModel):
     payment_batch_id: str = Field(min_length=1, max_length=64)
     settlement_batch_id: str = Field(min_length=1, max_length=64)
     late_window_days: int = Field(default=3, ge=0, le=30)
+
+
+class CaseCreateRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    result_id: str = Field(min_length=1, max_length=36)
+    actor: Actor = "demo-analyst"
+    priority: CasePriority = "NORMAL"
+
+
+class CaseAssignRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    assigned_to: OptionalActor | None
+    actor: Actor = "demo-analyst"
+
+
+class CaseNoteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    note: Reason
+    actor: Actor = "demo-analyst"
+
+
+class CaseTransitionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    target_status: CaseStatus
+    actor: Actor = "demo-analyst"
+    reason: Reason | None = None
