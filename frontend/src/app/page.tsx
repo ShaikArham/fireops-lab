@@ -1,5 +1,6 @@
 import { ArrowRight, ShieldCheck } from "lucide-react";
 import OperationsWorkspace from "./operations-workspace";
+import ReconciliationWorkspace from "./reconciliation-workspace";
 
 export default function Home() {
   return (
@@ -61,6 +62,7 @@ export default function Home() {
           </aside>
         </section>
 
+        <ReconciliationWorkspace />
         <OperationsWorkspace />
 
         <section id="method" className="pb-10 text-sm leading-6 text-slate-600">

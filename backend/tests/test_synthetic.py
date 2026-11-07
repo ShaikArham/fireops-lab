@@ -43,6 +43,8 @@ def test_generated_datasets_have_repeatable_bytes_counts_and_checksums(tmp_path:
     assert first_manifest["datasets"]["exception_day"]["intentional_exceptions"] == {
         "missing_settlement": 10,
         "duplicate_instruction": 10,
+        "amount_mismatch": 1,
+        "late_settlement": 1,
     }
 
 

@@ -17,6 +17,20 @@ test("project boundaries explain the simulator", async ({ page }) => {
   await expect(page.getByText(/not be presented as proven fraud/i)).toBeVisible();
 });
 
+test("static reconciliation preview compares synthetic source records side by side", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await expect(
+    page.getByRole("heading", { name: "Compare every payment with its settlement" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: "AMOUNT MISMATCH" })).toBeVisible();
+  await expect(page.getByText("Payment instruction", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("Settlement record", { exact: true }).first()).toBeVisible();
+  await expect(page.getByText("DUPLICATE CANDIDATE").first()).toBeVisible();
+});
+
 test("CSV preview, idempotent batch controls, and processing history work together", async ({
   page,
 }) => {

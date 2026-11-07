@@ -259,21 +259,24 @@ def test_simulation_generates_settlements_and_repeat_does_not_duplicate(session:
     assert retry["processed_count"] == 0
     assert retry["settlement_count"] == 0
     assert (
-        session.scalar(select(func.count()).select_from(SettlementRecord))
-        == count_after_first_run
+        session.scalar(select(func.count()).select_from(SettlementRecord)) == count_after_first_run
     )
     assert session.scalar(select(func.count()).select_from(PaymentEvent)) == 400
-    assert session.scalar(
-        select(func.count()).select_from(SourceFile).where(SourceFile.source_type == "SETTLEMENT")
-    ) == 1
+    assert (
+        session.scalar(
+            select(func.count())
+            .select_from(SourceFile)
+            .where(SourceFile.source_type == "SETTLEMENT")
+        )
+        == 1
+    )
 
 
 def test_settlement_import_is_idempotent_independently_of_payment_import(
     session: Session,
 ) -> None:
     settlements = (
-        Path(__file__).resolve().parents[2]
-        / "data/synthetic/normal_day/settlement_records.csv"
+        Path(__file__).resolve().parents[2] / "data/synthetic/normal_day/settlement_records.csv"
     )
     content = settlements.read_bytes()
     first = import_source_file(

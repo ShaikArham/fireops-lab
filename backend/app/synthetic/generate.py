@@ -32,7 +32,7 @@ SETTLEMENT_HEADERS = (
     "direction",
     "settlement_batch_id",
 )
-GENERATOR_VERSION = "1.0.0"
+GENERATOR_VERSION = "1.1.0"
 DEFAULT_SEED = 20261107
 SUPPORTED_CURRENCIES = ("EUR", "GBP", "USD")
 
@@ -101,7 +101,12 @@ def generate_datasets(output_dir: Path, seed: int = DEFAULT_SEED) -> dict[str, o
         "day": normal_day.isoformat(),
         "payment_instructions": normal_payments,
         "settlement_records": normal_settlements,
-        "intentional_exceptions": {"missing_settlement": 0, "duplicate_instruction": 0},
+        "intentional_exceptions": {
+            "missing_settlement": 0,
+            "duplicate_instruction": 0,
+            "amount_mismatch": 0,
+            "late_settlement": 0,
+        },
     }
 
     exception_day = date(2026, 10, 15)
@@ -119,11 +124,23 @@ def generate_datasets(output_dir: Path, seed: int = DEFAULT_SEED) -> dict[str, o
         for index, payment in enumerate(unique_payments, start=1)
         if payment["payment_id"] not in missing_payment_ids
     ]
+    # Keep the first two generated settlement exceptions stable and easy to investigate.
+    exception_settlements[10]["amount_minor"] = str(
+        int(exception_settlements[10]["amount_minor"]) + 125
+    )
+    exception_settlements[11]["settlement_date"] = (
+        date.fromisoformat(exception_settlements[11]["settlement_date"]) + timedelta(days=2)
+    ).isoformat()
     datasets["exception_day"] = {
         "day": exception_day.isoformat(),
         "payment_instructions": exception_payments,
         "settlement_records": exception_settlements,
-        "intentional_exceptions": {"missing_settlement": 10, "duplicate_instruction": 10},
+        "intentional_exceptions": {
+            "missing_settlement": 10,
+            "duplicate_instruction": 10,
+            "amount_mismatch": 1,
+            "late_settlement": 1,
+        },
     }
 
     manifest_datasets: dict[str, object] = {}

@@ -1,6 +1,6 @@
 # Planned demonstration scenarios
 
-The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. The `exception_day` fixture contains 1,250 instructions and 1,230 settlements, with 10 missing settlement references and 10 duplicate instruction references. Phase 3 adds CSV preview/import, legal payment state transitions, immutable lifecycle events, batch controls, and deterministic settlement simulation. The reconciliation and monitoring engines are not implemented yet. Reconciliation scenarios still need tested expected classifications and a truthful walkthrough before those results are shown in the app.
+The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. The Phase 4 `exception_day` fixture contains 1,250 instructions and 1,230 settlements: 10 missing settlements, 10 duplicated payment references (20 candidate instruction rows), one amount mismatch, and one settlement two days late. Its tested result totals are 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates, 10 unmatched instructions and 10 unmatched settlements. No duplicate candidate is force-matched.
 
 | Scenario | Expected classification / alert | Analyst action |
 |---|---|---|
@@ -11,6 +11,8 @@ The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. 
 | Unusual velocity | Potential indicator requiring human review | Review event sequence and context; record reasoned outcome |
 | High-value transaction | Threshold indicator | Review rule threshold and synthetic evidence without criminal attribution |
 | Repeated failures then success | Potential indicator | Review failure pattern and possible benign explanation |
+
+The Phase 4 reconciliation engine uses exact payment reference, matching currency and direction, integer minor units, and a configurable date window (default three days). Candidate pairs outside that window or with duplicate/ambiguous source references remain unmatched. The static Pages display uses a generated subset of the same fictional fixtures and is read-only; API-backed runs persist their full result rows.
 
 Include normal records and false positives. Do not display target sample counts or match rates until fixtures and tests establish the exact values.
 

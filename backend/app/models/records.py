@@ -130,3 +130,74 @@ class SettlementRecord(Base):
     source_file_id: Mapped[str] = mapped_column(
         ForeignKey("source_files.source_file_id", ondelete="RESTRICT"), nullable=False
     )
+
+
+class ReconciliationRun(Base):
+    __tablename__ = "reconciliation_runs"
+    __table_args__ = (
+        CheckConstraint("matched_count >= 0", name="ck_reconciliation_runs_matched_nonnegative"),
+        CheckConstraint(
+            "unmatched_count >= 0", name="ck_reconciliation_runs_unmatched_nonnegative"
+        ),
+        CheckConstraint(
+            "exception_count >= 0", name="ck_reconciliation_runs_exception_nonnegative"
+        ),
+        CheckConstraint("result_count >= 0", name="ck_reconciliation_runs_result_nonnegative"),
+        CheckConstraint("status = 'COMPLETED'", name="ck_reconciliation_runs_status"),
+        CheckConstraint("finished_at >= started_at", name="ck_reconciliation_runs_time_order"),
+        Index("ix_reconciliation_runs_payment_batch", "payment_batch_id"),
+    )
+
+    run_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    payment_batch_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    settlement_batch_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    rules_version: Mapped[str] = mapped_column(String(32), nullable=False)
+    started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    finished_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    status: Mapped[str] = mapped_column(String(16), nullable=False)
+    input_hashes: Mapped[dict[str, str]] = mapped_column(JSON, nullable=False)
+    classification_counts: Mapped[dict[str, int]] = mapped_column(JSON, nullable=False)
+    amount_mismatch_totals_minor: Mapped[dict[str, int]] = mapped_column(JSON, nullable=False)
+    matched_count: Mapped[int] = mapped_column(nullable=False)
+    unmatched_count: Mapped[int] = mapped_column(nullable=False)
+    exception_count: Mapped[int] = mapped_column(nullable=False)
+    result_count: Mapped[int] = mapped_column(nullable=False)
+
+
+class ReconciliationResult(Base):
+    __tablename__ = "reconciliation_results"
+    __table_args__ = (
+        CheckConstraint(
+            "classification IN ('MATCHED_EXACT', 'MATCHED_LATE', 'UNMATCHED_INSTRUCTION', "
+            "'UNMATCHED_SETTLEMENT', 'AMOUNT_MISMATCH', 'DUPLICATE_CANDIDATE', 'AMBIGUOUS_MATCH')",
+            name="ck_reconciliation_results_classification",
+        ),
+        CheckConstraint(
+            "match_method IN ('EXACT_REFERENCE', 'REFERENCE_AMOUNT_DATE_WINDOW', 'NONE')",
+            name="ck_reconciliation_results_match_method",
+        ),
+        CheckConstraint(
+            "payment_id IS NOT NULL OR settlement_id IS NOT NULL",
+            name="ck_reconciliation_results_has_source_record",
+        ),
+        UniqueConstraint("run_id", "payment_id", name="uq_reconciliation_results_run_payment"),
+        UniqueConstraint(
+            "run_id", "settlement_id", name="uq_reconciliation_results_run_settlement"
+        ),
+        Index("ix_reconciliation_results_run_classification", "run_id", "classification"),
+    )
+
+    result_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    run_id: Mapped[str] = mapped_column(
+        ForeignKey("reconciliation_runs.run_id", ondelete="RESTRICT"), nullable=False
+    )
+    payment_id: Mapped[str | None] = mapped_column(
+        ForeignKey("payment_instructions.payment_id", ondelete="RESTRICT"), nullable=True
+    )
+    settlement_id: Mapped[str | None] = mapped_column(
+        ForeignKey("settlement_records.settlement_id", ondelete="RESTRICT"), nullable=True
+    )
+    classification: Mapped[str] = mapped_column(String(32), nullable=False)
+    difference_minor: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    explanation_code: Mapped[str] = mapped_column(String(64), nullable=False)
+    match_method: Mapped[str] = mapped_column(String(32), nullable=False)

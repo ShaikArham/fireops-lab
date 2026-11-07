@@ -1,0 +1,170 @@
+{
+  "classification_counts": {
+    "AMOUNT_MISMATCH": 1,
+    "DUPLICATE_CANDIDATE": 20,
+    "MATCHED_EXACT": 1218,
+    "MATCHED_LATE": 1,
+    "UNMATCHED_INSTRUCTION": 10,
+    "UNMATCHED_SETTLEMENT": 10
+  },
+  "payment_instruction_count": 1250,
+  "result_count": 1260,
+  "rules_version": "reconciliation-v1",
+  "samples": [
+    {
+      "classification": "AMOUNT_MISMATCH",
+      "difference_minor": 125,
+      "explanation_code": "AMOUNT_DIFFERS",
+      "match_method": "EXACT_REFERENCE",
+      "payment": {
+        "amount_minor": 1106065,
+        "batch_id": "BATCH-E-20261015",
+        "client_reference": "REF-E-0011",
+        "created_at": "2026-10-15T08:11:00Z",
+        "currency": "GBP",
+        "direction": "OUTBOUND",
+        "expected_settlement_date": "2026-10-16",
+        "idempotency_key": "IDEMP-E-0011",
+        "instructed_at": "2026-10-15T08:12:00Z",
+        "payee_account_token": "SYN-PAYEE-0011",
+        "payer_account_token": "SYN-PAYER-0011",
+        "payment_id": "PAY-E-0011",
+        "scheme": "SEPA_CREDIT",
+        "status": "CREATED"
+      },
+      "payment_id": "PAY-E-0011",
+      "settlement": {
+        "amount_minor": 1106190,
+        "currency": "GBP",
+        "direction": "OUTBOUND",
+        "payment_reference": "REF-E-0011",
+        "scheme_reference": "SCHEME-E-0011",
+        "settlement_batch_id": "SETTLE-E-20261016",
+        "settlement_date": "2026-10-16",
+        "settlement_id": "SET-E-0011"
+      },
+      "settlement_id": "SET-E-0011"
+    },
+    {
+      "classification": "MATCHED_LATE",
+      "difference_minor": 0,
+      "explanation_code": "REFERENCE_AMOUNT_DATE_WINDOW",
+      "match_method": "REFERENCE_AMOUNT_DATE_WINDOW",
+      "payment": {
+        "amount_minor": 1839109,
+        "batch_id": "BATCH-E-20261015",
+        "client_reference": "REF-E-0012",
+        "created_at": "2026-10-15T08:12:00Z",
+        "currency": "EUR",
+        "direction": "INBOUND",
+        "expected_settlement_date": "2026-10-16",
+        "idempotency_key": "IDEMP-E-0012",
+        "instructed_at": "2026-10-15T08:13:00Z",
+        "payee_account_token": "SYN-PAYEE-0012",
+        "payer_account_token": "SYN-PAYER-0012",
+        "payment_id": "PAY-E-0012",
+        "scheme": "SEPA_CREDIT",
+        "status": "CREATED"
+      },
+      "payment_id": "PAY-E-0012",
+      "settlement": {
+        "amount_minor": 1839109,
+        "currency": "EUR",
+        "direction": "INBOUND",
+        "payment_reference": "REF-E-0012",
+        "scheme_reference": "SCHEME-E-0012",
+        "settlement_batch_id": "SETTLE-E-20261016",
+        "settlement_date": "2026-10-18",
+        "settlement_id": "SET-E-0012"
+      },
+      "settlement_id": "SET-E-0012"
+    },
+    {
+      "classification": "UNMATCHED_INSTRUCTION",
+      "difference_minor": null,
+      "explanation_code": "NO_SETTLEMENT_REFERENCE",
+      "match_method": "NONE",
+      "payment": {
+        "amount_minor": 1308367,
+        "batch_id": "BATCH-E-20261015",
+        "client_reference": "REF-E-1231",
+        "created_at": "2026-10-15T08:31:00Z",
+        "currency": "GBP",
+        "direction": "OUTBOUND",
+        "expected_settlement_date": "2026-10-16",
+        "idempotency_key": "IDEMP-E-1231",
+        "instructed_at": "2026-10-15T08:32:00Z",
+        "payee_account_token": "SYN-PAYEE-1231",
+        "payer_account_token": "SYN-PAYER-1231",
+        "payment_id": "PAY-E-1231",
+        "scheme": "SEPA_CREDIT",
+        "status": "CREATED"
+      },
+      "payment_id": "PAY-E-1231",
+      "settlement": null,
+      "settlement_id": null
+    },
+    {
+      "classification": "DUPLICATE_CANDIDATE",
+      "difference_minor": null,
+      "explanation_code": "DUPLICATE_PAYMENT_REFERENCE",
+      "match_method": "NONE",
+      "payment": {
+        "amount_minor": 740902,
+        "batch_id": "BATCH-E-20261015",
+        "client_reference": "REF-E-0001",
+        "created_at": "2026-10-15T08:01:00Z",
+        "currency": "USD",
+        "direction": "OUTBOUND",
+        "expected_settlement_date": "2026-10-16",
+        "idempotency_key": "IDEMP-E-0001",
+        "instructed_at": "2026-10-15T08:02:00Z",
+        "payee_account_token": "SYN-PAYEE-0001",
+        "payer_account_token": "SYN-PAYER-0001",
+        "payment_id": "PAY-E-0001",
+        "scheme": "SEPA_CREDIT",
+        "status": "CREATED"
+      },
+      "payment_id": "PAY-E-0001",
+      "settlement": null,
+      "settlement_id": null
+    },
+    {
+      "classification": "MATCHED_EXACT",
+      "difference_minor": 0,
+      "explanation_code": "REFERENCE_AMOUNT_DATE_WINDOW",
+      "match_method": "EXACT_REFERENCE",
+      "payment": {
+        "amount_minor": 883657,
+        "batch_id": "BATCH-E-20261015",
+        "client_reference": "REF-E-0013",
+        "created_at": "2026-10-15T08:13:00Z",
+        "currency": "GBP",
+        "direction": "OUTBOUND",
+        "expected_settlement_date": "2026-10-16",
+        "idempotency_key": "IDEMP-E-0013",
+        "instructed_at": "2026-10-15T08:14:00Z",
+        "payee_account_token": "SYN-PAYEE-0013",
+        "payer_account_token": "SYN-PAYER-0013",
+        "payment_id": "PAY-E-0013",
+        "scheme": "SEPA_CREDIT",
+        "status": "CREATED"
+      },
+      "payment_id": "PAY-E-0013",
+      "settlement": {
+        "amount_minor": 883657,
+        "currency": "GBP",
+        "direction": "OUTBOUND",
+        "payment_reference": "REF-E-0013",
+        "scheme_reference": "SCHEME-E-0013",
+        "settlement_batch_id": "SETTLE-E-20261016",
+        "settlement_date": "2026-10-16",
+        "settlement_id": "SET-E-0013"
+      },
+      "settlement_id": "SET-E-0013"
+    }
+  ],
+  "settlement_record_count": 1230,
+  "synthetic_only": true,
+  "title": "Exception day \u00b7 15 Oct 2026"
+}
