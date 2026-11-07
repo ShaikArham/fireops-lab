@@ -33,6 +33,9 @@ def test_alembic_upgrade_creates_phase_four_schema(
         "reconciliation_results",
         "exception_cases",
         "case_activities",
+        "monitoring_runs",
+        "monitoring_alerts",
+        "monitoring_activities",
         "alembic_version",
     } <= table_names
     engine.dispose()

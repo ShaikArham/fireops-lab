@@ -12,6 +12,7 @@ OptionalActor = Annotated[
 ]
 CaseStatus = Literal["OPEN", "IN_REVIEW", "ESCALATED", "RESOLVED"]
 CasePriority = Literal["LOW", "NORMAL", "HIGH"]
+MonitoringStatus = Literal["IN_REVIEW", "DISMISSED", "ESCALATED"]
 
 
 class ValidationIssueResponse(BaseModel):
@@ -108,3 +109,25 @@ class CaseTransitionRequest(BaseModel):
     target_status: CaseStatus
     actor: Actor = "demo-analyst"
     reason: Reason | None = None
+
+
+class MonitoringRunRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    batch_id: str = Field(min_length=1, max_length=64)
+    actor: Actor = "system:monitoring"
+
+
+class AlertTransitionRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    target_status: MonitoringStatus
+    actor: Actor = "demo-analyst"
+    reason: Reason | None = None
+
+
+class AlertNoteRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
+    note: Reason
+    actor: Actor = "demo-analyst"

@@ -318,3 +318,146 @@ def test_cases_reject_matched_results_and_filter_by_exception_class(api_client) 
         == 409
     )
     assert api_client.get("/api/v1/cases?classification=AMOUNT_MISMATCH").json()["cases"] == []
+
+
+def test_monitoring_run_is_idempotent_explainable_and_human_reviewed(api_client) -> None:
+    for kind, path, filename in (
+        ("payment_instructions", EXCEPTION_PAYMENTS, "monitor-payments.csv"),
+        ("settlement_records", EXCEPTION_SETTLEMENTS, "monitor-settlements.csv"),
+    ):
+        assert (
+            api_client.post(
+                f"/api/v1/source-files/import/{kind}?file_name={filename}",
+                content=path.read_bytes(),
+                headers={"content-type": "text/csv"},
+            ).status_code
+            == 200
+        )
+
+    catalog = api_client.get("/api/v1/monitoring/rules")
+    assert catalog.status_code == 200
+    assert len(catalog.json()["rules"]) == 4
+    assert all(
+        rule["threshold"] and rule["false_positive_example"] for rule in catalog.json()["rules"]
+    )
+
+    first = api_client.post("/api/v1/monitoring/runs", json={"batch_id": "BATCH-E-20261015"})
+    replay = api_client.post("/api/v1/monitoring/runs", json={"batch_id": "BATCH-E-20261015"})
+    assert first.status_code == 200
+    assert first.json()["alert_count"] > 0
+    assert first.json()["run_id"] == replay.json()["run_id"]
+    assert replay.json()["idempotent"]
+    assert {alert["rule_id"] for alert in first.json()["alerts"]} <= {
+        "HIGH_VALUE_PAYMENT",
+        "DUPLICATE_REFERENCE",
+    }
+    assert all(
+        alert["activities"][0]["activity_type"] == "DETECTED" for alert in first.json()["alerts"]
+    )
+
+    duplicate = next(
+        alert for alert in first.json()["alerts"] if alert["rule_id"] == "DUPLICATE_REFERENCE"
+    )
+    alert_id = duplicate["alert_id"]
+    assert duplicate["false_positive_example"]
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{alert_id}/transitions",
+            json={"target_status": "DISMISSED"},
+        ).status_code
+        == 409
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{alert_id}/notes",
+            json={"note": "Review before state change."},
+        ).status_code
+        == 409
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{alert_id}/transitions",
+            json={"target_status": "IN_REVIEW", "actor": "analyst.one"},
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{alert_id}/notes",
+            json={"note": "The repeated reference is from a synthetic split-payment example."},
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{alert_id}/transitions",
+            json={"target_status": "DISMISSED"},
+        ).status_code
+        == 409
+    )
+    dismissed = api_client.post(
+        f"/api/v1/monitoring/alerts/{alert_id}/transitions",
+        json={
+            "target_status": "DISMISSED",
+            "reason": "Evidence shows intentional split references.",
+        },
+    )
+    assert dismissed.status_code == 200
+    assert dismissed.json()["status"] == "DISMISSED"
+    assert [item["activity_type"] for item in dismissed.json()["activities"]] == [
+        "DETECTED",
+        "REVIEW_STARTED",
+        "NOTE_ADDED",
+        "DISMISSED",
+    ]
+    assert dismissed.json()["activities"][-1]["correlation_id"]
+    assert (
+        api_client.get("/api/v1/monitoring/alerts?status=DISMISSED").json()["alerts"][0]["alert_id"]
+        == alert_id
+    )
+
+    high_value = next(
+        alert for alert in first.json()["alerts"] if alert["rule_id"] == "HIGH_VALUE_PAYMENT"
+    )
+    high_id = high_value["alert_id"]
+    assert (
+        api_client.get(f"/api/v1/monitoring/alerts/{high_id}/escalation-summary").status_code == 409
+    )
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{high_id}/transitions",
+            json={"target_status": "IN_REVIEW"},
+        ).status_code
+        == 200
+    )
+    escalated = api_client.post(
+        f"/api/v1/monitoring/alerts/{high_id}/transitions",
+        json={"target_status": "ESCALATED", "reason": "Second-person operations review requested."},
+    )
+    assert escalated.status_code == 200
+    summary = api_client.get(f"/api/v1/monitoring/alerts/{high_id}/escalation-summary")
+    assert summary.status_code == 200
+    assert summary.json()["summary_type"] == "SIMULATED_INTERNAL_ESCALATION_NOTE"
+    assert "not a suspicious activity report" in summary.json()["disclaimer"].lower()
+    assert (
+        api_client.post(
+            f"/api/v1/monitoring/alerts/{high_id}/transitions",
+            json={"target_status": "DISMISSED", "reason": "Late second disposition is blocked."},
+        ).status_code
+        == 409
+    )
+
+
+def test_monitoring_requires_an_existing_batch_and_rejects_invalid_review_payload(
+    api_client,
+) -> None:
+    assert (
+        api_client.post("/api/v1/monitoring/runs", json={"batch_id": "UNKNOWN-BATCH"}).status_code
+        == 404
+    )
+    assert (
+        api_client.post(
+            "/api/v1/monitoring/runs", json={"batch_id": "UNKNOWN-BATCH", "unexpected": True}
+        ).status_code
+        == 422
+    )

@@ -253,3 +253,79 @@ class CaseActivity(Base):
     from_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
     to_value: Mapped[str | None] = mapped_column(String(128), nullable=True)
     correlation_id: Mapped[str] = mapped_column(String(64), nullable=False)
+
+
+class MonitoringRun(Base):
+    __tablename__ = "monitoring_runs"
+    __table_args__ = (
+        CheckConstraint("alert_count >= 0", name="ck_monitoring_runs_alert_count_nonnegative"),
+        UniqueConstraint(
+            "batch_id", "rules_version", "source_hash", name="uq_monitoring_runs_inputs"
+        ),
+        Index("ix_monitoring_runs_batch_created", "batch_id", "created_at"),
+    )
+
+    run_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    batch_id: Mapped[str] = mapped_column(String(64), nullable=False)
+    rules_version: Mapped[str] = mapped_column(String(32), nullable=False)
+    source_hash: Mapped[str] = mapped_column(String(64), nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    alert_count: Mapped[int] = mapped_column(nullable=False)
+    alert_counts: Mapped[dict[str, int]] = mapped_column(JSON, nullable=False)
+
+
+class MonitoringAlert(Base):
+    __tablename__ = "monitoring_alerts"
+    __table_args__ = (
+        CheckConstraint(
+            "status IN ('OPEN', 'IN_REVIEW', 'DISMISSED', 'ESCALATED')",
+            name="ck_monitoring_alerts_status",
+        ),
+        CheckConstraint(
+            "severity IN ('INFO', 'REVIEW', 'PRIORITY')", name="ck_monitoring_alerts_severity"
+        ),
+        UniqueConstraint("run_id", "rule_id", "group_key", name="uq_monitoring_alerts_rule_group"),
+        Index("ix_monitoring_alerts_status_severity", "status", "severity"),
+    )
+
+    alert_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    run_id: Mapped[str] = mapped_column(
+        ForeignKey("monitoring_runs.run_id", ondelete="RESTRICT"), nullable=False
+    )
+    rule_id: Mapped[str] = mapped_column(String(48), nullable=False)
+    group_key: Mapped[str] = mapped_column(String(128), nullable=False)
+    title: Mapped[str] = mapped_column(String(160), nullable=False)
+    severity: Mapped[str] = mapped_column(String(16), nullable=False)
+    status: Mapped[str] = mapped_column(String(16), nullable=False)
+    explanation: Mapped[str] = mapped_column(String(500), nullable=False)
+    threshold: Mapped[str] = mapped_column(String(160), nullable=False)
+    false_positive_example: Mapped[str] = mapped_column(String(300), nullable=False)
+    evidence: Mapped[dict[str, object]] = mapped_column(JSON, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    disposition_reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    version: Mapped[int] = mapped_column(nullable=False, default=1)
+
+
+class MonitoringActivity(Base):
+    __tablename__ = "monitoring_activities"
+    __table_args__ = (
+        CheckConstraint(
+            "activity_type IN ('DETECTED', 'REVIEW_STARTED', 'NOTE_ADDED', "
+            "'DISMISSED', 'ESCALATED')",
+            name="ck_monitoring_activities_type",
+        ),
+        Index("ix_monitoring_activities_alert_occurred", "alert_id", "occurred_at", "activity_id"),
+    )
+
+    activity_id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    alert_id: Mapped[str] = mapped_column(
+        ForeignKey("monitoring_alerts.alert_id", ondelete="RESTRICT"), nullable=False
+    )
+    activity_type: Mapped[str] = mapped_column(String(24), nullable=False)
+    occurred_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
+    actor: Mapped[str] = mapped_column(String(128), nullable=False)
+    reason: Mapped[str | None] = mapped_column(String(500), nullable=True)
+    from_status: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    to_status: Mapped[str | None] = mapped_column(String(16), nullable=True)
+    correlation_id: Mapped[str] = mapped_column(String(64), nullable=False)
