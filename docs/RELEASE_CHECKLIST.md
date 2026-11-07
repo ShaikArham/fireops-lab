@@ -7,7 +7,7 @@ This checklist is a living release record. Do not check an item until evidence e
 - [x] Phase 0: scope, architecture, requirement traceability, independence, cost and acceptance criteria reviewed.
 - [x] Phase 1: repository, clean-clone instructions, exact dependency locks, local skeleton, tests, CI and static preview foundation verified.
 - [x] Phase 2: schema, migrations, reproducible synthetic data and validation pass.
-- [ ] Phase 3: lifecycle and idempotent imports pass.
+- [x] Phase 3: lifecycle and idempotent imports pass.
 - [ ] Phase 4: deterministic reconciliation scenarios and invariants pass.
 - [ ] Phase 5: investigation workflow and audit history pass.
 - [ ] Phase 6: monitoring and human-review controls pass.
@@ -21,9 +21,9 @@ This checklist is a living release record. Do not check an item until evidence e
 | Field | Value |
 |---|---|
 | Date / timezone | 2026-11-07, Europe/London |
-| Verified implementation SHA | `788c27b38f65d1b0353075c06a9c3bcb3971071a` (Phase 2 pull request) |
-| CI runs | [Pull request checks passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42414321907); [post-merge `main` checks passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42414607903) |
-| Commands / results | Phase 2: `uv sync --frozen`, Ruff, 34 pytest tests, temporary SQLite migration and `alembic check` passed locally. GitHub Actions applied the migration to PostgreSQL 17.11, found no schema drift, and passed the backend suite. Fixture regeneration matched committed CSV bytes and manifest checksums. Frontend regression, both Chromium E2E tests, static Pages export, and output-file check passed. |
+| Verified implementation SHA | Phase 2: `788c27b38f65d1b0353075c06a9c3bcb3971071a`; Phase 3 merge: `682dd09ce213003baab74fa6d6b26b5e9fc29e62` |
+| CI runs | Phase 2: [PR](https://github.com/ShaikArham/fireops-lab/actions/runs/42414321907), [post-merge](https://github.com/ShaikArham/fireops-lab/actions/runs/42414607903). Phase 3: [final PR checks](https://github.com/ShaikArham/fireops-lab/actions/runs/42417584050), [post-merge `main`](https://github.com/ShaikArham/fireops-lab/actions/runs/42417687465). |
+| Commands / results | Phase 2: 34 pytest tests. Phase 3: Ruff and 68 pytest tests passed locally; temporary SQLite migration and `alembic check` passed. GitHub Actions applied the Phase 3 migration to PostgreSQL 17.11, found no schema drift, passed backend and frontend checks, all 3 Chromium E2E tests, static Pages export, and output-file check. |
 | Preview and production URLs | Not deployed |
 | Desktop/mobile/manual results | Not recorded |
 | Known P0/P1/P2/P3 issues | Not recorded |
@@ -38,14 +38,14 @@ This checklist is a living release record. Do not check an item until evidence e
 - [PR #4](https://github.com/ShaikArham/fireops-lab/pull/4) was merged as `4ada600895b702aff6509924dc93b713b07289c4`; post-merge CI passed PostgreSQL migration/schema checks, backend tests, frontend regression, both Chromium browser tests, and the GitHub Pages static export. The manual Pages publish workflow remains untriggered.
 - Free release target is GitHub Pages static export with the manual publishing workflow; publishing remains deferred to Phase 10. Local GitHub Pages base-path export passed.
 - Docker is not installed in the local workspace; the PostgreSQL service and migration were exercised in GitHub Actions.
+- Phase 3 is **complete and merged into `main`** through PR #6 as `682dd09ce213003baab74fa6d6b26b5e9fc29e62`. The post-merge `main` run passed PostgreSQL migration/schema checks, all 68 backend tests, frontend checks, all 3 Chromium E2E tests, and the static Pages export. No deployment was triggered.
 
-## Phase 3 candidate evidence (2026-11-08; gate remains open pending GitHub CI)
+## Phase 3 verification (2026-11-07; gate passed)
 
 - Implemented checksum-idempotent, all-or-nothing payment and settlement CSV imports; preview returns at most 25 records. Conflicting identifiers reject and roll back the whole import.
 - Added the payment event table and Alembic migration `0002_payment_events`. Lifecycle transitions permit `CREATED -> VALIDATED -> PROCESSING -> SETTLED|FAILED`; transitions record actor, reason, correlation ID, and monotonically ordered UTC events.
 - Added deterministic batch simulation, settlement source records, per-currency batch control totals, payment event history, and API-backed browser controls. Simulation does not transmit money.
 - Local checks: Ruff passed; 68 backend tests passed, including the full 25-pair state transition matrix; Alembic upgrade and schema comparison passed against temporary SQLite; frontend formatting, lint, TypeScript, 2 Vitest tests, static export, and output-file check passed.
-- Local Playwright could not launch a browser in this sandbox. Playwright's browser download returned a truncated archive, and the system Chromium process is blocked by the container. [GitHub Actions run 42417429326 passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42417429326), including PostgreSQL CI, all backend checks, frontend checks, static export, and all 3 Chromium end-to-end tests.
+- Local Playwright could not launch a browser in this sandbox. Playwright's browser download returned a truncated archive, and the system Chromium process is blocked by the container. GitHub Actions verified the browser flows in the linked PR and post-merge runs above.
 - No deployment has happened. Before any public API deployment, Phase 9 must review public write isolation, rate limits, CORS origins, and demo reset behavior.
-- Phase 3 remains **unchecked** until the PR is merged and the post-merge `main` CI passes. No deployment has happened.
 
