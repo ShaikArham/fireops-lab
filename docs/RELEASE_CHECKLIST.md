@@ -6,7 +6,7 @@ This checklist is a living release record. Do not check an item until evidence e
 
 - [x] Phase 0: scope, architecture, requirement traceability, independence, cost and acceptance criteria reviewed.
 - [x] Phase 1: repository, clean-clone instructions, exact dependency locks, local skeleton, tests, CI and static preview foundation verified.
-- [ ] Phase 2: schema, migrations, reproducible synthetic data and validation pass.
+- [x] Phase 2: schema, migrations, reproducible synthetic data and validation pass.
 - [ ] Phase 3: lifecycle and idempotent imports pass.
 - [ ] Phase 4: deterministic reconciliation scenarios and invariants pass.
 - [ ] Phase 5: investigation workflow and audit history pass.
@@ -21,9 +21,9 @@ This checklist is a living release record. Do not check an item until evidence e
 | Field | Value |
 |---|---|
 | Date / timezone | 2026-11-07, Europe/London |
-| Branch / commit SHA | `main` / `5ea83f544762bef96a11a605f6f4e6298cec78fa` |
-| CI run | [Run 2 passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42412354648) |
-| Commands / results | Frontend: Biome format/lint, TypeScript, Vitest (2 passed), static export build with GitHub Pages base path, and output-file check passed. Backend: `uv sync --frozen`, Ruff, pytest (1 passed). `npm audit --audit-level=high`: 0 vulnerabilities. `git diff --check` and secret-pattern scan passed. Local Playwright could not start because Chromium is absent in this environment. GitHub Actions installed Chromium and passed both browser E2E tests. |
+| Branch / commit SHA | `feature/phase-2-data-foundation` / `788c27b38f65d1b0353075c06a9c3bcb3971071a` |
+| CI run | [Phase 2 pull request run passed](https://github.com/ShaikArham/fireops-lab/actions/runs/42414321907) |
+| Commands / results | Phase 2: `uv sync --frozen`, Ruff, 34 pytest tests, temporary SQLite migration and `alembic check` passed locally. GitHub Actions applied the migration to PostgreSQL 17.11, found no schema drift, and passed the backend suite. Fixture regeneration matched committed CSV bytes and manifest checksums. Frontend regression, both Chromium E2E tests, static Pages export, and output-file check passed. |
 | Preview and production URLs | Not deployed |
 | Desktop/mobile/manual results | Not recorded |
 | Known P0/P1/P2/P3 issues | Not recorded |
@@ -32,10 +32,10 @@ This checklist is a living release record. Do not check an item until evidence e
 
 - Phase 0 documents created: project brief, architecture/cost/acceptance criteria, requirement traceability, and decision log.
 - Phase 1 is **complete**: the public GitHub repository contains the committed skeleton, dependency locks, CI, and a manual-only static Pages publishing workflow. Phase 1 does not publish or deploy the application.
-- Frontend: Biome format check/lint, TypeScript check, Vitest (2 tests), static GitHub Pages export and output-file check passed locally; GitHub Actions passed the same checks plus both Chromium E2E tests.
-- Backend: Ruff and pytest (1 test) passed; HTTPX2 avoids the Starlette test-client deprecation warning.
-- Local Playwright E2E could not launch because the Chromium executable is not installed. Remote GitHub Actions installed Chromium and both page tests passed.
-- The foundation is pushed to the public `main` branch. GitHub Actions run 2 passed on `5ea83f544762bef96a11a605f6f4e6298cec78fa`.
+- Phase 2 is **complete** on the feature branch: PostgreSQL schema and migration, bounded CSV validation, reproducible normal and exception-day fixtures, checksummed manifest, and data dictionary. No upload endpoint or file persistence was added.
+- Backend Ruff and 34 pytest tests passed. Alembic upgrade and schema comparison passed with temporary SQLite locally and PostgreSQL 17.11 in GitHub Actions.
+- Fixture regeneration matched committed CSV bytes and manifest. Normal day: 100 instructions and 100 settlements. Exception day: 1,250 instructions and 1,230 settlements, including 10 missing settlement references and 10 duplicate instruction candidates.
+- [PR #4](https://github.com/ShaikArham/fireops-lab/pull/4) CI passed PostgreSQL migration/schema checks, backend tests, frontend regression, both Chromium browser tests, and the GitHub Pages static export. The manual Pages publish workflow remains untriggered.
 - Free release target is GitHub Pages static export with the manual publishing workflow; publishing remains deferred to Phase 10. Local GitHub Pages base-path export passed.
-- Docker is not installed in the current workspace. Phase 1 does not require a database to run the local skeleton; container smoke remains open if the Docker Compose path is introduced.
+- Docker is not installed in the local workspace; the PostgreSQL service and migration were exercised in GitHub Actions.
 

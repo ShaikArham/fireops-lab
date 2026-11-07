@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–1 are complete. Phase 2 data model, synthetic fixtures, and import validation are in progress. Payment processing, reconciliation, investigation, monitoring, and reporting features are not implemented yet.
+> **Build status:** Phases 0–2 are complete. Phase 3 payment lifecycle simulation has not started. Reconciliation, investigation, monitoring, and reporting are not implemented yet.
 
 ## Project boundaries
 
