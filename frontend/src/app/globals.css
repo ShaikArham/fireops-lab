@@ -290,3 +290,17 @@ html {
 :root[data-workspace-theme="dark"] #main-content header h1 {
   color: #f8fafc !important;
 }
+
+/* About top section tabs: previously missed by dark-mode navigation selectors. */
+:root[data-workspace-theme="dark"] nav[aria-label="About page sections"] {
+  background-color: #172336 !important;
+  border-color: #475569 !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page sections"] a {
+  color: #f8fafc !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page sections"] a:hover,
+:root[data-workspace-theme="dark"] nav[aria-label="About page sections"] a:focus-visible {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
