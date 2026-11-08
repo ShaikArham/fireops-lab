@@ -225,14 +225,18 @@ export default function AboutBuilder() {
           <Link
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv"
+            target="_blank"
+            rel="noopener noreferrer"
             >
             View CV ↗
           </Link>
           <Link
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            Open CV / Save as PDF ↓
+            Save CV as PDF ↗
           </Link>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
