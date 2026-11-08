@@ -5,6 +5,7 @@ import { requestJson } from "../lib/api";
 import { useCallback, useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
 import CaseWorkspace from "./case-workspace";
+import { getPreparedScenario } from "./scenario-selector";
 
 type Item = Record<string, string | number> | null;
 interface ReconciliationItem {
@@ -118,6 +119,15 @@ export default function ReconciliationWorkspace() {
       .then((result) => {
         setPaymentBatches(result.batches.map((batch) => batch.batch_id));
         setSettlementBatches(result.settlement_batches.map((batch) => batch.settlement_batch_id));
+        return getPreparedScenario().then(async (selected) => {
+          if (!selected) return;
+          setPaymentBatch(selected.payment_batch_id);
+          setSettlementBatch(selected.settlement_batch_id);
+          if (selected.reconciliation_run_id) {
+            const prepared = await requestJson<RunResult>(`${API}/api/v1/reconciliation/runs/${encodeURIComponent(selected.reconciliation_run_id)}`);
+            setRun(prepared);
+          } else setRun(null);
+        });
       })
       .catch((cause: unknown) =>
         setError(cause instanceof Error ? cause.message : "Could not connect to API."),
@@ -134,9 +144,13 @@ export default function ReconciliationWorkspace() {
       void loadBatches();
     };
     window.addEventListener("fireops:operations-updated", changed);
+    window.addEventListener("fireops:demo-ready", changed);
+    window.addEventListener("fireops:scenario-changed", changed);
     return () => {
       window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:operations-updated", changed);
+      window.removeEventListener("fireops:demo-ready", changed);
+      window.removeEventListener("fireops:scenario-changed", changed);
     };
   }, [loadBatches]);
 
