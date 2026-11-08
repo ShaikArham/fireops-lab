@@ -14,7 +14,6 @@ import ReconciliationWorkspace from "../../reconciliation-workspace";
 import MonitoringWorkspace from "../../monitoring-workspace";
 import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
-import ApiConnectionStatus from "../../api-connection-status";
 import DemoSessionControls from "../../demo-session-controls";
 import AboutBuilder from "../../about-builder";
 
@@ -107,8 +106,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
             Synthetic environment
           </span>
         </header>
-        <ApiConnectionStatus />
-        <DemoSessionControls />
+        {current !== "about" && <DemoSessionControls />}
         {current === "overview" && (
           <div className="space-y-8">
             <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
