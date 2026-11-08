@@ -1,4 +1,5 @@
 import Link from "next/link";
+import AboutScrollNavigator from "./about-scroll-navigator";
 
 const strengths = [
   { title: "Data accuracy", detail: "SQL, PL/SQL, validation, reconciliation checks and tracing discrepancies to source records." },
@@ -62,7 +63,7 @@ export default function AboutBuilder() {
         <div className="mt-6 flex flex-wrap gap-3">
           <a className="inline-flex min-h-11 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950" href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer">FireOPS source ↗</a>
           <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://ledgerpoint-ai.vercel.app" target="_blank" rel="noopener noreferrer">Explore LedgerPoint ↗</a>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://github.com/ShaikArham" target="_blank" rel="noopener noreferrer">Project portfolio ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">My portfolio ↗</a>
         </div>
       </section>
       <section id="application" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
@@ -70,12 +71,13 @@ export default function AboutBuilder() {
         <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <span aria-disabled="true" className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600">View CV · Coming soon</span>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://ledgerpoint-ai.vercel.app/#portfolio" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
           <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
         </div>
       </section>
       <div className="flex flex-wrap justify-between gap-3 text-sm font-semibold"><a href="#intro" className="text-teal-800 hover:underline">↑ Back to introduction</a><a href="#thank-you" className="text-teal-800 hover:underline">Next: personal note ↓</a></div>
       <section id="thank-you" className="about-section rounded-2xl bg-slate-100 p-6 md:p-9"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">A personal note</p><h3 className="mt-3 text-2xl font-semibold">Thank you for exploring FireOPS.</h3><p className="mt-3 max-w-3xl leading-7 text-slate-700">I would welcome a conversation about how my BI and application-operations background could contribute to fire.com. This project shows my thinking and willingness to learn, using fictional records only.</p><p className="mt-5 font-semibold">Shaik Arham</p></section>
+      <AboutScrollNavigator />
     </div>
   );
 }
