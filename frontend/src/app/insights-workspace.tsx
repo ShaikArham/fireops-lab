@@ -103,6 +103,7 @@ export default function InsightsWorkspace() {
   const [loading, setLoading] = useState(false);
   const [baselineMinutes, setBaselineMinutes] = useState("");
   const [assistedMinutes, setAssistedMinutes] = useState("");
+  const [downloadError, setDownloadError] = useState("");
 
   useEffect(() => {
     if (!API) return;
@@ -114,6 +115,29 @@ export default function InsightsWorkspace() {
       )
       .finally(() => setLoading(false));
   }, []);
+
+  const downloadRun = async () => {
+    setDownloadError("");
+    try {
+      const response = await fetch(
+        `${API}/api/v1/insights/runs/${encodeURIComponent(report?.run_id ?? "")}/export.csv`,
+      );
+      if (!response.ok) throw new Error("Could not download this run’s CSV.");
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = `fireops-insights-run-${report?.run_id ?? "report"}.csv`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (cause) {
+      setDownloadError(
+        cause instanceof Error ? cause.message : "Could not download this run’s CSV.",
+      );
+    }
+  };
 
   const baseline = Number(baselineMinutes);
   const assisted = Number(assistedMinutes);
@@ -146,6 +170,14 @@ export default function InsightsWorkspace() {
         review. Each value has a stated denominator and boundary. Currency amounts stay grouped by
         currency.
       </p>
+
+      {API && (
+        <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
+          <strong>Committed fixture baseline:</strong> the read-only sample input contains 1,218
+          exact matches from 1,250 payment instructions (<strong>97.44%</strong>). These are sample
+          reconciliation counts, not business performance results.
+        </p>
+      )}
 
       {!API ? (
         <>
@@ -230,14 +262,19 @@ export default function InsightsWorkspace() {
                 {report.settlement_batch_id ? ` · ${report.settlement_batch_id}` : ""}
               </p>
             </div>
-            <a
+            <button
+              type="button"
               className="inline-flex min-h-11 items-center rounded-lg bg-slate-900 px-4 font-medium text-white hover:bg-slate-700"
-              href={`${API}/api/v1/insights/runs/${encodeURIComponent(report.run_id)}/export.csv`}
-              download
+              onClick={() => void downloadRun()}
             >
               Download this run’s CSV
-            </a>
+            </button>
           </div>
+          {downloadError && (
+            <p role="alert" className="mt-3 text-sm text-rose-800">
+              {downloadError}
+            </p>
+          )}
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric

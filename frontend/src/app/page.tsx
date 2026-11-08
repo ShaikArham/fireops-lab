@@ -217,8 +217,8 @@ export default function Home() {
               FireOps Lab is an independent portfolio project built with fictional data. It
               demonstrates transferable analytical and documentation skills, not professional
               payment-fraud investigation experience. Monitoring signals are prompts for trained
-              human review, not findings of fraud, money laundering, legal compliance or regulatory
-              reporting.
+              human review, not presented as proven fraud, money laundering, legal compliance or
+              regulatory reporting.
             </p>
           </section>
         </div>

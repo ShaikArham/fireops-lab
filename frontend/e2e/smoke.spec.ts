@@ -367,7 +367,7 @@ test("operational insights use one saved run and export its report", async ({ pa
   await expect(page.getByText("SOURCE DATA QUALITY", { exact: true })).toBeVisible();
   await expect(page.getByText("80.00% exact · 20 exceptions")).toBeVisible();
   const downloadPromise = page.waitForEvent("download");
-  await page.getByRole("link", { name: "Download this run’s CSV" }).click();
+  await page.getByRole("button", { name: "Download this run’s CSV" }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe("fireops-insights-run-insights-1.csv");
 });
@@ -747,10 +747,25 @@ test("mobile and tablet layouts keep the recruiter journey inside the viewport",
 
   for (const width of [320, 375, 390, 768, 1024, 1366]) {
     await page.setViewportSize({ width, height: 900 });
-    const documentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
-    expect(documentWidth, `unexpected horizontal overflow at ${width}px`).toBeLessThanOrEqual(
-      width,
-    );
+    const overflow = await page.evaluate(() => ({
+      documentWidth: document.documentElement.scrollWidth,
+      elements: Array.from(document.querySelectorAll("body *"))
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            tag: element.tagName,
+            className: String(element.className).slice(0, 100),
+            right: Math.round(rect.right),
+            text: (element.textContent ?? "").trim().slice(0, 60),
+          };
+        })
+        .filter((item) => item.right > window.innerWidth + 1)
+        .slice(0, 10),
+    }));
+    expect(
+      overflow.documentWidth,
+      `horizontal overflow at ${width}px: ${JSON.stringify(overflow.elements)}`,
+    ).toBeLessThanOrEqual(width);
     await expect(page.getByRole("heading", { name: /Reconcile the day/ })).toBeVisible();
   }
 
