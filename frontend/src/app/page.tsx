@@ -78,6 +78,40 @@ export default function Home() {
             </p>
           </div>
         </div>
+        <div className="border-t border-slate-700 px-6 py-8 sm:px-9">
+          <div className="mb-6 flex flex-wrap items-end justify-between gap-3">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.2em] text-teal-300">Follow the exception</p>
+              <h2 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">One payment. Three decisions.</h2>
+            </div>
+            <p className="max-w-xs text-sm text-slate-400">Scroll to see how a fictional exception becomes a documented investigation.</p>
+          </div>
+          <div className="space-y-4" aria-label="Illustrative payment operations journey">
+            {[
+              { number: "01", label: "PROCESS", title: "Follow the payment", body: "Trace a fictional payment batch from processing toward settlement.", tone: "text-teal-300" },
+              { number: "02", label: "RECONCILE", title: "Find the mismatch", body: "Compare records and identify the exception requiring review.", tone: "text-amber-300" },
+              { number: "03", label: "INVESTIGATE", title: "Document the decision", body: "Review supporting evidence, monitor alerts and explain the outcome.", tone: "text-sky-300" },
+            ].map((step, index) => (
+              <article
+                key={step.number}
+                className="fireops-scroll-card sticky rounded-2xl border border-slate-700 bg-slate-900/95 p-5 shadow-[0_18px_40px_rgba(0,0,0,.3)] sm:p-7"
+                style={{ top: `${16 + index * 12}px` }}
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <span className={`text-xs font-bold tracking-[0.18em] ${step.tone}`}>{step.label}</span>
+                  <span className="font-mono text-sm text-slate-500">{step.number} / 03</span>
+                </div>
+                <h3 className="mt-6 text-xl font-semibold sm:text-2xl">{step.title}</h3>
+                <p className="mt-2 max-w-xl text-sm leading-6 text-slate-300">{step.body}</p>
+                <div aria-hidden="true" className="mt-6 h-1 overflow-hidden rounded-full bg-slate-800">
+                  <div className="h-full rounded-full bg-teal-300" style={{ width: `${(index + 1) * 100 / 3}%` }} />
+                </div>
+              </article>
+            ))}
+          </div>
+          <p className="mt-5 text-xs text-slate-400">Illustrative workflow · Fictional records only</p>
+          <Link href="/workspace/overview" className="mt-5 inline-flex min-h-11 items-center gap-2 rounded-lg border border-teal-500/60 px-4 py-2 font-semibold text-teal-200 transition-colors hover:bg-teal-500/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-teal-300">Open interactive workspace <ArrowRight size={17} /></Link>
+        </div>
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-700 px-6 py-4 text-xs text-slate-400 sm:px-9">
           <span>Fictional records only · Not affiliated with fire.com</span>
           <a
@@ -90,7 +124,7 @@ export default function Home() {
           </a>
         </footer>
       </section>
-      <style jsx global>{`@keyframes fireops-enter { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
+      <style jsx global>{`@supports (animation-timeline: view()) { .fireops-scroll-card { animation: fireops-card-reveal linear both; animation-timeline: view(); animation-range: entry 0% entry 75%; } } @keyframes fireops-card-reveal { from { opacity: .65; transform: translateY(18px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } } @media (prefers-reduced-motion: reduce) { .fireops-scroll-card { animation: none !important; transform: none !important; } } @keyframes fireops-enter { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
     </main>
   );
 }
