@@ -2,7 +2,7 @@
 
 import { requestJson } from "../lib/api";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type DatasetKind = "payment_instructions" | "settlement_records";
 
@@ -101,6 +101,29 @@ export default function OperationsWorkspace() {
     setSettlementBatches(result.settlement_batches);
     window.dispatchEvent(new Event("fireops:operations-updated"));
   };
+
+  useEffect(() => {
+    let active = true;
+    const refresh = async () => {
+      try {
+        const result = await apiRequest<{ batches: Batch[]; settlement_batches: SettlementBatch[] }>("/batches");
+        if (!active) return;
+        setBatches(result.batches);
+        setSettlementBatches(result.settlement_batches);
+        if (result.batches.length) {
+          const first = result.batches[0];
+          setSelectedBatch(first.batch_id);
+          const records = await apiRequest<{ payments: PaymentRecord[] }>(`/batches/${encodeURIComponent(first.batch_id)}/payments?limit=25`);
+          if (active) setPayments(records.payments);
+        }
+      } catch (cause) {
+        if (active) setError(cause instanceof Error ? cause.message : "Could not load payment records.");
+      }
+    };
+    void refresh();
+    window.addEventListener("fireops:demo-ready", refresh);
+    return () => { active = false; window.removeEventListener("fireops:demo-ready", refresh); };
+  }, []);
 
   const withFeedback = async (action: () => Promise<void>) => {
     setBusy(true);
@@ -220,7 +243,7 @@ export default function OperationsWorkspace() {
           Payment lifecycle
         </p>
         <h2 id="operations-heading" className="mt-2 text-2xl font-semibold text-slate-950">
-          Import, process, and inspect a sample batch
+          Inspect the preloaded payment records
         </h2>
         <p className="mt-3 leading-7 text-slate-600">
           CSVs are validated before import. Repeated files are recognised by checksum. The simulator
@@ -243,120 +266,6 @@ export default function OperationsWorkspace() {
       )}
       {API_BASE_URL && (
         <div className="mt-7 grid min-w-0 gap-8">
-          <div className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
-            <label className="grid min-w-0 gap-2 text-sm font-medium text-slate-800">
-              Source type
-              <select
-                className="min-h-11 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3"
-                disabled={busy}
-                value={kind}
-                onChange={(event) => {
-                  setKind(event.target.value as DatasetKind);
-                  setPreview(null);
-                  setMessage("");
-                  setError("");
-                }}
-              >
-                <option value="payment_instructions">Payment instructions</option>
-                <option value="settlement_records">Settlement records</option>
-              </select>
-            </label>
-            <label className="grid min-w-0 gap-2 text-sm font-medium text-slate-800">
-              CSV file
-              <input
-                className="min-h-11 w-full min-w-0 max-w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
-                disabled={busy}
-                type="file"
-                accept=".csv,text/csv"
-                onChange={(event) => {
-                  setFile(event.target.files?.[0] ?? null);
-                  setPreview(null);
-                  setMessage("");
-                  setError("");
-                }}
-              />
-            </label>
-            <button
-              className="min-h-11 rounded-lg border border-slate-300 bg-white px-4 font-medium text-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
-              type="button"
-              onClick={previewFile}
-              disabled={busy || !file}
-            >
-              Preview file
-            </button>
-            <button
-              className="min-h-11 rounded-lg bg-slate-900 px-4 font-medium text-white disabled:cursor-not-allowed disabled:opacity-50"
-              type="button"
-              onClick={importFile}
-              disabled={busy || !preview?.is_valid || preview.kind !== kind}
-            >
-              Import validated file
-            </button>
-          </div>
-
-          {preview && (
-            <div aria-live="polite" className="grid gap-3">
-              <h3 className="text-lg font-semibold text-slate-900">Source preview</h3>
-              <p className="text-sm text-slate-600">
-                {preview.data_row_count.toLocaleString()} data rows · showing up to 5 rows and 6
-                columns · SHA-256 <span className="break-all">{preview.checksum_sha256}</span>
-              </p>
-              {preview.issues_truncated && (
-                <p className="text-sm text-amber-900">
-                  Only the first validation issues are shown. Correct these and preview the file
-                  again.
-                </p>
-              )}
-              {preview.issues.length > 0 && (
-                <ul className="list-inside list-disc rounded-lg bg-rose-50 p-4 text-sm text-rose-900">
-                  {preview.issues.map((issue) => (
-                    <li key={`${issue.row_number}-${issue.field}-${issue.code}-${issue.message}`}>
-                      {issue.row_number ? `Row ${issue.row_number}: ` : "File: "}
-                      {issue.field ? `${issue.field} · ` : ""}
-                      {issue.message}
-                    </li>
-                  ))}
-                </ul>
-              )}
-              {preview.preview.length > 0 && (
-                <div className="overflow-x-auto rounded-lg border border-slate-200">
-                  <table className="min-w-full text-left text-xs">
-                    <thead className="bg-slate-100 text-slate-700">
-                      <tr>
-                        {Object.keys(preview.preview[0])
-                          .slice(0, 6)
-                          .map((header) => (
-                            <th className="whitespace-nowrap px-3 py-2 font-semibold" key={header}>
-                              {header.replaceAll("_", " ")}
-                            </th>
-                          ))}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {preview.preview.slice(0, 5).map((row) => (
-                        <tr
-                          className="border-t border-slate-200"
-                          key={String(row.payment_id ?? row.settlement_id)}
-                        >
-                          {Object.entries(row)
-                            .slice(0, 6)
-                            .map(([column, value]) => (
-                              <td
-                                className="max-w-52 break-words px-3 py-2 text-slate-700"
-                                key={column}
-                              >
-                                {String(value)}
-                              </td>
-                            ))}
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              )}
-            </div>
-          )}
-
           <div className="grid min-w-0 gap-3">
             <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
               <h3 className="text-lg font-semibold text-slate-900">Payment batch controls</h3>
