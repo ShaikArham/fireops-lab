@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Github, PlayCircle } from "lucide-react";
+import { ArrowRight, Code2, PlayCircle } from "lucide-react";
 
 export default function Home() {
   return (
@@ -28,7 +28,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-between gap-3 p-4 text-sm text-slate-300"><span>Real workflows · Fictional records</span><Link className="font-semibold text-teal-300 hover:underline" href="/workspace/overview">Open the full workspace →</Link></div>
           </section>
         </div>
-        <footer className="mt-16 flex flex-wrap justify-between gap-4 border-t border-slate-700 pt-6 text-sm text-slate-400"><span>Independent portfolio project. Not affiliated with fire.com. No real payments.</span><a href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-200 hover:underline"><Github size={16}/> View code on GitHub</a></footer>
+        <footer className="mt-16 flex flex-wrap justify-between gap-4 border-t border-slate-700 pt-6 text-sm text-slate-400"><span>Independent portfolio project. Not affiliated with fire.com. No real payments.</span><a href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 text-slate-200 hover:underline"><Code2 size={16}/> View code on GitHub</a></footer>
       </div>
     </main>
   );
