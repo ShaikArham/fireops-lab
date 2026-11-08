@@ -15,7 +15,12 @@ Engineering controls to implement by phase:
 - Require `SYN-`-prefixed account tokens, reject formula-like cell values, and never accept real account/customer identifiers in sample data.
 - Keep SQL parameterised; restrict CORS; use least-privilege database roles.
 - Escape spreadsheet formulas in CSV exports.
+- The API is read-only by default. Mutating requests return HTTP 503 unless `FIREOPS_ENV=development` and `FIREOPS_ENABLE_DEMO_WRITES=true` are both explicitly set. Production mode blocks writes even when the opt-in is accidentally set.
+- Use an exact CORS origin allowlist. Wildcards and malformed origins are rejected; explicitly configured non-development origins must use HTTPS. Credentials are not enabled.
+- Do not deploy or expose shared anonymous writes. Public write access remains disabled. Before enabling any hosted mutation, design per-visitor isolation or authentication and host-level rate limits. Those controls are not part of the current public release.
+- No public reset endpoint exists. API tests use a new temporary SQLite database per test; the public GitHub Pages view is a committed read-only fixture. There is no hosted mutable dataset to reset or back up.
 - Keep shared sample data read-only or use an isolated resettable workspace.
 - Log material case and rule changes with actor, timestamp, reason, and before/after context.
-- Run dependency and secret scans before release.
+- Run `npm audit --audit-level=high` and `pip-audit` against the locked frontend and Python environments in CI. CI also runs pinned `detect-secrets` across the checkout and fails on findings. The synthetic-data manifest is excluded because it intentionally stores public content checksums, not credentials.
+- Keep `.env` files ignored and commit only `.env.example`. Check repository secret-scanning alerts in GitHub before release; the current review could not read that restricted alert endpoint.
 

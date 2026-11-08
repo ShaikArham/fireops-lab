@@ -57,7 +57,7 @@ Phase 8 is complete and merged through PR [#14](https://github.com/ShaikArham/fi
 
 ## Current work: Phase 9
 
-Review regression coverage, dependency and secret posture, CORS configuration, public write isolation, rate limits, demo reset behavior and release blockers. Keep the free GitHub Pages experience static. The API/database are not deployed. Do not begin Phase 10 until the Phase 9 review and fixes pass their documented checks.
+Local Phase 9 work now includes default-deny API mutations, strict CORS validation, spreadsheet-safe report exports, dependency audits and a pinned source secret scan. Local evidence: 94 backend tests, Ruff, 92% backend statement coverage, fresh SQLite migration/schema checks, frontend checks and clean npm/pip audits. Open items: PR/post-merge CI and repository secret-alert review. Shared public writes and API hosting remain blocked pending authentication or per-visitor isolation, host-level rate limits and an operational reset/backup plan. Keep GitHub Pages static; do not begin Phase 10 until the Phase 9 gate passes.
 
 ## Later phases still pending
 
