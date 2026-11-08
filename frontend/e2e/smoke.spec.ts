@@ -18,9 +18,12 @@ const sections = [
   "about",
 ] as const;
 
-test("homepage opens the current seven-section workspace", async ({ page }) => {
+test("homepage introduction leads into the seven-section workspace", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/FireOps Lab/i);
+  await expect(page.getByRole("dialog", { name: /payment succeeds/i })).toBeVisible();
+  await page.getByRole("link", { name: /Explore FireOPS/i }).click();
+  await expect(page).toHaveURL(/\/workspace\/overview\/?$/);
   await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
   await expect(
     page
@@ -29,10 +32,10 @@ test("homepage opens the current seven-section workspace", async ({ page }) => {
   ).toBeVisible();
 });
 
-test("homepage discloses synthetic records", async ({ page }) => {
+test("homepage discloses fictional records and independence", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText("Synthetic environment", { exact: true })).toBeVisible();
-  await expect(page.getByText(/Synthetic demo data only/i)).toBeVisible();
+  await expect(page.getByText(/Fictional records only/i)).toBeVisible();
+  await expect(page.getByText(/Not affiliated with fire.com/i)).toBeVisible();
 });
 
 for (const section of sections) {
