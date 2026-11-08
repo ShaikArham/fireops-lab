@@ -304,3 +304,30 @@ html {
   background-color: #334155 !important;
   color: #ffffff !important;
 }
+
+/* FireOPS unified visual tokens: light editorial landing, dark operations. */
+:root {
+  --fireops-blue: #548cff;
+  --fireops-blue-hover: #376fdf;
+  --fireops-ink: #050505;
+  --fireops-canvas: #ffffff;
+  --fireops-surface: #f6f8fc;
+  --fireops-border: #dce3ef;
+  --fireops-radius-card: 1.5rem;
+  --fireops-shadow-card: 0 20px 55px rgba(30, 53, 92, .08);
+  --fireops-motion-quick: 160ms;
+  --fireops-motion-standard: 240ms;
+  --fireops-ease: cubic-bezier(.22, 1, .36, 1);
+}
+.fireops-interactive {
+  transition: transform var(--fireops-motion-quick) var(--fireops-ease),
+              box-shadow var(--fireops-motion-standard) var(--fireops-ease),
+              border-color var(--fireops-motion-quick) ease;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .fireops-interactive:hover { transform: translateY(-2px); }
+}
+.fireops-interactive:focus-visible { outline: 3px solid var(--fireops-blue); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) {
+  .fireops-interactive { transition: none !important; transform: none !important; }
+}
