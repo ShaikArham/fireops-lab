@@ -50,8 +50,8 @@ export default function DemoSessionControls() {
       <p className="text-sm font-semibold text-slate-900">Your isolated demo workspace</p>
       <p className="mt-1 text-xs text-slate-600">All records are fictional and private to this browser session. Load sample data to begin, or reset only your own records.</p>
       <div className="mt-3 flex flex-wrap gap-2">
-        <button type="button" disabled={busy !== null} onClick={() => run("session")} className="min-h-11 rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">{busy === "session" ? "Starting…" : "Start demo"}</button>
-        <button type="button" disabled={busy !== null} onClick={() => run("load")} className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold disabled:opacity-50">{busy === "load" ? "Loading…" : "Load sample data"}</button>
+        <button type="button" disabled={busy !== null} onClick={() => run("load")} className="min-h-11 rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">{busy === "load" ? "Loading sample records…" : "Load sample data"}</button>
+        <button type="button" disabled={busy !== null} onClick={() => window.location.reload()} className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold disabled:opacity-50">Refresh records</button>
         <button type="button" disabled={busy !== null} onClick={() => run("reset")} className="min-h-11 rounded-lg border border-rose-300 px-4 py-2 text-sm font-semibold text-rose-800 disabled:opacity-50">{busy === "reset" ? "Resetting…" : "Reset my demo"}</button>
       </div>
       <div aria-live="polite" aria-atomic="true">
