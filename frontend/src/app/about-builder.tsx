@@ -218,7 +218,7 @@ export default function AboutBuilder() {
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="https://shaikarham.github.io/arham-portfolio/assets/Shaik_Arham_Saquib.pdf"
+            href="/cv"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -226,10 +226,10 @@ export default function AboutBuilder() {
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="https://shaikarham.github.io/arham-portfolio/assets/Shaik_Arham_Saquib.pdf?download=1"
-            download="Shaik_Arham_CV.pdf"
+            href="/cv?print=1"
+            
           >
-            Download CV ↓
+            Save CV as PDF ↓
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
