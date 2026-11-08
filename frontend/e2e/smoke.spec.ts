@@ -14,7 +14,11 @@ test("homepage opens the current seven-section workspace", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/FireOps Lab/i);
   await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
-  await expect(page.getByRole("navigation", { name: "Workspace navigation" }).getByRole("link", { name: "Payments" })).toBeVisible();
+  await expect(
+    page
+      .getByRole("navigation", { name: "Workspace navigation" })
+      .getByRole("link", { name: "Payments" }),
+  ).toBeVisible();
 });
 
 test("homepage discloses synthetic records", async ({ page }) => {
