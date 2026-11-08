@@ -70,7 +70,7 @@ export default function AboutBuilder() {
         <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
         <div className="mt-5 flex flex-wrap gap-3">
           <span aria-disabled="true" className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600">View CV · Coming soon</span>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://github.com/ShaikArham" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://ledgerpoint-ai.vercel.app/#portfolio" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
           <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
         </div>
       </section>
