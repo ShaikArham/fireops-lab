@@ -77,14 +77,9 @@ export default function AboutBuilder() {
               evidence-based investigation for an Operations Analyst opportunity at fire.com.
             </p>
             <div className="mt-7 flex items-center gap-4">
-              <span
-                aria-hidden="true"
-                className="flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-800 text-lg font-bold"
-              >
-                SA
-              </span>
+              <a href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer" aria-label="View Shaik Arham portfolio" className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-300 via-cyan-500 to-indigo-500 p-1 shadow-lg shadow-teal-500/20"><span role="img" aria-label="Shaik Arham portfolio avatar" className="h-full w-full rounded-full bg-slate-900 bg-cover bg-center" style={{ backgroundImage: "url(https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp)" }} /></a>
               <div>
-                <p className="font-semibold">Shaik Arham Saquib</p>
+                <p className="font-semibold">Shaik Arham</p>
                 <p className="text-sm text-slate-300">
                   Dublin, Ireland · MSc Computing (Data Analytics)
                 </p>
@@ -213,7 +208,7 @@ export default function AboutBuilder() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Project portfolio ↗
+            My Portfolio ↗
           </a>
         </div>
       </section>
