@@ -218,3 +218,30 @@ html {
   color: #f8fafc;
   border-color: #475569;
 }
+
+/* Keep About section navigation readable in both themes. */
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] {
+  background: #172336;
+  border-color: #475569;
+  color: #f8fafc;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] p,
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] span,
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button {
+  color: #f8fafc;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:first-of-type {
+  background: #243449;
+  border-color: #64748b;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:last-of-type {
+  background: #0f766e;
+  color: #fff;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:disabled {
+  opacity: 0.55;
+}
+:root[data-workspace-theme="dark"] .about-section [class~="text-teal-800"],
+:root[data-workspace-theme="dark"] #main-content a[class~="text-teal-800"] {
+  color: #5eead4;
+}
