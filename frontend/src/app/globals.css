@@ -227,18 +227,26 @@ html {
 }
 :root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] p,
 :root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] span,
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button {
   color: #f8fafc;
 }
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:first-of-type {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button:first-of-type {
   background: #243449;
   border-color: #64748b;
 }
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:last-of-type {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button:last-of-type {
   background: #0f766e;
   color: #fff;
 }
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:disabled {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button:disabled {
   opacity: 0.55;
 }
 :root[data-workspace-theme="dark"] .about-section [class~="text-teal-800"],
@@ -258,16 +266,22 @@ html {
 :root[data-workspace-theme="dark"] nav[aria-label="Quick workspace navigation"] a,
 :root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] p,
 :root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] span,
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button {
   color: #f8fafc !important;
 }
-:root[data-workspace-theme="dark"] nav[aria-label="Quick workspace navigation"] a[aria-current="page"] {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="Quick workspace navigation"]
+  a[aria-current="page"] {
   background-color: #0f766e !important;
 }
 :root[data-workspace-theme="dark"] nav[aria-label="Mobile workspace navigation"] a:hover {
   background-color: #334155 !important;
 }
-:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:last-child {
+:root[data-workspace-theme="dark"]
+  nav[aria-label="About page progress and section controls"]
+  button:last-child {
   background-color: #0f766e !important;
   color: #fff !important;
 }
