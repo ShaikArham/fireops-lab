@@ -15,11 +15,11 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 ## Completed rebuild work
 - Created branch feat/hiring-manager-workspace from main.
 - Commit 440ae0b23044233ce3827471d7efb3ef5d368ef1: changed frontend/src/app/page.tsx to add a persistent desktop sidebar, mobile menu, wider content area, and payments anchor.
-- Requested Vercel preview deployment dpl_FqDxwb8VxeAp8TvrZ5qLNNN9hc7D. Its build status must be checked before treating the UI as verified.
+- Requested Vercel preview deployment dpl_FqDxwb8VxeAp8TvrZ5qLNNN9hc7D. Deployment READY and HTTP 200 verified at https://fireops-m8flx8bnn-shaikarhamsaquib1188113-7684.vercel.app. Desktop/mobile visual and interaction testing remains pending.
 - Production intentionally not modified.
 
 ## Work pending, in priority order
-1. Verify preview build, fix any TypeScript/build errors, and inspect rendered desktop/mobile navigation.
+1. Preview build and HTTP 200 verified. Still inspect rendered desktop/mobile navigation and resolve any UX defects.
 2. Replace one-page anchor navigation with real workspace routes/pages and active sidebar state.
 3. Audit backend API and persistence, deploy it, configure environment variables and database safely.
 4. Build real payment batch import, validation, lifecycle processing and reconciliation interactions.
@@ -36,3 +36,9 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Do not present mocked buttons or hardcoded number swaps as a working backend.
 - Keep a completed/pending ledger updated after every step.
 - Do not overwrite the production deployment until release checks pass.
+
+## Backend audit discovery
+- frontend/src/app/operations-workspace.tsx calls /api/v1 via NEXT_PUBLIC_API_BASE_URL and implements actual import/processing UI actions, but production currently lacks a configured backend URL.
+- frontend/src/app/reconciliation-workspace.tsx contains a static preview fallback plus API-dependent run interactions.
+- backend/pyproject.toml defines FastAPI, SQLAlchemy, PostgreSQL driver, Alembic and Python 3.12.
+- Next step is to inspect API routes and deploy a properly isolated backend; do not imply the workflow works until tested.
