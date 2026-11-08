@@ -192,3 +192,5 @@ def test_cross_origin_bearer_workspace_isolation(isolated_clients, monkeypatch):
         == 403
     )
     assert a.post("/api/v1/demo/reset", headers=headers).status_code == 200
+    # Preserve the token for the fixture cleanup of this synthetic schema.
+    a.cookies.set(COOKIE, token)
