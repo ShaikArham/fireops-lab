@@ -21,6 +21,6 @@
     }
   },
   "files": {
-    "includes": ["src/**", "e2e/**", "*.mjs", "*.ts", "*.mts"]
+    "includes": ["src/**", "e2e/**", "static-e2e/**", "*.mjs", "*.ts", "*.mts"]
   }
 }
