@@ -226,12 +226,12 @@ export default function OperationsWorkspace() {
       )}
 
       {API_BASE_URL && (
-        <div className="mt-7 grid gap-8">
-          <div className="grid gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
-            <label className="grid gap-2 text-sm font-medium text-slate-800">
+        <div className="mt-7 grid min-w-0 gap-8">
+          <div className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
+            <label className="grid min-w-0 gap-2 text-sm font-medium text-slate-800">
               Source type
               <select
-                className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+                className="min-h-11 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3"
                 value={kind}
                 onChange={(event) => {
                   setKind(event.target.value as DatasetKind);
@@ -242,10 +242,10 @@ export default function OperationsWorkspace() {
                 <option value="settlement_records">Settlement records</option>
               </select>
             </label>
-            <label className="grid gap-2 text-sm font-medium text-slate-800">
+            <label className="grid min-w-0 gap-2 text-sm font-medium text-slate-800">
               CSV file
               <input
-                className="min-h-11 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+                className="min-h-11 w-full min-w-0 max-w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
                 type="file"
                 accept=".csv,text/csv"
                 onChange={(event) => {
@@ -329,8 +329,8 @@ export default function OperationsWorkspace() {
             </div>
           )}
 
-          <div className="grid gap-3">
-            <div className="flex flex-wrap items-center justify-between gap-3">
+          <div className="grid min-w-0 gap-3">
+            <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
               <h3 className="text-lg font-semibold text-slate-900">Payment batch controls</h3>
               <button
                 className="min-h-10 rounded-lg border border-slate-300 px-3 text-sm font-medium text-slate-800"
@@ -342,7 +342,7 @@ export default function OperationsWorkspace() {
               </button>
             </div>
             {batches.length === 0 ? (
-              <p className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
+              <p className="break-words rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
                 No payment batches have been imported yet.
               </p>
             ) : (

@@ -531,7 +531,7 @@ test("monitoring alerts show evidence, allow human triage, and produce only a mo
   await expect(
     page.getByRole("heading", { name: "Review explainable operational alerts" }),
   ).toBeVisible();
-  await expect(page.getByText("Multiple instructions in a short window")).toBeVisible();
+  await expect(page.getByText("Repeated client reference").first()).toBeVisible();
   await page.getByLabel("Synthetic payment batch").selectOption("BATCH-MON-1");
   await page.getByRole("button", { name: "Run monitoring rules" }).click();
   await expect(page.getByText("1 rule alert created.")).toBeVisible();
@@ -725,7 +725,9 @@ test("the read-only recruiter journey links reconciliation, investigation, monit
     page.getByRole("heading", { name: "Compare every payment with its settlement" }),
   ).toBeVisible();
   await expect(page.getByRole("heading", { name: /Take one unmatched payment/ })).toBeVisible();
-  await expect(page.getByText("PAY-E-1231", { exact: true })).toBeVisible();
+  await expect(
+    page.locator("#investigation").getByText("PAY-E-1231", { exact: true }),
+  ).toBeVisible();
   await expect(page.getByText("No corresponding row in this sample")).toBeVisible();
   await expect(page.getByText(/unresolved from the supplied records/i)).toBeVisible();
   await expect(

@@ -127,7 +127,7 @@ export default function InsightsWorkspace() {
       const objectUrl = URL.createObjectURL(blob);
       const link = document.createElement("a");
       link.href = objectUrl;
-      link.download = `fireops-insights-run-${report?.run_id ?? "report"}.csv`;
+      link.download = `fireops-insights-${report?.run_id ?? "report"}.csv`;
       document.body.append(link);
       link.click();
       link.remove();
