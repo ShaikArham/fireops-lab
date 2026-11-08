@@ -1,0 +1,76 @@
+import Link from "next/link";
+
+const strengths = [
+  { title: "Data accuracy", detail: "SQL, PL/SQL, validation, reconciliation checks and tracing discrepancies to source records." },
+  { title: "Operational reliability", detail: "ETL and BI monitoring, incident handling, reporting support and clear handovers." },
+  { title: "Evidence-led investigation", detail: "Reconstructing what happened, documenting findings and avoiding unsupported conclusions." },
+  { title: "Learning in practice", detail: "Applying an analytical background to fictional payment and settlement workflows." },
+];
+
+const career = [
+  { dates: "FEB 2023 – JUL 2025", role: "Business Intelligence Developer", place: "Hitachi Digital Services", detail: "Oracle BI, SQL and PL/SQL, ETL monitoring, validation and production reporting support." },
+  { dates: "SEP 2025 – AUG 2026", role: "MSc Computing (Data Analytics)", place: "Dublin City University", detail: "Data management, analytics, machine learning and evidence-based research." },
+  { dates: "MAY 2026 – PRESENT", role: "Security & Reception Officer", place: "SOS Group · Corporate assignment in Dublin", detail: "Visitor coordination, incident logs, access control and professional communication." },
+];
+
+export default function AboutBuilder() {
+  return (
+    <div className="space-y-8 pb-12">
+      <section className="overflow-hidden rounded-3xl bg-slate-950 text-white">
+        <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[1.5fr_1fr] lg:gap-12">
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[.22em] text-teal-300">The person behind FireOPS</p>
+            <h2 className="mt-5 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">Built to show <span className="text-teal-300">how I think.</span></h2>
+            <p className="mt-5 max-w-xl text-base leading-8 text-slate-300">A personal, independent work sample exploring payment operations, reconciliation and evidence-based investigation for an Operations Analyst opportunity at fire.com.</p>
+            <div className="mt-7 flex items-center gap-4">
+              <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center rounded-2xl bg-teal-800 text-lg font-bold">SA</span>
+              <div><p className="font-semibold">Shaik Arham Saquib</p><p className="text-sm text-slate-300">Dublin, Ireland · MSc Computing (Data Analytics)</p></div>
+            </div>
+          </div>
+          <aside className="rounded-2xl border border-slate-700 bg-slate-900 p-6">
+            <p className="text-xs font-semibold uppercase tracking-widest text-teal-300">The opportunity</p>
+            <h3 className="mt-5 text-2xl font-semibold">Operations Analyst</h3>
+            <p className="mt-2 text-slate-300">fire.com · Dublin</p>
+            <div className="mt-5 flex flex-wrap gap-2 text-xs">{["SQL & validation", "Operational monitoring", "Investigations"].map(x=><span key={x} className="rounded-full border border-slate-600 px-3 py-2">{x}</span>)}</div>
+            <p className="mt-5 text-xs leading-6 text-slate-400">Independent application project. Not affiliated with or endorsed by fire.com. No real payment processing.</p>
+          </aside>
+        </div>
+      </section>
+      <section className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[.7fr_1.3fr] md:p-9">
+        <div><p className="text-xs font-bold uppercase tracking-widest text-teal-800">01 / My approach</p><h3 className="mt-3 text-2xl font-semibold">Why FireOPS?</h3></div>
+        <div className="space-y-4 leading-7 text-slate-700">
+          <p className="text-xl font-medium text-slate-900">I wanted to demonstrate my approach to the work, not just describe it in a CV.</p>
+          <p>At Hitachi Digital Services, I worked with enterprise BI, SQL, ETL monitoring, data validation and investigating reporting failures. FireOPS applies that same disciplined thinking to a fictional payment workflow: follow the record, reconcile the evidence, investigate an exception and explain the next action.</p>
+          <p>This is a learning project, not a claim that I have worked in professional payment operations, fraud investigations or AML compliance.</p>
+        </div>
+      </section>
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-800">02 / Relevant strengths</p><h3 className="mt-3 text-2xl font-semibold">What I bring to the role</h3>
+        <div className="mt-6 grid gap-4 sm:grid-cols-2">{strengths.map((item,i)=><article key={item.title} className="rounded-xl border border-slate-200 p-5"><p className="text-xs font-bold text-teal-800">0{i+1}</p><h4 className="mt-3 font-semibold">{item.title}</h4><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p></article>)}</div>
+      </section>
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-800">03 / Background</p><h3 className="mt-3 text-2xl font-semibold">Experience & education</h3>
+        <div className="mt-6 space-y-5">{career.map(item=><article key={item.dates} className="grid gap-2 border-l-2 border-teal-700 pl-5 md:grid-cols-[12rem_1fr]"><p className="text-xs font-bold tracking-wide text-slate-500">{item.dates}</p><div><h4 className="font-semibold">{item.role}</h4><p className="text-sm font-medium text-teal-800">{item.place}</p><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p></div></article>)}</div>
+      </section>
+      <section className="rounded-2xl bg-teal-950 p-6 text-white md:p-9">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-300">04 / Selected work</p><h3 className="mt-3 text-2xl font-semibold">Explore the work behind the application.</h3>
+        <p className="mt-3 max-w-2xl leading-7 text-teal-50">FireOPS, LedgerPoint and OpsResolve AI explore operational records, exceptions and decisions from different angles.</p>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a className="inline-flex min-h-11 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950" href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer">FireOPS source ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://ledgerpoint-ai.vercel.app" target="_blank" rel="noopener noreferrer">Explore LedgerPoint ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://github.com/ShaikArham" target="_blank" rel="noopener noreferrer">Project portfolio ↗</a>
+        </div>
+      </section>
+      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-800">05 / CV & application</p><h3 className="mt-3 text-2xl font-semibold">More about my experience</h3>
+        <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
+        <div className="mt-5 flex flex-wrap gap-3">
+          <span aria-disabled="true" className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600">View CV · Coming soon</span>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://github.com/ShaikArham" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
+          <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
+        </div>
+      </section>
+      <section className="rounded-2xl bg-slate-100 p-6 md:p-9"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">A personal note</p><h3 className="mt-3 text-2xl font-semibold">Thank you for exploring FireOPS.</h3><p className="mt-3 max-w-3xl leading-7 text-slate-700">I would welcome a conversation about how my BI and application-operations background could contribute to fire.com. This project shows my thinking and willingness to learn, using fictional records only.</p><p className="mt-5 font-semibold">Shaik Arham</p></section>
+    </div>
+  );
+}
