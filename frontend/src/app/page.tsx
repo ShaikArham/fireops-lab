@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { GuidedDemo } from "../components/guided-demo";
 import { ArrowRight, ArrowUpRight, CheckCircle2, Code2, CreditCard, FileSearch, ShieldCheck } from "lucide-react";
 
 const stages = [
@@ -85,6 +86,7 @@ export default function Home() {
           <div className="mt-10 flex flex-wrap items-center justify-between gap-4 rounded-2xl bg-[#050505] p-7 text-white sm:p-10"><div><h3 className="text-2xl font-semibold tracking-tight">Ready to investigate?</h3><p className="mt-2 text-sm text-neutral-300">Explore the real FireOPS application and its fictional records.</p></div><Link href="/workspace/overview" className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-[#548cff] px-5 py-3 font-semibold text-white hover:bg-[#376fdf]">Launch workspace <ArrowRight size={18}/></Link></div>
         </div>
       </section>
+      <GuidedDemo />
       <section id="about" className="mx-auto grid max-w-7xl gap-10 px-5 py-20 sm:px-10 md:grid-cols-2 md:py-28">
         <div><p className="text-xs font-bold uppercase tracking-[.2em] text-[#376fdf]">Behind the project</p><h2 className="mt-4 text-4xl font-semibold tracking-[-.055em] sm:text-5xl">Built by Shaik Arham.</h2></div>
         <div><p className="text-lg leading-8 text-[#4d5562]">An independent portfolio project informed by experience in business intelligence, SQL, data validation and production support. FireOPS Lab explores how evidence-led thinking applies to payment operations.</p><a href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[#2458b9] underline underline-offset-4"><Code2 size={18}/> View source on GitHub <ArrowUpRight size={16}/></a></div>
