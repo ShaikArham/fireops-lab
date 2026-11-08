@@ -1,6 +1,7 @@
 "use client";
 
 import { requestJson } from "../lib/api";
+import { getPreparedScenario } from "./scenario-selector";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -85,6 +86,8 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     if (searchFilter) query.set("search", searchFilter);
     if (statusFilter) query.set("status", statusFilter);
     if (assignedFilter) query.set("assigned_to", assignedFilter);
+    const scenario = await getPreparedScenario();
+    if (scenario?.reconciliation_run_id) query.set("run_id", scenario.reconciliation_run_id);
     const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
     if (requestId !== queueRequest.current) return;
     setCases(payload.cases);
@@ -108,10 +111,12 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     window.addEventListener("hashchange", refreshOnNavigation);
     window.addEventListener("fireops:operations-updated", refreshCasesFromEvent);
     window.addEventListener("fireops:demo-ready", refreshCasesFromEvent);
+    window.addEventListener("fireops:scenario-changed", refreshCasesFromEvent);
     return () => {
       window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:operations-updated", refreshCasesFromEvent);
       window.removeEventListener("fireops:demo-ready", refreshCasesFromEvent);
+      window.removeEventListener("fireops:scenario-changed", refreshCasesFromEvent);
     };
   }, [loadCases]);
 
