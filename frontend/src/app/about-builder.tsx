@@ -1,3 +1,4 @@
+import Link from "next/link";
 import AboutScrollNavigator from "./about-scroll-navigator";
 
 const strengths = [
@@ -221,20 +222,18 @@ export default function AboutBuilder() {
           >
             View code on GitHub ↗
           </a>
-          <a
+          <Link
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+            >
             View CV ↗
-          </a>
-          <a
+          </Link>
+          <Link
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv?print=1"
           >
             Save CV as PDF ↓
-          </a>
+          </Link>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="https://shaikarham.github.io/arham-portfolio/"
