@@ -103,6 +103,7 @@ export default function OperationsWorkspace() {
     return () => {
       active = false;
       window.removeEventListener("fireops:demo-ready", refresh);
+      window.removeEventListener("fireops:scenario-changed", refresh);
     };
   }, []);
 
