@@ -97,7 +97,19 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           </details>
         </div>
       </div>
-      <nav aria-label="Quick workspace navigation" className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-5 py-2 lg:hidden">\n        {sections.map(({ slug, label }) => (\n          <Link key={slug} href={`/workspace/${slug}`} aria-current={slug === current ? "page" : undefined} className={`shrink-0 rounded-full px-3 py-2 text-xs font-semibold ${slug === current ? "bg-teal-900 text-white" : "bg-slate-100 text-slate-700"}`}>{label}</Link>\n        ))}\n      </nav>\n      <main id="main-content" className="mx-auto max-w-7xl px-5 py-8 sm:px-9">
+      <nav aria-label="Quick workspace navigation" className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-5 py-2 lg:hidden">
+        {sections.map(({ slug, label }) => (
+          <Link
+            key={slug}
+            href={`/workspace/${slug}`}
+            aria-current={slug === current ? "page" : undefined}
+            className={`shrink-0 rounded-full px-3 py-2 text-xs font-semibold ${slug === current ? "bg-teal-900 text-white" : "bg-slate-100 text-slate-700"}`}
+          >
+            {label}
+          </Link>
+        ))}
+      </nav>
+      <main id="main-content" className="mx-auto max-w-7xl px-5 py-8 sm:px-9">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
