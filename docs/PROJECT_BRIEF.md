@@ -2,7 +2,7 @@
 
 **Owner:** Shaik Arham Saquib  
 **Target opportunity:** Fire Operations Analyst, Dublin  
-**Status:** Phases 0–4 are complete; Phase 4 includes a public static demonstration, while API/database hosting and later product phases remain pending
+**Status:** Phases 0–7 are complete; Phase 8 is in progress. The current public static URL still serves the earlier read-only reconciliation preview. API/database hosting and final release remain pending.
 **Data policy:** synthetic data only  
 **Independence:** FireOps Lab is an independent portfolio project. It is not affiliated with, commissioned by, endorsed by, or connected to Fire Financial Services Limited.
 

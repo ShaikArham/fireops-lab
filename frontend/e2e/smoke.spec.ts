@@ -367,7 +367,7 @@ test("operational insights use one saved run and export its report", async ({ pa
   await expect(page.getByText("SOURCE DATA QUALITY", { exact: true })).toBeVisible();
   await expect(page.getByText("80.00% exact · 20 exceptions")).toBeVisible();
   const downloadPromise = page.waitForEvent("download");
-  await page.getByRole("link", { name: "Download this run’s CSV" }).click();
+  await page.getByRole("button", { name: "Download this run’s CSV" }).click();
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe("fireops-insights-run-insights-1.csv");
 });
@@ -531,7 +531,7 @@ test("monitoring alerts show evidence, allow human triage, and produce only a mo
   await expect(
     page.getByRole("heading", { name: "Review explainable operational alerts" }),
   ).toBeVisible();
-  await expect(page.getByText("Multiple instructions in a short window")).toBeVisible();
+  await expect(page.getByText("Repeated client reference").first()).toBeVisible();
   await page.getByLabel("Synthetic payment batch").selectOption("BATCH-MON-1");
   await page.getByRole("button", { name: "Run monitoring rules" }).click();
   await expect(page.getByText("1 rule alert created.")).toBeVisible();
@@ -713,4 +713,84 @@ test("CSV preview, idempotent batch controls, and processing history work togeth
   const history = page.getByRole("list", { name: "Event history for PAY-QA-0001" });
   await expect(history.getByText("IMPORTED", { exact: true })).toBeVisible();
   await expect(history.getByText("SETTLED", { exact: true })).toBeVisible();
+});
+
+test("the read-only recruiter journey links reconciliation, investigation, monitoring, and sample insights", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await page.getByRole("link", { name: "Start sample investigation" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Compare every payment with its settlement" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Take one unmatched payment/ })).toBeVisible();
+  await expect(
+    page.locator("#investigation").getByText("PAY-E-1231", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("No corresponding row in this sample")).toBeVisible();
+  await expect(page.getByText(/unresolved from the supplied records/i)).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Review explainable operational alerts" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Measure the payment day and review workload" }),
+  ).toBeVisible();
+  await expect(page.getByText("97.44%", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("These are sample reconciliation counts, not business performance results."),
+  ).toBeVisible();
+});
+
+test("mobile and tablet layouts keep the recruiter journey inside the viewport", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  for (const width of [320, 375, 390, 768, 1024, 1366]) {
+    await page.setViewportSize({ width, height: 900 });
+    const overflow = await page.evaluate(() => ({
+      documentWidth: document.documentElement.scrollWidth,
+      elements: Array.from(document.querySelectorAll("body *"))
+        .map((element) => {
+          const rect = element.getBoundingClientRect();
+          return {
+            tag: element.tagName,
+            className: String(element.className).slice(0, 100),
+            right: Math.round(rect.right),
+            text: (element.textContent ?? "").trim().slice(0, 60),
+          };
+        })
+        .filter((item) => item.right > window.innerWidth + 1)
+        .slice(0, 10),
+    }));
+    expect(
+      overflow.documentWidth,
+      `horizontal overflow at ${width}px: ${JSON.stringify(overflow.elements)}`,
+    ).toBeLessThanOrEqual(width);
+    await expect(page.getByRole("heading", { name: /Reconcile the day/ })).toBeVisible();
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const menu = page.getByText("Explore sections", { exact: true });
+  await expect(menu).toBeVisible();
+  await menu.click();
+  await expect(
+    page
+      .getByRole("navigation", { name: "Main sections" })
+      .getByRole("link", { name: "Investigation walkthrough" }),
+  ).toBeVisible();
+});
+
+test("keyboard users can skip to the page content and reach the mobile navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+
+  const skipLink = page.getByRole("link", { name: "Skip to main content" });
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toBeVisible();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
 });

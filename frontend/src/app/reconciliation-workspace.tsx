@@ -146,6 +146,7 @@ export default function ReconciliationWorkspace() {
 
   return (
     <section
+      id="reconciliation"
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
       aria-labelledby="reconciliation-heading"
     >
@@ -248,7 +249,7 @@ export default function ReconciliationWorkspace() {
           Saved run {run.run_id} · batch {run.payment_batch_id} · showing up to 30 results
         </p>
       )}
-      {run && <CaseWorkspace results={run.results} />}
+      <CaseWorkspace results={run?.results ?? sample.samples} />
       {!run && (
         <p className="mt-4 text-xs text-slate-500">
           {sample.title} · rules {sample.rules_version} ·{" "}

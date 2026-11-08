@@ -1,8 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import preview from "./phase4-preview.json";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const sampleReport = preview as {
+  classification_counts: Record<string, number>;
+  payment_instruction_count: number;
+  settlement_record_count: number;
+  result_count: number;
+  rules_version: string;
+};
 
 interface Report {
   run_id: string;
@@ -95,6 +103,7 @@ export default function InsightsWorkspace() {
   const [loading, setLoading] = useState(false);
   const [baselineMinutes, setBaselineMinutes] = useState("");
   const [assistedMinutes, setAssistedMinutes] = useState("");
+  const [downloadError, setDownloadError] = useState("");
 
   useEffect(() => {
     if (!API) return;
@@ -106,6 +115,29 @@ export default function InsightsWorkspace() {
       )
       .finally(() => setLoading(false));
   }, []);
+
+  const downloadRun = async () => {
+    setDownloadError("");
+    try {
+      const response = await fetch(
+        `${API}/api/v1/insights/runs/${encodeURIComponent(report?.run_id ?? "")}/export.csv`,
+      );
+      if (!response.ok) throw new Error("Could not download this run’s CSV.");
+      const blob = await response.blob();
+      const objectUrl = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = objectUrl;
+      link.download = `fireops-insights-${report?.run_id ?? "report"}.csv`;
+      document.body.append(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(objectUrl);
+    } catch (cause) {
+      setDownloadError(
+        cause instanceof Error ? cause.message : "Could not download this run’s CSV.",
+      );
+    }
+  };
 
   const baseline = Number(baselineMinutes);
   const assisted = Number(assistedMinutes);
@@ -139,11 +171,79 @@ export default function InsightsWorkspace() {
         currency.
       </p>
 
-      {!API ? (
+      {API && (
         <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
-          <strong>Read-only Pages preview.</strong> Operational metrics and CSV exports require a
-          configured API and database. No live service is connected to this static site.
+          <strong>Committed fixture baseline:</strong> the read-only sample input contains 1,218
+          exact matches from 1,250 payment instructions (<strong>97.44%</strong>). These are sample
+          reconciliation counts, not business performance results.
         </p>
+      )}
+
+      {!API ? (
+        <>
+          <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
+            <strong>Read-only sample report.</strong> These figures are calculated from the
+            committed fictional exception-day fixture. Case timings, alert review rates and
+            downloadable saved-run reports need the separately configured API and database, which
+            are not hosted on this static site.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <Metric
+              label="Payment instructions"
+              value={sampleReport.payment_instruction_count.toLocaleString()}
+              definition="Source rows in the synthetic payment instruction file."
+            />
+            <Metric
+              label="Settlement records"
+              value={sampleReport.settlement_record_count.toLocaleString()}
+              definition="Source rows in the synthetic settlement file."
+            />
+            <Metric
+              label="Exact matches"
+              value={`${(sampleReport.classification_counts.MATCHED_EXACT ?? 0).toLocaleString()} / ${sampleReport.payment_instruction_count.toLocaleString()}`}
+              definition="Exact-reference matches divided by payment instructions."
+            />
+            <Metric
+              label="Exact match rate"
+              value={`${(((sampleReport.classification_counts.MATCHED_EXACT ?? 0) / sampleReport.payment_instruction_count) * 100).toFixed(2)}%`}
+              definition="Exact matches ÷ 1,250 payment instructions. Late matches are shown separately."
+            />
+            <Metric
+              label="Exception results"
+              value={(
+                sampleReport.result_count -
+                (sampleReport.classification_counts.MATCHED_EXACT ?? 0) -
+                (sampleReport.classification_counts.MATCHED_LATE ?? 0)
+              ).toLocaleString()}
+              definition="Unmatched rows, duplicate candidates and amount mismatches in the sample run."
+            />
+            <Metric
+              label="Unmatched instructions"
+              value={(
+                sampleReport.classification_counts.UNMATCHED_INSTRUCTION ?? 0
+              ).toLocaleString()}
+              definition="Payment-side rows without an accepted settlement match."
+            />
+            <Metric
+              label="Unmatched settlements"
+              value={(
+                sampleReport.classification_counts.UNMATCHED_SETTLEMENT ?? 0
+              ).toLocaleString()}
+              definition="Settlement-side rows without an accepted payment match."
+            />
+            <Metric
+              label="Matched late"
+              value={(sampleReport.classification_counts.MATCHED_LATE ?? 0).toLocaleString()}
+              definition="Matched source records outside the expected settlement date."
+            />
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-600">
+            Synthetic exception-day preview ·{" "}
+            {sampleReport.payment_instruction_count.toLocaleString()} instructions · rules{" "}
+            {sampleReport.rules_version}. These are sample reconciliation counts, not business
+            performance results.
+          </p>
+        </>
       ) : loading ? (
         <p role="status" className="mt-5 text-sm text-slate-600">
           Loading the latest saved report…
@@ -162,14 +262,19 @@ export default function InsightsWorkspace() {
                 {report.settlement_batch_id ? ` · ${report.settlement_batch_id}` : ""}
               </p>
             </div>
-            <a
+            <button
+              type="button"
               className="inline-flex min-h-11 items-center rounded-lg bg-slate-900 px-4 font-medium text-white hover:bg-slate-700"
-              href={`${API}/api/v1/insights/runs/${encodeURIComponent(report.run_id)}/export.csv`}
-              download
+              onClick={() => void downloadRun()}
             >
               Download this run’s CSV
-            </a>
+            </button>
           </div>
+          {downloadError && (
+            <p role="alert" className="mt-3 text-sm text-rose-800">
+              {downloadError}
+            </p>
+          )}
 
           <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric
