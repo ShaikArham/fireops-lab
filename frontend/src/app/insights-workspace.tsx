@@ -4,6 +4,7 @@ import { requestJson } from "../lib/api";
 
 import { useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
+import { getPreparedScenario } from "./scenario-selector";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 const sampleReport = preview as {
@@ -61,7 +62,9 @@ interface Report {
 }
 
 async function fetchReport(): Promise<Report> {
-  return requestJson<Report>(`${API}/api/v1/insights/latest`);
+  const scenario = await getPreparedScenario();
+  if (!scenario?.reconciliation_run_id) throw new Error("The selected scenario has no prepared reconciliation yet.");
+  return requestJson<Report>(`${API}/api/v1/insights/runs/${encodeURIComponent(scenario.reconciliation_run_id)}`);
 }
 
 function minutes(value: number | null): string {
@@ -124,9 +127,13 @@ export default function InsightsWorkspace() {
     };
     window.addEventListener("hashchange", refreshOnNavigation);
     window.addEventListener("fireops:operations-updated", refresh);
+    window.addEventListener("fireops:scenario-changed", refresh);
+    window.addEventListener("fireops:demo-ready", refresh);
     return () => {
       window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:operations-updated", refresh);
+      window.removeEventListener("fireops:scenario-changed", refresh);
+      window.removeEventListener("fireops:demo-ready", refresh);
     };
   }, [refreshKey]);
 
