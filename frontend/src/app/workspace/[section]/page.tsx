@@ -4,6 +4,7 @@ import OperationsWorkspace from "../../operations-workspace";
 import ReconciliationWorkspace from "../../reconciliation-workspace";
 import MonitoringWorkspace from "../../monitoring-workspace";
 import InsightsWorkspace from "../../insights-workspace";
+import CaseWorkspace from "../../case-workspace";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -73,7 +74,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         )}
         {current === "payments" && <OperationsWorkspace />}
         {current === "reconciliation" && <ReconciliationWorkspace />}
-        {current === "investigations" && <div className="space-y-4"><p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">Investigation cases are accessible from reconciliation results. A standalone saved-case queue requires the connected API and database.</p><ReconciliationWorkspace /></div>}
+        {current === "investigations" && <div className="space-y-4"><p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">The case queue loads saved investigations when the backend is connected. To open a new case, start from a reconciliation exception.</p><CaseWorkspace results={[]} /></div>}
         {current === "monitoring" && <MonitoringWorkspace />}
         {current === "insights" && <InsightsWorkspace />}
         {current === "about" && <div className="max-w-3xl space-y-5 rounded-xl border border-slate-200 bg-white p-7"><h2 className="text-2xl font-semibold">Shaik Arham Saquib</h2><p className="leading-7 text-slate-700">I have 2.5+ years of business intelligence and application operations experience at Hitachi Digital Services, working with SQL, ETL monitoring, data validation, reporting, incident investigation and operational handovers. I completed an MSc in Computing (Data Analytics) at Dublin City University.</p><p className="leading-7 text-slate-700">I developed FireOPS Lab to demonstrate careful, evidence-based reasoning about payment and settlement operations. The system uses fictional records and is not connected to Fire Financial Services Limited or any banking network. It does not represent professional fraud or AML investigation experience.</p><a href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noreferrer" className="inline-flex rounded-lg bg-slate-950 px-5 py-3 text-sm font-semibold text-white">Inspect implementation on GitHub ↗</a></div>}
