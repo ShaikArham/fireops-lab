@@ -55,7 +55,8 @@ def checked_schema(value: str) -> str:
 
 
 def authenticate(request: Request, *, write: bool) -> str:
-    token = request.cookies.get(COOKIE, "")
+    authorization = request.headers.get("authorization", "")
+    token = authorization.removeprefix("Bearer ").strip() if authorization.startswith("Bearer ") else request.cookies.get(COOKIE, "")
     if not re.fullmatch(r"[A-Za-z0-9_-]{43}", token):
         raise HTTPException(401, "Start your demo workspace first.")
     now = int(time.time())
@@ -112,8 +113,10 @@ def require_browser_write(request: Request) -> None:
     )
     if origin and origin.rstrip("/") not in allowed_origins and not trusted_preview:
         raise HTTPException(403, "Cross-origin demo writes are not allowed.")
-    if request.headers.get("sec-fetch-site") == "cross-site":
-        raise HTTPException(403, "Cross-site demo writes are not allowed.")
+    # A cross-site browser request is permitted only from an explicitly configured
+    # origin and must still carry the demo header and a valid workspace token.
+    if request.headers.get("sec-fetch-site") == "cross-site" and not origin:
+        raise HTTPException(403, "Missing origin for cross-site demo write.")
 
 
 @router.post("/session")
@@ -121,7 +124,7 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
     if not enabled():
         raise HTTPException(503, "Isolated demo is not configured.")
     require_browser_write(request)
-    if request.cookies.get(COOKIE):
+    if request.cookies.get(COOKIE) or request.headers.get("authorization", "").startswith("Bearer "):
         try:
             authenticate(request, write=False)
             return {"status": "ready", "expires_in_hours": 24, "reused": True}
@@ -173,6 +176,13 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
                 version=SCHEMA_VERSION,
             )
         )
+    # For a cross-origin GitHub Pages client, return an opaque token to the
+    # browser instead of relying on third-party cookies. Never log this token.
+    browser_origin = request.headers.get("origin", "").rstrip("/")
+    cross_origin = bool(browser_origin and browser_origin != f"{request.url.scheme}://{request.url.netloc}")
+    if cross_origin:
+        response.headers["Cache-Control"] = "no-store"
+        return {"status": "ready", "expires_in_hours": 24, "reused": False, "access_token": token}
     response.set_cookie(
         COOKIE,
         token,
