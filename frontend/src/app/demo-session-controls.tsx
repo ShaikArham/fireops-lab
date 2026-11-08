@@ -1,63 +1,61 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { requestJson } from "../lib/api";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
-type Action = "session" | "load" | "reset";
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\\/$/, "") ?? "/backend";
+const KEY = "fireops-demo-autoload-attempt";
 
 export default function DemoSessionControls() {
-  const [busy, setBusy] = useState<Action | null>(null);
-  const [message, setMessage] = useState("");
-  const [error, setError] = useState("");
+  const [state, setState] = useState<"checking" | "loading" | "ready" | "error">("checking");
+  const [message, setMessage] = useState("Preparing your fictional payment workspace…");
 
-  async function post(action: Action) {
-    return requestJson<{ message?: string; status: string }>(`${API}/api/v1/demo/${action}`, {
-      method: "POST",
-    });
-  }
-
-  async function run(action: Action) {
-    if (busy) return;
-    if (action === "reset" && !window.confirm("Clear all records in your own temporary demo workspace? This cannot be undone.")) return;
-    setBusy(action);
-    setError("");
-    setMessage("");
-    try {
-      if (action !== "session") {
+  useEffect(() => {
+    let cancelled = false;
+    async function initialise() {
+      try {
+        // Existing visitor records are never overwritten by automatic loading.
+        await requestJson(`${API}/api/v1/demo/session`);
+        if (!cancelled) { setState("ready"); setMessage("Your private demo records are ready."); }
+      } catch (error) {
+        const isMissing = error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
+        if (!isMissing) {
+          if (!cancelled) { setState("error"); setMessage(error instanceof Error ? error.message : "Unable to connect to demo data."); }
+          return;
+        }
+        // One automatic seed attempt per browser tab prevents write loops on failures.
+        if (sessionStorage.getItem(KEY) === "attempted") {
+          if (!cancelled) { setState("error"); setMessage("Demo data could not be prepared. Refresh to retry."); }
+          return;
+        }
+        sessionStorage.setItem(KEY, "attempted");
+        if (!cancelled) setState("loading");
         try {
-          await requestJson(`${API}/api/v1/demo/session`);
+          await requestJson(`${API}/api/v1/demo/session`, { method: "POST" });
+          await requestJson(`${API}/api/v1/demo/load`, { method: "POST" });
+          sessionStorage.removeItem(KEY);
+          if (!cancelled) {
+            setState("ready");
+            setMessage("Fictional payment records loaded automatically.");
+            window.dispatchEvent(new Event("fireops:operations-updated"));
+            window.dispatchEvent(new Event("fireops:demo-ready"));
+          }
         } catch (cause) {
-          if (!(cause instanceof Error) || !cause.message.includes("Start your demo workspace")) throw cause;
-          await post("session");
+          if (!cancelled) {
+            setState("error");
+            setMessage(cause instanceof Error ? cause.message : "Unable to prepare demo data.");
+          }
         }
       }
-      const result = await post(action);
-      setMessage(result.message ?? (action === "session" ? "Your private demo workspace is ready." : "Demo updated."));
-      window.dispatchEvent(new Event("fireops:operations-updated"));
-      if (action !== "session") {
-        window.setTimeout(() => window.location.reload(), 1200);
-      }
-    } catch (cause) {
-      setError(cause instanceof Error ? cause.message : "The demo action failed.");
-    } finally {
-      setBusy(null);
     }
-  }
+    void initialise();
+    return () => { cancelled = true; };
+  }, []);
 
   return (
-    <section aria-label="Demo workspace controls" className="mb-5 rounded-xl border border-slate-200 bg-white p-4">
-      <p className="text-sm font-semibold text-slate-900">Your isolated demo workspace</p>
-      <p className="mt-1 text-xs text-slate-600">All records are fictional and private to this browser session. Load sample data to begin, or reset only your own records.</p>
-      <div className="mt-3 flex flex-wrap gap-2">
-        <button type="button" disabled={busy !== null} onClick={() => run("load")} className="min-h-11 rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white disabled:opacity-50">{busy === "load" ? "Loading sample records…" : "Load sample data"}</button>
-        <button type="button" disabled={busy !== null} onClick={() => window.location.reload()} className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold disabled:opacity-50">Refresh records</button>
-        <button type="button" disabled={busy !== null} onClick={() => run("reset")} className="min-h-11 rounded-lg border border-rose-300 px-4 py-2 text-sm font-semibold text-rose-800 disabled:opacity-50">{busy === "reset" ? "Resetting…" : "Reset my demo"}</button>
-      </div>
-      <div aria-live="polite" aria-atomic="true">
-        {message && <p role="status" className="mt-2 text-sm text-teal-800">{message}</p>}
-        {error && <p role="alert" className="mt-2 text-sm text-red-700">{error}</p>}
-      </div>
-    </section>
+    <div role="status" aria-live="polite" className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm">
+      <span className={state === "error" ? "text-red-700" : "text-slate-700"}>{message}</span>
+      <button type="button" onClick={() => { sessionStorage.removeItem(KEY); window.location.reload(); }} className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-800 hover:bg-slate-50">Refresh records</button>
+    </div>
   );
 }
