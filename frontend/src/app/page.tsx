@@ -95,31 +95,30 @@ export default function Home() {
 
           <section
             id="top"
-            className="grid gap-10 py-8 md:grid-cols-[1.4fr_0.8fr] md:items-center md:py-16"
+            className="fireops-landing-hero grid gap-10 rounded-3xl px-6 py-12 md:grid-cols-[1.4fr_0.8fr] md:items-center md:px-12 md:py-20"
           >
             <div>
-              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-teal-800">
-                OPERATIONS / OVERVIEW
+              <p className="mb-4 text-sm font-semibold uppercase tracking-[0.16em] text-teal-300">
+                FIREOPS LAB / A GUIDED PAYMENT DAY
               </p>
-              <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-slate-950 sm:text-6xl">
-                Payment operations overview
+              <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-white sm:text-6xl">
+                Every payment tells a story.
               </h1>
-              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-600">
-                A portfolio project for exploring payment and settlement operations with transparent
-                rules and fictional records.
+              <p className="mt-6 max-w-xl text-lg leading-8 text-slate-200">
+                The exceptions tell you where to look. Follow a fictional payment day from processing to reconciliation, investigation and operational insight. No setup required.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href="/workspace/overview"
-                  className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-700"
+                  className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-white px-5 py-3 font-medium text-slate-950 hover:bg-teal-50"
                 >
-                  Open operations workspace <ArrowRight aria-hidden="true" size={18} />
+                  Explore the payment day <ArrowRight aria-hidden="true" size={18} />
                 </a>
                 <a
                   href="#method"
-                  className="inline-flex min-h-12 items-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
+                  className="inline-flex min-h-12 items-center rounded-lg border border-slate-500 bg-transparent px-5 py-3 font-medium text-white hover:bg-slate-800"
                 >
-                  About this environment
+                  Why I built this
                 </a>
               </div>
             </div>
