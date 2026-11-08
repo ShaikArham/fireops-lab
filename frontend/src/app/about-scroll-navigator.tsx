@@ -8,7 +8,6 @@ const steps = [
   ["strengths", "Strengths"],
   ["background", "Background"],
   ["projects", "Portfolio"],
-  ["application", "CV & application"],
   ["thank-you", "Personal note"],
 ] as const;
 
