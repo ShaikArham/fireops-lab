@@ -141,4 +141,27 @@ test("record the full synthetic payment operations website walkthrough", async (
   await fs.mkdir(path.dirname(outputPath), { recursive: true });
   await page.close();
   await recording?.saveAs(outputPath);
+
+  const browser = page.context().browser();
+  if (!browser) throw new Error("The browser is unavailable for the mobile playback check.");
+  const mobileContext = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  const mobilePage = await mobileContext.newPage();
+  await mobilePage.goto("/");
+  const mobileVideo = mobilePage.locator("#walkthrough video");
+  await expect(mobileVideo).toBeVisible();
+  await mobilePage.waitForFunction(() => {
+    const element = document.querySelector<HTMLVideoElement>("#walkthrough video");
+    return element !== null && element.readyState >= 1 && Number.isFinite(element.duration);
+  });
+  const dimensions = await mobileVideo.evaluate((element: HTMLVideoElement) => ({
+    videoWidth: element.getBoundingClientRect().width,
+    viewportWidth: document.documentElement.clientWidth,
+  }));
+  expect(dimensions.videoWidth).toBeLessThanOrEqual(dimensions.viewportWidth);
+  await mobileVideo.evaluate((element: HTMLVideoElement) => element.play());
+  await mobilePage.waitForFunction(
+    () => (document.querySelector<HTMLVideoElement>("#walkthrough video")?.currentTime ?? 0) >= 0.5,
+  );
+  await mobileVideo.evaluate((element: HTMLVideoElement) => element.pause());
+  await mobileContext.close();
 });
