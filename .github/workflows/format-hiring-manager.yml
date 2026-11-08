@@ -1,0 +1,37 @@
+name: Format hiring-manager branch
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.ref == 'refs/heads/feat/hiring-manager-workspace'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - name: Format frontend using repository-pinned Biome
+        run: npm run format
+        working-directory: frontend
+      - name: Commit only formatting changes
+        run: |
+          if git diff --quiet -- frontend; then
+            echo 'No formatting changes required.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add frontend
+          git commit -m 'style: apply Biome formatting across hiring-manager frontend'
+          git push origin HEAD:feat/hiring-manager-workspace
