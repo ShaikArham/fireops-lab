@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Phase 7 verified merge:** `1be1a4c2622bba7a76cadf5d562cabd67274799e` (PR #13; PR run 42426952469 and post-merge CI run 42427034900 passed). **Current work:** Phase 8, mobile, accessibility, performance and recruiter journey.
+**Phase 8 verified merge:** `e76f8e736656c258f18568c4383f16e0af42e145` (PR #14; PR run [42429583246](https://github.com/ShaikArham/fireops-lab/actions/runs/42429583246) and post-merge CI run [42429791513](https://github.com/ShaikArham/fireops-lab/actions/runs/42429791513) passed). **Current work:** Phase 9, regression, security and release blockers.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -30,8 +30,9 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 
 | 6 · monitoring and human review | Complete | Four deterministic rules, evidence and benign explanations, reasoned human disposition, append-only review history, and simulated escalation summary. PR #12 and post-merge CI passed. |
 | 7 · reporting and operational insights | Complete | Run-scoped metrics, same-run CSV export, analyst-selected root-cause audit history, case timing/ageing, currency-separated review exposure and distinct-input run history. PR #13 and post-merge CI passed. |
+| 8 · mobile, access and recruiter journey | Complete | Read-only sample investigation and insight journey, mobile navigation, keyboard skip link, six viewport assertions, 33 Playwright tests across Chromium, Firefox and WebKit, and static asset budgets. PR #14 and post-merge CI passed. |
 
-Eight of eleven phase gates (0–10) are complete (about 73% by gate count only, not a weighted estimate of all deliverables). Phase 8 is active; Phases 9–10 remain pending.
+Nine of eleven phase gates (0–10) are complete (about 82% by gate count only, not a weighted estimate of all deliverables). Phases 9–10 remain pending.
 
 ## Phase 4 details and verified evidence
 
@@ -42,7 +43,7 @@ Eight of eleven phase gates (0–10) are complete (about 73% by gate count only,
 - Local verification: Ruff; 75 backend tests; Alembic upgrade and schema check using temporary SQLite; frontend format, lint, type check, 2 Vitest tests and GitHub Pages static export passed.
 - GitHub verification: Phase 4 PR run [42419935544](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544), Phase 4 post-merge run [42420031755](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755), including PostgreSQL 17.11 migration/schema checks and all 5 Chromium E2E tests.
 - The manual Pages workflow succeeded in [run 42420334086](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). GitHub Pages was enabled with Actions as its source. The live page was opened in Chromium; the side-by-side mismatch, late, missing-reference, duplicate and unique-fallback samples plus the read-only/API-not-hosted notice were observed.
-- Mobile viewport/manual QA remains for Phase 8. Local Playwright cannot launch Chromium in this workspace because the browser subprocess fails with `socket() failed: Operation not permitted`; CI browser tests passed.
+- Phase 8 viewport assertions passed at 320, 375, 390, 768, 1024 and 1366 CSS pixels. Playwright cannot launch Chromium in this workspace because the browser subprocess fails with `socket() failed: Operation not permitted`; CI ran 33 tests across Chromium, Firefox and WebKit. Manual real-device review and Lighthouse remain for Phase 10.
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
 - Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
@@ -50,15 +51,16 @@ Eight of eleven phase gates (0–10) are complete (about 73% by gate count only,
 
 Phase 7 is complete. PR [#13](https://github.com/ShaikArham/fireops-lab/pull/13) merged as `1be1a4c2622bba7a76cadf5d562cabd67274799e`. PR CI [42426952469](https://github.com/ShaikArham/fireops-lab/actions/runs/42426952469) and post-merge `main` CI [42427034900](https://github.com/ShaikArham/fireops-lab/actions/runs/42427034900) passed. Local SQLite migration/schema check, Ruff, 86 backend tests, frontend formatting/lint/typecheck, two Vitest tests and production build also passed. The Chromium suite covered operational insights and the exported run-specific CSV.
 
-## Current work: Phase 8
+## Phase 8 close evidence
 
-Review the mobile experience, keyboard access, semantic structure, color contrast and reduced-motion behavior. The Phase 8 branch now adds the fixture-based read-only investigation and insights journey, responsive section navigation, skip navigation, cross-browser test configuration and static asset budgets. Run the Chromium, Firefox and WebKit checks in CI. Static asset budgets are an early performance regression check, not Lighthouse or real-device evidence. Preserve the free GitHub Pages target; the API/database remain unhosted.
+Phase 8 is complete and merged through PR [#14](https://github.com/ShaikArham/fireops-lab/pull/14) as `e76f8e736656c258f18568c4383f16e0af42e145`. PR CI [42429583246](https://github.com/ShaikArham/fireops-lab/actions/runs/42429583246) and post-merge `main` CI [42429791513](https://github.com/ShaikArham/fireops-lab/actions/runs/42429791513) passed. The full Playwright suite passed all 33 tests across Chromium, Firefox and WebKit, including the read-only recruiter journey, 320–1366 CSS-pixel viewport checks, keyboard skip navigation, API workflows and CSV download. Backend PostgreSQL migration/schema and pytest checks passed in both runs. Local frontend format, lint, typecheck, two Vitest tests, production build and static asset budget passed (43.6 KB HTML, 621.8 KB JavaScript, 20.5 KB CSS raw). No deployment was triggered. The public GitHub Pages site remains on the prior read-only preview. Asset budgets are not Lighthouse or real-device evidence; collect those during final release verification.
 
-Do not start Phase 9 until Phase 8 mobile, accessibility, performance and recruiter-journey acceptance checks are recorded and pass.
+## Current work: Phase 9
+
+Review regression coverage, dependency and secret posture, CORS configuration, public write isolation, rate limits, demo reset behavior and release blockers. Keep the free GitHub Pages experience static. The API/database are not deployed. Do not begin Phase 10 until the Phase 9 review and fixes pass their documented checks.
 
 ## Later phases still pending
 
-- **Phase 8:** mobile and accessibility review, performance checks and a clear recruiter journey.
 - **Phase 9:** regression, security and release-blocker review, including CORS, public write isolation, rate limits and reset behavior before exposing an API.
 - **Phase 10:** final free deployment decision and full browser verification; the 60–90 second introduction video (MP4, WebP thumbnail, VTT and transcript); one-page case study; Fire-specific two-page ATS CV; short application answers and follow-up message. Test the complete product and every download before calling the project 100% complete.
 
@@ -103,6 +105,6 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 ## Next-session checklist
 
 1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
-2. Continue Phase 8 only. Review the site at desktop and narrow/mobile viewports, then address verified usability and accessibility issues.
-3. Run applicable frontend checks and Chromium, Firefox and WebKit journeys; record actual static budget and browser results without inventing performance metrics.
-4. Keep the site static and free. Do not claim API/database hosting. Leave Phases 9–10 pending until their own gates pass.
+2. Continue Phase 9 only. Review regression, dependency/secret posture, CORS, public write isolation, rate limits and demo reset behavior.
+3. Run the required automated checks and record actual evidence. Do not expose or deploy an API/database during this review.
+4. Keep the site static and free. Leave Phase 10 pending until the Phase 9 gate passes.
