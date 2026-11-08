@@ -1,6 +1,6 @@
 "use client";
 
-import { requestJson } from "../lib/api";
+import { demoRequestHeaders, requestJson } from "../lib/api";
 
 import { useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
@@ -146,7 +146,7 @@ export default function InsightsWorkspace() {
     try {
       const response = await fetch(
         `${API}/api/v1/insights/runs/${encodeURIComponent(report?.run_id ?? "")}/export.csv`,
-        { signal: AbortSignal.timeout(30_000) },
+        { headers: demoRequestHeaders(), signal: AbortSignal.timeout(30_000) },
       );
       if (!response.ok) throw new Error("Could not download this run’s CSV.");
       const blob = await response.blob();
