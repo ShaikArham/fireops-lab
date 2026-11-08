@@ -26,8 +26,17 @@
 | Cases | Allowed/blocked transitions, note and assignment audit events, escalation, resolution, justified reopen, export accuracy |
 | Monitoring | Amount, velocity, repeated failures, duplicate reference, false positives, threshold boundaries, human review and dismissal reason |
 | Reporting | Denominators, date windows, currency aggregation, API/UI/export parity, no invented savings |
-| UI / E2E | First visit, static side-by-side synthetic reconciliation, API-backed run, CSV preview/import, batch control totals, processing simulation, event history, later sample day, filter, investigate missing settlement, record note, escalate, review alert, export, reset, keyboard, mobile widths |
+| UI / E2E | First visit, static side-by-side synthetic reconciliation, API-backed run, CSV preview/import, batch control totals, processing simulation, event history, investigate missing settlement, record note, escalate, review alert, export, reset, keyboard, mobile widths, browser-engine coverage |
 | Release / security | Dependency and secret scans, CORS/write protections, reset isolation, malformed input, broken backend state, browser and link checks |
+
+## Phase 8 responsive, access and performance checks
+
+- Exercise the public read-only recruiter path from reconciliation to the synthetic investigation walkthrough, monitoring rule definitions and fixture-derived insights. Clearly separate browser-visible sample content from API/database-backed workflows.
+- Run viewport checks at 320, 375, 390, 768, 1024 and 1366 CSS pixels. Assert the document does not overflow horizontally and that the mobile section menu remains keyboard accessible.
+- Verify the skip link is the first keyboard target, visible focus remains clear, landmark/heading names are present, and reduced-motion preferences do not introduce animation.
+- Run Playwright journeys in Chromium, Firefox and WebKit in CI.
+- Check static export budgets: entry HTML <= 60 KB, JavaScript <= 800 KB total, and CSS <= 40 KB total (uncompressed). Treat gzip figures as a build estimate, not an observed browser transfer or Core Web Vitals result.
+- Lighthouse and manual real-device review remain release evidence to collect against the final published URL in Phase 10. Do not state a Lighthouse score or mobile-device pass before that run.
 
 ## Evidence rules
 

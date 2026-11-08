@@ -1,8 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import preview from "./phase4-preview.json";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const sampleReport = preview as {
+  classification_counts: Record<string, number>;
+  payment_instruction_count: number;
+  settlement_record_count: number;
+  result_count: number;
+  rules_version: string;
+};
 
 interface Report {
   run_id: string;
@@ -140,10 +148,70 @@ export default function InsightsWorkspace() {
       </p>
 
       {!API ? (
-        <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
-          <strong>Read-only Pages preview.</strong> Operational metrics and CSV exports require a
-          configured API and database. No live service is connected to this static site.
-        </p>
+        <>
+          <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
+            <strong>Read-only sample report.</strong> These figures are calculated from the
+            committed fictional exception-day fixture. Case timings, alert review rates and
+            downloadable saved-run reports need the separately configured API and database, which
+            are not hosted on this static site.
+          </p>
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+            <Metric
+              label="Payment instructions"
+              value={sampleReport.payment_instruction_count.toLocaleString()}
+              definition="Source rows in the synthetic payment instruction file."
+            />
+            <Metric
+              label="Settlement records"
+              value={sampleReport.settlement_record_count.toLocaleString()}
+              definition="Source rows in the synthetic settlement file."
+            />
+            <Metric
+              label="Exact matches"
+              value={`${(sampleReport.classification_counts.MATCHED_EXACT ?? 0).toLocaleString()} / ${sampleReport.payment_instruction_count.toLocaleString()}`}
+              definition="Exact-reference matches divided by payment instructions."
+            />
+            <Metric
+              label="Exact match rate"
+              value={`${(((sampleReport.classification_counts.MATCHED_EXACT ?? 0) / sampleReport.payment_instruction_count) * 100).toFixed(2)}%`}
+              definition="Exact matches ÷ 1,250 payment instructions. Late matches are shown separately."
+            />
+            <Metric
+              label="Exception results"
+              value={(
+                sampleReport.result_count -
+                (sampleReport.classification_counts.MATCHED_EXACT ?? 0) -
+                (sampleReport.classification_counts.MATCHED_LATE ?? 0)
+              ).toLocaleString()}
+              definition="Unmatched rows, duplicate candidates and amount mismatches in the sample run."
+            />
+            <Metric
+              label="Unmatched instructions"
+              value={(
+                sampleReport.classification_counts.UNMATCHED_INSTRUCTION ?? 0
+              ).toLocaleString()}
+              definition="Payment-side rows without an accepted settlement match."
+            />
+            <Metric
+              label="Unmatched settlements"
+              value={(
+                sampleReport.classification_counts.UNMATCHED_SETTLEMENT ?? 0
+              ).toLocaleString()}
+              definition="Settlement-side rows without an accepted payment match."
+            />
+            <Metric
+              label="Matched late"
+              value={(sampleReport.classification_counts.MATCHED_LATE ?? 0).toLocaleString()}
+              definition="Matched source records outside the expected settlement date."
+            />
+          </div>
+          <p className="mt-4 text-xs leading-5 text-slate-600">
+            Synthetic exception-day preview ·{" "}
+            {sampleReport.payment_instruction_count.toLocaleString()} instructions · rules{" "}
+            {sampleReport.rules_version}. These are sample reconciliation counts, not business
+            performance results.
+          </p>
+        </>
       ) : loading ? (
         <p role="status" className="mt-5 text-sm text-slate-600">
           Loading the latest saved report…

@@ -1,6 +1,6 @@
 # FireOps Lab project handoff
 
-**Updated:** 2026-11-07 (Europe/Dublin)  
+**Updated:** 2026-11-08 (Europe/Dublin)  
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
@@ -42,7 +42,7 @@ Eight of eleven phase gates (0–10) are complete (about 73% by gate count only,
 - Local verification: Ruff; 75 backend tests; Alembic upgrade and schema check using temporary SQLite; frontend format, lint, type check, 2 Vitest tests and GitHub Pages static export passed.
 - GitHub verification: Phase 4 PR run [42419935544](https://github.com/ShaikArham/fireops-lab/actions/runs/42419935544), Phase 4 post-merge run [42420031755](https://github.com/ShaikArham/fireops-lab/actions/runs/42420031755), including PostgreSQL 17.11 migration/schema checks and all 5 Chromium E2E tests.
 - The manual Pages workflow succeeded in [run 42420334086](https://github.com/ShaikArham/fireops-lab/actions/runs/42420334086). GitHub Pages was enabled with Actions as its source. The live page was opened in Chromium; the side-by-side mismatch, late, missing-reference, duplicate and unique-fallback samples plus the read-only/API-not-hosted notice were observed.
-- Mobile viewport/manual QA remains for Phase 8. Local Playwright could not launch because Chromium is not installed in the workspace; CI browser tests passed.
+- Mobile viewport/manual QA remains for Phase 8. Local Playwright cannot launch Chromium in this workspace because the browser subprocess fails with `socket() failed: Operation not permitted`; CI browser tests passed.
 - The frontend is hosted as static files only. The FastAPI service and database are **not** deployed. API-backed operations work only with a configured backend. Do not imply the public preview has live persistence.
 - Phase 5 PR [CI run 42422701998](https://github.com/ShaikArham/fireops-lab/actions/runs/42422701998) passed PostgreSQL migrations/schema checks, backend tests, static build and all 6 Chromium E2E tests. The missing-settlement browser journey covered case creation, assignment, an evidence note, review, resolution and audit history. The browser test uses a mocked HTTP API; backend persistence is verified separately through the API tests.
 
@@ -52,7 +52,7 @@ Phase 7 is complete. PR [#13](https://github.com/ShaikArham/fireops-lab/pull/13)
 
 ## Current work: Phase 8
 
-Review the mobile experience, keyboard access, semantic structure, color contrast and reduced-motion behavior. Check static-page performance with documented Lighthouse evidence where available, then refine the application journey so a recruiter can quickly understand the operations problem, inspect a reconciliation exception, follow its investigation and see report definitions. Preserve the free GitHub Pages deployment path and explain that the public site is read-only while the API/database are not hosted.
+Review the mobile experience, keyboard access, semantic structure, color contrast and reduced-motion behavior. The Phase 8 branch now adds the fixture-based read-only investigation and insights journey, responsive section navigation, skip navigation, cross-browser test configuration and static asset budgets. Run the Chromium, Firefox and WebKit checks in CI. Static asset budgets are an early performance regression check, not Lighthouse or real-device evidence. Preserve the free GitHub Pages target; the API/database remain unhosted.
 
 Do not start Phase 9 until Phase 8 mobile, accessibility, performance and recruiter-journey acceptance checks are recorded and pass.
 
@@ -104,5 +104,5 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 
 1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
 2. Continue Phase 8 only. Review the site at desktop and narrow/mobile viewports, then address verified usability and accessibility issues.
-3. Run applicable frontend checks and Chromium journeys; record actual Lighthouse results without inventing metrics.
+3. Run applicable frontend checks and Chromium, Firefox and WebKit journeys; record actual static budget and browser results without inventing performance metrics.
 4. Keep the site static and free. Do not claim API/database hosting. Leave Phases 9–10 pending until their own gates pass.

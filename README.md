@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–6 are complete. Phase 7 operational insights are under development. The public GitHub Pages site hosts a read-only reconciliation demo using fictional fixtures. API-backed case management and monitoring require the separately configured API. The API/database are not deployed.
+> **Build status:** Phases 0–7 are complete; Phase 8 design and recruiter-journey work is in progress. The public GitHub Pages site still serves the earlier read-only reconciliation preview. The expanded static investigation and sample-insights experience is under review and has not been published. The API/database are not deployed.
 
 ## Project boundaries
 
@@ -15,7 +15,7 @@ An independent payment operations, reconciliation, and transaction investigation
 
 See [the project brief](docs/PROJECT_BRIEF.md), [architecture and cost decisions](docs/ARCHITECTURE.md), [data dictionary](docs/DATA_DICTIONARY.md), [requirement traceability](docs/REQUIREMENTS_TRACEABILITY.md), and [decision log](docs/DECISION_LOG.md).
 
-The planned product is a statically exported Next.js and TypeScript web app, a Python FastAPI API, and PostgreSQL. Domain logic will live in tested backend services, separate from HTTP routes and UI components. The target deployment is GitHub Pages plus free-tier API/database services, with the limits documented in the architecture decision.
+The product is a statically exported Next.js and TypeScript web app, a Python FastAPI API, and PostgreSQL. Domain logic lives in tested backend services, separate from HTTP routes and UI components. The release target remains free GitHub Pages for the public static experience. The API/database are not hosted; no paid service is required to build or view the static demo.
 
 See [development workflow](docs/DEVELOPMENT.md) for branch and local setup conventions.
 

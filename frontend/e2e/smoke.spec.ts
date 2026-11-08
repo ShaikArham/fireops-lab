@@ -714,3 +714,66 @@ test("CSV preview, idempotent batch controls, and processing history work togeth
   await expect(history.getByText("IMPORTED", { exact: true })).toBeVisible();
   await expect(history.getByText("SETTLED", { exact: true })).toBeVisible();
 });
+
+test("the read-only recruiter journey links reconciliation, investigation, monitoring, and sample insights", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  await page.getByRole("link", { name: "Start sample investigation" }).click();
+  await expect(
+    page.getByRole("heading", { name: "Compare every payment with its settlement" }),
+  ).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Take one unmatched payment/ })).toBeVisible();
+  await expect(page.getByText("PAY-E-1231", { exact: true })).toBeVisible();
+  await expect(page.getByText("No corresponding row in this sample")).toBeVisible();
+  await expect(page.getByText(/unresolved from the supplied records/i)).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Review explainable operational alerts" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Measure the payment day and review workload" }),
+  ).toBeVisible();
+  await expect(page.getByText("97.44%", { exact: true })).toBeVisible();
+  await expect(
+    page.getByText("These are sample reconciliation counts, not business performance results."),
+  ).toBeVisible();
+});
+
+test("mobile and tablet layouts keep the recruiter journey inside the viewport", async ({
+  page,
+}) => {
+  await page.goto("/");
+
+  for (const width of [320, 375, 390, 768, 1024, 1366]) {
+    await page.setViewportSize({ width, height: 900 });
+    const documentWidth = await page.evaluate(() => document.documentElement.scrollWidth);
+    expect(documentWidth, `unexpected horizontal overflow at ${width}px`).toBeLessThanOrEqual(
+      width,
+    );
+    await expect(page.getByRole("heading", { name: /Reconcile the day/ })).toBeVisible();
+  }
+
+  await page.setViewportSize({ width: 390, height: 844 });
+  const menu = page.getByText("Explore sections", { exact: true });
+  await expect(menu).toBeVisible();
+  await menu.click();
+  await expect(
+    page
+      .getByRole("navigation", { name: "Main sections" })
+      .getByRole("link", { name: "Investigation walkthrough" }),
+  ).toBeVisible();
+});
+
+test("keyboard users can skip to the page content and reach the mobile navigation", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.keyboard.press("Tab");
+
+  const skipLink = page.getByRole("link", { name: "Skip to main content" });
+  await expect(skipLink).toBeFocused();
+  await expect(skipLink).toBeVisible();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
+});

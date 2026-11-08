@@ -105,7 +105,66 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     });
   };
 
-  if (!API) return null;
+  if (!API) {
+    const example = results.find((item) => item.classification === "UNMATCHED_INSTRUCTION");
+    const payment = example?.payment;
+    const amountMinor = Number(payment?.amount_minor ?? 0);
+    const currency = String(payment?.currency ?? "GBP");
+    const amount = new Intl.NumberFormat("en-IE", {
+      style: "currency",
+      currency,
+    }).format(amountMinor / 100);
+
+    if (!example || !payment) return null;
+
+    return (
+      <section
+        id="investigation"
+        className="mt-8 rounded-2xl border border-teal-200 bg-teal-50/60 p-5 sm:p-8"
+        aria-labelledby="case-preview-heading"
+      >
+        <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-900">
+          Phase 5 · investigation walkthrough
+        </p>
+        <h2 id="case-preview-heading" className="mt-2 text-2xl font-semibold text-slate-950">
+          Take one unmatched payment to its next evidence check
+        </h2>
+        <p className="mt-3 max-w-3xl leading-7 text-slate-700">
+          This read-only example uses a synthetic source row. It is a guided scenario, not a saved
+          case or a claim that the payment failed.
+        </p>
+        <div className="mt-5 grid gap-4 lg:grid-cols-[1fr_1fr]">
+          <article className="rounded-xl border border-slate-200 bg-white p-4">
+            <h3 className="font-semibold text-slate-950">Evidence in the sample batch</h3>
+            <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-4 gap-y-2 text-sm">
+              <dt className="text-slate-600">Payment ID</dt>
+              <dd className="break-all font-mono">{String(payment.payment_id ?? "—")}</dd>
+              <dt className="text-slate-600">Client reference</dt>
+              <dd className="break-all">{String(payment.client_reference ?? "—")}</dd>
+              <dt className="text-slate-600">Instruction amount</dt>
+              <dd className="font-semibold">{amount}</dd>
+              <dt className="text-slate-600">Expected settlement</dt>
+              <dd>{String(payment.expected_settlement_date ?? "—")}</dd>
+              <dt className="text-slate-600">Settlement row</dt>
+              <dd>No corresponding row in this sample</dd>
+            </dl>
+          </article>
+          <article className="rounded-xl border border-slate-200 bg-white p-4">
+            <h3 className="font-semibold text-slate-950">What I would investigate next</h3>
+            <ol className="mt-3 list-inside list-decimal space-y-2 text-sm leading-6 text-slate-700">
+              <li>Confirm the settlement file is complete for the expected date and scheme.</li>
+              <li>Check the processing event history and any available scheme trace reference.</li>
+              <li>Request settlement-operations confirmation and record the evidence received.</li>
+            </ol>
+            <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm leading-6 text-amber-950">
+              <strong>Current conclusion:</strong> unresolved from the supplied records. Missing
+              evidence is not proof of a failed payment or a loss.
+            </p>
+          </article>
+        </div>
+      </section>
+    );
+  }
   const hasOpen = new Set(cases.map((item) => item.result_id));
 
   return (
