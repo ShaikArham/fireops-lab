@@ -20,7 +20,7 @@ test("landing page communicates its purpose and links to the guided workspace", 
 test("landing page discloses that its records are fictional", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByText(/fictional payment day/i).first()).toBeVisible();
-  await expect(page.getByText(/No real payments or banking connections/i).first()).toBeVisible();
+  await expect(page.getByText(/does not move money, connect to banking systems/i)).toBeVisible();
 });
 
 for (const section of sections) {
