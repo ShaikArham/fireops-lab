@@ -29,6 +29,7 @@ jobs:
         working-directory: frontend
         env:
           GITHUB_PAGES: "true"
+          NEXT_PUBLIC_API_BASE_URL: "https://fireops-lab.onrender.com"
       - run: test -s out/index.html
         working-directory: frontend
       - uses: actions/upload-pages-artifact@v3
