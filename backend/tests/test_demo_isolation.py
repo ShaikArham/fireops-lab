@@ -171,7 +171,9 @@ def test_cross_origin_bearer_workspace_isolation(isolated_clients, monkeypatch):
     a, b = isolated_clients
     origin = "https://shaikarham.github.io"
     monkeypatch.setenv("FIREOPS_PUBLIC_ORIGIN", origin)
-    issued = a.post("/api/v1/demo/session", headers={"Origin": origin, "Sec-Fetch-Site": "cross-site"})
+    issued = a.post(
+        "/api/v1/demo/session", headers={"Origin": origin, "Sec-Fetch-Site": "cross-site"}
+    )
     assert issued.status_code == 200, issued.text
     token = issued.json()["access_token"]
     assert len(token) == 43
@@ -181,6 +183,12 @@ def test_cross_origin_bearer_workspace_isolation(isolated_clients, monkeypatch):
     assert a.post("/api/v1/demo/load", headers=headers).status_code == 200
     assert a.get("/api/v1/batches", headers=headers).json()["batches"]
     assert b.get("/api/v1/batches").status_code == 401
-    assert a.post("/api/v1/demo/reset", headers={**headers, "Origin": "https://evil.example"}).status_code == 403
-    assert a.post("/api/v1/demo/reset", headers={**headers, "X-FireOps-Demo": ""}).status_code == 403
+    assert (
+        a.post("/api/v1/demo/reset", headers={**headers, "Origin": "https://evil.example"}).status_code
+        == 403
+    )
+    assert (
+        a.post("/api/v1/demo/reset", headers={**headers, "X-FireOps-Demo": ""}).status_code
+        == 403
+    )
     assert a.post("/api/v1/demo/reset", headers=headers).status_code == 200
