@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ArrowRight, ShieldCheck, LayoutDashboard, CreditCard, Scale, SearchCheck, Activity, ChartNoAxesCombined, BookOpen } from "lucide-react";
 import OperationsWorkspace from "./operations-workspace";
 import ReconciliationWorkspace from "./reconciliation-workspace";
 import MonitoringWorkspace from "./monitoring-workspace";
@@ -13,75 +13,22 @@ export default function Home() {
       >
         Skip to main content
       </a>
-      <main id="main-content" className="min-h-screen px-5 py-8 sm:px-10">
-        <div className="mx-auto flex max-w-5xl flex-col gap-16">
-          <header className="flex flex-wrap items-center justify-between gap-3">
-            <a href="#top" className="font-semibold tracking-tight text-slate-950">
-              FireOps Lab
-            </a>
-            <span className="rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700">
-              Independent portfolio project
-            </span>
-            <details className="relative w-full sm:hidden">
-              <summary className="min-h-11 cursor-pointer list-none rounded-lg border border-slate-300 bg-white px-4 py-2.5 text-sm font-medium text-slate-800 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-teal-800">
-                Explore sections
-              </summary>
-              <nav
-                aria-label="Main sections"
-                className="absolute left-0 right-0 top-12 z-20 grid gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-lg"
-              >
-                <a
-                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
-                  href="#reconciliation"
-                >
-                  Payment day and reconciliation
-                </a>
-                <a
-                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
-                  href="#investigation"
-                >
-                  Investigation walkthrough
-                </a>
-                <a
-                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
-                  href="#monitoring"
-                >
-                  Monitoring rules
-                </a>
-                <a
-                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
-                  href="#insights"
-                >
-                  Operational insights
-                </a>
-                <a
-                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
-                  href="#method"
-                >
-                  About and method
-                </a>
+      <main id="main-content" className="min-h-screen lg:pl-64">\n        <aside aria-label="Workspace sidebar" className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-slate-950 px-4 py-7 text-slate-100 lg:flex">\n          <a href="#top" className="mb-2 px-3 text-xl font-bold tracking-tight">FireOPS <span className="text-teal-300">Lab</span></a>\n          <p className="mb-8 px-3 text-xs text-slate-400">Independent payment operations simulator</p>\n          <nav className="grid gap-1 text-sm" aria-label="Primary workspace navigation">\n            {[[LayoutDashboard,"Overview","#top"],[CreditCard,"Payments","#payments"],[Scale,"Reconciliation","#reconciliation"],[SearchCheck,"Investigations","#investigation"],[Activity,"Monitoring","#monitoring"],[ChartNoAxesCombined,"Insights","#insights"],[BookOpen,"About & method","#method"]].map(([Icon,label,href]) => { const NavIcon = Icon as typeof LayoutDashboard; return <a key={href as string} href={href as string} className="flex items-center gap-3 rounded-lg px-3 py-3 text-slate-200 transition hover:bg-slate-800 hover:text-white"><NavIcon size={18} aria-hidden="true" />{label as string}</a>; })}\n          </nav>\n          <div className="mt-auto rounded-xl border border-slate-700 p-3 text-xs leading-5 text-slate-300">Synthetic data only. No real payments or banking connections.</div>\n        </aside>
+        <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 py-7 sm:px-8 lg:px-10">
+          <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-5 lg:hidden">
+            <span className="font-semibold text-slate-950">FireOPS Lab</span>
+            <details className="relative">
+              <summary className="cursor-pointer rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold">☰ Menu</summary>
+              <nav aria-label="Mobile workspace navigation" className="absolute right-0 top-12 z-50 grid w-60 gap-1 rounded-xl border border-slate-200 bg-white p-3 shadow-xl">
+                <a href="#top" className="rounded-lg p-3 hover:bg-slate-100">Overview</a>
+                <a href="#payments" className="rounded-lg p-3 hover:bg-slate-100">Payments</a>
+                <a href="#reconciliation" className="rounded-lg p-3 hover:bg-slate-100">Reconciliation</a>
+                <a href="#investigation" className="rounded-lg p-3 hover:bg-slate-100">Investigations</a>
+                <a href="#monitoring" className="rounded-lg p-3 hover:bg-slate-100">Monitoring</a>
+                <a href="#insights" className="rounded-lg p-3 hover:bg-slate-100">Insights</a>
+                <a href="#method" className="rounded-lg p-3 hover:bg-slate-100">About &amp; method</a>
               </nav>
             </details>
-            <nav
-              aria-label="Main sections"
-              className="hidden w-full flex-wrap gap-x-5 gap-y-2 border-t border-slate-200 pt-3 text-sm font-medium text-slate-700 sm:flex"
-            >
-              <a className="hover:text-teal-900" href="#reconciliation">
-                Payment day
-              </a>
-              <a className="hover:text-teal-900" href="#investigation">
-                Investigation
-              </a>
-              <a className="hover:text-teal-900" href="#monitoring">
-                Monitoring
-              </a>
-              <a className="hover:text-teal-900" href="#insights">
-                Insights
-              </a>
-              <a className="hover:text-teal-900" href="#method">
-                About and method
-              </a>
-            </nav>
           </header>
 
           <section
@@ -171,7 +118,7 @@ export default function Home() {
           </section>
 
           <ReconciliationWorkspace />
-          <OperationsWorkspace />
+          <div id="payments" className="scroll-mt-8"><OperationsWorkspace /></div>
           <MonitoringWorkspace />
           <InsightsWorkspace />
 
