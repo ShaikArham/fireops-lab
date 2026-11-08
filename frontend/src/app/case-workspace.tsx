@@ -103,7 +103,9 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
       }
     };
     window.addEventListener("hashchange", refreshOnNavigation);
-    return () => window.removeEventListener("hashchange", refreshOnNavigation);
+    window.addEventListener("fireops:operations-updated", refreshOnNavigation);
+    window.addEventListener("fireops:demo-ready", refreshOnNavigation);
+    return () => { window.removeEventListener("hashchange", refreshOnNavigation); window.removeEventListener("fireops:operations-updated", refreshOnNavigation); window.removeEventListener("fireops:demo-ready", refreshOnNavigation); };
   }, [loadCases]);
 
   const act = async (operation: () => Promise<CaseRecord>) => {
