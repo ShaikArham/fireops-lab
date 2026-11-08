@@ -1,7 +1,6 @@
 # Shaik Arham Saquib
 
-Dublin, Ireland · +353 85 807 6267 · shaikarhamsaquib1@gmail.com  
-LinkedIn: add verified profile URL · Portfolio: add verified portfolio URL
+Dublin, Ireland · contact details to be inserted in the final private review before publication
 
 ## Operations & Business Intelligence Analyst
 
@@ -70,4 +69,4 @@ Operations: ETL monitoring, incident/failure investigation, root-cause analysis,
 
 ---
 
-**Draft status:** Content draft only. Confirm employment titles, dates, the 25% metric, contact links and project release state before finalizing. Final deliverable must be exported to exactly two ATS-readable pages and checked visually and by text extraction.
+**Draft status:** Content draft only. Add contact and verified portfolio links after private review. Confirm employment titles, dates, the 25% metric, and project release state before finalizing. Final deliverable must be exported to exactly two ATS-readable pages and checked visually and by text extraction.
