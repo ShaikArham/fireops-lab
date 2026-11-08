@@ -29,7 +29,8 @@ const assets = filesUnder(join(outputDirectory, "_next", "static"));
 const javascript = measure(assets.filter((file) => file.endsWith(".js")));
 const css = measure(assets.filter((file) => file.endsWith(".css")));
 const budgets = [
-  ["entry HTML", html, 60_000],
+  // The static landing page includes the guided workspace fallback; keep a strict 64 KB raw cap.
+  ["entry HTML", html, 64_000],
   ["JavaScript assets", javascript, 800_000],
   ["CSS assets", css, 40_000],
 ];
