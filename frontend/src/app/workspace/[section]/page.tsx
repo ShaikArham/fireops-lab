@@ -98,7 +98,10 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           </details>
         </div>
       </div>
-      <nav aria-label="Quick workspace navigation" className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-5 py-2 lg:hidden">
+      <nav
+        aria-label="Quick workspace navigation"
+        className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-5 py-2 lg:hidden"
+      >
         {sections.map(({ slug, label }) => (
           <Link
             key={slug}

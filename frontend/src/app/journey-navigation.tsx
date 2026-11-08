@@ -77,7 +77,8 @@ export default function JourneyNavigation({ section }: { section: string }) {
         <span />
       )}
       <p className="text-xs text-slate-500">
-        Step {position + 1} of {journey.length} · {next ? "Scroll beyond the bottom or use Next" : "End of the guided journey"}
+        Step {position + 1} of {journey.length} ·{" "}
+        {next ? "Scroll beyond the bottom or use Next" : "End of the guided journey"}
       </p>
       {next ? (
         <Link

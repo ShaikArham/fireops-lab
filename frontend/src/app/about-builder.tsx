@@ -91,7 +91,19 @@ export default function AboutBuilder() {
               evidence-based investigation for an Operations Analyst opportunity at fire.com.
             </p>
             <div className="mt-7 flex flex-wrap items-center gap-5">
-              <a href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer" aria-label="View Shaik Arham portfolio" className="block w-40 shrink-0 overflow-hidden rounded-xl border border-teal-400/40 bg-slate-900 p-2 shadow-lg shadow-teal-500/20 sm:w-52"><img src="https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp" alt="Shaik Arham portfolio illustration with laptop" className="h-auto w-full object-contain" /></a>
+              <a
+                href="https://shaikarham.github.io/arham-portfolio/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="View Shaik Arham portfolio"
+                className="block w-40 shrink-0 overflow-hidden rounded-xl border border-teal-400/40 bg-slate-900 p-2 shadow-lg shadow-teal-500/20 sm:w-52"
+              >
+                <img
+                  src="https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp"
+                  alt="Shaik Arham portfolio illustration with laptop"
+                  className="h-auto w-full object-contain"
+                />
+              </a>
               <div>
                 <p className="font-semibold">Shaik Arham</p>
                 <p className="text-sm text-slate-300">
@@ -227,7 +239,6 @@ export default function AboutBuilder() {
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv?print=1"
-            
           >
             Save CV as PDF ↓
           </a>
