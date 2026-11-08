@@ -102,10 +102,11 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
         );
       }
     };
+    const refreshCasesFromEvent = () => { void loadCases().catch(() => setError("Could not refresh cases.")); };
     window.addEventListener("hashchange", refreshOnNavigation);
-    window.addEventListener("fireops:operations-updated", refreshOnNavigation);
-    window.addEventListener("fireops:demo-ready", refreshOnNavigation);
-    return () => { window.removeEventListener("hashchange", refreshOnNavigation); window.removeEventListener("fireops:operations-updated", refreshOnNavigation); window.removeEventListener("fireops:demo-ready", refreshOnNavigation); };
+    window.addEventListener("fireops:operations-updated", refreshCasesFromEvent);
+    window.addEventListener("fireops:demo-ready", refreshCasesFromEvent);
+    return () => { window.removeEventListener("hashchange", refreshOnNavigation); window.removeEventListener("fireops:operations-updated", refreshCasesFromEvent); window.removeEventListener("fireops:demo-ready", refreshCasesFromEvent); };
   }, [loadCases]);
 
   const act = async (operation: () => Promise<CaseRecord>) => {
