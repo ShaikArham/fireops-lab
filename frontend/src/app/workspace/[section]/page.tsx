@@ -15,6 +15,7 @@ import MonitoringWorkspace from "../../monitoring-workspace";
 import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
 import ApiConnectionStatus from "../../api-connection-status";
+import DemoSessionControls from "../../demo-session-controls";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -106,6 +107,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           </span>
         </header>
         <ApiConnectionStatus />
+        <DemoSessionControls />
         {current === "overview" && (
           <div className="space-y-8">
             <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
