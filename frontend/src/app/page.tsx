@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { GuidedDemo } from "../components/guided-demo";
 import { ArrowRight, ArrowUpRight, CheckCircle2, Code2, CreditCard, FileSearch, ShieldCheck } from "lucide-react";
 
@@ -13,14 +11,6 @@ const stages = [
 ];
 
 export default function Home() {
-  const router = useRouter();
-  useEffect(() => {
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") router.push("/workspace/overview");
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [router]);
 
   return (
     <main id="main-content" className="min-h-screen bg-[#fff] text-[#050505]">
