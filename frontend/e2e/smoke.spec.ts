@@ -5,8 +5,10 @@ test("home page presents the independent fictional-data boundary", async ({ page
   await page.goto("/");
 
   await expect(page).toHaveTitle(/FireOps Lab/);
-  await expect(page.getByRole("heading", { name: /Reconcile the day/i })).toBeVisible();
-  await expect(page.getByText("Fictional data only")).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Payment operations overview/i })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Fictional data only", exact: true }),
+  ).toBeVisible();
   await expect(page.getByText(/not affiliated with, commissioned by, endorsed by/i)).toBeVisible();
 });
 
@@ -720,7 +722,7 @@ test("the read-only recruiter journey links reconciliation, investigation, monit
 }) => {
   await page.goto("/");
 
-  await page.getByRole("link", { name: "Start sample investigation" }).click();
+  await page.getByRole("link", { name: "Match payment and settlement evidence" }).click();
   await expect(
     page.getByRole("heading", { name: "Compare every payment with its settlement" }),
   ).toBeVisible();
@@ -768,17 +770,17 @@ test("mobile and tablet layouts keep the recruiter journey inside the viewport",
       overflow.documentWidth,
       `horizontal overflow at ${width}px: ${JSON.stringify(overflow.elements)}`,
     ).toBeLessThanOrEqual(width);
-    await expect(page.getByRole("heading", { name: /Reconcile the day/ })).toBeVisible();
+    await expect(page.getByRole("heading", { name: /Payment operations overview/ })).toBeVisible();
   }
 
   await page.setViewportSize({ width: 390, height: 844 });
-  const menu = page.getByText("Explore sections", { exact: true });
+  const menu = page.getByText("☰ Menu", { exact: true });
   await expect(menu).toBeVisible();
   await menu.click();
   await expect(
     page
-      .getByRole("navigation", { name: "Main sections" })
-      .getByRole("link", { name: "Investigation walkthrough" }),
+      .getByRole("navigation", { name: "Mobile workspace navigation" })
+      .getByRole("link", { name: "Investigations", exact: true }),
   ).toBeVisible();
 });
 

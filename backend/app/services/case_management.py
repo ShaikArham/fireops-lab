@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from uuid import uuid4
 
-from sqlalchemy import select
+from sqlalchemy import func, or_, select
 from sqlalchemy.orm import Session
 
 from app.models import (
@@ -175,6 +175,8 @@ def list_cases(
     session: Session,
     *,
     case_status: str | None,
+    priority: str | None = None,
+    search: str | None = None,
     assigned_to: str | None,
     classification: str | None,
     limit: int,
@@ -183,19 +185,32 @@ def list_cases(
     statement = select(ExceptionCase).join(
         ReconciliationResult, ExceptionCase.result_id == ReconciliationResult.result_id
     )
+    if priority:
+        statement = statement.where(ExceptionCase.priority == priority)
+    if search:
+        term = "%" + search.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
+        statement = statement.where(
+            or_(
+                ExceptionCase.case_id.ilike(term, escape="\\"),
+                ExceptionCase.assigned_to.ilike(term, escape="\\"),
+                ReconciliationResult.payment_id.ilike(term, escape="\\"),
+                ReconciliationResult.settlement_id.ilike(term, escape="\\"),
+            )
+        )
     if case_status:
         statement = statement.where(ExceptionCase.status == case_status)
     if assigned_to:
         statement = statement.where(ExceptionCase.assigned_to == assigned_to)
     if classification:
         statement = statement.where(ReconciliationResult.classification == classification)
+    total = session.scalar(select(func.count()).select_from(statement.subquery()))
     cases = session.scalars(
         statement.order_by(ExceptionCase.updated_at.desc(), ExceptionCase.case_id)
         .limit(limit)
         .offset(offset)
     )
     items = [_case_data(session, case, include_activities=False) for case in cases]
-    return {"cases": items, "limit": limit, "offset": offset}
+    return {"cases": items, "limit": limit, "offset": offset, "total": total}
 
 
 def get_case(session: Session, case_id: str) -> dict[str, object]:

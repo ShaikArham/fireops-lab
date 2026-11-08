@@ -314,6 +314,7 @@ def report_csv(report: dict[str, object]) -> str:
                 value = chr(39) + value
             cells.append(value)
         writer.writerow(cells)
+
     write_row(["section", "metric", "value", "unit", "definition"])
     units = {
         "exact_match_rate_pct": "percent",

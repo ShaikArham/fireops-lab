@@ -45,8 +45,53 @@ section[id] {
       animation-range: entry 0% entry 75%;
     }
     @keyframes workspace-reveal {
-      from { opacity: 0.35; transform: translateY(28px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0.35;
+        transform: translateY(28px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+  }
+}
+
+main,
+section,
+article,
+fieldset {
+  min-width: 0;
+}
+button,
+select,
+input,
+summary {
+  min-height: 44px;
+}
+button:not(:disabled),
+summary {
+  cursor: pointer;
+}
+p,
+h1,
+h2,
+h3,
+li {
+  overflow-wrap: anywhere;
+}
+button,
+a {
+  transition:
+    background-color 160ms,
+    border-color 160ms,
+    color 160ms;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }

@@ -8,8 +8,9 @@ from datetime import UTC, date, datetime, timedelta
 from pathlib import PurePath
 from typing import Any
 
+from fastapi import HTTPException
 from pydantic import BaseModel
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -107,6 +108,13 @@ def import_source_file(
             True,
         )
 
+    if session.info.get("isolated_demo"):
+        total = sum(
+            session.scalar(select(func.count()).select_from(model)) or 0
+            for model in (PaymentInstruction, SettlementRecord)
+        )
+        if validation.data_row_count > 2000 or total + validation.data_row_count > 6000:
+            raise HTTPException(413, "Demo limit: 2,000 rows per file and 6,000 source records.")
     uploaded_at = now or datetime.now(UTC)
     if uploaded_at.tzinfo is None or uploaded_at.utcoffset() is None:
         raise ValueError("now must be timezone-aware")

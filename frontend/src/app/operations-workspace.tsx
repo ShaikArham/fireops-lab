@@ -1,5 +1,7 @@
 "use client";
 
+import { requestJson } from "../lib/api";
+
 import { useState } from "react";
 
 type DatasetKind = "payment_instructions" | "settlement_records";
@@ -63,16 +65,13 @@ interface PaymentEvent {
   metadata: Record<string, string>;
 }
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 
 async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API_BASE_URL}/api/v1${path}`, init);
-  const payload = (await response.json()) as Record<string, unknown>;
-  if (!response.ok) {
-    const detail = payload.detail ?? "The request failed.";
-    throw new Error(typeof detail === "string" ? detail : JSON.stringify(detail));
-  }
-  return payload as T;
+  return requestJson<T>(`${API_BASE_URL}/api/v1${path}`, {
+    ...init,
+    headers: { "Content-Type": "application/json", ...init?.headers },
+  });
 }
 
 function formatMoney(amountMinor: number, currency: string): string {
@@ -100,6 +99,7 @@ export default function OperationsWorkspace() {
     }>("/batches");
     setBatches(result.batches);
     setSettlementBatches(result.settlement_batches);
+    window.dispatchEvent(new Event("fireops:operations-updated"));
   };
 
   const withFeedback = async (action: () => Promise<void>) => {
@@ -118,6 +118,7 @@ export default function OperationsWorkspace() {
   const previewFile = () =>
     withFeedback(async () => {
       if (!file) throw new Error("Choose a CSV file first.");
+      setPreview(null);
       const result = await apiRequest<SourcePreview>(`/source-files/preview?kind=${kind}`, {
         method: "POST",
         headers: { "Content-Type": "text/csv" },
@@ -151,19 +152,21 @@ export default function OperationsWorkspace() {
           : `Imported ${result.imported_count.toLocaleString()} records atomically.`,
       );
       await refreshBatches();
-      window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
   const loadBatch = (batch: Batch) =>
     withFeedback(async () => {
       setSelectedBatch(batch.batch_id);
+      setPayments([]);
       setSelectedPayment("");
       setEvents([]);
       const result = await apiRequest<{ payments: PaymentRecord[] }>(
         `/batches/${encodeURIComponent(batch.batch_id)}/payments?limit=25`,
       );
       setPayments(result.payments);
-      setMessage(`Loaded ${result.payments.length} payment records from ${batch.batch_id}.`);
+      setMessage(
+        `Loaded the first ${result.payments.length} payment records from ${batch.batch_id}.`,
+      );
     });
 
   const simulateBatch = (batchId: string) =>
@@ -187,13 +190,16 @@ export default function OperationsWorkspace() {
       const current = await apiRequest<{ payments: PaymentRecord[] }>(
         `/batches/${encodeURIComponent(batchId)}/payments?limit=25`,
       );
+      setSelectedBatch(batchId);
+      setSelectedPayment("");
+      setEvents([]);
       setPayments(current.payments);
-      window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
   const loadHistory = (paymentId: string) =>
     withFeedback(async () => {
       setSelectedPayment(paymentId);
+      setEvents([]);
       const result = await apiRequest<{ events: PaymentEvent[] }>(
         `/payments/${encodeURIComponent(paymentId)}/events`,
       );
@@ -204,12 +210,14 @@ export default function OperationsWorkspace() {
   return (
     <section
       id="operations"
+      tabIndex={-1}
+      aria-busy={busy}
       aria-labelledby="operations-heading"
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
     >
       <div className="max-w-3xl">
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-          Phase 3 · payment lifecycle
+          Payment lifecycle
         </p>
         <h2 id="operations-heading" className="mt-2 text-2xl font-semibold text-slate-950">
           Import, process, and inspect a sample batch
@@ -222,11 +230,17 @@ export default function OperationsWorkspace() {
 
       {!API_BASE_URL && (
         <p className="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
-          The operations API is not connected in this build. Set the public API base URL when a
-          backend environment is ready. The project overview remains available without it.
+          This public edition lets you inspect sample evidence without uploading files. Imports and
+          payment simulation run in the separate local API environment. Follow the recorded workflow
+          below or use the setup guide in About and method.
         </p>
       )}
 
+      {busy && (
+        <p role="status" className="mt-4 text-sm text-teal-900">
+          Working on this request…
+        </p>
+      )}
       {API_BASE_URL && (
         <div className="mt-7 grid min-w-0 gap-8">
           <div className="grid min-w-0 gap-4 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto_auto] sm:items-end">
@@ -234,10 +248,13 @@ export default function OperationsWorkspace() {
               Source type
               <select
                 className="min-h-11 w-full min-w-0 rounded-lg border border-slate-300 bg-white px-3"
+                disabled={busy}
                 value={kind}
                 onChange={(event) => {
                   setKind(event.target.value as DatasetKind);
                   setPreview(null);
+                  setMessage("");
+                  setError("");
                 }}
               >
                 <option value="payment_instructions">Payment instructions</option>
@@ -248,11 +265,14 @@ export default function OperationsWorkspace() {
               CSV file
               <input
                 className="min-h-11 w-full min-w-0 max-w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+                disabled={busy}
                 type="file"
                 accept=".csv,text/csv"
                 onChange={(event) => {
                   setFile(event.target.files?.[0] ?? null);
                   setPreview(null);
+                  setMessage("");
+                  setError("");
                 }}
               />
             </label>
@@ -278,9 +298,15 @@ export default function OperationsWorkspace() {
             <div aria-live="polite" className="grid gap-3">
               <h3 className="text-lg font-semibold text-slate-900">Source preview</h3>
               <p className="text-sm text-slate-600">
-                {preview.data_row_count.toLocaleString()} data rows · SHA-256{" "}
-                {preview.checksum_sha256}
+                {preview.data_row_count.toLocaleString()} data rows · showing up to 5 rows and 6
+                columns · SHA-256 <span className="break-all">{preview.checksum_sha256}</span>
               </p>
+              {preview.issues_truncated && (
+                <p className="text-sm text-amber-900">
+                  Only the first validation issues are shown. Correct these and preview the file
+                  again.
+                </p>
+              )}
               {preview.issues.length > 0 && (
                 <ul className="list-inside list-disc rounded-lg bg-rose-50 p-4 text-sm text-rose-900">
                   {preview.issues.map((issue) => (
@@ -316,7 +342,7 @@ export default function OperationsWorkspace() {
                             .slice(0, 6)
                             .map(([column, value]) => (
                               <td
-                                className="max-w-52 truncate px-3 py-2 text-slate-700"
+                                className="max-w-52 break-words px-3 py-2 text-slate-700"
                                 key={column}
                               >
                                 {String(value)}
@@ -352,7 +378,7 @@ export default function OperationsWorkspace() {
                 <article className="rounded-xl border border-slate-200 p-4" key={batch.batch_id}>
                   <div className="flex flex-wrap items-center justify-between gap-3">
                     <h4 className="font-semibold text-slate-900">{batch.batch_id}</h4>
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <button
                         className="min-h-10 rounded-lg border border-slate-300 px-3 text-sm font-medium"
                         onClick={() => loadBatch(batch)}

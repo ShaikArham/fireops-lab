@@ -1,9 +1,11 @@
 "use client";
 
+import { requestJson } from "../lib/api";
+
 import { useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 const sampleReport = preview as {
   classification_counts: Record<string, number>;
   payment_instruction_count: number;
@@ -59,10 +61,7 @@ interface Report {
 }
 
 async function fetchReport(): Promise<Report> {
-  const response = await fetch(`${API}/api/v1/insights/latest`);
-  const body = (await response.json()) as Report & { detail?: string };
-  if (!response.ok) throw new Error(body.detail ?? "Could not load operational insights.");
-  return body;
+  return requestJson<Report>(`${API}/api/v1/insights/latest`);
 }
 
 function minutes(value: number | null): string {
@@ -71,7 +70,7 @@ function minutes(value: number | null): string {
 
 function currencyBreakdown(values: Record<string, number>): string {
   const entries = Object.entries(values);
-  if (!entries.length) return "€0.00";
+  if (!entries.length) return "No exposure recorded";
   return entries
     .map(([currency, minor]) =>
       new Intl.NumberFormat("en-IE", { style: "currency", currency }).format(minor / 100),
@@ -103,37 +102,41 @@ export default function InsightsWorkspace() {
   const [loading, setLoading] = useState(false);
   const [baselineMinutes, setBaselineMinutes] = useState("");
   const [assistedMinutes, setAssistedMinutes] = useState("");
+  const [downloading, setDownloading] = useState(false);
+  const [refreshKey, setRefreshKey] = useState(0);
   const [downloadError, setDownloadError] = useState("");
 
-  const refreshReport = () => {
-    if (!API) return;
-    setLoading(true);
-    setError("");
-    void fetchReport()
-      .then(setReport)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
-      )
-      .finally(() => setLoading(false));
-  };
-
   useEffect(() => {
-    if (!API) return;
-    const refresh = () => refreshReport();
+    if (!API || refreshKey < 0) return;
+    const refresh = () => {
+      setLoading(true);
+      setError("");
+      void fetchReport()
+        .then(setReport)
+        .catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
+        )
+        .finally(() => setLoading(false));
+    };
     refresh();
-    window.addEventListener("focus", refresh);
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#insights") refresh();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
     window.addEventListener("fireops:operations-updated", refresh);
     return () => {
-      window.removeEventListener("focus", refresh);
+      window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:operations-updated", refresh);
     };
-  }, []);
+  }, [refreshKey]);
 
   const downloadRun = async () => {
     setDownloadError("");
+    setDownloading(true);
     try {
       const response = await fetch(
         `${API}/api/v1/insights/runs/${encodeURIComponent(report?.run_id ?? "")}/export.csv`,
+        { signal: AbortSignal.timeout(30_000) },
       );
       if (!response.ok) throw new Error("Could not download this run’s CSV.");
       const blob = await response.blob();
@@ -144,11 +147,13 @@ export default function InsightsWorkspace() {
       document.body.append(link);
       link.click();
       link.remove();
-      URL.revokeObjectURL(objectUrl);
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
     } catch (cause) {
       setDownloadError(
         cause instanceof Error ? cause.message : "Could not download this run’s CSV.",
       );
+    } finally {
+      setDownloading(false);
     }
   };
 
@@ -169,11 +174,12 @@ export default function InsightsWorkspace() {
   return (
     <section
       id="insights"
+      tabIndex={-1}
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
       aria-labelledby="insights-heading"
     >
       <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-        Phase 7 · operational insights
+        Operational insights
       </p>
       <h2 id="insights-heading" className="mt-2 text-2xl font-semibold text-slate-950">
         Measure the payment day and review workload
@@ -185,11 +191,15 @@ export default function InsightsWorkspace() {
       </p>
 
       {API && (
-        <button type="button" disabled={loading} onClick={refreshReport} className="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold disabled:opacity-50">
-          {loading ? "Refreshing…" : "Refresh live metrics"}
+        <button
+          type="button"
+          className="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm"
+          disabled={loading}
+          onClick={() => setRefreshKey((value) => value + 1)}
+        >
+          Refresh report
         </button>
       )}
-
       {API && (
         <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
           <strong>Committed fixture baseline:</strong> the read-only sample input contains 1,218
@@ -206,6 +216,13 @@ export default function InsightsWorkspace() {
             downloadable saved-run reports need the separately configured API and database, which
             are not hosted on this static site.
           </p>
+          <a
+            className="mt-4 inline-flex min-h-11 items-center rounded-lg bg-slate-900 px-4 text-sm font-medium text-white"
+            href="data/sample-reconciliation-summary.csv"
+            download
+          >
+            Download sample summary CSV
+          </a>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric
               label="Payment instructions"
@@ -220,7 +237,7 @@ export default function InsightsWorkspace() {
             <Metric
               label="Exact matches"
               value={`${(sampleReport.classification_counts.MATCHED_EXACT ?? 0).toLocaleString()} / ${sampleReport.payment_instruction_count.toLocaleString()}`}
-              definition="Exact-reference matches divided by payment instructions."
+              definition="Accepted exact-amount matches, including the documented unique fallback, divided by payment instructions."
             />
             <Metric
               label="Exact match rate"
@@ -284,9 +301,10 @@ export default function InsightsWorkspace() {
             <button
               type="button"
               className="inline-flex min-h-11 items-center rounded-lg bg-slate-900 px-4 font-medium text-white hover:bg-slate-700"
+              disabled={downloading}
               onClick={() => void downloadRun()}
             >
-              Download this run’s CSV
+              {downloading ? "Preparing CSV…" : "Download this run’s CSV"}
             </button>
           </div>
           {downloadError && (

@@ -384,6 +384,8 @@ def open_case(
 @router.get("/cases")
 def cases_queue(
     session: Annotated[Session, Depends(get_session)],
+    priority: Annotated[str | None, Query(pattern="^(LOW|NORMAL|HIGH)$")] = None,
+    search: Annotated[str | None, Query(max_length=128)] = None,
     case_status: Annotated[
         str | None, Query(alias="status", pattern="^(OPEN|IN_REVIEW|ESCALATED|RESOLVED)$")
     ] = None,
@@ -400,6 +402,8 @@ def cases_queue(
     return list_cases(
         session,
         case_status=case_status,
+        priority=priority,
+        search=search,
         assigned_to=assigned_to,
         classification=classification,
         limit=limit,
