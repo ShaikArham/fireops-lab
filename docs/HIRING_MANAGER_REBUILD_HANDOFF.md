@@ -78,3 +78,9 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Commit cb125565 adds API health status client component; commit dedb608 integrates status on every workspace. Status checks /health when NEXT_PUBLIC_API_BASE_URL exists, and explicitly says unconfigured/sample views otherwise. Health online does NOT prove writes or DB persistence.
 - API/database integration, downstream metrics, and browser E2E still pending; do not mark complete.
 - Next: secure isolated backend deployment and DB provisioning, then actual integration tests.
+
+## Run 8: executable browser CI
+- Previous preview dpl_85e9344HsrsWXoAmk5AVcEWokK7V READY.
+- Commit 492c908: added .github/workflows/workspace-browser.yml, automatically runs npm ci, TypeScript typecheck and Chromium Playwright workspace navigation tests on development-branch pushes; uploads failure artifacts.
+- GitHub connector fetch_commit_workflow_runs only returns PR-triggered runs, so an empty result does NOT prove workflow failed or passed. Browser CI result remains unverified.
+- Vercel integration configurations list is empty and Vercel env list empty; no managed Postgres integration is currently attached. Cannot safely enable backend writes or claim persistent end-to-end operations.
