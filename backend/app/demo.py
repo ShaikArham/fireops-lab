@@ -95,7 +95,16 @@ def require_browser_write(request: Request) -> None:
     allowed_origins = {value.strip().rstrip("/") for value in configured.split(",") if value.strip()}
     if not allowed_origins:
         allowed_origins = {f"{request.url.scheme}://{request.url.netloc}"}
-    if origin and origin.rstrip("/") not in allowed_origins:
+    # Vercel gives every deployment a new hostname. Accept only deployment aliases
+    # belonging to this exact frontend project and account, never arbitrary origins.
+    trusted_preview = bool(
+        origin
+        and re.fullmatch(
+            r"https://fireops-workspace-preview-[a-z0-9-]+-shaikarhamsaquib1188113-7684\\.vercel\\.app",
+            origin.rstrip("/"),
+        )
+    )
+    if origin and origin.rstrip("/") not in allowed_origins and not trusted_preview:
         raise HTTPException(403, "Cross-origin demo writes are not allowed.")
     if request.headers.get("sec-fetch-site") == "cross-site":
         raise HTTPException(403, "Cross-site demo writes are not allowed.")
