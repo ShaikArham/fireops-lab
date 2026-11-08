@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Phase 8 verified merge:** `e76f8e736656c258f18568c4383f16e0af42e145` (PR #14; PR run [42429583246](https://github.com/ShaikArham/fireops-lab/actions/runs/42429583246) and post-merge CI run [42429791513](https://github.com/ShaikArham/fireops-lab/actions/runs/42429791513) passed). **Current work:** Phase 9, regression, security and release blockers.
+**Phase 9 verified merge:** `48986c68edca884ff426ad083a16f2e3d61f4d1b` (PR #16; PR run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge CI run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed). **Current work:** Phase 10, final release and deliverables.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -31,8 +31,9 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 6 · monitoring and human review | Complete | Four deterministic rules, evidence and benign explanations, reasoned human disposition, append-only review history, and simulated escalation summary. PR #12 and post-merge CI passed. |
 | 7 · reporting and operational insights | Complete | Run-scoped metrics, same-run CSV export, analyst-selected root-cause audit history, case timing/ageing, currency-separated review exposure and distinct-input run history. PR #13 and post-merge CI passed. |
 | 8 · mobile, access and recruiter journey | Complete | Read-only sample investigation and insight journey, mobile navigation, keyboard skip link, six viewport assertions, 33 Playwright tests across Chromium, Firefox and WebKit, and static asset budgets. PR #14 and post-merge CI passed. |
+| 9 · regression and security hardening | Complete | Default-deny production API writes, strict CORS validation, formula-safe CSV exports, dependency and secret scans, 94 backend tests locally, and green PR/post-merge CI. GitHub secret scanning reports no alerts. |
 
-Nine of eleven phase gates (0–10) are complete (about 82% by gate count only, not a weighted estimate of all deliverables). Phases 9–10 remain pending.
+Ten of eleven phase gates (0–10) are complete (about 91% by gate count only, not a weighted estimate of all deliverables). Phase 10 remains pending.
 
 ## Phase 4 details and verified evidence
 
@@ -55,13 +56,12 @@ Phase 7 is complete. PR [#13](https://github.com/ShaikArham/fireops-lab/pull/13)
 
 Phase 8 is complete and merged through PR [#14](https://github.com/ShaikArham/fireops-lab/pull/14) as `e76f8e736656c258f18568c4383f16e0af42e145`. PR CI [42429583246](https://github.com/ShaikArham/fireops-lab/actions/runs/42429583246) and post-merge `main` CI [42429791513](https://github.com/ShaikArham/fireops-lab/actions/runs/42429791513) passed. The full Playwright suite passed all 33 tests across Chromium, Firefox and WebKit, including the read-only recruiter journey, 320–1366 CSS-pixel viewport checks, keyboard skip navigation, API workflows and CSV download. Backend PostgreSQL migration/schema and pytest checks passed in both runs. Local frontend format, lint, typecheck, two Vitest tests, production build and static asset budget passed (43.6 KB HTML, 621.8 KB JavaScript, 20.5 KB CSS raw). No deployment was triggered. The public GitHub Pages site remains on the prior read-only preview. Asset budgets are not Lighthouse or real-device evidence; collect those during final release verification.
 
-## Current work: Phase 9
+## Phase 9 close evidence
 
-Local Phase 9 work now includes default-deny API mutations, strict CORS validation, spreadsheet-safe report exports, dependency audits and a pinned source secret scan. Local evidence: 94 backend tests, Ruff, 92% backend statement coverage, fresh SQLite migration/schema checks, frontend checks and clean npm/pip audits. PR CI run [42432503880](https://github.com/ShaikArham/fireops-lab/actions/runs/42432503880) passed both jobs, including all 33 Chromium/Firefox/WebKit E2E tests; post-merge CI and repository secret-alert review remain open. The GitHub connector cannot read the restricted alert panel. Shared public writes and API hosting remain blocked pending authentication or per-visitor isolation, host-level rate limits and an operational reset/backup plan. Keep GitHub Pages static; do not begin Phase 10 until the Phase 9 gate passes.
+Phase 9 is complete. PR #16 merged as `48986c68edca884ff426ad083a16f2e3d61f4d1b`; PR CI run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge `main` run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed. This included PostgreSQL migration/schema checks, backend tests, npm and pip audits, the pinned secret scan, frontend checks, static export, and 33 Playwright tests across Chromium, Firefox and WebKit. Local verification passed Ruff, 94 backend tests, 92% total statement coverage, fresh SQLite migration/schema checks, frontend checks, clean dependency audits and a no-findings source scan. GitHub secret scanning showed no open or closed alerts. The live Pages preview was not updated. The API/database remain unhosted, so there is no shared mutable data, reset endpoint or hosted backup job. Do not expose a hosted API until authentication or per-visitor isolation, host-level rate limits and an operational reset/backup plan are in place.
 
 ## Later phases still pending
 
-- **Phase 9:** regression, security and release-blocker review, including CORS, public write isolation, rate limits and reset behavior before exposing an API.
 - **Phase 10:** final free deployment decision and full browser verification; the 60–90 second introduction video (MP4, WebP thumbnail, VTT and transcript); one-page case study; Fire-specific two-page ATS CV; short application answers and follow-up message. Test the complete product and every download before calling the project 100% complete.
 
 ## User-provided video reference
@@ -105,6 +105,6 @@ Backend gate: `uv run --frozen ruff check .`, `uv run --frozen pytest -q`, `uv r
 ## Next-session checklist
 
 1. Read this handoff and `docs/RELEASE_CHECKLIST.md`; fetch the newest `main`.
-2. Continue Phase 9 only. Review regression, dependency/secret posture, CORS, public write isolation, rate limits and demo reset behavior.
-3. Run the required automated checks and record actual evidence. Do not expose or deploy an API/database during this review.
-4. Keep the site static and free. Leave Phase 10 pending until the Phase 9 gate passes.
+2. Start Phase 10 only. Review the final free deployment and verify core journeys, all downloads, video assets, CV and application materials.
+3. Do not deploy an API/database or publish the full product until the final release checks are ready.
+4. Keep the static site read-only, synthetic-only and free.
