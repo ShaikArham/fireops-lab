@@ -39,6 +39,7 @@ export default function DemoSessionControls() {
             setMessage("Fictional payment records loaded automatically.");
             window.dispatchEvent(new Event("fireops:operations-updated"));
             window.dispatchEvent(new Event("fireops:demo-ready"));
+            window.location.reload();
           }
         } catch (cause) {
           if (!cancelled) {
