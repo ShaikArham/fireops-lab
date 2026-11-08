@@ -13,7 +13,7 @@ export default function Home() {
       >
         Skip to main content
       </a>
-      <main id="main-content" className="min-h-screen lg:pl-64">\n        <aside aria-label="Workspace sidebar" className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-slate-950 px-4 py-7 text-slate-100 lg:flex">\n          <a href="#top" className="mb-2 px-3 text-xl font-bold tracking-tight">FireOPS <span className="text-teal-300">Lab</span></a>\n          <p className="mb-8 px-3 text-xs text-slate-400">Payment operations workspace</p>\n          <nav className="grid gap-1 text-sm" aria-label="Primary workspace navigation">\n            {[[LayoutDashboard,"Overview","#top"],[CreditCard,"Payments","#payments"],[Scale,"Reconciliation","#reconciliation"],[SearchCheck,"Investigations","#investigation"],[Activity,"Monitoring","#monitoring"],[ChartNoAxesCombined,"Insights","#insights"],[BookOpen,"About the builder","#method"]].map(([Icon,label,href]) => { const NavIcon = Icon as typeof LayoutDashboard; return <a key={href as string} href={href as string} className="flex items-center gap-3 rounded-lg px-3 py-3 text-slate-200 transition hover:bg-slate-800 hover:text-white"><NavIcon size={18} aria-hidden="true" />{label as string}</a>; })}\n          </nav>\n          <div className="mt-auto rounded-xl border border-slate-700 p-3 text-xs leading-5 text-slate-300">Synthetic data only. No real payments or banking connections.</div>\n        </aside>
+      <main id="main-content" className="min-h-screen lg:pl-64">\n        <aside aria-label="Workspace sidebar" className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-slate-200 bg-slate-950 px-4 py-7 text-slate-100 lg:flex">\n          <a href="/workspace/overview" className="mb-2 px-3 text-xl font-bold tracking-tight">FireOPS <span className="text-teal-300">Lab</span></a>\n          <p className="mb-8 px-3 text-xs text-slate-400">Payment operations workspace</p>\n          <nav className="grid gap-1 text-sm" aria-label="Primary workspace navigation">\n            {[[LayoutDashboard,"Overview","#top"],[CreditCard,"Payments","#payments"],[Scale,"Reconciliation","#reconciliation"],[SearchCheck,"Investigations","#investigation"],[Activity,"Monitoring","#monitoring"],[ChartNoAxesCombined,"Insights","#insights"],[BookOpen,"About the builder","#method"]].map(([Icon,label,href]) => { const NavIcon = Icon as typeof LayoutDashboard; return <a key={href as string} href={href as string} className="flex items-center gap-3 rounded-lg px-3 py-3 text-slate-200 transition hover:bg-slate-800 hover:text-white"><NavIcon size={18} aria-hidden="true" />{label as string}</a>; })}\n          </nav>\n          <div className="mt-auto rounded-xl border border-slate-700 p-3 text-xs leading-5 text-slate-300">Synthetic data only. No real payments or banking connections.</div>\n        </aside>
         <div className="mx-auto flex max-w-7xl flex-col gap-10 px-5 py-7 sm:px-8 lg:px-10">
           <header className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-5 lg:hidden">
             <span className="font-semibold text-slate-950">FireOPS Lab</span>
@@ -48,10 +48,10 @@ export default function Home() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
-                  href="#reconciliation"
+                  href="/workspace/overview"
                   className="inline-flex min-h-12 items-center gap-2 rounded-lg bg-slate-900 px-5 py-3 font-medium text-white hover:bg-slate-700"
                 >
-                  Review reconciliation <ArrowRight aria-hidden="true" size={18} />
+                  Open operations workspace <ArrowRight aria-hidden="true" size={18} />
                 </a>
                 <a
                   href="#method"
@@ -129,7 +129,7 @@ export default function Home() {
                 <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Built by Shaik Arham Saquib</h2>
                 <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-200">Business intelligence and application operations experience, combined with postgraduate data analytics. Explore the working operations scenarios first, then see the decisions and engineering behind them.</p>
               </div>
-              <a href="#method" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-teal-50">Meet the builder <ArrowRight size={16} aria-hidden="true" /></a>
+              <a href="/workspace/about" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-teal-50">Meet the builder <ArrowRight size={16} aria-hidden="true" /></a>
             </div>
           </section>
 
