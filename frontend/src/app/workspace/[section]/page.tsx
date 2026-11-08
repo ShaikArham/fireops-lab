@@ -114,33 +114,32 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
               <p className="text-xs font-bold uppercase tracking-widest text-teal-300">
                 Payment operations
               </p>
-              <h2 className="mt-3 text-3xl font-semibold">Review the payment day.</h2>
+              <h2 className="mt-3 text-3xl font-semibold">A payment day, explained from start to finish.</h2>
               <p className="mt-3 max-w-2xl text-slate-300">
-                Validate a batch, examine settlement exceptions, review monitoring signals and
-                document the next evidence-based action.
+                Follow a fictional payment batch through its lifecycle. See what was expected, what actually settled, where the exceptions arose, how they were investigated and what the resulting dashboard tells an operations team. No uploads or setup required.
               </p>
               <Link
                 href="/workspace/payments"
                 className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950"
               >
-                Open payment operations <ArrowRight size={17} />
+                Explore the preloaded payments <ArrowRight size={17} />
               </Link>
             </div>
             <div className="grid gap-4 md:grid-cols-3">
               {[
                 {
                   name: "01 / Process",
-                  text: "Validate synthetic source files and inspect payment lifecycle events.",
+                  text: "Inspect preloaded fictional payments and choose a batch from the selector.",
                   slug: "payments",
                 },
                 {
                   name: "02 / Reconcile",
-                  text: "Compare payment instructions with settlement evidence and classify discrepancies.",
+                  text: "See which records match, which differ and why those differences matter.",
                   slug: "reconciliation",
                 },
                 {
                   name: "03 / Investigate",
-                  text: "Review exception evidence and determine the next justified action.",
+                  text: "Select an exception, inspect its evidence and follow the investigation.",
                   slug: "investigations",
                 },
               ].map((item) => (
@@ -153,6 +152,10 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
                   <p className="mt-2 text-sm leading-6 text-slate-600">{item.text}</p>
                 </Link>
               ))}
+            </div>
+            <div className="grid gap-4 md:grid-cols-2">
+              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">04 / Monitor</p><h3 className="mt-2 text-xl font-semibold">What needs attention now?</h3><p className="mt-2 text-sm leading-7 text-slate-600">Review fictional alerts, priorities and operational signals in one dashboard.</p><Link href="/workspace/monitoring" className="mt-4 inline-flex text-sm font-semibold text-teal-800">Open monitoring →</Link></div>
+              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">05 / Understand</p><h3 className="mt-2 text-xl font-semibold">What does the evidence show?</h3><p className="mt-2 text-sm leading-7 text-slate-600">Explore trends, exceptions and outcomes in the Insights dashboard.</p><Link href="/workspace/insights" className="mt-4 inline-flex text-sm font-semibold text-teal-800">Open insights →</Link></div>
             </div>
             <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
