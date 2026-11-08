@@ -164,3 +164,23 @@ def test_account_scoped_vercel_preview_hosts(isolated_clients, monkeypatch):
     ):
         blocked = a.post("/api/v1/demo/reset", headers={"Origin": origin})
         assert blocked.status_code == 403, origin
+
+
+def test_cross_origin_bearer_workspace_isolation(isolated_clients, monkeypatch):
+    """A GitHub Pages client can use a bearer token without relying on cookies."""
+    a, b = isolated_clients
+    origin = "https://shaikarham.github.io"
+    monkeypatch.setenv("FIREOPS_PUBLIC_ORIGIN", origin)
+    issued = a.post("/api/v1/demo/session", headers={"Origin": origin, "Sec-Fetch-Site": "cross-site"})
+    assert issued.status_code == 200, issued.text
+    token = issued.json()["access_token"]
+    assert len(token) == 43
+    headers = {"Authorization": f"Bearer {token}", "Origin": origin, "Sec-Fetch-Site": "cross-site"}
+    a.cookies.clear()
+    assert a.get("/api/v1/demo/session", headers=headers).status_code == 200
+    assert a.post("/api/v1/demo/load", headers=headers).status_code == 200
+    assert a.get("/api/v1/batches", headers=headers).json()["batches"]
+    assert b.get("/api/v1/batches").status_code == 401
+    assert a.post("/api/v1/demo/reset", headers={**headers, "Origin": "https://evil.example"}).status_code == 403
+    assert a.post("/api/v1/demo/reset", headers={**headers, "X-FireOps-Demo": ""}).status_code == 403
+    assert a.post("/api/v1/demo/reset", headers=headers).status_code == 200
