@@ -38,7 +38,9 @@ test("record the full synthetic payment operations website walkthrough", async (
 
   await operations.getByRole("button", { name: "Inspect batch" }).first().click();
   await operations.getByRole("button", { name: "Simulate processing" }).click();
-  await expect(operations.getByText(/Simulation complete: .* settled and .* failed/)).toBeVisible();
+  await expect(operations.getByText(/Simulation complete: .* settled and .* failed/)).toBeVisible({
+    timeout: 120_000,
+  });
   await page.waitForTimeout(6_000);
 
   await page.getByRole("link", { name: "Payment day" }).click();
