@@ -245,3 +245,34 @@ html {
 :root[data-workspace-theme="dark"] #main-content a[class~="text-teal-800"] {
   color: #5eead4;
 }
+
+/* Explicit dark-theme contrast for both navigation menus and About progress. */
+:root[data-workspace-theme="dark"] nav[aria-label="Mobile workspace navigation"],
+:root[data-workspace-theme="dark"] nav[aria-label="Quick workspace navigation"],
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] {
+  background-color: #172336 !important;
+  border-color: #475569 !important;
+  color: #f8fafc !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="Mobile workspace navigation"] a,
+:root[data-workspace-theme="dark"] nav[aria-label="Quick workspace navigation"] a,
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] p,
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] span,
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button {
+  color: #f8fafc !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="Quick workspace navigation"] a[aria-current="page"] {
+  background-color: #0f766e !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="Mobile workspace navigation"] a:hover {
+  background-color: #334155 !important;
+}
+:root[data-workspace-theme="dark"] nav[aria-label="About page progress and section controls"] button:last-child {
+  background-color: #0f766e !important;
+  color: #fff !important;
+}
+:root[data-workspace-theme="dark"] details summary,
+:root[data-workspace-theme="dark"] #main-content header,
+:root[data-workspace-theme="dark"] #main-content header h1 {
+  color: #f8fafc !important;
+}
