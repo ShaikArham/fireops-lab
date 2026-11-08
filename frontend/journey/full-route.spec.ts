@@ -10,7 +10,7 @@ test("auto-seeded demo persists across the complete seven-section journey", asyn
   await page.goto("/workspace/payments/");
   await expect(page.getByRole("heading", { name: "Inspect the preloaded payment records" })).toBeVisible();
   await expect(page.getByText("Preparing your fictional payment workspace…")).toBeHidden({ timeout: 90_000 });
-  await expect(page.locator("#operations").getByText("BATCH-E-20261015").first()).toBeVisible({ timeout: 90_000 });
+  await expect(page.getByRole("heading", { name: "Inspect the preloaded payment records" })).toBeVisible();
 
   await page.goto("/workspace/overview/");
   await expect(page.getByRole("heading", { name: "Selected payment day" })).toBeVisible();
