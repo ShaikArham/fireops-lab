@@ -26,6 +26,7 @@ export default function LiveOverview() {
   useEffect(() => {
     let active = true;
     const load = async () => {
+      void refreshKey;
       setLoading(true);
       setError("");
       try {
