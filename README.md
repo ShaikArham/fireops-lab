@@ -2,7 +2,7 @@
 
 An independent payment operations, reconciliation, and transaction investigation sandbox for a portfolio. It uses synthetic data only and is not affiliated with Fire Financial Services Limited.
 
-> **Build status:** Phases 0–7 are complete; Phase 8 design and recruiter-journey work is in progress. The public GitHub Pages site still serves the earlier read-only reconciliation preview. The expanded static investigation and sample-insights experience is under review and has not been published. The API/database are not deployed.
+> **Build status:** Phases 0–8 are complete. Phase 8 passed CI in Chromium, Firefox and WebKit; the public GitHub Pages site still serves the earlier read-only reconciliation preview until the final release phase. The API/database are not deployed.
 
 ## Project boundaries
 
