@@ -107,7 +107,23 @@ export default function DemoSessionControls({
           </div>
         )}
       </section>
-      {state === "ready" ? children : <div className="min-h-64" aria-busy={state === "loading"} />}
+      {state === "ready" ? (
+        children
+      ) : (
+        <div
+          className="rounded-xl border border-slate-200 bg-white p-6"
+          aria-busy={state === "loading"}
+        >
+          <h2 className="text-lg font-semibold text-slate-900">
+            {state === "loading" ? "Connecting to the demo" : "Demo connection unavailable"}
+          </h2>
+          <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
+            {state === "loading"
+              ? "Preparing your private fictional payment records. You can still browse the other sections using the sidebar while the service starts."
+              : "The interactive records could not be loaded. Use Retry connection above, or visit About the builder to learn about the project."}
+          </p>
+        </div>
+      )}
     </>
   );
 }
