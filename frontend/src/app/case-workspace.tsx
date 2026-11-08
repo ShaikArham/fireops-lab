@@ -135,6 +135,14 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     }
   };
 
+  const inspectCase = async (caseId: string) => {
+    setBusy(true);
+    setError("");
+    try { setSelected(await request<CaseRecord>(`/cases/${caseId}`)); }
+    catch (cause) { setError(cause instanceof Error ? cause.message : "Could not load case details."); }
+    finally { setBusy(false); }
+  };
+
   const openCase = (result: ResultOption) => {
     if (!result.result_id) return;
     void act(async () => {
@@ -344,10 +352,10 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 <li key={item.case_id}>
                   <button
                     type="button"
-                    className={`min-h-14 w-full rounded-lg border p-3 text-left ${selected?.case_id === item.case_id ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}
+                    className={`fireops-interactive min-h-14 w-full rounded-lg border p-3 text-left ${selected?.case_id === item.case_id ? "border-blue-600 bg-blue-50 ring-1 ring-blue-300" : "border-slate-200 bg-white hover:border-blue-300"}`}
                     disabled={busy}
                     aria-pressed={selected?.case_id === item.case_id}
-                    onClick={() => void act(() => request<CaseRecord>(`/cases/${item.case_id}`))}
+                    onClick={() => void inspectCase(item.case_id)}
                   >
                     <span className="block font-semibold">
                       {item.classification.replaceAll("_", " ")}
