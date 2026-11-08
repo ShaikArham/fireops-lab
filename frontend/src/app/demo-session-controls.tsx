@@ -16,6 +16,7 @@ export default function DemoSessionControls() {
       try {
         // Existing visitor records are never overwritten by automatic loading.
         await requestJson(`${API}/api/v1/demo/session`);
+        sessionStorage.removeItem(KEY);
         if (!cancelled) { setState("ready"); setMessage("Your private demo records are ready."); }
       } catch (error) {
         const isMissing = error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
