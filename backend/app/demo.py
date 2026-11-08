@@ -91,8 +91,11 @@ def require_browser_write(request: Request) -> None:
     if request.headers.get("x-fireops-demo") != "1":
         raise HTTPException(403, "Missing demo request header.")
     origin = request.headers.get("origin")
-    expected = os.getenv("FIREOPS_PUBLIC_ORIGIN") or f"{request.url.scheme}://{request.url.netloc}"
-    if origin and origin != expected:
+    configured = os.getenv("FIREOPS_PUBLIC_ORIGIN", "")
+    allowed_origins = {value.strip().rstrip("/") for value in configured.split(",") if value.strip()}
+    if not allowed_origins:
+        allowed_origins = {f"{request.url.scheme}://{request.url.netloc}"}
+    if origin and origin.rstrip("/") not in allowed_origins:
         raise HTTPException(403, "Cross-origin demo writes are not allowed.")
     if request.headers.get("sec-fetch-site") == "cross-site":
         raise HTTPException(403, "Cross-site demo writes are not allowed.")
