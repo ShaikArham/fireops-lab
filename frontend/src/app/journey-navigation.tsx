@@ -1,4 +1,8 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const journey = [
   ["overview", "Overview"],
@@ -11,6 +15,23 @@ const journey = [
 ] as const;
 
 export default function JourneyNavigation({ section }: { section: string }) {
+  const router = useRouter();
+  useEffect(() => {
+    if (section !== "overview") return;
+    let gestures = 0;
+    let lastGesture = 0;
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY <= 0 || event.ctrlKey || event.defaultPrevented) return;
+      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 24;
+      if (!nearBottom) { gestures = 0; return; }
+      if (Date.now() - lastGesture > 1500) gestures = 0;
+      lastGesture = Date.now();
+      gestures += 1;
+      if (gestures >= 2) router.push("/workspace/payments");
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, [section, router]);
   const position = journey.findIndex(([slug]) => slug === section);
   const next = journey[position + 1];
   const previous = journey[position - 1];
@@ -30,7 +51,7 @@ export default function JourneyNavigation({ section }: { section: string }) {
         <span />
       )}
       <p className="text-xs text-slate-500">
-        Step {position + 1} of {journey.length} · Choose the next section when ready
+        Step {position + 1} of {journey.length} · {section === "overview" ? "Scroll past the bottom or choose Payments" : "Choose the next section when ready"}
       </p>
       {next ? (
         <Link
