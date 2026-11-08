@@ -50,7 +50,7 @@ export default function AboutBuilder() {
           ["approach", "My approach"],
           ["strengths", "Strengths"],
           ["background", "Background"],
-          ["projects", "Projects & application"],
+          ["projects", "Projects & source code"],
         ].map(([id, label]) => (
           <a
             key={id}
@@ -191,9 +191,9 @@ export default function AboutBuilder() {
         className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9"
       >
         <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
-          04 / Projects & application
+          04 / Projects & source code
         </p>
-        <h3 className="mt-3 text-2xl font-semibold">Explore the work behind my application</h3>
+        <h3 className="mt-3 text-2xl font-semibold">Explore the project and its source code</h3>
         <p className="mt-3 max-w-3xl leading-7 text-slate-600">
           FireOPS is an independent, fictional payment operations project built to demonstrate my
           approach to validation, reconciliation, monitoring and investigation. My wider portfolio
@@ -217,27 +217,7 @@ export default function AboutBuilder() {
             Project portfolio ↗
           </a>
         </div>
-        <div id="application" className="mt-8 border-t border-slate-200 pt-7">
-          <h4 className="text-xl font-semibold">CV & application</h4>
-          <p className="mt-3 max-w-2xl leading-7 text-slate-600">
-            My role-tailored CV will be attached after the final review. I have not linked an
-            unverified or outdated document.
-          </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <span
-              aria-disabled="true"
-              className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600"
-            >
-              View CV · Coming soon
-            </span>
-            <Link
-              className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-              href="/workspace/overview"
-            >
-              Return to demo
-            </Link>
-          </div>
-        </div>
+
       </section>
       <div className="flex flex-wrap justify-between gap-3 text-sm font-semibold">
         <a href="#intro" className="text-teal-800 hover:underline">
