@@ -17,7 +17,12 @@ export default function DemoSessionControls() {
         // Existing visitor records are never overwritten by automatic loading.
         await requestJson(`${API}/api/v1/demo/session`);
         const existing = await requestJson<{ batches: Array<{ batch_id: string }> }>(`${API}/api/v1/batches`);
-        if (existing.batches.length === 0) {
+        let needsPreparation = existing.batches.length === 0;
+        if (!needsPreparation) {
+          try { await requestJson(`${API}/api/v1/insights/latest`); }
+          catch { needsPreparation = true; }
+        }
+        if (needsPreparation) {
           await requestJson(`${API}/api/v1/demo/load`, { method: "POST" });
           window.dispatchEvent(new Event("fireops:operations-updated"));
         }
