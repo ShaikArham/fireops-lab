@@ -42,3 +42,9 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - frontend/src/app/reconciliation-workspace.tsx contains a static preview fallback plus API-dependent run interactions.
 - backend/pyproject.toml defines FastAPI, SQLAlchemy, PostgreSQL driver, Alembic and Python 3.12.
 - Next step is to inspect API routes and deploy a properly isolated backend; do not imply the workflow works until tested.
+
+## Latest iteration: builder identity and scroll treatment
+- Commit 7d6527e: operations-first landing language and About the builder content, including authentic Hitachi/DCU experience and GitHub link. Vercel preview dpl_9xmX68zUBaLAVxRPnX8Nf2bh4ddY verified READY.
+- Commits ff647b3 and 46af632: landing-flow builder introduction and CSS scroll-reveal with reduced-motion respect and fallback. Vercel preview dpl_6unNdpdvkvhFGwsKBt1xqShinJy9 requested; must verify READY/HTTP 200 and actual animation on devices.
+- User requires after EVERY run: completed, pending, preview URL, deploy status, commit SHA, and next step. Update this handoff continuously.
+- Keep app-first, not portfolio-first. Builder section must be discoverable on landing and sidebar, without presenting as official Fire product.
