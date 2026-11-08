@@ -514,6 +514,7 @@ def monitoring_alert_queue(
             pattern="^(HIGH_VALUE_PAYMENT|PAYER_VELOCITY|REPEATED_FAILURES|DUPLICATE_REFERENCE)$"
         ),
     ] = None,
+    batch_id: Annotated[str | None, Query(max_length=64)] = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> dict[str, object]:
@@ -522,6 +523,7 @@ def monitoring_alert_queue(
         alert_status=alert_status,
         severity=severity,
         rule_id=rule_id,
+        batch_id=batch_id,
         limit=limit,
         offset=offset,
     )
