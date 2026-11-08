@@ -230,9 +230,9 @@ export default function AboutBuilder() {
           </Link>
           <Link
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="/cv?print=1"
+            href="/cv"
           >
-            Save CV as PDF ↓
+            Open CV / Save as PDF ↓
           </Link>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
