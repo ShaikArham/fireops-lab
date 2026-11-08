@@ -38,6 +38,7 @@ test("record the full synthetic payment operations website walkthrough", async (
     process.cwd(),
     "../data/synthetic/normal_day/payment_instructions.csv",
   );
+  await operations.getByLabel("Source type").selectOption("payment_instructions");
   await operations.getByLabel("CSV file").setInputFiles(normalPaymentCsv);
   await operations.getByRole("button", { name: "Preview file" }).click();
   await expect(operations.getByText(/100 rows passed validation/)).toBeVisible();
