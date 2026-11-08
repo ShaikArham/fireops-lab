@@ -100,7 +100,7 @@ def require_browser_write(request: Request) -> None:
     trusted_preview = bool(
         origin
         and re.fullmatch(
-            r"https://fireops-workspace-preview-[a-z0-9]{9}(?:-shaikarhamsaquib1188113-7684)?\\.vercel\\.app",
+            r"https://fireops-workspace-preview-[a-z0-9]{9}(?:-shaikarhamsaquib1188113-7684)?\.vercel\.app",
             origin.rstrip("/"),
         )
     )
