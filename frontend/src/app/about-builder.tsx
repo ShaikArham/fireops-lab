@@ -15,8 +15,11 @@ const career = [
 
 export default function AboutBuilder() {
   return (
-    <div className="space-y-8 pb-12">
-      <section className="overflow-hidden rounded-3xl bg-slate-950 text-white">
+    <div id="about-top" className="about-sections space-y-8 pb-12">
+      <nav aria-label="About page sections" className="sticky top-0 z-20 -mx-2 flex gap-2 overflow-x-auto rounded-xl border border-slate-200 bg-white/95 p-2 shadow-sm backdrop-blur">
+        {[["intro","Introduction"],["approach","My approach"],["strengths","Strengths"],["background","Background"],["projects","Portfolio"],["application","CV & application"]].map(([id,label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-teal-50 focus-visible:bg-teal-50">{label}</a>)}
+      </nav>
+      <section id="intro" className="about-section overflow-hidden rounded-3xl bg-slate-950 text-white">
         <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[1.5fr_1fr] lg:gap-12">
           <div>
             <p className="text-xs font-bold uppercase tracking-[.22em] text-teal-300">The person behind FireOPS</p>
@@ -32,11 +35,12 @@ export default function AboutBuilder() {
             <h3 className="mt-5 text-2xl font-semibold">Operations Analyst</h3>
             <p className="mt-2 text-slate-300">fire.com · Dublin</p>
             <div className="mt-5 flex flex-wrap gap-2 text-xs">{["SQL & validation", "Operational monitoring", "Investigations"].map(x=><span key={x} className="rounded-full border border-slate-600 px-3 py-2">{x}</span>)}</div>
+            <a href="https://www.fire.com/careers/operations-analyst/" target="_blank" rel="noopener noreferrer" className="mt-6 inline-flex min-h-11 items-center rounded-lg bg-teal-300 px-4 py-2 text-sm font-bold text-slate-950 hover:bg-teal-200">View the official Operations Analyst position ↗</a>
             <p className="mt-5 text-xs leading-6 text-slate-400">Independent application project. Not affiliated with or endorsed by fire.com. No real payment processing.</p>
           </aside>
         </div>
       </section>
-      <section className="grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[.7fr_1.3fr] md:p-9">
+      <section id="approach" className="about-section grid gap-5 rounded-2xl border border-slate-200 bg-white p-6 md:grid-cols-[.7fr_1.3fr] md:p-9">
         <div><p className="text-xs font-bold uppercase tracking-widest text-teal-800">01 / My approach</p><h3 className="mt-3 text-2xl font-semibold">Why FireOPS?</h3></div>
         <div className="space-y-4 leading-7 text-slate-700">
           <p className="text-xl font-medium text-slate-900">I wanted to demonstrate my approach to the work, not just describe it in a CV.</p>
@@ -44,15 +48,15 @@ export default function AboutBuilder() {
           <p>This is a learning project, not a claim that I have worked in professional payment operations, fraud investigations or AML compliance.</p>
         </div>
       </section>
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+      <section id="strengths" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
         <p className="text-xs font-bold uppercase tracking-widest text-teal-800">02 / Relevant strengths</p><h3 className="mt-3 text-2xl font-semibold">What I bring to the role</h3>
         <div className="mt-6 grid gap-4 sm:grid-cols-2">{strengths.map((item,i)=><article key={item.title} className="rounded-xl border border-slate-200 p-5"><p className="text-xs font-bold text-teal-800">0{i+1}</p><h4 className="mt-3 font-semibold">{item.title}</h4><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p></article>)}</div>
       </section>
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+      <section id="background" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
         <p className="text-xs font-bold uppercase tracking-widest text-teal-800">03 / Background</p><h3 className="mt-3 text-2xl font-semibold">Experience & education</h3>
         <div className="mt-6 space-y-5">{career.map(item=><article key={item.dates} className="grid gap-2 border-l-2 border-teal-700 pl-5 md:grid-cols-[12rem_1fr]"><p className="text-xs font-bold tracking-wide text-slate-500">{item.dates}</p><div><h4 className="font-semibold">{item.role}</h4><p className="text-sm font-medium text-teal-800">{item.place}</p><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p></div></article>)}</div>
       </section>
-      <section className="rounded-2xl bg-teal-950 p-6 text-white md:p-9">
+      <section id="projects" className="about-section rounded-2xl bg-teal-950 p-6 text-white md:p-9">
         <p className="text-xs font-bold uppercase tracking-widest text-teal-300">04 / Selected work</p><h3 className="mt-3 text-2xl font-semibold">Explore the work behind the application.</h3>
         <p className="mt-3 max-w-2xl leading-7 text-teal-50">FireOPS, LedgerPoint and OpsResolve AI explore operational records, exceptions and decisions from different angles.</p>
         <div className="mt-6 flex flex-wrap gap-3">
@@ -61,7 +65,7 @@ export default function AboutBuilder() {
           <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://github.com/ShaikArham" target="_blank" rel="noopener noreferrer">Project portfolio ↗</a>
         </div>
       </section>
-      <section className="rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+      <section id="application" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
         <p className="text-xs font-bold uppercase tracking-widest text-teal-800">05 / CV & application</p><h3 className="mt-3 text-2xl font-semibold">More about my experience</h3>
         <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
         <div className="mt-5 flex flex-wrap gap-3">
@@ -70,7 +74,8 @@ export default function AboutBuilder() {
           <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
         </div>
       </section>
-      <section className="rounded-2xl bg-slate-100 p-6 md:p-9"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">A personal note</p><h3 className="mt-3 text-2xl font-semibold">Thank you for exploring FireOPS.</h3><p className="mt-3 max-w-3xl leading-7 text-slate-700">I would welcome a conversation about how my BI and application-operations background could contribute to fire.com. This project shows my thinking and willingness to learn, using fictional records only.</p><p className="mt-5 font-semibold">Shaik Arham</p></section>
+      <div className="flex flex-wrap justify-between gap-3 text-sm font-semibold"><a href="#intro" className="text-teal-800 hover:underline">↑ Back to introduction</a><a href="#thank-you" className="text-teal-800 hover:underline">Next: personal note ↓</a></div>
+      <section id="thank-you" className="about-section rounded-2xl bg-slate-100 p-6 md:p-9"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">A personal note</p><h3 className="mt-3 text-2xl font-semibold">Thank you for exploring FireOPS.</h3><p className="mt-3 max-w-3xl leading-7 text-slate-700">I would welcome a conversation about how my BI and application-operations background could contribute to fire.com. This project shows my thinking and willingness to learn, using fictional records only.</p><p className="mt-5 font-semibold">Shaik Arham</p></section>
     </div>
   );
 }
