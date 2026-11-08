@@ -213,9 +213,9 @@ export default function AboutBuilder() {
           approach to validation, reconciliation, monitoring and investigation. My wider portfolio
           includes other analytical and operational work.
         </p>
-        <div className="mt-6 flex flex-wrap gap-3">
+        <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <a
-            className="inline-flex min-h-11 items-center rounded-lg bg-teal-900 px-5 py-3 text-sm font-semibold text-white"
+            className="inline-flex min-h-12 w-full items-center justify-center rounded-lg bg-teal-900 px-5 py-3 text-sm font-semibold text-white"
             href="https://github.com/ShaikArham/fireops-lab"
             target="_blank"
             rel="noopener noreferrer"
