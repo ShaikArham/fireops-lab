@@ -179,12 +179,15 @@ def list_cases(
     search: str | None = None,
     assigned_to: str | None,
     classification: str | None,
+    run_id: str | None = None,
     limit: int,
     offset: int,
 ) -> dict[str, object]:
     statement = select(ExceptionCase).join(
         ReconciliationResult, ExceptionCase.result_id == ReconciliationResult.result_id
     )
+    if run_id:
+        statement = statement.where(ReconciliationResult.run_id == run_id)
     if priority:
         statement = statement.where(ExceptionCase.priority == priority)
     if search:
