@@ -116,9 +116,13 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
               <p className="text-xs font-bold uppercase tracking-widest text-teal-300">
                 Payment operations
               </p>
-              <h2 className="mt-3 text-3xl font-semibold">A payment day, explained from start to finish.</h2>
+              <h2 className="mt-3 text-3xl font-semibold">
+                A payment day, explained from start to finish.
+              </h2>
               <p className="mt-3 max-w-2xl text-slate-300">
-                Follow a fictional payment batch through its lifecycle. See what was expected, what actually settled, where the exceptions arose, how they were investigated and what the resulting dashboard tells an operations team. No uploads or setup required.
+                Follow a fictional payment batch through its lifecycle. See what was expected, what
+                actually settled, where the exceptions arose, how they were investigated and what
+                the resulting dashboard tells an operations team. No uploads or setup required.
               </p>
               <Link
                 href="/workspace/payments"
@@ -156,8 +160,36 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
               ))}
             </div>
             <div className="grid gap-4 md:grid-cols-2">
-              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">04 / Monitor</p><h3 className="mt-2 text-xl font-semibold">What needs attention now?</h3><p className="mt-2 text-sm leading-7 text-slate-600">Review fictional alerts, priorities and operational signals in one dashboard.</p><Link href="/workspace/monitoring" className="mt-4 inline-flex text-sm font-semibold text-teal-800">Open monitoring →</Link></div>
-              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">05 / Understand</p><h3 className="mt-2 text-xl font-semibold">What does the evidence show?</h3><p className="mt-2 text-sm leading-7 text-slate-600">Explore trends, exceptions and outcomes in the Insights dashboard.</p><Link href="/workspace/insights" className="mt-4 inline-flex text-sm font-semibold text-teal-800">Open insights →</Link></div>
+              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
+                  04 / Monitor
+                </p>
+                <h3 className="mt-2 text-xl font-semibold">What needs attention now?</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Review fictional alerts, priorities and operational signals in one dashboard.
+                </p>
+                <Link
+                  href="/workspace/monitoring"
+                  className="mt-4 inline-flex text-sm font-semibold text-teal-800"
+                >
+                  Open monitoring →
+                </Link>
+              </div>
+              <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6">
+                <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
+                  05 / Understand
+                </p>
+                <h3 className="mt-2 text-xl font-semibold">What does the evidence show?</h3>
+                <p className="mt-2 text-sm leading-7 text-slate-600">
+                  Explore trends, exceptions and outcomes in the Insights dashboard.
+                </p>
+                <Link
+                  href="/workspace/insights"
+                  className="mt-4 inline-flex text-sm font-semibold text-teal-800"
+                >
+                  Open insights →
+                </Link>
+              </div>
             </div>
             <div className="scroll-reveal rounded-xl border border-slate-200 bg-white p-6">
               <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
@@ -189,7 +221,6 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         {current === "insights" && <InsightsWorkspace />}
         {current === "about" && <AboutBuilder />}
         <JourneyNavigation section={current} />
-
       </main>
     </div>
   );

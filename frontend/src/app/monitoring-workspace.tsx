@@ -162,7 +162,11 @@ export default function MonitoringWorkspace() {
     window.addEventListener("hashchange", refreshOnNavigation);
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:operations-updated", refresh);
-    return () => { window.removeEventListener("hashchange", refreshOnNavigation); window.removeEventListener("fireops:demo-ready", refresh); window.removeEventListener("fireops:operations-updated", refresh); };
+    return () => {
+      window.removeEventListener("hashchange", refreshOnNavigation);
+      window.removeEventListener("fireops:demo-ready", refresh);
+      window.removeEventListener("fireops:operations-updated", refresh);
+    };
   }, [loadAlerts]);
 
   const act = async (operation: () => Promise<Alert>) => {

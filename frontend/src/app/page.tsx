@@ -105,7 +105,9 @@ export default function Home() {
                 Every payment tells a story.
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-8 text-slate-200">
-                The exceptions tell you where to look. Follow a fictional payment day from processing to reconciliation, investigation and operational insight. No setup required.
+                The exceptions tell you where to look. Follow a fictional payment day from
+                processing to reconciliation, investigation and operational insight. No setup
+                required.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a

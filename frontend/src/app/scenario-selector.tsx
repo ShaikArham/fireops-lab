@@ -21,20 +21,36 @@ export default function ScenarioSelector() {
     sync();
     window.addEventListener("fireops:scenario-changed", sync);
     window.addEventListener("storage", sync);
-    return () => { window.removeEventListener("fireops:scenario-changed", sync); window.removeEventListener("storage", sync); };
+    return () => {
+      window.removeEventListener("fireops:scenario-changed", sync);
+      window.removeEventListener("storage", sync);
+    };
   }, []);
   return (
     <div className="mb-6 flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white p-4">
-      <label htmlFor="fireops-scenario" className="text-sm font-semibold text-slate-800">Guided scenario</label>
-      <select id="fireops-scenario" value={selected} onChange={(event) => {
-        const value = event.target.value;
-        window.localStorage.setItem(SCENARIO_KEY, value);
-        setSelected(value);
-        window.dispatchEvent(new Event("fireops:scenario-changed"));
-      }} className="min-h-11 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm sm:max-w-sm">
-        {SCENARIOS.map((item) => <option key={item.id} value={item.id}>{item.label}</option>)}
+      <label htmlFor="fireops-scenario" className="text-sm font-semibold text-slate-800">
+        Guided scenario
+      </label>
+      <select
+        id="fireops-scenario"
+        value={selected}
+        onChange={(event) => {
+          const value = event.target.value;
+          window.localStorage.setItem(SCENARIO_KEY, value);
+          setSelected(value);
+          window.dispatchEvent(new Event("fireops:scenario-changed"));
+        }}
+        className="min-h-11 flex-1 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm sm:max-w-sm"
+      >
+        {SCENARIOS.map((item) => (
+          <option key={item.id} value={item.id}>
+            {item.label}
+          </option>
+        ))}
       </select>
-      <span className="text-xs text-slate-500">Fictional data · selection persists between sections</span>
+      <span className="text-xs text-slate-500">
+        Fictional data · selection persists between sections
+      </span>
     </div>
   );
 }

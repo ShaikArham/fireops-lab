@@ -16,27 +16,43 @@ export default function DemoSessionControls() {
       try {
         // Existing visitor records are never overwritten by automatic loading.
         await requestJson(`${API}/api/v1/demo/session`);
-        const existing = await requestJson<{ batches: Array<{ batch_id: string }> }>(`${API}/api/v1/batches`);
+        const existing = await requestJson<{ batches: Array<{ batch_id: string }> }>(
+          `${API}/api/v1/batches`,
+        );
         let needsPreparation = existing.batches.length === 0;
         if (!needsPreparation) {
-          try { await requestJson(`${API}/api/v1/insights/latest`); }
-          catch { needsPreparation = true; }
+          try {
+            await requestJson(`${API}/api/v1/insights/latest`);
+          } catch {
+            needsPreparation = true;
+          }
         }
         if (needsPreparation) {
           await requestJson(`${API}/api/v1/demo/load`, { method: "POST" });
           window.dispatchEvent(new Event("fireops:operations-updated"));
         }
         sessionStorage.removeItem(KEY);
-        if (!cancelled) { setState("ready"); setMessage("Your private demo records are ready."); window.dispatchEvent(new Event("fireops:demo-ready")); }
+        if (!cancelled) {
+          setState("ready");
+          setMessage("Your private demo records are ready.");
+          window.dispatchEvent(new Event("fireops:demo-ready"));
+        }
       } catch (error) {
-        const isMissing = error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
+        const isMissing =
+          error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
         if (!isMissing) {
-          if (!cancelled) { setState("error"); setMessage(error instanceof Error ? error.message : "Unable to connect to demo data."); }
+          if (!cancelled) {
+            setState("error");
+            setMessage(error instanceof Error ? error.message : "Unable to connect to demo data.");
+          }
           return;
         }
         // One automatic seed attempt per browser tab prevents write loops on failures.
         if (sessionStorage.getItem(KEY) === "attempted") {
-          if (!cancelled) { setState("error"); setMessage("Demo data could not be prepared. Refresh to retry."); }
+          if (!cancelled) {
+            setState("error");
+            setMessage("Demo data could not be prepared. Refresh to retry.");
+          }
           return;
         }
         sessionStorage.setItem(KEY, "attempted");
@@ -61,15 +77,20 @@ export default function DemoSessionControls() {
       }
     }
     void initialise();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (state === "ready") return null;
 
   return (
-    <div role="status" aria-live="polite" className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm">
+    <div
+      role="status"
+      aria-live="polite"
+      className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+    >
       <span className={state === "error" ? "text-red-700" : "text-slate-700"}>{message}</span>
-
     </div>
   );
 }

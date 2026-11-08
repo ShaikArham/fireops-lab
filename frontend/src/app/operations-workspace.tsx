@@ -75,24 +75,35 @@ export default function OperationsWorkspace() {
     let active = true;
     const refresh = async () => {
       try {
-        const result = await apiRequest<{ batches: Batch[]; settlement_batches: SettlementBatch[] }>("/batches");
+        const result = await apiRequest<{
+          batches: Batch[];
+          settlement_batches: SettlementBatch[];
+        }>("/batches");
         if (!active) return;
         setBatches(result.batches);
         setSettlementBatches(result.settlement_batches);
         if (result.batches.length) {
-          const first = result.batches.find((batch) => batch.batch_id === activeScenario()) ?? result.batches[0];
+          const first =
+            result.batches.find((batch) => batch.batch_id === activeScenario()) ??
+            result.batches[0];
           setSelectedBatch(first.batch_id);
-          const records = await apiRequest<{ payments: PaymentRecord[] }>(`/batches/${encodeURIComponent(first.batch_id)}/payments?limit=25`);
+          const records = await apiRequest<{ payments: PaymentRecord[] }>(
+            `/batches/${encodeURIComponent(first.batch_id)}/payments?limit=25`,
+          );
           if (active) setPayments(records.payments);
         }
       } catch (cause) {
-        if (active) setError(cause instanceof Error ? cause.message : "Could not load payment records.");
+        if (active)
+          setError(cause instanceof Error ? cause.message : "Could not load payment records.");
       }
     };
     void refresh();
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:scenario-changed", refresh);
-    return () => { active = false; window.removeEventListener("fireops:demo-ready", refresh); };
+    return () => {
+      active = false;
+      window.removeEventListener("fireops:demo-ready", refresh);
+    };
   }, []);
 
   const withFeedback = async (action: () => Promise<void>) => {
@@ -150,7 +161,8 @@ export default function OperationsWorkspace() {
           Inspect the preloaded payment records
         </h2>
         <p className="mt-3 leading-7 text-slate-600">
-          Explore a preloaded fictional payment batch. Select another batch to inspect its records and open any payment to review the event history. No file upload is needed.
+          Explore a preloaded fictional payment batch. Select another batch to inspect its records
+          and open any payment to review the event history. No file upload is needed.
         </p>
       </div>
 
@@ -168,14 +180,41 @@ export default function OperationsWorkspace() {
       {API_BASE_URL && (
         <div className="mt-7 grid min-w-0 gap-8">
           <div className="grid min-w-0 gap-3">
-            <label htmlFor="fireops-batch" className="text-sm font-semibold text-slate-800">Choose a fictional payment batch</label>
-            <select id="fireops-batch" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm sm:max-w-lg" value={selectedBatch} disabled={busy || batches.length === 0} onChange={(event) => { const batch = batches.find((item) => item.batch_id === event.target.value); if (batch) { window.localStorage.setItem("fireops-active-scenario", batch.batch_id); window.dispatchEvent(new Event("fireops:scenario-changed")); void loadBatch(batch); } }}>
+            <label htmlFor="fireops-batch" className="text-sm font-semibold text-slate-800">
+              Choose a fictional payment batch
+            </label>
+            <select
+              id="fireops-batch"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm sm:max-w-lg"
+              value={selectedBatch}
+              disabled={busy || batches.length === 0}
+              onChange={(event) => {
+                const batch = batches.find((item) => item.batch_id === event.target.value);
+                if (batch) {
+                  window.localStorage.setItem("fireops-active-scenario", batch.batch_id);
+                  window.dispatchEvent(new Event("fireops:scenario-changed"));
+                  void loadBatch(batch);
+                }
+              }}
+            >
               {batches.length === 0 && <option value="">Preparing payment records…</option>}
-              {batches.map((batch) => <option key={batch.batch_id} value={batch.batch_id}>{batch.batch_id}</option>)}
+              {batches.map((batch) => (
+                <option key={batch.batch_id} value={batch.batch_id}>
+                  {batch.batch_id}
+                </option>
+              ))}
             </select>
-            {batches.find((batch) => batch.batch_id === selectedBatch)?.control_totals.map((total) => (
-              <p key={`${total.currency}-${total.direction}-${total.status}`} className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700"><strong>{total.status}</strong> · {total.direction} · {total.record_count} records · {formatMoney(total.total_minor, total.currency)}</p>
-            ))}
+            {batches
+              .find((batch) => batch.batch_id === selectedBatch)
+              ?.control_totals.map((total) => (
+                <p
+                  key={`${total.currency}-${total.direction}-${total.status}`}
+                  className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700"
+                >
+                  <strong>{total.status}</strong> · {total.direction} · {total.record_count} records
+                  · {formatMoney(total.total_minor, total.currency)}
+                </p>
+              ))}
             <h3 className="mt-2 text-lg font-semibold text-slate-900">Settlement batch controls</h3>
             {settlementBatches.length === 0 ? (
               <p className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
