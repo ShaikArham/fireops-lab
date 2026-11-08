@@ -1,6 +1,6 @@
 # FireOps Lab video transcript draft
 
-The 68-second silent review cut has English descriptive captions. It does not contain spoken audio. This proposed voiceover is for a later human recording and has not been presented as narration already in the MP4.
+The 69-second silent review cut has English descriptive captions. It does not contain spoken audio. This proposed voiceover is for a later human recording and has not been presented as narration already in the MP4.
 
 ## Proposed narration
 

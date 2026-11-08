@@ -1,10 +1,14 @@
 # FireOps Lab full website walkthrough
 
-**Review-cut runtime:** 68.16 seconds at normal 1× speed  
+**Review-cut runtime:** 69.24 seconds at normal 1× speed
+
 **Final narrated target:** 60–90 seconds
+
 **Audience:** Fire Operations Analyst hiring team
+
 **Deliverables:** MP4, WebP thumbnail, VTT captions and written transcript
-**Status:** Silent review cut captured, encoded and visually inspected. The WebP thumbnail and descriptive VTT are prepared. Human narration and speech-aligned captions remain pending.
+
+**Status:** Silent review cut captured, encoded and visually inspected. The matching 1280×720 WebP thumbnail and descriptive VTT are prepared. Human narration and speech-aligned captions remain pending.
 
 ## Narration draft
 
@@ -20,7 +24,7 @@ Use the proposed human narration in [video-transcript-draft.md](video-transcript
 | 32–41s | Case investigation | Open an exception, show assignment, analyst note, resolution reason and audit history. |
 | 41–51s | Transaction monitoring | Show a rule, threshold, evidence, benign explanation and human review. Do not label an alert a confirmed crime or regulatory finding. |
 | 51–59s | Operational insights | Show run-scoped measures and the CSV export control. |
-| 59–68s | Closing and limits | Show the method/limits section. State that the capture API is local and GitHub Pages remains read-only. |
+| 59–69s | Closing and limits | Show the method/limits section. State that the capture API is local and GitHub Pages remains read-only. |
 
 ## Capture setup
 

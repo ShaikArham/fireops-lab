@@ -191,7 +191,7 @@ export default function Home() {
             aria-labelledby="walkthrough-heading"
           >
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-              Full website walkthrough · 68 seconds
+              Full website walkthrough · 69 seconds
             </p>
             <h2 id="walkthrough-heading" className="mt-2 text-2xl font-semibold text-slate-950">
               See the complete synthetic operations journey
