@@ -396,6 +396,7 @@ def cases_queue(
             pattern="^(UNMATCHED_INSTRUCTION|UNMATCHED_SETTLEMENT|AMOUNT_MISMATCH|DUPLICATE_CANDIDATE|AMBIGUOUS_MATCH)$"
         ),
     ] = None,
+    run_id: Annotated[str | None, Query(max_length=36)] = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> dict[str, object]:
@@ -406,6 +407,7 @@ def cases_queue(
         search=search,
         assigned_to=assigned_to,
         classification=classification,
+        run_id=run_id,
         limit=limit,
         offset=offset,
     )
