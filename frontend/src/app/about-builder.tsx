@@ -40,7 +40,7 @@ const career = [
 
 export default function AboutBuilder() {
   return (
-    <div id="about-top" className="about-sections space-y-8 pb-12">
+    <div id="about-top" className="about-sections space-y-5 pb-6">
       <nav
         aria-label="About page sections"
         className="sticky top-0 z-20 -mx-2 flex gap-2 overflow-x-auto rounded-xl border border-slate-200 bg-white/95 p-2 shadow-sm backdrop-blur"
@@ -206,7 +206,7 @@ export default function AboutBuilder() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            FireOPS source ↗
+            View code on GitHub ↗
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
