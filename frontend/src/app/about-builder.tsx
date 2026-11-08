@@ -217,7 +217,6 @@ export default function AboutBuilder() {
             Project portfolio ↗
           </a>
         </div>
-
       </section>
       <div className="flex flex-wrap justify-between gap-3 text-sm font-semibold">
         <a href="#intro" className="text-teal-800 hover:underline">
