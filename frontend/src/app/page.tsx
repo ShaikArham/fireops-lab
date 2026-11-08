@@ -122,6 +122,17 @@ export default function Home() {
           <MonitoringWorkspace />
           <InsightsWorkspace />
 
+          <section aria-label="Builder introduction" className="scroll-reveal rounded-2xl border border-slate-200 bg-gradient-to-br from-slate-950 to-slate-800 p-6 text-white sm:p-9">
+            <div className="grid gap-6 md:grid-cols-[1fr_auto] md:items-center">
+              <div>
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-300">Behind the workspace</p>
+                <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Built by Shaik Arham Saquib</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-200">Business intelligence and application operations experience, combined with postgraduate data analytics. Explore the working operations scenarios first, then see the decisions and engineering behind them.</p>
+              </div>
+              <a href="#method" className="inline-flex min-h-11 items-center justify-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950 transition hover:bg-teal-50">Meet the builder <ArrowRight size={16} aria-hidden="true" /></a>
+            </div>
+          </section>
+
           <section id="method" className="pb-10" aria-labelledby="method-heading">
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
               ABOUT THE BUILDER
