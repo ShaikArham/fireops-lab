@@ -1,9 +1,16 @@
+const DEMO_TOKEN_KEY = "fireops-demo-access-token";
+
+export function demoRequestHeaders(): Record<string, string> {
+  const token = typeof window !== "undefined" ? window.sessionStorage.getItem(DEMO_TOKEN_KEY) : null;
+  return token ? { Authorization: `Bearer ${token}` } : {};
+}
+
 export async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
   let response: Response;
   try {
     response = await fetch(url, {
       ...init,
-      headers: { "X-FireOps-Demo": "1", ...init?.headers },
+      headers: { "X-FireOps-Demo": "1", ...demoRequestHeaders(), ...init?.headers },
       credentials: "same-origin",
       cache: "no-store",
       signal: init?.signal ?? AbortSignal.timeout(30_000),
@@ -30,5 +37,10 @@ export async function requestJson<T>(url: string, init?: RequestInit): Promise<T
   }
   if (payload === null)
     throw new Error("The service returned an unreadable response. Please try again.");
+  if (url.endsWith("/api/v1/demo/session") && init?.method === "POST" &&
+      payload && typeof payload === "object" && "access_token" in payload &&
+      typeof payload.access_token === "string" && typeof window !== "undefined") {
+    window.sessionStorage.setItem(DEMO_TOKEN_KEY, payload.access_token);
+  }
   return payload as T;
 }
