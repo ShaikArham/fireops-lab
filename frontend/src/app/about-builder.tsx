@@ -59,10 +59,9 @@ export default function AboutBuilder() {
       </section>
       <section id="projects" className="about-section rounded-2xl bg-teal-950 p-6 text-white md:p-9">
         <p className="text-xs font-bold uppercase tracking-widest text-teal-300">04 / Selected work</p><h3 className="mt-3 text-2xl font-semibold">Explore the work behind the application.</h3>
-        <p className="mt-3 max-w-2xl leading-7 text-teal-50">FireOPS, LedgerPoint and OpsResolve AI explore operational records, exceptions and decisions from different angles.</p>
+        <p className="mt-3 max-w-2xl leading-7 text-teal-50">Explore my independent FireOPS work and the wider projects featured in my portfolio.</p>
         <div className="mt-6 flex flex-wrap gap-3">
           <a className="inline-flex min-h-11 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950" href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer">FireOPS source ↗</a>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://ledgerpoint-ai.vercel.app" target="_blank" rel="noopener noreferrer">Explore LedgerPoint ↗</a>
           <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">My portfolio ↗</a>
         </div>
       </section>
