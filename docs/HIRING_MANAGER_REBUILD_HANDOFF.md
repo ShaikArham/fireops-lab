@@ -98,3 +98,11 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Backend Vercel project fireops-demo-api id prj_R2g9QxCwmtiuvuv0X6ED8DiZZtOx, rootDirectory=backend, framework=fastapi. Added backend/api/index.py and backend/requirements.txt (commits c6a0038, 63933f7). Configured DATABASE_URL encrypted in preview, FIREOPS_ISOLATED_DEMO=true, FIREOPS_ENV=production. Backend deployment dpl_DwFaabNZu5PxarQJLYkV2gQhvy47 BUILDING at last check; health unverified.
 - Backend Vercel deployment protection enabled. Frontend is not yet connected to backend; same-origin proxy/cookie routing and secure API public-origin/CORS require review. Do not remove protection until security and E2E tests pass.
 - Original production site untouched.
+
+## Run 11: Investigations 404 diagnosis and integration
+- Confirmed backend dpl_DwFaabNZu5PxarQJLYkV2gQhvy47 READY /health 200, but /api/v1/cases returned 503 database unconfigured. Root cause: deployment target production while DB env vars were preview-only.
+- Added DATABASE_URL encrypted and FIREOPS_ISOLATED_DEMO=true/FIREOPS_ENV=production for the separate backend project production target (does not promote existing FireOPS frontend). Added FIREOPS_PUBLIC_ORIGIN restricted to the frontend branch alias.
+- Frontend preview project env FIREOPS_API_PROXY set to https://fireops-demo-api.vercel.app and NEXT_PUBLIC_API_BASE_URL=/backend; frontend next.config.mjs already has rewrite /backend/:path* to backend.
+- Added frontend/src/app/demo-session-controls.tsx with Start demo, Load sample data and Reset my demo; wired into all workspace routes (commits 029bff2, 3b2a555). This allows session creation before case queue, but UI/actual flow not yet verified.
+- New backend project SSO protection disabled for public API (the app's session token and per-visitor isolation remain the access boundary). Backend redeployment dpl_6qAZMsvkM7pvAS5tccvLEyx763FE QUEUED at last check; frontend dpl_HHhwEUtcqEU5JeFCQspwWdMxNcou BUILDING.
+- Critical: latest frontend proxy env update and backend origin env update require NEW redeployments after their respective deployments finish. Verify actual deployment env target, stable aliases, session cookie forwarding, API status, 404 removal, database persistence, two-visitor isolation and desktop/mobile E2E before marking complete. Current E2E not verified.
