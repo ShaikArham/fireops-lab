@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { CommandPalette } from "../components/command-palette";
 
 export const metadata: Metadata = {
   title: "FireOps Lab | Fictional Payment Operations Sandbox",
@@ -22,6 +23,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <CommandPalette />
       </body>
     </html>
   );
