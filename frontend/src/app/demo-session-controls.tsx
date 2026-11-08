@@ -1,96 +1,113 @@
 "use client";
+import { type ReactNode, useEffect, useState } from "react";
+import { prepareDemo, resetDemo } from "../lib/demo-session";
 
-import { useEffect, useState } from "react";
-import { requestJson } from "../lib/api";
-
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
-const KEY = "fireops-demo-autoload-attempt";
-
-export default function DemoSessionControls() {
-  const [state, setState] = useState<"checking" | "loading" | "ready" | "error">("checking");
+export default function DemoSessionControls({
+  children,
+  enabled = true,
+}: {
+  children?: ReactNode;
+  enabled?: boolean;
+}) {
+  const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("Preparing your fictional payment workspace…");
-
+  const [attempt, setAttempt] = useState(0);
+  const [confirmReset, setConfirmReset] = useState(false);
   useEffect(() => {
-    let cancelled = false;
-    async function initialise() {
-      try {
-        // Existing visitor records are never overwritten by automatic loading.
-        await requestJson(`${API}/api/v1/demo/session`);
-        const existing = await requestJson<{ batches: Array<{ batch_id: string }> }>(
-          `${API}/api/v1/batches`,
-        );
-        let needsPreparation = existing.batches.length === 0;
-        if (!needsPreparation) {
-          try {
-            await requestJson(`${API}/api/v1/insights/latest`);
-          } catch {
-            needsPreparation = true;
-          }
-        }
-        if (needsPreparation) {
-          await requestJson(`${API}/api/v1/demo/load`, { method: "POST" });
-          window.dispatchEvent(new Event("fireops:operations-updated"));
-        }
-        sessionStorage.removeItem(KEY);
-        if (!cancelled) {
+    if (!enabled) return;
+    let active = true;
+    setState("loading");
+    void prepareDemo(attempt > 0)
+      .then(() => {
+        if (active) {
           setState("ready");
           setMessage("Your private demo records are ready.");
-          window.dispatchEvent(new Event("fireops:demo-ready"));
         }
-      } catch (error) {
-        const isMissing =
-          error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
-        if (!isMissing) {
-          if (!cancelled) {
-            setState("error");
-            setMessage(error instanceof Error ? error.message : "Unable to connect to demo data.");
-          }
-          return;
+      })
+      .catch((error) => {
+        if (active) {
+          setState("error");
+          setMessage(error instanceof Error ? error.message : "Unable to prepare demo data.");
         }
-        // One automatic seed attempt per browser tab prevents write loops on failures.
-        if (sessionStorage.getItem(KEY) === "attempted") {
-          if (!cancelled) {
-            setState("error");
-            setMessage("Demo data could not be prepared. Refresh to retry.");
-          }
-          return;
-        }
-        sessionStorage.setItem(KEY, "attempted");
-        if (!cancelled) setState("loading");
-        try {
-          await requestJson(`${API}/api/v1/demo/session`, { method: "POST" });
-          await requestJson(`${API}/api/v1/demo/load`, { method: "POST" });
-          sessionStorage.removeItem(KEY);
-          if (!cancelled) {
-            setState("ready");
-            setMessage("Fictional payment records loaded automatically.");
-            window.dispatchEvent(new Event("fireops:operations-updated"));
-            window.dispatchEvent(new Event("fireops:demo-ready"));
-            window.location.reload();
-          }
-        } catch (cause) {
-          if (!cancelled) {
-            setState("error");
-            setMessage(cause instanceof Error ? cause.message : "Unable to prepare demo data.");
-          }
-        }
-      }
-    }
-    void initialise();
+      });
     return () => {
-      cancelled = true;
+      active = false;
     };
-  }, []);
-
-  if (state === "ready") return null;
-
+  }, [attempt, enabled]);
+  async function reset() {
+    setConfirmReset(false);
+    setState("loading");
+    setMessage("Resetting only your fictional workspace…");
+    try {
+      await resetDemo();
+      setState("ready");
+      setMessage("Your demo has been reset.");
+    } catch (error) {
+      setState("error");
+      setMessage(error instanceof Error ? error.message : "Reset failed. Please retry.");
+    }
+  }
+  if (!enabled) return <>{children}</>;
   return (
-    <div
-      role="status"
-      aria-live="polite"
-      className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
-    >
-      <span className={state === "error" ? "text-red-700" : "text-slate-700"}>{message}</span>
-    </div>
+    <>
+      <section
+        aria-label="Your demo workspace"
+        className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+      >
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <p
+            role="status"
+            aria-live="polite"
+            className={state === "error" ? "text-red-800" : "text-slate-600"}
+          >
+            {message}
+          </p>
+          {state === "error" && (
+            <button
+              type="button"
+              onClick={() => setAttempt((n) => n + 1)}
+              className="rounded-lg bg-teal-800 px-4 py-3 font-semibold text-white"
+            >
+              Retry connection
+            </button>
+          )}
+          {state === "ready" && (
+            <button
+              type="button"
+              onClick={() => setConfirmReset(true)}
+              className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold"
+            >
+              Reset My Demo
+            </button>
+          )}
+        </div>
+        {state === "loading" && (
+          <p className="mt-2 text-xs text-slate-500">
+            The free demo service may take a minute to wake up. Your actions never move real money.
+          </p>
+        )}
+        {confirmReset && (
+          <div className="mt-3 border-t border-slate-200 pt-3">
+            <p>
+              Replace your cases, notes and records with the original fictional scenarios? Other
+              visitors are unaffected.
+            </p>
+            <div className="mt-2 flex gap-3">
+              <button
+                type="button"
+                onClick={() => void reset()}
+                className="rounded-lg bg-red-800 px-4 py-3 text-white"
+              >
+                Reset my records
+              </button>
+              <button type="button" onClick={() => setConfirmReset(false)} className="px-4 py-3">
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
+      </section>
+      {state === "ready" ? children : <div className="min-h-64" aria-busy={state === "loading"} />}
+    </>
   );
 }

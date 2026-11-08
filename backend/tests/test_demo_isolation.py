@@ -144,25 +144,16 @@ def test_explicit_trusted_preview_origins(isolated_clients, monkeypatch):
     ).status_code == 403
 
 
-def test_account_scoped_vercel_preview_hosts(isolated_clients, monkeypatch):
+def test_unlisted_preview_hosts_are_rejected(isolated_clients, monkeypatch):
     a, _ = isolated_clients
     monkeypatch.setenv("FIREOPS_PUBLIC_ORIGIN", "https://fireops-workspace-preview-stable.example")
-    allowed = a.post(
-        "/api/v1/demo/session",
-        headers={"Origin": "https://fireops-workspace-preview-1fvir92a8.vercel.app"},
-    )
-    assert allowed.status_code == 200, allowed.text
-    allowed_account = a.post(
-        "/api/v1/demo/load",
-        headers={"Origin": "https://fireops-workspace-preview-1fvir92a8-shaikarhamsaquib1188113-7684.vercel.app"},
-    )
-    assert allowed_account.status_code == 200, allowed_account.text
     for origin in (
-        "https://fireops-workspace-preview-1fvir92a8.evil.example",
+        "https://fireops-workspace-preview-1fvir92a8.vercel.app",
+        "https://fireops-workspace-preview-1fvir92a8-shaikarhamsaquib1188113-7684.vercel.app",
         "https://fireops-workspace-preview-other-team.vercel.app",
         "https://attacker.vercel.app",
     ):
-        blocked = a.post("/api/v1/demo/reset", headers={"Origin": origin})
+        blocked = a.post("/api/v1/demo/session", headers={"Origin": origin})
         assert blocked.status_code == 403, origin
 
 

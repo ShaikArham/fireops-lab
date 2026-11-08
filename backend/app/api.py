@@ -218,12 +218,14 @@ def list_batch_payments(
     batch_id: str,
     session: Annotated[Session, Depends(get_session)],
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    offset: Annotated[int, Query(ge=0)] = 0,
 ) -> dict[str, Any]:
     payments = session.scalars(
         select(PaymentInstruction)
         .where(PaymentInstruction.batch_id == batch_id)
         .order_by(PaymentInstruction.payment_id)
         .limit(limit)
+        .offset(offset)
     )
     records = [
         {
@@ -236,7 +238,18 @@ def list_batch_payments(
         }
         for payment in payments
     ]
-    return {"batch_id": batch_id, "payments": records, "limit": limit}
+    total = session.scalar(
+        select(func.count())
+        .select_from(PaymentInstruction)
+        .where(PaymentInstruction.batch_id == batch_id)
+    )
+    return {
+        "batch_id": batch_id,
+        "payments": records,
+        "limit": limit,
+        "offset": offset,
+        "total": total,
+    }
 
 
 @router.post("/batches/{batch_id}/simulate", response_model=SimulateBatchResponse)

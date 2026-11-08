@@ -1,5 +1,13 @@
 import { expect, test } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  await page.route("https://api.fireops.test/api/v1/demo/**", (route) =>
+    route.fulfill({
+      json: { status: "ready", scenarios: [{ reconciliation_run_id: "layout-fixture" }] },
+    }),
+  );
+});
+
 const sections = [
   "overview",
   "payments",

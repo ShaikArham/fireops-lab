@@ -8,6 +8,7 @@ export default defineConfig({
     baseURL: "http://127.0.0.1:3000",
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
+    video: "on",
   },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
@@ -24,6 +25,7 @@ export default defineConfig({
         FIREOPS_ENV: "development",
         FIREOPS_ISOLATED_DEMO: "true",
         FIREOPS_PUBLIC_ORIGIN: "http://127.0.0.1:3000",
+        FIREOPS_CORS_ORIGINS: "http://127.0.0.1:3000",
       },
     },
     {
@@ -32,8 +34,8 @@ export default defineConfig({
       timeout: 120_000,
       env: {
         ...process.env,
-        FIREOPS_API_PROXY: "http://127.0.0.1:8000",
-        NEXT_PUBLIC_API_BASE_URL: "/backend",
+
+        NEXT_PUBLIC_API_BASE_URL: "http://127.0.0.1:8000",
       },
     },
   ],
