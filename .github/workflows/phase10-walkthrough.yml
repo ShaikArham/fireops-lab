@@ -86,7 +86,7 @@ jobs:
       - name: Start the frontend
         run: |
           npm run build
-          nohup npm run start -- --hostname 127.0.0.1 > ../video/output/fireops-frontend.log 2>&1 &
+          nohup python -m http.server 3000 --bind 127.0.0.1 --directory out > ../video/output/fireops-frontend.log 2>&1 &
           node --input-type=module -e '
             for (let i = 0; i < 60; i++) {
               try {
