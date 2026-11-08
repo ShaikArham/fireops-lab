@@ -11,14 +11,13 @@ const strengths = [
 const career = [
   { dates: "FEB 2023 – JUL 2025", role: "Business Intelligence Developer", place: "Hitachi Digital Services", detail: "Oracle BI, SQL and PL/SQL, ETL monitoring, validation and production reporting support." },
   { dates: "SEP 2025 – AUG 2026", role: "MSc Computing (Data Analytics)", place: "Dublin City University", detail: "Data management, analytics, machine learning and evidence-based research." },
-  { dates: "MAY 2026 – PRESENT", role: "Security & Reception Officer", place: "SOS Group · Corporate assignment in Dublin", detail: "Visitor coordination, incident logs, access control and professional communication." },
 ];
 
 export default function AboutBuilder() {
   return (
     <div id="about-top" className="about-sections space-y-8 pb-12">
       <nav aria-label="About page sections" className="sticky top-0 z-20 -mx-2 flex gap-2 overflow-x-auto rounded-xl border border-slate-200 bg-white/95 p-2 shadow-sm backdrop-blur">
-        {[["intro","Introduction"],["approach","My approach"],["strengths","Strengths"],["background","Background"],["projects","Portfolio"],["application","CV & application"]].map(([id,label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-teal-50 focus-visible:bg-teal-50">{label}</a>)}
+        {[["intro","Introduction"],["approach","My approach"],["strengths","Strengths"],["background","Background"],["projects","Projects & application"]].map(([id,label]) => <a key={id} href={`#${id}`} className="shrink-0 rounded-lg px-3 py-2 text-xs font-semibold text-slate-700 hover:bg-teal-50 focus-visible:bg-teal-50">{label}</a>)}
       </nav>
       <section id="intro" className="about-section overflow-hidden rounded-3xl bg-slate-950 text-white">
         <div className="grid gap-8 p-7 sm:p-10 lg:grid-cols-[1.5fr_1fr] lg:gap-12">
@@ -57,21 +56,21 @@ export default function AboutBuilder() {
         <p className="text-xs font-bold uppercase tracking-widest text-teal-800">03 / Background</p><h3 className="mt-3 text-2xl font-semibold">Experience & education</h3>
         <div className="mt-6 space-y-5">{career.map(item=><article key={item.dates} className="grid gap-2 border-l-2 border-teal-700 pl-5 md:grid-cols-[12rem_1fr]"><p className="text-xs font-bold tracking-wide text-slate-500">{item.dates}</p><div><h4 className="font-semibold">{item.role}</h4><p className="text-sm font-medium text-teal-800">{item.place}</p><p className="mt-2 text-sm leading-6 text-slate-600">{item.detail}</p></div></article>)}</div>
       </section>
-      <section id="projects" className="about-section rounded-2xl bg-teal-950 p-6 text-white md:p-9">
-        <p className="text-xs font-bold uppercase tracking-widest text-teal-300">04 / Selected work</p><h3 className="mt-3 text-2xl font-semibold">Explore the work behind the application.</h3>
-        <p className="mt-3 max-w-2xl leading-7 text-teal-50">Explore my independent FireOPS work and the wider projects featured in my portfolio.</p>
+      <section id="projects" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
+        <p className="text-xs font-bold uppercase tracking-widest text-teal-800">04 / Projects & application</p>
+        <h3 className="mt-3 text-2xl font-semibold">Explore the work behind my application</h3>
+        <p className="mt-3 max-w-3xl leading-7 text-slate-600">FireOPS is an independent, fictional payment operations project built to demonstrate my approach to validation, reconciliation, monitoring and investigation. My wider portfolio includes other analytical and operational work.</p>
         <div className="mt-6 flex flex-wrap gap-3">
-          <a className="inline-flex min-h-11 items-center rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950" href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer">FireOPS source ↗</a>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-teal-300 px-5 py-3 text-sm font-semibold text-white" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">My portfolio ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg bg-teal-900 px-5 py-3 text-sm font-semibold text-white" href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer">FireOPS source ↗</a>
+          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">Project portfolio ↗</a>
         </div>
-      </section>
-      <section id="application" className="about-section rounded-2xl border border-slate-200 bg-white p-6 md:p-9">
-        <p className="text-xs font-bold uppercase tracking-widest text-teal-800">05 / CV & application</p><h3 className="mt-3 text-2xl font-semibold">More about my experience</h3>
-        <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
-        <div className="mt-5 flex flex-wrap gap-3">
-          <span aria-disabled="true" className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600">View CV · Coming soon</span>
-          <a className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer">View portfolio ↗</a>
-          <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
+        <div id="application" className="mt-8 border-t border-slate-200 pt-7">
+          <h4 className="text-xl font-semibold">CV & application</h4>
+          <p className="mt-3 max-w-2xl leading-7 text-slate-600">My role-tailored CV will be attached after the final review. I have not linked an unverified or outdated document.</p>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <span aria-disabled="true" className="inline-flex min-h-11 cursor-not-allowed items-center rounded-lg bg-slate-200 px-5 py-3 text-sm font-semibold text-slate-600">View CV · Coming soon</span>
+            <Link className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900" href="/workspace/overview">Return to demo</Link>
+          </div>
         </div>
       </section>
       <div className="flex flex-wrap justify-between gap-3 text-sm font-semibold"><a href="#intro" className="text-teal-800 hover:underline">↑ Back to introduction</a><a href="#thank-you" className="text-teal-800 hover:underline">Next: personal note ↓</a></div>
