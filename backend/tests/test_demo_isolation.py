@@ -121,3 +121,24 @@ def test_rate_limit_and_expiry(isolated_clients):
     with database_engine().begin() as conn:
         conn.execute(sessions.update().where(sessions.c.token_hash == digest).values(expires_at=0))
     assert a.get("/api/v1/batches").status_code == 401
+
+
+def test_explicit_trusted_preview_origins(isolated_clients, monkeypatch):
+    a, _ = isolated_clients
+    trusted = "https://fireops-workspace-preview.example,https://fireops-workspace-stable.example"
+    monkeypatch.setenv("FIREOPS_PUBLIC_ORIGIN", trusted)
+    blocked = a.post("/api/v1/demo/session", headers={"Origin": "https://evil.example"})
+    assert blocked.status_code == 403
+    allowed = a.post(
+        "/api/v1/demo/session",
+        headers={"Origin": "https://fireops-workspace-preview.example"},
+    )
+    assert allowed.status_code == 200, allowed.text
+    assert a.post(
+        "/api/v1/demo/load",
+        headers={"Origin": "https://fireops-workspace-stable.example"},
+    ).status_code == 200
+    assert a.post(
+        "/api/v1/demo/reset",
+        headers={"Origin": "https://evil.example"},
+    ).status_code == 403
