@@ -14,13 +14,13 @@ export async function requestJson<T>(url: string, init?: RequestInit): Promise<T
       headers: { "X-FireOps-Demo": "1", ...demoRequestHeaders(), ...init?.headers },
       credentials: "same-origin",
       cache: "no-store",
-      signal: init?.signal ?? AbortSignal.timeout(30_000),
+      signal: init?.signal ?? AbortSignal.timeout(90_000),
     });
   } catch (error) {
     if (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError")) {
       throw new Error("The request timed out. Refresh the records before retrying a write action.");
     }
-    throw new Error("Could not reach the demo service. Check your connection and try again.");
+    throw new Error("The demo service is unavailable or blocked by the browser. It may be waking up after inactivity. Please retry in a minute.");
   }
   const payload: unknown = await response.json().catch(() => null);
   if (!response.ok) {
