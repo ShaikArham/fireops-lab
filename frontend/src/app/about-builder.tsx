@@ -37,13 +37,6 @@ const career = [
       "Oracle ERP/EBS R12 and business intelligence operations, ETL monitoring, data integrity checks, troubleshooting and documentation.",
   },
   {
-    dates: "MAY 2026 – PRESENT",
-    role: "Security & Reception Officer",
-    place: "SOS Group",
-    detail:
-      "Corporate reception, access control, incident documentation and coordination with facilities, IT and building management.",
-  },
-  {
     dates: "SEP 2025 – AUG 2026",
     role: "MSc Computing (Data Analytics)",
     place: "Dublin City University",
@@ -96,10 +89,10 @@ export default function AboutBuilder() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="View Shaik Arham portfolio"
-                className="block w-40 shrink-0 overflow-hidden rounded-xl border border-teal-400/40 bg-slate-900 p-2 shadow-lg shadow-teal-500/20 sm:w-52"
+                className="block w-52 shrink-0 overflow-hidden rounded-xl bg-transparent sm:w-64"
               >
                 <img
-                  src="https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp"
+                  src="https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-build.webp"
                   alt="Shaik Arham portfolio illustration with laptop"
                   className="h-auto w-full object-contain"
                 />
