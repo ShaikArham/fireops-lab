@@ -65,3 +65,10 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Commit 937bd1a: investigations route now uses CaseWorkspace as dedicated queue instead of embedding entire reconciliation workspace. The queue is backend-dependent; it is not functional in deployed preview without API.
 - Browser interaction and real-device mobile tests remain unverified. Route HTTP 200 is not a browser E2E test.
 - Additional priority audit tasks: ensure no public writable shared database; import size limits and CSV formula injection checks; deterministic idempotency; currency minor-unit accuracy; mismatch denominators; pagination for cases; API error handling; loading/empty states; accessible navigation and reduced motion; route-aware active state; performance budget; Playwright desktop/mobile smoke tests; resettable synthetic demo; audit event integrity; no false AML claims; CV links only when provided.
+
+## Run 6: verification and deployment blockers
+- dpl_4WDBvHMtWgHkMUZGCr5SHcz9hqS4 READY; /workspace/investigations HTTP 200.
+- Vercel project environment variable metadata inspection returned envs=[]; no configured API base URL or database connection available for frontend deployment.
+- Therefore FastAPI + PostgreSQL public integration and persistent downstream metrics cannot truthfully be marked complete. Backend intentionally blocks nonlocal writes (see Run 5). Need isolated database, API deployment and safe write/session strategy before integration.
+- Commit d3e372c adds frontend/e2e/workspace-navigation.spec.ts covering seven route renders, desktop navigation, mobile navigation/overflow, About disclosures. Tests are authored but have NOT yet run in browser; do not claim E2E pass.
+- Browser route GET checks are not a substitute for full interaction testing.
