@@ -12,7 +12,6 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy import Column, Integer, MetaData, String, Table, delete, func, select, text
 from sqlalchemy.orm import Session
 
-
 from app.db.base import Base
 from app.db.session import database_engine, get_session
 from app.models import ExceptionCase, ReconciliationResult, ReconciliationRun
@@ -97,7 +96,9 @@ def require_browser_write(request: Request) -> None:
         raise HTTPException(403, "Missing demo request header.")
     origin = request.headers.get("origin")
     configured = os.getenv("FIREOPS_PUBLIC_ORIGIN", "")
-    allowed_origins = {value.strip().rstrip("/") for value in configured.split(",") if value.strip()}
+    allowed_origins = {
+        value.strip().rstrip("/") for value in configured.split(",") if value.strip()
+    }
     if not allowed_origins:
         allowed_origins = {f"{request.url.scheme}://{request.url.netloc}"}
     # Vercel gives every deployment a new hostname. Accept only deployment aliases
@@ -222,7 +223,10 @@ def load_demo(session: Annotated[Session, Depends(get_session)]) -> dict[str, ob
             ReconciliationResult.classification.notin_(("MATCHED_EXACT", "MATCHED_LATE")),
         ).order_by(ReconciliationResult.result_id).limit(8)).all()
         for exception in exceptions:
-            if not session.scalar(select(ExceptionCase).where(ExceptionCase.result_id == exception.result_id)):
+            existing_case = session.scalar(
+                select(ExceptionCase).where(ExceptionCase.result_id == exception.result_id)
+            )
+            if existing_case is None:
                 create_case(session, exception.result_id, "system:demo-seed", "NORMAL")
         session.commit()
         run_monitoring(session, payment_batch, "system:demo-seed")
