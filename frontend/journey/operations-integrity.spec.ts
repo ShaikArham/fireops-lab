@@ -25,7 +25,9 @@ test("both saved scenarios keep their own reconciliation, insights, cases and CS
     expect(csv.headers()["content-type"]).toContain("text/csv");
     const text = await csv.text();
     expect(text.length).toBeGreaterThan(50);
-    expect(text).toContain(scenario.payment_batch_id);
+    expect(text).toContain(`reconciliation_run,${scenario.reconciliation_run_id},`);
+    expect(text).toContain(`metric,payment_count,${report.metrics.payment_count},`);
+    expect(text).toContain(`metric,exception_result_count,${report.metrics.exception_result_count},`);
     const queue = await page.request.get(`${api}/cases?run_id=${scenario.reconciliation_run_id}`);
     expect(queue.status()).toBe(200);
     const cases = (await queue.json()).cases as Array<{ case_id: string; run_id: string }>;
@@ -49,7 +51,7 @@ test("assignment, notes, escalation, resolution and audit events persist", async
   expect(target).toBeDefined();
   const url = `${api}/cases/${target!.case_id}`;
   const post = async (suffix: string, body: object) => {
-    const response = await page.request.post(url + suffix, { data: body });
+    const response = await page.request.post(url + suffix, { data: { actor: "qa.analyst", ...body }, headers: { "x-fireops-demo": "1" } });
     expect(response.status(), await response.text()).toBe(200);
     return response.json();
   };
