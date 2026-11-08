@@ -33,9 +33,6 @@ const sections = [
   },
 ];
 export default function CVPage() {
-  return () => window.clearTimeout(handle);
-    }
-  }, []);
   return (
     <main className="mx-auto max-w-4xl bg-white px-6 py-10 text-slate-900 print:max-w-none print:p-0">
       <div className="mb-8 flex flex-wrap gap-3 print:hidden">
