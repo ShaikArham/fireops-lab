@@ -90,3 +90,11 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Commits 9fd56a5 and a0a4e7e: Insights refreshes on window focus, explicit Refresh live metrics button and fireops:operations-updated event. Operations emits that event after successful import and simulation.
 - This only refreshes persisted metrics when the API is configured and operational. It does not create a database or a public backend.
 - Need user-approved Postgres integration or existing database URL in secret environment; no credentials in repo or chat. Public writes must be isolated and controlled.
+
+## Run 10: resumed after Work limit, database and backend provisioning
+- Latest Work commit fdb458bc466bfe26c755c119289795ab01c8452e adds isolated PostgreSQL demo sessions and audit fixes. Work reported 94 backend and five frontend unit tests passing and four isolation tests passing; independently verify CI.
+- Neon project fireops-isolated-demo id lingering-darkness-61534639 created in aws-eu-west-2. Created public.fireops_demo_sessions registry table with quoted "window" identifier. Do not commit or print DB credentials.
+- New Vercel frontend project fireops-workspace-preview id prj_Ncx7uDrIfQahDrnWrPIH6py2eeWl corrected to rootDirectory=frontend, framework=nextjs, Node 24. Deployment dpl_8b8WaRxZwhhL33zcjS7A3NUQ7wav READY at https://fireops-workspace-preview-oor8ld5au.vercel.app (not yet end-to-end verified).
+- Backend Vercel project fireops-demo-api id prj_R2g9QxCwmtiuvuv0X6ED8DiZZtOx, rootDirectory=backend, framework=fastapi. Added backend/api/index.py and backend/requirements.txt (commits c6a0038, 63933f7). Configured DATABASE_URL encrypted in preview, FIREOPS_ISOLATED_DEMO=true, FIREOPS_ENV=production. Backend deployment dpl_DwFaabNZu5PxarQJLYkV2gQhvy47 BUILDING at last check; health unverified.
+- Backend Vercel deployment protection enabled. Frontend is not yet connected to backend; same-origin proxy/cookie routing and secure API public-origin/CORS require review. Do not remove protection until security and E2E tests pass.
+- Original production site untouched.
