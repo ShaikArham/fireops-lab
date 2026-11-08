@@ -23,11 +23,25 @@ const strengths = [
 
 const career = [
   {
-    dates: "FEB 2023 – JUL 2025",
-    role: "Business Intelligence Developer",
+    dates: "MAR 2024 – JUL 2025",
+    role: "Data Analyst",
     place: "Hitachi Digital Services",
     detail:
-      "Oracle BI, SQL and PL/SQL, ETL monitoring, validation and production reporting support.",
+      "Oracle ODI and BI production monitoring, SQL and PL/SQL reconciliation, root-cause investigation, data validation and operational reporting.",
+  },
+  {
+    dates: "FEB 2023 – MAR 2024",
+    role: "ERP & Business Intelligence Analyst",
+    place: "Hitachi Digital Services",
+    detail:
+      "Oracle ERP/EBS R12 and business intelligence operations, ETL monitoring, data integrity checks, troubleshooting and documentation.",
+  },
+  {
+    dates: "MAY 2026 – PRESENT",
+    role: "Security & Reception Officer",
+    place: "SOS Group",
+    detail:
+      "Corporate reception, access control, incident documentation and coordination with facilities, IT and building management.",
   },
   {
     dates: "SEP 2025 – AUG 2026",
@@ -76,8 +90,8 @@ export default function AboutBuilder() {
               A personal, independent work sample exploring payment operations, reconciliation and
               evidence-based investigation for an Operations Analyst opportunity at fire.com.
             </p>
-            <div className="mt-7 flex items-center gap-4">
-              <a href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer" aria-label="View Shaik Arham portfolio" className="relative flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-teal-300 via-cyan-500 to-indigo-500 p-1 shadow-lg shadow-teal-500/20"><span role="img" aria-label="Shaik Arham portfolio avatar" className="h-full w-full rounded-full bg-slate-900 bg-cover bg-center" style={{ backgroundImage: "url(https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp)" }} /></a>
+            <div className="mt-7 flex flex-wrap items-center gap-5">
+              <a href="https://shaikarham.github.io/arham-portfolio/" target="_blank" rel="noopener noreferrer" aria-label="View Shaik Arham portfolio" className="block w-40 shrink-0 overflow-hidden rounded-xl border border-teal-400/40 bg-slate-900 p-2 shadow-lg shadow-teal-500/20 sm:w-52"><img src="https://raw.githubusercontent.com/ShaikArham/arham-portfolio/main/assets/arham-avatar.webp" alt="Shaik Arham portfolio illustration with laptop" className="h-auto w-full object-contain" /></a>
               <div>
                 <p className="font-semibold">Shaik Arham</p>
                 <p className="text-sm text-slate-300">
