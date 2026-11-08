@@ -73,7 +73,7 @@ export default function JourneyNavigation({ section }: { section: string }) {
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
     };
-  }, [next, previous, router, section]);
+  }, [next, previous, router]);
 
   return (
     <nav
