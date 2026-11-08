@@ -16,6 +16,7 @@ import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
 import ApiConnectionStatus from "../../api-connection-status";
 import DemoSessionControls from "../../demo-session-controls";
+import AboutBuilder from "../../about-builder";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -186,58 +187,8 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         )}
         {current === "monitoring" && <MonitoringWorkspace />}
         {current === "insights" && <InsightsWorkspace />}
-        {current === "about" && (
-          <div className="max-w-3xl space-y-5 rounded-xl border border-slate-200 bg-white p-7">
-            <h2 className="text-2xl font-semibold">Shaik Arham Saquib</h2>
-            <p className="leading-7 text-slate-700">
-              I have 2.5+ years of business intelligence and application operations experience at
-              Hitachi Digital Services, working with SQL, ETL monitoring, data validation,
-              reporting, incident investigation and operational handovers. I completed an MSc in
-              Computing (Data Analytics) at Dublin City University.
-            </p>
-            <p className="leading-7 text-slate-700">
-              I developed FireOPS Lab to demonstrate careful, evidence-based reasoning about payment
-              and settlement operations. The system uses fictional records and is not connected to
-              Fire Financial Services Limited or any banking network. It does not represent
-              professional fraud or AML investigation experience.
-            </p>
-            <h3 className="text-xl font-semibold">
-              Why I built this for the Operations Analyst role
-            </h3>
-            <p className="leading-7 text-slate-700">
-              I’m interested in the work between a payment instruction and reliable settlement:
-              checking the evidence, explaining an exception and leaving a clear handover. My
-              experience monitoring ETL jobs, validating SQL results and investigating reporting
-              failures gives me a practical foundation for learning payment operations at Fire.
-            </p>
-            <h3 className="text-xl font-semibold">How the project works</h3>
-            <p className="leading-7 text-slate-700">
-              The Next.js workspace calls a FastAPI service. PostgreSQL keeps source records,
-              reconciliation results, cases and their activity histories. Amounts use integer minor
-              units, imports use checksums, and monitoring rules show their evidence and possible
-              benign explanations. Each visitor works in a separate, temporary synthetic workspace.
-            </p>
-            <h3 className="text-xl font-semibold">What I find interesting</h3>
-            <p className="leading-7 text-slate-700">
-              A mismatch is a reason to investigate, not a conclusion. I designed the workflow
-              around that distinction: preserve the source records, make the matching rule visible,
-              record the analyst’s reasoning and escalate when another review is needed. Automated
-              checks support judgment without pretending to replace it.
-            </p>
-            <p className="text-sm leading-6 text-slate-600">
-              This demonstrates a learning project, not production banking experience, a regulatory
-              compliance certification or an automated fraud verdict.
-            </p>
-            <a
-              href="https://github.com/ShaikArham/fireops-lab"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex rounded-lg bg-slate-950 px-5 py-3 text-sm font-semibold text-white"
-            >
-              Inspect implementation on GitHub ↗
-            </a>
-          </div>
-        )}
+        {current === "about" && <AboutBuilder />}
+
       </main>
     </div>
   );
