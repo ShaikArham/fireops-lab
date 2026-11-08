@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { ArrowRight, ArrowUpRight, CheckCircle2, Code2, CreditCard, FileSearch, ShieldCheck, X } from "lucide-react";
+import { ArrowRight, ArrowUpRight, CheckCircle2, Code2, CreditCard, FileSearch, ShieldCheck } from "lucide-react";
 
 const stages = [
   { index: "01", eyebrow: "PROCESS", title: "A payment enters the system.", description: "Follow a fictional payment batch through processing and toward settlement.", icon: CreditCard, color: "bg-[#548cff]" },
@@ -33,7 +33,7 @@ export default function Home() {
           </div>
         </nav>
       </header>
-      <section className="relative isolate mx-auto grid min-h-[min(760px,88svh)] max-w-7xl items-center gap-10 overflow-hidden px-5 py-16 sm:px-10 md:grid-cols-[1.1fr_.9fr] md:py-24">
+      <section className="fireops-cinematic-hero relative isolate mx-auto grid min-h-[min(760px,88svh)] max-w-7xl items-center gap-10 overflow-hidden px-5 py-16 sm:px-10 md:grid-cols-[1.1fr_.9fr] md:py-24">
         <div className="relative z-10 motion-safe:animate-[fireops-enter_700ms_cubic-bezier(.22,1,.36,1)_both]">
           <p className="mb-6 inline-flex items-center gap-2 rounded-full border border-[#dce6ff] bg-[#f0f5ff] px-4 py-2 text-xs font-semibold uppercase tracking-[.13em] text-[#2458b9]"><span className="h-2 w-2 rounded-full bg-[#548cff]"/> Independent operations simulation</p>
           <h1 className="max-w-3xl text-[clamp(3.25rem,6.7vw,6.8rem)] font-semibold leading-[.99] tracking-[-.07em]">When payments <span className="text-[#548cff]">don't match.</span></h1>
@@ -44,15 +44,15 @@ export default function Home() {
           </div>
           <p className="mt-6 text-xs text-neutral-500">Fictional records only · Not affiliated with fire.com</p>
         </div>
-        <div className="relative flex min-h-[330px] items-center justify-center sm:min-h-[460px]" aria-label="Illustrative payment exception visual">
+        <div className="fireops-hero-stage relative flex min-h-[330px] items-center justify-center sm:min-h-[460px]" aria-label="Illustrative payment exception visual">
           <div aria-hidden="true" className="absolute inset-0 rounded-[2rem] bg-[radial-gradient(circle_at_60%_45%,#c8dcff_0%,#edf4ff_38%,transparent_72%)]"/>
-          <div className="relative w-full max-w-md rounded-[1.7rem] border border-[#dce5f4] bg-white/95 p-5 shadow-[0_32px_90px_rgba(48,85,143,.15)] motion-safe:animate-[fireops-float_7s_ease-in-out_infinite] sm:p-7">
+          <div className="fireops-hero-payment-card relative w-full max-w-md rounded-[1.7rem] border border-[#dce5f4] bg-white/95 p-5 shadow-[0_32px_90px_rgba(48,85,143,.15)] motion-safe:animate-[fireops-float_7s_ease-in-out_infinite] sm:p-7">
             <div className="flex items-center justify-between border-b border-[#e9edf4] pb-5"><span className="text-xs font-bold tracking-[.15em] text-[#68788f]">PAYMENT FLOW / DEMO</span><span className="rounded-full bg-[#fff3df] px-3 py-1 text-xs font-semibold text-[#986117]">Exception detected</span></div>
             <div className="mt-7 flex items-center justify-between gap-2">
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#eaf1ff] text-[#548cff]"><CreditCard size={26}/></div>
-              <div className="h-[2px] flex-1 bg-gradient-to-r from-[#548cff] to-[#f5b65a]"/>
+              <div className="fireops-flow-track h-[2px] flex-1 bg-gradient-to-r from-[#548cff] to-[#f5b65a]"/>
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#fff3df] text-[#a56c19]"><FileSearch size={26}/></div>
-              <div className="h-[2px] flex-1 bg-gradient-to-r from-[#f5b65a] to-[#64cbbd]"/>
+              <div className="fireops-flow-track h-[2px] flex-1 bg-gradient-to-r from-[#f5b65a] to-[#64cbbd]"/>
               <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-[#e5f7f4] text-[#198e80]"><ShieldCheck size={26}/></div>
             </div>
             <div className="mt-8 grid grid-cols-2 gap-3">
@@ -63,6 +63,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <div aria-hidden="true" className="fireops-hero-bridge h-16 bg-gradient-to-b from-white to-[#f6f8fc] sm:h-24" />
       <section id="journey" className="border-t border-black/10 bg-[#f6f8fc] px-5 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto max-w-6xl">
           <p className="text-xs font-bold uppercase tracking-[.2em] text-[#376fdf]">The operational journey</p>
@@ -89,7 +90,7 @@ export default function Home() {
         <div><p className="text-lg leading-8 text-[#4d5562]">An independent portfolio project informed by experience in business intelligence, SQL, data validation and production support. FireOPS Lab explores how evidence-led thinking applies to payment operations.</p><a href="https://github.com/ShaikArham/fireops-lab" target="_blank" rel="noopener noreferrer" className="mt-7 inline-flex min-h-11 items-center gap-2 font-semibold text-[#2458b9] underline underline-offset-4"><Code2 size={18}/> View source on GitHub <ArrowUpRight size={16}/></a></div>
       </section>
       <footer className="border-t border-black/10 px-5 py-7 text-sm text-[#647083] sm:px-10"><div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-3"><span>© FireOPS Lab · Independent project · Fictional data only</span><Link href="/workspace/overview" className="font-semibold text-[#2458b9]">Enter workspace <ArrowRight size={15} className="inline"/></Link></div></footer>
-      <style jsx global>{`@keyframes fireops-enter {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}} @keyframes fireops-float {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}} @supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) { .fireops-scroll-card { animation: fireops-card-reveal linear both; animation-timeline:view(); animation-range:entry 0% entry 75%; } } } @keyframes fireops-card-reveal {from{opacity:.8;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}} @media (prefers-reduced-motion:reduce){.fireops-scroll-card{animation:none!important;transform:none!important}}`}</style>
+      <style jsx global>{`@keyframes fireops-enter {from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}} @keyframes fireops-flow {from{background-position:100% 50%}to{background-position:0% 50%}} .fireops-flow-track{background-size:200% 100%;animation:fireops-flow 4s linear infinite} @keyframes fireops-float {0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}} @supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) { .fireops-hero-payment-card {animation:fireops-hero-zoom linear both;animation-timeline:view();animation-range:cover 5% cover 95%} } } @keyframes fireops-hero-zoom {0%{transform:translateY(8px) scale(.94);opacity:.8}45%{transform:translateY(0) scale(1);opacity:1}100%{transform:translateY(-16px) scale(1.045);opacity:1}} @supports (animation-timeline: view()) { @media (prefers-reduced-motion: no-preference) { .fireops-scroll-card { animation: fireops-card-reveal linear both; animation-timeline:view(); animation-range:entry 0% entry 75%; } } } @keyframes fireops-card-reveal {from{opacity:.8;transform:translateY(18px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}} @media (prefers-reduced-motion:reduce){.fireops-scroll-card,.fireops-hero-payment-card,.fireops-flow-track{animation:none!important;transform:none!important}}`}</style>
     </main>
   );
 }
