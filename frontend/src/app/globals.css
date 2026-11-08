@@ -156,3 +156,32 @@ html {
     transform: translateY(0);
   }
 }
+
+/* Shared workspace interaction and small-screen resilience. */
+:where(a, button, input, select, textarea, summary):focus-visible {
+  outline: 3px solid #0f766e;
+  outline-offset: 3px;
+}
+#main-content, #main-content > *, #main-content section {
+  min-width: 0;
+}
+#main-content table {
+  max-width: 100%;
+}
+@media (max-width: 359px) {
+  #main-content {
+    padding-inline: 0.75rem;
+  }
+  #main-content :where(h1, h2, h3) {
+    overflow-wrap: anywhere;
+  }
+  #main-content :where(button, select) {
+    max-width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal, .fireops-landing-hero > div:first-child {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
