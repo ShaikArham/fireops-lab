@@ -72,3 +72,9 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Therefore FastAPI + PostgreSQL public integration and persistent downstream metrics cannot truthfully be marked complete. Backend intentionally blocks nonlocal writes (see Run 5). Need isolated database, API deployment and safe write/session strategy before integration.
 - Commit d3e372c adds frontend/e2e/workspace-navigation.spec.ts covering seven route renders, desktop navigation, mobile navigation/overflow, About disclosures. Tests are authored but have NOT yet run in browser; do not claim E2E pass.
 - Browser route GET checks are not a substitute for full interaction testing.
+
+## Run 7: operational connection transparency
+- Prior Vercel deployment dpl_5cteQSwQX2jWKpPjJUzXmvznX8Nd READY.
+- Commit cb125565 adds API health status client component; commit dedb608 integrates status on every workspace. Status checks /health when NEXT_PUBLIC_API_BASE_URL exists, and explicitly says unconfigured/sample views otherwise. Health online does NOT prove writes or DB persistence.
+- API/database integration, downstream metrics, and browser E2E still pending; do not mark complete.
+- Next: secure isolated backend deployment and DB provisioning, then actual integration tests.
