@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Phase 9 verified merge:** `48986c68edca884ff426ad083a16f2e3d61f4d1b` (PR #16; PR run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge CI run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed). **Current work:** Phase 10, final release and deliverables.
+**Phase 9 verified merge:** `48986c68edca884ff426ad083a16f2e3d61f4d1b` (PR #16; PR run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge CI run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed). **Current work:** Phase 10, final release and deliverables. **Working branch:** `phase10/fire-role-materials-draft`, PR #18. Check the PR for the current branch head and latest CI status.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -33,7 +33,17 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 8 · mobile, access and recruiter journey | Complete | Read-only sample investigation and insight journey, mobile navigation, keyboard skip link, six viewport assertions, 33 Playwright tests across Chromium, Firefox and WebKit, and static asset budgets. PR #14 and post-merge CI passed. |
 | 9 · regression and security hardening | Complete | Default-deny production API writes, strict CORS validation, formula-safe CSV exports, dependency and secret scans, 94 backend tests locally, and green PR/post-merge CI. GitHub secret scanning reports no alerts. |
 
-Ten of eleven phase gates (0–10) are complete (about 91% by gate count only, not a weighted estimate of all deliverables). Phase 10 remains pending.
+Phases 0–9 have passed their gates. Phase 10 is open; that is 10 of 11 phase gates by count, not a weighted estimate of all deliverables. The user wants the full website walkthrough and release preparation completed first, then will send the final CV to attach. Do not draft or publish a substitute CV.
+
+## Phase 10 current state
+
+- PR [#18](https://github.com/ShaikArham/fireops-lab/pull/18) contains the Fire role alignment, application-answer draft, case-study draft, full-site walkthrough player and release assets. It remains a draft; no new deployment has been made.
+- The case-study draft now reports the verified deterministic exception-day output: 1,260 comparison rows, comprising 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates and 20 unmatched rows. These are fictional fixture results only.
+- The capture workflow produced a 69.24-second H.264 MP4 at 1600×900 and 25 fps from the optimized static export, served locally with the real API and fresh PostgreSQL. The browser journey covered CSV validation/import, 100-row payment simulation, exception-day reconciliation, case assignment/note/resolution and audit history, monitoring review/escalation, insights and a CSV download. CI run [42454245941](https://github.com/ShaikArham/fireops-lab/actions/runs/42454245941) passed capture, encoding and mobile playback assertions; regular CI run [42454245939](https://github.com/ShaikArham/fireops-lab/actions/runs/42454245939) passed frontend and backend checks. The 1600×900 capture is now embedded locally with a matching thumbnail. The asset-integrated site needs a fresh CI run.
+- The MP4, matching 1280×720 WebP thumbnail and English descriptive VTT are in frontend/public/videos/, linked from the website with download controls. The VTT describes visible sections; it is not aligned to speech. The MP4 is a silent review cut. The proposed human narration is in [docs/phase10/video-transcript-draft.md](phase10/video-transcript-draft.md); spoken audio, speech-aligned captions and audio playback verification remain open.
+- The local high-resolution MP4 decodes fully; its verified format is H.264, 1600×900, 25 fps, 69.24 seconds, with no audio stream. The thumbnail is generated from a frame in that MP4. The embedded asset change still needs a fresh CI run before it is treated as verified.
+- The public website is still the earlier static, read-only Pages preview; API-backed workflows are not publicly available. No deployment has been made from PR #18.
+- The user will provide the final CV copy later. Keep it deferred. After receiving it, verify claims, dates, formatting and download, then attach it at the end of the website/application materials.
 
 ## Phase 4 details and verified evidence
 
@@ -62,7 +72,7 @@ Phase 9 is complete. PR #16 merged as `48986c68edca884ff426ad083a16f2e3d61f4d1b`
 
 ## Later phases still pending
 
-- **Phase 10:** final free deployment decision and full browser verification; the 60–90 second introduction video (MP4, WebP thumbnail, VTT and transcript); one-page case study; Fire-specific two-page ATS CV; short application answers and follow-up message. Test the complete product and every download before calling the project 100% complete.
+- **Phase 10:** complete the human voice recording and speech-aligned captions/transcript; verify desktop and mobile video playback and downloads; finalize the one-page case study and short application answers; receive and attach the user's final Fire-specific two-page ATS CV; complete the free GitHub Pages release and real-browser/mobile checks. The API/database are not hosted by GitHub Pages, so the published Pages experience remains read-only unless the release architecture changes. No 100% claim before those gates pass.
 
 ## User-provided video reference
 

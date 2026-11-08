@@ -1,0 +1,139 @@
+name: Phase 10 walkthrough capture
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "data/synthetic/**"
+      - "frontend/**"
+      - ".github/workflows/phase10-walkthrough.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  walkthrough:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:17.11
+        env:
+          POSTGRES_USER: fireops
+          POSTGRES_HOST_AUTH_METHOD: trust
+          POSTGRES_DB: fireops_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U fireops -d fireops_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      DATABASE_URL: postgresql+psycopg://fireops@127.0.0.1:5432/fireops_test
+      FIREOPS_ENV: development
+      FIREOPS_ENABLE_DEMO_WRITES: "true"
+      FIREOPS_CORS_ORIGINS: http://127.0.0.1:3000
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - name: Install locked backend dependencies
+        run: uv sync --frozen
+        working-directory: backend
+      - name: Install frontend dependencies
+        run: npm ci
+        working-directory: frontend
+      - name: Initialize a fresh database
+        run: uv run alembic upgrade head
+        working-directory: backend
+      - name: Install Chromium and media encoder
+        run: |
+          npx playwright install --with-deps chromium
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg
+        working-directory: frontend
+      - name: Start the local API
+        run: |
+          mkdir -p ../video/output
+          nohup .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 > ../video/output/fireops-api.log 2>&1 &
+          python - <<'PY'
+          import time
+          import urllib.request
+
+          for _ in range(60):
+              try:
+                  with urllib.request.urlopen("http://127.0.0.1:8000/health", timeout=2) as response:
+                      if response.status == 200:
+                          break
+              except Exception:
+                  time.sleep(1)
+          else:
+              raise SystemExit("The local API did not become healthy.")
+          PY
+        working-directory: backend
+      - name: Start the frontend
+        run: |
+          npm run build
+          nohup python -m http.server 3000 --bind 127.0.0.1 --directory out > ../video/output/fireops-frontend.log 2>&1 &
+          node --input-type=module -e '
+            for (let i = 0; i < 60; i++) {
+              try {
+                const response = await fetch("http://127.0.0.1:3000");
+                if (response.ok) process.exit(0);
+              } catch {}
+              await new Promise((resolve) => setTimeout(resolve, 1000));
+            }
+            process.exit(1);
+          '
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8000
+      - name: Record the actual browser workflow
+        run: npx playwright test --config playwright.video.config.ts
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_API_BASE_URL: http://127.0.0.1:8000
+      - name: Encode a broadly compatible MP4
+        run: |
+          ffmpeg -y -i video/output/phase10-site-walkthrough-capture.webm \
+            -an -c:v libx264 -preset medium -crf 22 -pix_fmt yuv420p \
+            -movflags +faststart video/output/phase10-site-walkthrough-capture.mp4
+          python - <<'PY'
+          import json
+          import subprocess
+
+          raw = subprocess.check_output([
+              "ffprobe", "-v", "error", "-show_entries", "format=duration",
+              "-of", "json", "video/output/phase10-site-walkthrough-capture.mp4",
+          ], text=True)
+          duration = float(json.loads(raw)["format"]["duration"])
+          print(f"Recorded duration: {duration:.2f}s")
+          if not 60 <= duration <= 100:
+              raise SystemExit("The review capture must run for 60–100 seconds.")
+          PY
+        working-directory: .
+      - name: Preserve logs and capture on failure
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fireops-lab-phase10-walkthrough
+          path: |
+            video/output/phase10-site-walkthrough-capture.webm
+            video/output/phase10-site-walkthrough-capture.mp4
+            video/output/test-results/
+            video/output/fireops-api.log
+            video/output/fireops-frontend.log
+          if-no-files-found: warn
+          retention-days: 14

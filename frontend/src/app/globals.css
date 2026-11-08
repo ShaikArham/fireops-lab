@@ -35,3 +35,48 @@ section[id] {
     scroll-behavior: auto;
   }
 }
+
+/* Movement supports orientation and feedback without hiding content. */
+html {
+  scroll-behavior: smooth;
+}
+:where(section, article, label, input, select, textarea) {
+  min-width: 0;
+}
+:where(p, dd, h2, h3, h4) {
+  overflow-wrap: anywhere;
+}
+:where(button, input, select, textarea, summary) {
+  font: inherit;
+}
+:where(button, summary, nav a) {
+  min-height: 44px;
+}
+:where(button, a, summary) {
+  -webkit-tap-highlight-color: transparent;
+}
+:where(button, a, summary) {
+  transition:
+    background-color 160ms ease,
+    border-color 160ms ease,
+    color 160ms ease,
+    box-shadow 160ms ease;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+section[id]:focus {
+  outline: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation: none;
+    transition: none;
+  }
+}

@@ -1,0 +1,10 @@
+dataset,rules_version,metric,count
+fictional_exception_day,reconciliation-v1,payment_instruction_count,1250
+fictional_exception_day,reconciliation-v1,settlement_record_count,1230
+fictional_exception_day,reconciliation-v1,result_count,1260
+fictional_exception_day,reconciliation-v1,AMOUNT_MISMATCH,1
+fictional_exception_day,reconciliation-v1,DUPLICATE_CANDIDATE,20
+fictional_exception_day,reconciliation-v1,MATCHED_EXACT,1218
+fictional_exception_day,reconciliation-v1,MATCHED_LATE,1
+fictional_exception_day,reconciliation-v1,UNMATCHED_INSTRUCTION,10
+fictional_exception_day,reconciliation-v1,UNMATCHED_SETTLEMENT,10

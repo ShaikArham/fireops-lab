@@ -1,6 +1,8 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { requestJson } from "../lib/api";
+
+import { useCallback, useEffect, useRef, useState } from "react";
 
 const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
 const EXCEPTIONS = new Set([
@@ -44,16 +46,15 @@ interface CaseRecord {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API}/api/v1${path}`, {
+  return requestJson<T>(`${API}/api/v1${path}`, {
     ...init,
     headers: { "Content-Type": "application/json", ...init?.headers },
   });
-  const body = (await response.json()) as T & { detail?: string };
-  if (!response.ok) throw new Error(body.detail ?? "Case action failed.");
-  return body;
 }
 
 export default function CaseWorkspace({ results }: { results: ResultOption[] }) {
+  const [queueOffset, setQueueOffset] = useState(0);
+  const queueRequest = useRef(0);
   const [cases, setCases] = useState<CaseRecord[]>([]);
   const [selected, setSelected] = useState<CaseRecord | null>(null);
   const [statusFilter, setStatusFilter] = useState("");
@@ -65,19 +66,40 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const selectedId = selected?.case_id;
+  useEffect(() => {
+    if (!selectedId) return;
+    setNote("");
+    setActionReason("");
+    setAssignee("");
+    setResolutionRootCause("");
+  }, [selectedId]);
+
   const loadCases = useCallback(async () => {
     if (!API) return;
-    const query = new URLSearchParams();
+    const requestId = ++queueRequest.current;
+    const query = new URLSearchParams({ limit: "25", offset: String(queueOffset) });
     if (statusFilter) query.set("status", statusFilter);
     if (assignedFilter) query.set("assigned_to", assignedFilter);
     const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
+    if (requestId !== queueRequest.current) return;
     setCases(payload.cases);
-  }, [statusFilter, assignedFilter]);
+    setError("");
+  }, [statusFilter, assignedFilter, queueOffset]);
 
   useEffect(() => {
     void loadCases().catch((cause: unknown) =>
       setError(cause instanceof Error ? cause.message : "Could not load cases."),
     );
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#investigation") {
+        void loadCases().catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load cases."),
+        );
+      }
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    return () => window.removeEventListener("hashchange", refreshOnNavigation);
   }, [loadCases]);
 
   const act = async (operation: () => Promise<CaseRecord>) => {
@@ -87,6 +109,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
       const updated = await operation();
       setSelected(updated);
       await loadCases();
+      window.dispatchEvent(new Event("fireops-data-changed"));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Case action failed.");
     } finally {
@@ -120,11 +143,12 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     return (
       <section
         id="investigation"
+        tabIndex={-1}
         className="mt-8 rounded-2xl border border-teal-200 bg-teal-50/60 p-5 sm:p-8"
         aria-labelledby="case-preview-heading"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-900">
-          Phase 5 · investigation walkthrough
+          Investigation walkthrough
         </p>
         <h2 id="case-preview-heading" className="mt-2 text-2xl font-semibold text-slate-950">
           Take one unmatched payment to its next evidence check
@@ -172,11 +196,14 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     <>
       {previewPanel}
       <section
+        id={previewPanel ? "case-workspace" : "investigation"}
+        tabIndex={-1}
+        aria-busy={busy}
         className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
         aria-labelledby="case-heading"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-          Phase 5 · investigations
+          Investigations
         </p>
         <h2 id="case-heading" className="mt-2 text-2xl font-semibold text-slate-950">
           Exception cases and audit history
@@ -231,7 +258,10 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   aria-label="Filter cases by status"
                   className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                   value={statusFilter}
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={(event) => {
+                    setQueueOffset(0);
+                    setStatusFilter(event.target.value);
+                  }}
                 >
                   <option value="">All statuses</option>
                   <option>OPEN</option>
@@ -246,7 +276,10 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   aria-label="Filter cases by owner"
                   className="min-h-11 rounded-lg border border-slate-300 px-3"
                   value={assignedFilter}
-                  onChange={(event) => setAssignedFilter(event.target.value)}
+                  onChange={(event) => {
+                    setQueueOffset(0);
+                    setAssignedFilter(event.target.value);
+                  }}
                   placeholder="Analyst name"
                 />
               </label>
@@ -257,13 +290,9 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   <button
                     type="button"
                     className={`min-h-14 w-full rounded-lg border p-3 text-left ${selected?.case_id === item.case_id ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}
-                    onClick={() =>
-                      void request<CaseRecord>(`/cases/${item.case_id}`)
-                        .then(setSelected)
-                        .catch((cause: unknown) =>
-                          setError(cause instanceof Error ? cause.message : "Could not load case."),
-                        )
-                    }
+                    disabled={busy}
+                    aria-pressed={selected?.case_id === item.case_id}
+                    onClick={() => void act(() => request<CaseRecord>(`/cases/${item.case_id}`))}
                   >
                     <span className="block font-semibold">
                       {item.classification.replaceAll("_", " ")}
@@ -281,6 +310,27 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 </li>
               )}
             </ul>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                disabled={busy || queueOffset === 0}
+                onClick={() => setQueueOffset(Math.max(0, queueOffset - 25))}
+                className="rounded-lg border border-slate-300 px-3 text-sm"
+              >
+                Previous cases
+              </button>
+              <span className="text-xs text-slate-600">
+                Page {Math.floor(queueOffset / 25) + 1} · {cases.length} records
+              </span>
+              <button
+                type="button"
+                disabled={busy || cases.length < 25}
+                onClick={() => setQueueOffset(queueOffset + 25)}
+                className="rounded-lg border border-slate-300 px-3 text-sm"
+              >
+                Next cases
+              </button>
+            </div>
           </div>
           <div className="rounded-xl border border-slate-200 p-4">
             {selected ? (
@@ -495,6 +545,11 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
             )}
           </div>
         </div>
+        {busy && (
+          <p role="status" className="mt-4 text-sm text-teal-900">
+            Updating case records…
+          </p>
+        )}
         {error && (
           <p role="alert" className="mt-4 rounded-lg bg-rose-50 p-3 text-sm text-rose-900">
             {error}

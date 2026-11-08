@@ -1,0 +1,25 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:07.500
+FireOps Lab is an independent payment operations sandbox built with fictional records.
+
+00:00:07.500 --> 00:00:16.500
+CSV uploads are validated before import. The files contain synthetic payment and settlement data.
+
+00:00:16.500 --> 00:00:23.000
+A sample payment batch runs through a recorded lifecycle. No money moves.
+
+00:00:23.000 --> 00:00:32.000
+Reconciliation compares payment instructions with settlement records using reference, amount and date rules.
+
+00:00:32.000 --> 00:00:41.000
+An analyst can assign a case, add evidence, record a reasoned decision and preserve an audit trail.
+
+00:00:41.000 --> 00:00:51.000
+Monitoring shows explainable thresholds, source evidence and possible benign explanations for human review.
+
+00:00:51.000 --> 00:00:59.000
+Operational insights are scoped to a saved run and can be downloaded as CSV.
+
+00:00:59.000 --> 00:01:09.240
+This is an independent portfolio demonstration. GitHub Pages is read-only; the API runs locally.

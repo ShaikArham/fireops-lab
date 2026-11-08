@@ -778,7 +778,7 @@ test("mobile and tablet layouts keep the recruiter journey inside the viewport",
   await expect(
     page
       .getByRole("navigation", { name: "Main sections" })
-      .getByRole("link", { name: "Investigation walkthrough" }),
+      .getByRole("link", { name: "Investigation", exact: true }),
   ).toBeVisible();
 });
 
