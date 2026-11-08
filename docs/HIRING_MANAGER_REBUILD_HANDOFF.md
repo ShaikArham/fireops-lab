@@ -56,3 +56,12 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Requested deployment dpl_ECBJSRaXFHw7s9isrGSkxmdu9usS URL https://fireops-26jhq2fgr-shaikarhamsaquib1188113-7684.vercel.app; build and route HTTP checks pending.
 - Note: investigation route currently embeds reconciliation with its case panel; dedicated queue not yet built. API still unconnected; do not claim full functionality.
 - Next: verify deployment, check all seven routes, audit backend routes and DB requirements, connect API in an isolated test environment.
+
+## Run 5: verification and backend security blocker
+- Vercel deployment dpl_ECBJSRaXFHw7s9isrGSkxmdu9usS reached READY.
+- All seven /workspace/{overview,payments,reconciliation,investigations,monitoring,insights,about} returned HTTP 200.
+- backend/app/main.py middleware BLOCKS ALL POST/PUT/PATCH/DELETE /api/v1 requests unless FIREOPS_ENV=development AND FIREOPS_ENABLE_DEMO_WRITES=true. This is an intentional safety control. Never bypass by setting a public deployment to development without proper isolation/authentication.
+- Backend deployment requires isolated persistent DB, scoped writes/session isolation, abuse limits, CORS allowlist and security review before enabling public interaction.
+- Commit 937bd1a: investigations route now uses CaseWorkspace as dedicated queue instead of embedding entire reconciliation workspace. The queue is backend-dependent; it is not functional in deployed preview without API.
+- Browser interaction and real-device mobile tests remain unverified. Route HTTP 200 is not a browser E2E test.
+- Additional priority audit tasks: ensure no public writable shared database; import size limits and CSV formula injection checks; deterministic idempotency; currency minor-unit accuracy; mismatch denominators; pagination for cases; API error handling; loading/empty states; accessible navigation and reduced motion; route-aware active state; performance budget; Playwright desktop/mobile smoke tests; resettable synthetic demo; audit event integrity; no false AML claims; CV links only when provided.
