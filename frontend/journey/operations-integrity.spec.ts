@@ -39,7 +39,8 @@ test("both saved scenarios keep their own reconciliation, insights, cases and CS
   }
 });
 
-test("assignment, notes, escalation, resolution and audit events persist", async ({ page }) => {
+test("assignment, notes, escalation, resolution and audit events persist", async ({ page, browserName }) => {
+  test.skip(browserName !== "chromium", "API case lifecycle is browser-independent; avoid exceeding shared demo session capacity.");
   test.setTimeout(180_000);
   await page.goto("/workspace/payments/");
   const api = "/backend/api/v1";
