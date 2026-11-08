@@ -17,6 +17,7 @@ import CaseWorkspace from "../../case-workspace";
 import DemoSessionControls from "../../demo-session-controls";
 import AboutBuilder from "../../about-builder";
 import JourneyNavigation from "../../journey-navigation";
+import ScenarioSelector from "../../scenario-selector";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -108,6 +109,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           </span>
         </header>
         {current !== "about" && <DemoSessionControls />}
+        {current !== "about" && <ScenarioSelector />}
         {current === "overview" && (
           <div className="space-y-8">
             <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
@@ -180,10 +182,6 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         {current === "reconciliation" && <ReconciliationWorkspace />}
         {current === "investigations" && (
           <div className="space-y-4">
-            <p className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
-              The case queue loads saved investigations when the backend is connected. To open a new
-              case, start from a reconciliation exception.
-            </p>
             <CaseWorkspace results={[]} />
           </div>
         )}
