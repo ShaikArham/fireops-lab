@@ -106,3 +106,11 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Added frontend/src/app/demo-session-controls.tsx with Start demo, Load sample data and Reset my demo; wired into all workspace routes (commits 029bff2, 3b2a555). This allows session creation before case queue, but UI/actual flow not yet verified.
 - New backend project SSO protection disabled for public API (the app's session token and per-visitor isolation remain the access boundary). Backend redeployment dpl_6qAZMsvkM7pvAS5tccvLEyx763FE QUEUED at last check; frontend dpl_HHhwEUtcqEU5JeFCQspwWdMxNcou BUILDING.
 - Critical: latest frontend proxy env update and backend origin env update require NEW redeployments after their respective deployments finish. Verify actual deployment env target, stable aliases, session cookie forwarding, API status, 404 removal, database persistence, two-visitor isolation and desktop/mobile E2E before marking complete. Current E2E not verified.
+
+## Run 12: screenshot-driven cross-origin, About and navigation fixes
+- User screenshots showed duplicate demo control panels and 403 Cross-origin demo writes are not allowed.
+- Root cause: preview deployments change hostname, backend compared Origin to a single FIREOPS_PUBLIC_ORIGIN. Backend now accepts explicit origins plus exact project-specific Vercel preview hostname pattern; rejects other domains and sec-fetch-site=cross-site. Security test added for trusted and malicious hostnames. Regex corrected in commit fb735e3.
+- Removed duplicate ApiConnectionStatus from workspace page; DemoSessionControls is now the only load/reset UI and is hidden on About.
+- About now links directly to official role https://www.fire.com/careers/operations-analyst/ and selected portfolio showcase https://ledgerpoint-ai.vercel.app/#portfolio, with sticky section navigation and native anchors (#intro, #approach, #strengths, #background, #projects, #application, #thank-you), reduced-motion-aware smooth scrolling.
+- New backend deployment dpl_FgeGRgbFhNwsX9jq4RKr2UhhTbCx and frontend dpl_5atzZyDGHBRfaCXcKS4Zy3KMZ3GQ queued at last check. Do not claim live success until POST /backend/api/v1/demo/session and /load in real browser, verify cookie persistence and reset isolation.
+- Original production remains unchanged; CV still awaiting user's verified asset.
