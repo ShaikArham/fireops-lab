@@ -44,7 +44,7 @@ export default function AboutScrollNavigator() {
   return (
     <nav
       aria-label="About page progress and section controls"
-      className="sticky bottom-4 z-30 mx-auto flex max-w-lg items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur"
+      className="relative mx-auto mt-8 flex max-w-lg items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 shadow-sm"
     >
       <button
         type="button"
