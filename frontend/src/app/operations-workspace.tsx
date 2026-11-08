@@ -4,25 +4,6 @@ import { requestJson } from "../lib/api";
 
 import { useEffect, useState } from "react";
 
-type DatasetKind = "payment_instructions" | "settlement_records";
-
-interface ValidationIssue {
-  row_number: number | null;
-  field: string | null;
-  code: string;
-  message: string;
-}
-
-interface SourcePreview {
-  kind: DatasetKind;
-  checksum_sha256: string;
-  data_row_count: number;
-  is_valid: boolean;
-  issues_truncated: boolean;
-  issues: ValidationIssue[];
-  preview: Array<Record<string, string | number>>;
-}
-
 interface ControlTotal {
   currency: string;
   direction: string;
@@ -79,9 +60,6 @@ function formatMoney(amountMinor: number, currency: string): string {
 }
 
 export default function OperationsWorkspace() {
-  const [kind, setKind] = useState<DatasetKind>("payment_instructions");
-  const [file, setFile] = useState<File | null>(null);
-  const [preview, setPreview] = useState<SourcePreview | null>(null);
   const [batches, setBatches] = useState<Batch[]>([]);
   const [settlementBatches, setSettlementBatches] = useState<SettlementBatch[]>([]);
   const [payments, setPayments] = useState<PaymentRecord[]>([]);
@@ -91,16 +69,6 @@ export default function OperationsWorkspace() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
-
-  const refreshBatches = async () => {
-    const result = await apiRequest<{
-      batches: Batch[];
-      settlement_batches: SettlementBatch[];
-    }>("/batches");
-    setBatches(result.batches);
-    setSettlementBatches(result.settlement_batches);
-    window.dispatchEvent(new Event("fireops:operations-updated"));
-  };
 
   useEffect(() => {
     let active = true;
@@ -138,45 +106,6 @@ export default function OperationsWorkspace() {
     }
   };
 
-  const previewFile = () =>
-    withFeedback(async () => {
-      if (!file) throw new Error("Choose a CSV file first.");
-      setPreview(null);
-      const result = await apiRequest<SourcePreview>(`/source-files/preview?kind=${kind}`, {
-        method: "POST",
-        headers: { "Content-Type": "text/csv" },
-        body: file,
-      });
-      setPreview(result);
-      setMessage(
-        result.is_valid
-          ? `Preview ready. ${result.data_row_count.toLocaleString()} rows passed validation.`
-          : "This file has validation issues and cannot be imported.",
-      );
-    });
-
-  const importFile = () =>
-    withFeedback(async () => {
-      if (!file || !preview?.is_valid || preview.kind !== kind) {
-        throw new Error("Preview a valid file of the selected type before importing.");
-      }
-      const result = await apiRequest<{
-        imported_count: number;
-        idempotent: boolean;
-        row_count: number;
-      }>(`/source-files/import/${kind}?file_name=${encodeURIComponent(file.name)}`, {
-        method: "POST",
-        headers: { "Content-Type": "text/csv" },
-        body: file,
-      });
-      setMessage(
-        result.idempotent
-          ? `Already imported. No additional records were added (${result.row_count} source rows).`
-          : `Imported ${result.imported_count.toLocaleString()} records atomically.`,
-      );
-      await refreshBatches();
-    });
-
   const loadBatch = (batch: Batch) =>
     withFeedback(async () => {
       setSelectedBatch(batch.batch_id);
@@ -190,33 +119,6 @@ export default function OperationsWorkspace() {
       setMessage(
         `Loaded the first ${result.payments.length} payment records from ${batch.batch_id}.`,
       );
-    });
-
-  const simulateBatch = (batchId: string) =>
-    withFeedback(async () => {
-      const result = await apiRequest<{
-        processed_count: number;
-        settled_count: number;
-        failed_count: number;
-        idempotent: boolean;
-      }>(`/batches/${encodeURIComponent(batchId)}/simulate`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({}),
-      });
-      setMessage(
-        result.idempotent
-          ? "This batch is already processed. No records or totals changed."
-          : `Simulation complete: ${result.settled_count} settled and ${result.failed_count} failed. No money moved.`,
-      );
-      await refreshBatches();
-      const current = await apiRequest<{ payments: PaymentRecord[] }>(
-        `/batches/${encodeURIComponent(batchId)}/payments?limit=25`,
-      );
-      setSelectedBatch(batchId);
-      setSelectedPayment("");
-      setEvents([]);
-      setPayments(current.payments);
     });
 
   const loadHistory = (paymentId: string) =>
@@ -246,16 +148,13 @@ export default function OperationsWorkspace() {
           Inspect the preloaded payment records
         </h2>
         <p className="mt-3 leading-7 text-slate-600">
-          CSVs are validated before import. Repeated files are recognised by checksum. The simulator
-          records each state change and never moves money.
+          Explore a preloaded fictional payment batch. Select another batch to inspect its records and open any payment to review the event history. No file upload is needed.
         </p>
       </div>
 
       {!API_BASE_URL && (
         <p className="mt-6 rounded-lg border border-amber-300 bg-amber-50 p-4 text-sm leading-6 text-amber-950">
-          This public edition lets you inspect sample evidence without uploading files. Imports and
-          payment simulation run in the separate local API environment. Follow the recorded workflow
-          below or use the setup guide in About and method.
+          The fictional records are prepared automatically.
         </p>
       )}
 
@@ -267,60 +166,14 @@ export default function OperationsWorkspace() {
       {API_BASE_URL && (
         <div className="mt-7 grid min-w-0 gap-8">
           <div className="grid min-w-0 gap-3">
-            <div className="flex min-w-0 flex-wrap items-center justify-between gap-3">
-              <h3 className="text-lg font-semibold text-slate-900">Payment batch controls</h3>
-              <button
-                className="min-h-10 rounded-lg border border-slate-300 px-3 text-sm font-medium text-slate-800"
-                onClick={() => withFeedback(refreshBatches)}
-                type="button"
-                disabled={busy}
-              >
-                Refresh batches
-              </button>
-            </div>
-            {batches.length === 0 ? (
-              <p className="break-words rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
-                No payment batches have been imported yet.
-              </p>
-            ) : (
-              batches.map((batch) => (
-                <article className="rounded-xl border border-slate-200 p-4" key={batch.batch_id}>
-                  <div className="flex flex-wrap items-center justify-between gap-3">
-                    <h4 className="font-semibold text-slate-900">{batch.batch_id}</h4>
-                    <div className="flex flex-wrap gap-2">
-                      <button
-                        className="min-h-10 rounded-lg border border-slate-300 px-3 text-sm font-medium"
-                        onClick={() => loadBatch(batch)}
-                        type="button"
-                        disabled={busy}
-                      >
-                        Inspect batch
-                      </button>
-                      <button
-                        className="min-h-10 rounded-lg bg-teal-800 px-3 text-sm font-medium text-white"
-                        onClick={() => simulateBatch(batch.batch_id)}
-                        type="button"
-                        disabled={busy}
-                      >
-                        Simulate processing
-                      </button>
-                    </div>
-                  </div>
-                  <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-                    {batch.control_totals.map((total) => (
-                      <p
-                        className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700"
-                        key={`${total.currency}-${total.direction}-${total.status}`}
-                      >
-                        <span className="font-medium">{total.status}</span> · {total.direction} ·{" "}
-                        {total.record_count} records ·{" "}
-                        {formatMoney(total.total_minor, total.currency)}
-                      </p>
-                    ))}
-                  </div>
-                </article>
-              ))
-            )}
+            <label htmlFor="fireops-batch" className="text-sm font-semibold text-slate-800">Choose a fictional payment batch</label>
+            <select id="fireops-batch" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm sm:max-w-lg" value={selectedBatch} disabled={busy || batches.length === 0} onChange={(event) => { const batch = batches.find((item) => item.batch_id === event.target.value); if (batch) void loadBatch(batch); }}>
+              {batches.length === 0 && <option value="">Preparing payment records…</option>}
+              {batches.map((batch) => <option key={batch.batch_id} value={batch.batch_id}>{batch.batch_id}</option>)}
+            </select>
+            {batches.find((batch) => batch.batch_id === selectedBatch)?.control_totals.map((total) => (
+              <p key={`${total.currency}-${total.direction}-${total.status}`} className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700"><strong>{total.status}</strong> · {total.direction} · {total.record_count} records · {formatMoney(total.total_minor, total.currency)}</p>
+            ))}
             <h3 className="mt-2 text-lg font-semibold text-slate-900">Settlement batch controls</h3>
             {settlementBatches.length === 0 ? (
               <p className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
