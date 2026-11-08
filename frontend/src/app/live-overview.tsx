@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { LivingKpi } from "../components/living-kpi";
+import { PaymentLifecycle } from "../components/payment-lifecycle";
 import { useEffect, useState } from "react";
 import { requestJson } from "../lib/api";
 import { activeScenario, getPreparedScenario } from "./scenario-selector";
@@ -95,20 +97,14 @@ export default function LiveOverview() {
       )}
       {summary && !loading && (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
-          {[
-            ["Payments", summary.metrics.payment_count.toLocaleString()],
-            ["Exact matches", `${summary.metrics.exact_match_rate_pct.toFixed(1)}%`],
-            ["Exceptions", summary.metrics.exception_result_count.toLocaleString()],
-            ["Open cases", summary.metrics.open_case_count.toLocaleString()],
-            ["Monitoring alerts", summary.metrics.monitoring_alert_count.toLocaleString()],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-xl border border-slate-200 bg-white p-4">
-              <p className="text-sm text-slate-600">{label}</p>
-              <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p>
-            </div>
-          ))}
+          <LivingKpi label="Payments" value={summary.metrics.payment_count} />
+          <LivingKpi label="Exact matches" value={summary.metrics.exact_match_rate_pct} suffix="%" decimals={1} />
+          <LivingKpi label="Exceptions" value={summary.metrics.exception_result_count} lowerIsBetter />
+          <LivingKpi label="Open cases" value={summary.metrics.open_case_count} lowerIsBetter />
+          <LivingKpi label="Monitoring alerts" value={summary.metrics.monitoring_alert_count} lowerIsBetter />
         </div>
       )}
+      {summary && !loading && <PaymentLifecycle exceptions={summary.metrics.exception_result_count} openCases={summary.metrics.open_case_count} alerts={summary.metrics.monitoring_alert_count} />}
       <div className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm">
         <span className="font-semibold text-slate-900">Next action</span>
         <span className="flex-1 text-slate-600">
