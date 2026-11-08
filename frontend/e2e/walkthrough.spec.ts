@@ -94,7 +94,7 @@ test("record the full synthetic payment operations website walkthrough", async (
   await page
     .getByLabel("Analyst note")
     .fill("Reviewed the synthetic rule evidence and benign explanations.");
-  await page.getByRole("button", { name: "Add note" }).click();
+  await page.locator("#monitoring").getByRole("button", { name: "Add note" }).click();
   await page.getByLabel("Review reason").fill("Request a second-person operational review.");
   await page.getByRole("button", { name: "Escalate for review" }).click();
   await page.getByRole("button", { name: "View simulated escalation summary" }).click();
