@@ -2,11 +2,6 @@ name: Format hiring-manager branch
 
 on:
   workflow_dispatch:
-  push:
-    branches: [feat/hiring-manager-workspace]
-    paths:
-      - '.github/workflows/format-hiring-manager.yml'
-      - 'frontend/src/app/**'
 
 permissions:
   contents: write
@@ -39,4 +34,6 @@ jobs:
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add frontend
           git commit -m 'style: apply Biome formatting across hiring-manager frontend'
+          git fetch origin feat/hiring-manager-workspace
+          git rebase origin/feat/hiring-manager-workspace
           git push origin HEAD:feat/hiring-manager-workspace
