@@ -131,6 +131,7 @@ jobs:
           path: |
             video/output/phase10-site-walkthrough-capture.webm
             video/output/phase10-site-walkthrough-capture.mp4
+            video/output/test-results/
             video/output/fireops-api.log
             video/output/fireops-frontend.log
           if-no-files-found: warn

@@ -10,7 +10,7 @@ test("record the full synthetic payment operations website walkthrough", async (
   await expect(page.getByText("Fictional data only")).toBeVisible();
   await page.waitForTimeout(8_000);
 
-  await page.getByRole("link", { name: "Open operations lab" }).click();
+  await page.locator("#operations").scrollIntoViewIfNeeded();
   await expect(
     page.getByRole("heading", { name: "Import, process, and inspect a sample batch" }),
   ).toBeVisible();
