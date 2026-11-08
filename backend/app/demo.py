@@ -240,6 +240,31 @@ def load_demo(session: Annotated[Session, Depends(get_session)]) -> dict[str, ob
     }
 
 
+@router.get("/scenarios")
+def prepared_scenarios(session: Annotated[Session, Depends(get_session)]) -> dict[str, object]:
+    """Return saved run identifiers, never create duplicate runs on read."""
+    result = []
+    for payment_batch, settlement_batch in (
+        ("BATCH-N-20261014", "SETTLE-N-20261015"),
+        ("BATCH-E-20261015", "SETTLE-E-20261016"),
+    ):
+        run = session.scalar(
+            select(ReconciliationRun)
+            .where(
+                ReconciliationRun.payment_batch_id == payment_batch,
+                ReconciliationRun.settlement_batch_id == settlement_batch,
+            )
+            .order_by(ReconciliationRun.finished_at.desc())
+            .limit(1)
+        )
+        result.append({
+            "payment_batch_id": payment_batch,
+            "settlement_batch_id": settlement_batch,
+            "reconciliation_run_id": run.run_id if run else None,
+        })
+    return {"scenarios": result}
+
+
 @router.post("/reset")
 def reset_demo(session: Annotated[Session, Depends(get_session)]) -> dict[str, str]:
     for table in reversed(Base.metadata.sorted_tables):
