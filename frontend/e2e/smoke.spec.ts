@@ -10,7 +10,9 @@ const sections = [
   "about",
 ] as const;
 
-test("landing page communicates its purpose and links to the guided workspace", async ({ page }) => {
+test("landing page communicates its purpose and links to the guided workspace", async ({
+  page,
+}) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/FireOps Lab/i);
   await expect(page.getByRole("heading", { name: "Every payment tells a story." })).toBeVisible();
@@ -46,8 +48,10 @@ test("small-screen navigation reaches About and remains within viewport", async 
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/workspace/overview/");
   await page.getByText("☰ Workspaces").click();
-  await page.getByRole("navigation", { name: "Mobile workspace navigation" })
-    .getByRole("link", { name: "About the builder" }).click();
+  await page
+    .getByRole("navigation", { name: "Mobile workspace navigation" })
+    .getByRole("link", { name: "About the builder" })
+    .click();
   await expect(page).toHaveURL(/\/workspace\/about\/?$/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
