@@ -95,3 +95,10 @@ a {
     transition: none !important;
   }
 }
+
+/* About & Application: native, keyboard-friendly section navigation. */
+html { scroll-behavior: smooth; }
+.about-sections { scroll-snap-type: y proximity; }
+.about-section { scroll-margin-top: 5.5rem; scroll-snap-align: start; }
+@media (min-width: 768px) { .about-section { min-height: min(76vh, 820px); } }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
