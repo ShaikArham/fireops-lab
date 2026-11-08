@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect } from "react";
 import Link from "next/link";
 
 const sections = [
@@ -34,10 +33,7 @@ const sections = [
   },
 ];
 export default function CVPage() {
-  useEffect(() => {
-    if (new URLSearchParams(window.location.search).has("print")) {
-      const handle = window.setTimeout(() => window.print(), 500);
-      return () => window.clearTimeout(handle);
+  return () => window.clearTimeout(handle);
     }
   }, []);
   return (
@@ -51,7 +47,7 @@ export default function CVPage() {
           onClick={() => window.print()}
           className="rounded-lg bg-teal-800 px-4 py-2 font-semibold text-white"
         >
-          Save or print CV as PDF
+          Print / Save as PDF
         </button>
       </div>
       <header className="border-b border-slate-300 pb-5">
