@@ -52,5 +52,5 @@ test("mobile menu navigates and remains usable", async ({ page }) => {
 test("about section discloses synthetic data and independence", async ({ page }) => {
   await page.goto("/workspace/about");
   await expect(page.getByText(/fictional records/)).toBeVisible();
-  await expect(page.getByText(/not connected to Fire Financial Services Limited/)).toBeVisible();
+  await expect(page.getByText(/Not affiliated with or endorsed by fire.com/)).toBeVisible();
 });
