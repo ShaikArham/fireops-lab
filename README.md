@@ -80,6 +80,8 @@ uv run pytest
 
 CI results are commit-specific. A green branch workflow does not prove that the GitHub Pages URL contains that commit. Consult [the release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) and [release checklist](docs/RELEASE_CHECKLIST.md) before describing a version as deployed.
 
+See the [interactive public release gate](docs/PUBLIC_INTERACTIVE_RELEASE.md) for the verified Render/Neon status, browser security constraints, and exact release checklist.
+
 ## Public deployment requirements
 
 1. Deploy the FastAPI service and a persistent PostgreSQL database with appropriate isolation and resource limits.
@@ -103,4 +105,4 @@ Read [project brief](docs/PROJECT_BRIEF.md), [test plan](docs/TEST_PLAN.md), and
 
 ## License
 
-**No open-source license has been selected yet.** Until a license is explicitly added, do not assume permission to reuse or redistribute the code. Dependencies retain their own licenses.
+**All rights reserved.** This is source-available for portfolio review, not open source. Copying, modifying, or redistributing the original code or assets is not permitted without authorization, subject to applicable law and GitHub's terms. See [LICENSE](LICENSE). Third-party dependencies retain their own licenses.
