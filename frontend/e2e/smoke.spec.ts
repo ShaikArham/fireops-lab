@@ -10,19 +10,17 @@ const sections = [
   "about",
 ] as const;
 
-test("landing page communicates its purpose and links to the guided workspace", async ({
-  page,
-}) => {
+test("homepage opens the current seven-section workspace", async ({ page }) => {
   await page.goto("/");
   await expect(page).toHaveTitle(/FireOps Lab/i);
-  await expect(page.getByRole("heading", { name: "Every payment tells a story." })).toBeVisible();
-  await expect(page.getByRole("link", { name: /explore|enter|start/i }).first()).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Overview" })).toBeVisible();
+  await expect(page.getByRole("navigation", { name: "Workspace navigation" }).getByRole("link", { name: "Payments" })).toBeVisible();
 });
 
-test("landing page discloses that its records are fictional", async ({ page }) => {
+test("homepage discloses synthetic records", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByText(/fictional payment day/i).first()).toBeVisible();
-  await expect(page.getByText(/does not move money, connect to banking systems/i)).toBeVisible();
+  await expect(page.getByText("Synthetic environment", { exact: true })).toBeVisible();
+  await expect(page.getByText(/Synthetic demo data only/i)).toBeVisible();
 });
 
 for (const section of sections) {
