@@ -17,7 +17,7 @@ export default function DemoSessionControls() {
         // Existing visitor records are never overwritten by automatic loading.
         await requestJson(`${API}/api/v1/demo/session`);
         sessionStorage.removeItem(KEY);
-        if (!cancelled) { setState("ready"); setMessage("Your private demo records are ready."); }
+        if (!cancelled) { setState("ready"); setMessage("Your private demo records are ready."); window.dispatchEvent(new Event("fireops:demo-ready")); }
       } catch (error) {
         const isMissing = error instanceof Error && /Start your demo workspace|expired|401/.test(error.message);
         if (!isMissing) {
@@ -54,10 +54,12 @@ export default function DemoSessionControls() {
     return () => { cancelled = true; };
   }, []);
 
+  if (state === "ready") return null;
+
   return (
     <div role="status" aria-live="polite" className="mb-5 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm">
       <span className={state === "error" ? "text-red-700" : "text-slate-700"}>{message}</span>
-      <button type="button" onClick={() => { sessionStorage.removeItem(KEY); window.location.reload(); }} className="min-h-11 rounded-lg border border-slate-300 px-4 py-2 font-semibold text-slate-800 hover:bg-slate-50">Refresh records</button>
+
     </div>
   );
 }
