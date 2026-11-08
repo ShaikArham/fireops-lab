@@ -22,7 +22,7 @@ test("auto-seeded demo persists across the complete seven-section journey", asyn
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
   }
 
-  for (const width of [320, 390, 768, 1024, 1440]) {
+  for (const width of [320, 375, 390, 768, 1024, 1366, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of routes) {
       await page.goto(`/workspace/${route}/`);
