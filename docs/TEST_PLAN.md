@@ -42,3 +42,13 @@
 
 Record exact command, version, result, date, commit, environment, and any skipped checks. A green frontend build is not an API integration test; API tests are not browser verification; preview deployment is not production verification.
 
+
+
+## Phase 9 hardening checks
+
+- Verify API reads remain available while POST, PUT, PATCH and DELETE requests return 503 unless local development and the explicit demo-write opt-in are both set. Verify production mode stays read-only even when the opt-in is present.
+- Verify the CORS allowlist accepts only explicit valid origins, rejects wildcard, malformed, userinfo and invalid-port origins, disables credential sharing and requires HTTPS for explicitly configured non-development origins.
+- Exercise oversized uploads, malformed/invalid CSV, exact row/file limits, formula-like CSV input rejection, and spreadsheet-safe report exports. Use a fresh test database per test; do not expose a reset endpoint for shared data.
+- Run `npm audit --audit-level=high` and `uv run --with pip-audit==2.10.1 pip-audit --local` against the resolved frontend and Python dependencies. Run pinned `detect-secrets` across the checkout, review findings, check GitHub secret-scanning alerts before release, and confirm `.env` is not tracked.
+- Keep shared anonymous writes and any hosted API deployment blocked until an isolated session/authentication design, host-level rate limits and operational reset/backup plan are reviewed. The current project has no hosted API/database and no public reset route.
+- Exit gate: CI green; no known critical/high security defects; public API mutations disabled by default; data/import/export boundaries verified; dependency audit clean; release blockers recorded.

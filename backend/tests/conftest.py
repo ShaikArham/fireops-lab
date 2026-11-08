@@ -12,7 +12,12 @@ from app.main import app
 
 
 @pytest.fixture
-def api_client(tmp_path: Path) -> Generator[TestClient, None, None]:
+def api_client(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> Generator[TestClient, None, None]:
+    monkeypatch.setenv("FIREOPS_ENV", "development")
+    monkeypatch.setenv("FIREOPS_ENABLE_DEMO_WRITES", "true")
     engine = create_engine(f"sqlite:///{tmp_path / 'api.db'}")
 
     @event.listens_for(engine, "connect")

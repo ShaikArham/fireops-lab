@@ -27,6 +27,8 @@ Requirements: Node.js 24, Python 3.12, npm, and `uv`.
 # Terminal 1: backend database and API
 cd backend
 export DATABASE_URL=sqlite:///./fireops.db
+export FIREOPS_ENV=development
+export FIREOPS_ENABLE_DEMO_WRITES=true  # local demo only
 export FIREOPS_CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000
 uv sync --frozen
 uv run alembic upgrade head
@@ -39,7 +41,7 @@ export NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 npm run dev
 ```
 
-Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. Phase 3 API operations require a database. The default local setup uses SQLite; CI also verifies migrations with PostgreSQL 17.
+Open `http://localhost:3000` for the frontend and `http://localhost:8000/health` for the API health response. The API defaults to read-only; set `FIREOPS_ENABLE_DEMO_WRITES=true` only for local development. Production mode always blocks mutations. Phase 3 API operations require a database. The default local setup uses SQLite; CI also verifies migrations with PostgreSQL 17.
 
 The browser workspace can preview validated CSVs, import them atomically, display payment-batch control totals, simulate lifecycle transitions, inspect event history, and compare payment instructions with settlement records. Reconciliation requires an explicit payment batch and settlement batch selection. Runs are saved with rule version, source hashes, classification counts and paginated results. API-backed exception cases support assignment, notes, controlled review, escalation, resolution and justified reopening, with an actor-attributed audit history. Resolving a case requires an analyst-selected root-cause category. Monitoring alerts require human review and include rule thresholds, evidence, possible benign explanations, auditable review actions, and a simulated internal escalation note. Run-scoped operational insights derive counts, exact-match rates, exception review exposure, case timings/ageing, root-cause distribution and alert review rate from saved records. CSV exports are generated from the same report calculation and stay tied to the selected run. GitHub Pages shows a read-only synthetic reconciliation preview; API-backed operations require a separately operated backend. The API does not execute payments.
 

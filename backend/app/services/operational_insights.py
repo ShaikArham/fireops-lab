@@ -306,7 +306,15 @@ def report_csv(report: dict[str, object]) -> str:
         raise ValueError("Invalid operational report shape.")
     output = io.StringIO(newline="")
     writer = csv.writer(output, lineterminator="\n")
-    writer.writerow(["section", "metric", "value", "unit", "definition"])
+
+    def write_row(values: list[object]) -> None:
+        cells = []
+        for value in values:
+            if isinstance(value, str) and value.lstrip().startswith(("=", "+", "-", "@")):
+                value = chr(39) + value
+            cells.append(value)
+        writer.writerow(cells)
+    write_row(["section", "metric", "value", "unit", "definition"])
     units = {
         "exact_match_rate_pct": "percent",
         "average_minutes_to_triage": "minutes",
@@ -317,7 +325,7 @@ def report_csv(report: dict[str, object]) -> str:
     for key, value in metrics.items():
         if isinstance(value, dict):
             value = json.dumps(value, sort_keys=True, separators=(",", ":"))
-        writer.writerow(
+        write_row(
             [
                 "metric",
                 key,
@@ -327,7 +335,7 @@ def report_csv(report: dict[str, object]) -> str:
             ]
         )
     for item in categories:
-        writer.writerow(
+        write_row(
             [
                 "exception_category",
                 item["classification"],
@@ -337,7 +345,7 @@ def report_csv(report: dict[str, object]) -> str:
             ]
         )
     for item in root_causes:
-        writer.writerow(
+        write_row(
             [
                 "root_cause",
                 item["root_cause"],
@@ -347,7 +355,7 @@ def report_csv(report: dict[str, object]) -> str:
             ]
         )
     for item in recurring:
-        writer.writerow(
+        write_row(
             [
                 "recurring_pattern",
                 item["classification"],
@@ -357,7 +365,7 @@ def report_csv(report: dict[str, object]) -> str:
             ]
         )
     for item in trend:
-        writer.writerow(
+        write_row(
             [
                 "reconciliation_run",
                 item["run_id"],
@@ -367,7 +375,7 @@ def report_csv(report: dict[str, object]) -> str:
             ]
         )
     exercise = report["improvement_exercise"]
-    writer.writerow(
+    write_row(
         [
             "hypothetical",
             exercise["label"],

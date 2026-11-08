@@ -21,6 +21,8 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
         working-directory: frontend
+      - run: npm audit --audit-level=high
+        working-directory: frontend
       - run: npm run format:check
         working-directory: frontend
       - run: npm run lint
@@ -50,7 +52,7 @@ jobs:
         image: postgres:17.11
         env:
           POSTGRES_USER: fireops
-          POSTGRES_PASSWORD: fireops_test
+          POSTGRES_HOST_AUTH_METHOD: trust
           POSTGRES_DB: fireops_test
         ports:
           - 5432:5432
@@ -60,17 +62,23 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     env:
-      DATABASE_URL: postgresql+psycopg://fireops:fireops_test@127.0.0.1:5432/fireops_test
+      DATABASE_URL: postgresql+psycopg://fireops@127.0.0.1:5432/fireops_test
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
           cache-dependency-glob: backend/uv.lock
+      - name: Scan repository for committed secrets
+        run: |
+          uvx --from detect-secrets==1.5.0 detect-secrets scan -n --exclude-files 'data/synthetic/manifest\.json' > /tmp/fireops-secrets.json
+          python -c 'import json; findings = json.load(open("/tmp/fireops-secrets.json", encoding="utf-8"))["results"]; assert not findings, findings'
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: uv sync --frozen
+        working-directory: backend
+      - run: uv run --with pip-audit==2.10.1 pip-audit --local
         working-directory: backend
       - run: uv run alembic upgrade head
         working-directory: backend

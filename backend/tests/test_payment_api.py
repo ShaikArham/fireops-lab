@@ -61,7 +61,7 @@ def test_api_import_batch_transition_history_and_simulation_are_connected(api_cl
     assert invalid_transition.status_code == 409
 
     simulation = api_client.post(
-        "/api/v1/batches/BATCH-N-20261014/simulate",
+        "/api/v1/batches/BATCH-N-20261014/simulate",  # pragma: allowlist secret
         json={"failed_payment_ids": [payment_id]},
     )
     assert simulation.status_code == 200
