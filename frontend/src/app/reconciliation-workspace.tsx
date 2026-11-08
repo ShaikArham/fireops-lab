@@ -124,7 +124,9 @@ export default function ReconciliationWorkspace() {
           setPaymentBatch(selected.payment_batch_id);
           setSettlementBatch(selected.settlement_batch_id);
           if (selected.reconciliation_run_id) {
-            const prepared = await requestJson<RunResult>(`${API}/api/v1/reconciliation/runs/${encodeURIComponent(selected.reconciliation_run_id)}`);
+            const prepared = await requestJson<RunResult>(
+              `${API}/api/v1/reconciliation/runs/${encodeURIComponent(selected.reconciliation_run_id)}`,
+            );
             setRun(prepared);
           } else setRun(null);
         });

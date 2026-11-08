@@ -38,11 +38,18 @@ export default function LiveOverview() {
         );
         if (active) setSummary(data);
       } catch (cause) {
-        if (active) { setSummary(null); setError(cause instanceof Error ? cause.message : "Unable to load overview."); }
-      } finally { if (active) setLoading(false); }
+        if (active) {
+          setSummary(null);
+          setError(cause instanceof Error ? cause.message : "Unable to load overview.");
+        }
+      } finally {
+        if (active) setLoading(false);
+      }
     };
     void load();
-    const refresh = () => { void load(); };
+    const refresh = () => {
+      void load();
+    };
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:scenario-changed", refresh);
     window.addEventListener("fireops:operations-updated", refresh);
@@ -57,11 +64,34 @@ export default function LiveOverview() {
   return (
     <section aria-label="Live operational overview" aria-busy={loading} className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <div><p className="text-xs font-semibold uppercase tracking-widest text-teal-800">Saved operational evidence</p><h2 className="mt-1 text-xl font-semibold text-slate-950">Selected payment day</h2></div>
+        <div>
+          <p className="text-xs font-semibold uppercase tracking-widest text-teal-800">
+            Saved operational evidence
+          </p>
+          <h2 className="mt-1 text-xl font-semibold text-slate-950">Selected payment day</h2>
+        </div>
         <span className="break-all font-mono text-xs text-slate-500">{activeScenario()}</span>
       </div>
-      {loading && <p role="status" className="text-sm text-slate-600">Loading the selected scenario’s saved metrics…</p>}
-      {error && <div role="alert" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">{error} <button type="button" onClick={() => setRefreshKey((value) => value + 1)} className="ml-2 font-semibold underline">Retry</button></div>}
+      {loading && (
+        <p role="status" className="text-sm text-slate-600">
+          Loading the selected scenario’s saved metrics…
+        </p>
+      )}
+      {error && (
+        <div
+          role="alert"
+          className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950"
+        >
+          {error}{" "}
+          <button
+            type="button"
+            onClick={() => setRefreshKey((value) => value + 1)}
+            className="ml-2 font-semibold underline"
+          >
+            Retry
+          </button>
+        </div>
+      )}
       {summary && !loading && (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
           {[
@@ -70,13 +100,31 @@ export default function LiveOverview() {
             ["Exceptions", summary.metrics.exception_result_count.toLocaleString()],
             ["Open cases", summary.metrics.open_case_count.toLocaleString()],
             ["Monitoring alerts", summary.metrics.monitoring_alert_count.toLocaleString()],
-          ].map(([label, value]) => <div key={label} className="rounded-xl border border-slate-200 bg-white p-4"><p className="text-sm text-slate-600">{label}</p><p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p></div>)}
+          ].map(([label, value]) => (
+            <div key={label} className="rounded-xl border border-slate-200 bg-white p-4">
+              <p className="text-sm text-slate-600">{label}</p>
+              <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p>
+            </div>
+          ))}
         </div>
       )}
       <div className="flex flex-wrap items-center gap-3 rounded-xl border border-slate-200 bg-white p-4 text-sm">
         <span className="font-semibold text-slate-900">Next action</span>
-        <span className="flex-1 text-slate-600">{summary?.metrics.exception_result_count ? "Review the saved reconciliation differences and open an investigation." : "Inspect the payment evidence before reviewing the reconciliation."}</span>
-        <Link href={summary?.metrics.exception_result_count ? "/workspace/reconciliation" : "/workspace/payments"} className="font-semibold text-teal-800 underline underline-offset-4">Continue →</Link>
+        <span className="flex-1 text-slate-600">
+          {summary?.metrics.exception_result_count
+            ? "Review the saved reconciliation differences and open an investigation."
+            : "Inspect the payment evidence before reviewing the reconciliation."}
+        </span>
+        <Link
+          href={
+            summary?.metrics.exception_result_count
+              ? "/workspace/reconciliation"
+              : "/workspace/payments"
+          }
+          className="font-semibold text-teal-800 underline underline-offset-4"
+        >
+          Continue →
+        </Link>
       </div>
     </section>
   );

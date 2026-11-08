@@ -131,7 +131,11 @@ export default function MonitoringWorkspace() {
   const loadAlerts = useCallback(async () => {
     if (!API) return;
     const requestId = ++queueRequest.current;
-    const query = new URLSearchParams({ limit: "25", offset: String(queueOffset), batch_id: activeScenario() });
+    const query = new URLSearchParams({
+      limit: "25",
+      offset: String(queueOffset),
+      batch_id: activeScenario(),
+    });
     if (statusFilter) query.set("status", statusFilter);
     if (severityFilter) query.set("severity", severityFilter);
     const result = await apiRequest<{ alerts: Alert[] }>(`/monitoring/alerts?${query.toString()}`);

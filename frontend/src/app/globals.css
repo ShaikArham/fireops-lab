@@ -162,7 +162,9 @@ html {
   outline: 3px solid #0f766e;
   outline-offset: 3px;
 }
-#main-content, #main-content > *, #main-content section {
+#main-content,
+#main-content > *,
+#main-content section {
   min-width: 0;
 }
 #main-content table {
@@ -180,7 +182,8 @@ html {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal, .fireops-landing-hero > div:first-child {
+  .scroll-reveal,
+  .fireops-landing-hero > div:first-child {
     opacity: 1 !important;
     transform: none !important;
   }

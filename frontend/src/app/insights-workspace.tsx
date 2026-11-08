@@ -63,8 +63,11 @@ interface Report {
 
 async function fetchReport(): Promise<Report> {
   const scenario = await getPreparedScenario();
-  if (!scenario?.reconciliation_run_id) throw new Error("The selected scenario has no prepared reconciliation yet.");
-  return requestJson<Report>(`${API}/api/v1/insights/runs/${encodeURIComponent(scenario.reconciliation_run_id)}`);
+  if (!scenario?.reconciliation_run_id)
+    throw new Error("The selected scenario has no prepared reconciliation yet.");
+  return requestJson<Report>(
+    `${API}/api/v1/insights/runs/${encodeURIComponent(scenario.reconciliation_run_id)}`,
+  );
 }
 
 function minutes(value: number | null): string {
