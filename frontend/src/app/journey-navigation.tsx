@@ -26,20 +26,20 @@ export default function JourneyNavigation({ section }: { section: string }) {
   useEffect(() => {
     navigating.current = false;
     wheelDistance.current = 0;
-    const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 24;
+    const atBottom = () => window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
     const atTop = () => window.scrollY <= 8;
     function advance(direction: "next" | "previous") {
       const target = direction === "next" ? next : previous;
       if (!target || navigating.current) return;
       navigating.current = true;
-      router.push(`/workspace/${target[0]}`);
+      router.push(`/workspace/${target[0]}`, { scroll: true });
     }
     function onWheel(event: WheelEvent) {
       if (event.ctrlKey || event.metaKey || event.target instanceof Element && event.target.closest("[data-no-journey-scroll], input, textarea, select, [role='dialog']")) return;
       const down = event.deltaY > 0;
       if ((down && atBottom() && next) || (!down && atTop() && previous)) {
         wheelDistance.current += event.deltaY;
-        if (Math.abs(wheelDistance.current) > 160) {
+        if (Math.abs(wheelDistance.current) > 35) {
           wheelDistance.current = 0;
           advance(down ? "next" : "previous");
         }
