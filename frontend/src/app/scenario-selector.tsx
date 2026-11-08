@@ -54,3 +54,18 @@ export default function ScenarioSelector() {
     </div>
   );
 }
+
+export interface PreparedScenario {
+  payment_batch_id: string;
+  settlement_batch_id: string;
+  reconciliation_run_id: string | null;
+}
+
+export async function getPreparedScenario(): Promise<PreparedScenario | null> {
+  const { requestJson } = await import("../lib/api");
+  const base = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\\/$/, "") ?? "/backend";
+  const response = await requestJson<{ scenarios: PreparedScenario[] }>(
+    `${base}/api/v1/demo/scenarios`,
+  );
+  return response.scenarios.find((item) => item.payment_batch_id === activeScenario()) ?? null;
+}
