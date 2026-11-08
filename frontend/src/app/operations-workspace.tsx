@@ -71,7 +71,6 @@ export default function OperationsWorkspace() {
   const [error, setError] = useState("");
   const [offset, setOffset] = useState(0);
   const [total, setTotal] = useState(0);
-  const [revision, setRevision] = useState(0);
   const [busy, setBusy] = useState(false);
 
   const requestVersion = useRef(0);
@@ -117,14 +116,16 @@ export default function OperationsWorkspace() {
       }
     };
     void refresh();
+    window.addEventListener("fireops:operations-updated", refresh);
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:scenario-changed", refresh);
     return () => {
       active = false;
+      window.removeEventListener("fireops:operations-updated", refresh);
       window.removeEventListener("fireops:demo-ready", refresh);
       window.removeEventListener("fireops:scenario-changed", refresh);
     };
-  }, [revision]);
+  }, []);
 
   const withFeedback = async (action: () => Promise<void>) => {
     setBusy(true);
@@ -165,7 +166,6 @@ export default function OperationsWorkspace() {
       setMessage(
         `Simulation complete: ${result.settled_count} settled and ${result.failed_count} failed. No real money moved.`,
       );
-      setRevision((value) => value + 1);
       window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
