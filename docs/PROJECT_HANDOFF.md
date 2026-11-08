@@ -4,7 +4,7 @@
 **Owner:** Shaik Arham Saquib  
 **Repository:** [ShaikArham/fireops-lab](https://github.com/ShaikArham/fireops-lab)  
 **Current public static preview:** [https://shaikarham.github.io/fireops-lab/](https://shaikarham.github.io/fireops-lab/)  
-**Phase 9 verified merge:** `48986c68edca884ff426ad083a16f2e3d61f4d1b` (PR #16; PR run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge CI run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed). **Current work:** Phase 10, final release and deliverables.
+**Phase 9 verified merge:** `48986c68edca884ff426ad083a16f2e3d61f4d1b` (PR #16; PR run [42432833019](https://github.com/ShaikArham/fireops-lab/actions/runs/42432833019) and post-merge CI run [42433028368](https://github.com/ShaikArham/fireops-lab/actions/runs/42433028368) passed). **Current work:** Phase 10, final release and deliverables. **Working branch:** `phase10/fire-role-materials-draft`, PR #18, latest documented commit `2b2320c914a3b80ab6d805b724cbc03ac547202b`.
 
 This file is the resume point for a new chat. Treat the repository's current `main` branch and passing CI evidence as authoritative. The workspace used in the previous chat may not persist and contained local changes; start from a fresh clone or fetch `main` before continuing.
 
@@ -33,7 +33,15 @@ This file is the resume point for a new chat. Treat the repository's current `ma
 | 8 · mobile, access and recruiter journey | Complete | Read-only sample investigation and insight journey, mobile navigation, keyboard skip link, six viewport assertions, 33 Playwright tests across Chromium, Firefox and WebKit, and static asset budgets. PR #14 and post-merge CI passed. |
 | 9 · regression and security hardening | Complete | Default-deny production API writes, strict CORS validation, formula-safe CSV exports, dependency and secret scans, 94 backend tests locally, and green PR/post-merge CI. GitHub secret scanning reports no alerts. |
 
-Ten of eleven phase gates (0–10) are complete (about 91% by gate count only, not a weighted estimate of all deliverables). Phase 10 remains pending.
+Phases 0–9 have passed their gates. Phase 10 is open; that is 10 of 11 phase gates by count, not a weighted estimate of all deliverables. The user wants the full website walkthrough and release preparation completed first, then will send the final CV to attach. Do not draft or publish a substitute CV.
+
+## Phase 10 current state
+
+- PR [#18](https://github.com/ShaikArham/fireops-lab/pull/18) contains the Fire role alignment, application-answer draft, case-study draft and expanded 90-second full-site narration/shot plan. It remains a draft; no new deployment has been made.
+- The case-study draft now reports the verified deterministic exception-day output: 1,260 comparison rows, comprising 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates and 20 unmatched rows. These are fictional fixture results only.
+- The latest Phase 10 documentation commit is `2b2320c914a3b80ab6d805b724cbc03ac547202b`. Its frontend and backend CI jobs passed in run [42448130265](https://github.com/ShaikArham/fireops-lab/actions/runs/42448130265). A follow-up docs-only commit is being checked; inspect PR #18 for its latest status before relying on the result.
+- The actual MP4, WebP thumbnail, timed VTT and final transcript have not been produced or verified. The public website is still the earlier static, read-only Pages preview; API-backed workflows are not publicly available.
+- The user is handling the final CV copy. After receiving it, verify claims, dates, formatting and download, then attach it at the end of the website/application materials.
 
 ## Phase 4 details and verified evidence
 
@@ -62,7 +70,7 @@ Phase 9 is complete. PR #16 merged as `48986c68edca884ff426ad083a16f2e3d61f4d1b`
 
 ## Later phases still pending
 
-- **Phase 10:** final free deployment decision and full browser verification; the 60–90 second introduction video (MP4, WebP thumbnail, VTT and transcript); one-page case study; Fire-specific two-page ATS CV; short application answers and follow-up message. Test the complete product and every download before calling the project 100% complete.
+- **Phase 10:** produce and verify the full website walkthrough video (MP4, WebP thumbnail, VTT and transcript); finalize the one-page case study and short application answers; receive and attach the user's final Fire-specific two-page ATS CV; complete the free GitHub Pages release, real-browser/mobile checks and all download tests. No 100% claim before those gates pass.
 
 ## User-provided video reference
 

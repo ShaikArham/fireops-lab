@@ -7,19 +7,19 @@
 
 ## Narration draft
 
-Every payment creates records in more than one system. When references, amounts or dates disagree, an operations analyst needs to see the evidence, understand the exception and choose a clear next step.
+Every payment creates records in more than one system. When references, amounts or dates disagree, an operations analyst needs clear evidence and a reliable next step.
 
-FireOps Lab is an independent payment-operations simulator built with fictional data.
+FireOps Lab is an independent payment-operations simulator with fictional data.
 
-The local demo validates CSV files and records a simulated payment lifecycle without moving money. This exception-day fixture contains twelve hundred and fifty payment instructions and twelve hundred and thirty settlement records. The reconciliation run compares them with explicit reference, amount and date rules. Ambiguous duplicates stay visible for review instead of being forced into a match.
+The local demo validates CSVs and records a simulated payment lifecycle; it never moves money. Our exception-day fixture has twelve hundred and fifty instructions and twelve hundred and thirty settlements. Explicit reference, amount and date rules produce exact matches, late matches, mismatches, duplicates and unmatched records. Ambiguous duplicates stay for review.
 
-From an exception, I can open a case, assign an owner, record evidence and keep status changes in an audit history.
+From an exception, I can open a case, assign an owner, record evidence and retain status changes in an audit history.
 
-Transaction-monitoring rules show their thresholds and a possible benign explanation. Alerts prompt human review; they are not findings of fraud or money laundering.
+Monitoring rules show their thresholds and possible benign explanations. Alerts prompt human review; they do not prove fraud or money laundering.
 
-The dashboard ties operational measures and downloadable results to a reconciliation run.
+Run-scoped insights explain the operational measures and export the same results.
 
-The public preview is read-only. FireOps Lab does not move money and is not affiliated with Fire Financial Services. Explore the demo and source code on GitHub.
+The public Pages preview is read-only. FireOps Lab is not a live payment service and is not affiliated with Fire. Explore the demo and code on GitHub.
 
 ## Full-site shot list
 
