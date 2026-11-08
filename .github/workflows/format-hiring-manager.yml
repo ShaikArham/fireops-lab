@@ -4,7 +4,9 @@ on:
   workflow_dispatch:
   push:
     branches: [feat/hiring-manager-workspace]
-    paths: ['.github/workflows/format-hiring-manager.yml']
+    paths:
+      - '.github/workflows/format-hiring-manager.yml'
+      - 'frontend/src/app/**'
 
 permissions:
   contents: write
