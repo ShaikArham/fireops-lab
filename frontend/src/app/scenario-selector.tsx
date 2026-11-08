@@ -11,7 +11,7 @@ export const SCENARIOS = [
 export function activeScenario(): string {
   if (typeof window === "undefined") return SCENARIOS[0].id;
   const stored = window.localStorage.getItem(SCENARIO_KEY);
-  return SCENARIOS.some((item) => item.id === stored) ? stored! : SCENARIOS[0].id;
+  return SCENARIOS.some((item) => item.id === stored) ? (stored ?? SCENARIOS[0].id) : SCENARIOS[0].id;
 }
 
 export default function ScenarioSelector() {
