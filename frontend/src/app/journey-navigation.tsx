@@ -16,25 +16,51 @@ const journey = [
 
 export default function JourneyNavigation({ section }: { section: string }) {
   const router = useRouter();
-  useEffect(() => {
-    if (section !== "overview") return;
-    let gestures = 0;
-    let lastGesture = 0;
-    const onWheel = (event: WheelEvent) => {
-      if (event.deltaY <= 0 || event.ctrlKey || event.defaultPrevented) return;
-      const nearBottom = window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 24;
-      if (!nearBottom) { gestures = 0; return; }
-      if (Date.now() - lastGesture > 1500) gestures = 0;
-      lastGesture = Date.now();
-      gestures += 1;
-      if (gestures >= 2) router.push("/workspace/payments");
-    };
-    window.addEventListener("wheel", onWheel, { passive: true });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, [section, router]);
   const position = journey.findIndex(([slug]) => slug === section);
   const next = journey[position + 1];
   const previous = journey[position - 1];
+
+  useEffect(() => {
+    if (!next) return;
+    let gestures = 0;
+    let lastGesture = 0;
+    let navigating = false;
+    const atBottom = () =>
+      window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 28;
+    const onWheel = (event: WheelEvent) => {
+      if (event.deltaY <= 0 || event.ctrlKey || event.defaultPrevented || navigating) return;
+      if (!atBottom()) {
+        gestures = 0;
+        return;
+      }
+      if (Date.now() - lastGesture > 1200) gestures = 0;
+      lastGesture = Date.now();
+      if (++gestures >= 2) {
+        navigating = true;
+        router.push(`/workspace/${next[0]}`);
+      }
+    };
+    let touchStart = 0;
+    const onTouchStart = (event: TouchEvent) => {
+      touchStart = event.touches[0]?.clientY ?? 0;
+    };
+    const onTouchEnd = (event: TouchEvent) => {
+      const end = event.changedTouches[0]?.clientY ?? touchStart;
+      if (!navigating && touchStart - end > 75 && atBottom()) {
+        navigating = true;
+        router.push(`/workspace/${next[0]}`);
+      }
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [next, router]);
+
   return (
     <nav
       aria-label="Guided workspace journey"
@@ -51,7 +77,7 @@ export default function JourneyNavigation({ section }: { section: string }) {
         <span />
       )}
       <p className="text-xs text-slate-500">
-        Step {position + 1} of {journey.length} · {section === "overview" ? "Scroll past the bottom or choose Payments" : "Choose the next section when ready"}
+        Step {position + 1} of {journey.length} · {next ? "Scroll beyond the bottom or use Next" : "End of the guided journey"}
       </p>
       {next ? (
         <Link
