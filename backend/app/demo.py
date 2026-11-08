@@ -180,9 +180,6 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
     # browser instead of relying on third-party cookies. Never log this token.
     browser_origin = request.headers.get("origin", "").rstrip("/")
     cross_origin = bool(browser_origin and browser_origin != f"{request.url.scheme}://{request.url.netloc}")
-    if cross_origin:
-        response.headers["Cache-Control"] = "no-store"
-        return {"status": "ready", "expires_in_hours": 24, "reused": False, "access_token": token}
     response.set_cookie(
         COOKIE,
         token,
@@ -193,7 +190,10 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
         path="/",
     )
     response.headers["Cache-Control"] = "no-store"
-    return {"status": "ready", "expires_in_hours": 24, "reused": False}
+    payload = {"status": "ready", "expires_in_hours": 24, "reused": False}
+    if cross_origin:
+        payload["access_token"] = token
+    return payload
 
 
 @router.get("/session")
