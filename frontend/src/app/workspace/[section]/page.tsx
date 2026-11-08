@@ -19,6 +19,7 @@ import AboutBuilder from "../../about-builder";
 import JourneyNavigation from "../../journey-navigation";
 import ScenarioSelector from "../../scenario-selector";
 import LiveOverview from "../../live-overview";
+import ThemeToggle from "../../theme-toggle";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -117,9 +118,12 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
             </p>
             <h1 className="mt-2 text-3xl font-semibold tracking-tight">{title}</h1>
           </div>
-          <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
-            Synthetic environment
-          </span>
+          <div className="flex flex-wrap items-center gap-3">
+            <ThemeToggle />
+            <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
+              Synthetic environment
+            </span>
+          </div>
         </header>
         <DemoSessionControls enabled={current !== "about"}>
           {current !== "about" && <ScenarioSelector />}
