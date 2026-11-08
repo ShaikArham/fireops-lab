@@ -222,22 +222,22 @@ export default function AboutBuilder() {
           >
             View code on GitHub ↗
           </a>
-          <Link
+          <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv"
             target="_blank"
             rel="noopener noreferrer"
-            >
+            href="https://shaikarham.github.io/fireops-lab/cv/" >
             View CV ↗
-          </Link>
-          <Link
+          </a>
+          <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="/cv"
             target="_blank"
             rel="noopener noreferrer"
-          >
-            Save CV as PDF ↗
-          </Link>
+          href="https://shaikarham.github.io/fireops-lab/cv/" >
+            Open CV to save as PDF ↗
+          </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
             href="https://shaikarham.github.io/arham-portfolio/"
