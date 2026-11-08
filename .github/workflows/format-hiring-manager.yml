@@ -2,6 +2,9 @@ name: Format hiring-manager branch
 
 on:
   workflow_dispatch:
+  push:
+    branches: [feat/hiring-manager-workspace]
+    paths: ['.github/workflows/format-hiring-manager.yml']
 
 permissions:
   contents: write
