@@ -2,6 +2,9 @@ name: Publish GitHub Pages
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - feat/hiring-manager-workspace
 
 permissions:
   contents: read
