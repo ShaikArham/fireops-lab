@@ -84,3 +84,9 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Commit 492c908: added .github/workflows/workspace-browser.yml, automatically runs npm ci, TypeScript typecheck and Chromium Playwright workspace navigation tests on development-branch pushes; uploads failure artifacts.
 - GitHub connector fetch_commit_workflow_runs only returns PR-triggered runs, so an empty result does NOT prove workflow failed or passed. Browser CI result remains unverified.
 - Vercel integration configurations list is empty and Vercel env list empty; no managed Postgres integration is currently attached. Cannot safely enable backend writes or claim persistent end-to-end operations.
+
+## Run 9: live metrics refresh wiring
+- Previous preview dpl_AuM5ns1PrRC1vyzWhdNa3VBsEbYy READY.
+- Commits 9fd56a5 and a0a4e7e: Insights refreshes on window focus, explicit Refresh live metrics button and fireops:operations-updated event. Operations emits that event after successful import and simulation.
+- This only refreshes persisted metrics when the API is configured and operational. It does not create a database or a public backend.
+- Need user-approved Postgres integration or existing database URL in secret environment; no credentials in repo or chat. Public writes must be isolated and controlled.
