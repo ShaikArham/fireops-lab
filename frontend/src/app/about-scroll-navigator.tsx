@@ -43,7 +43,7 @@ export default function AboutScrollNavigator() {
   }
 
   return (
-    <div
+    <nav
       aria-label="About page progress and section controls"
       className="sticky bottom-4 z-30 mx-auto flex max-w-lg items-center justify-between gap-3 rounded-2xl border border-slate-200 bg-white/95 px-4 py-3 shadow-xl backdrop-blur"
     >
@@ -67,6 +67,6 @@ export default function AboutScrollNavigator() {
       >
         Next ↓
       </button>
-    </div>
+    </nav>
   );
 }
