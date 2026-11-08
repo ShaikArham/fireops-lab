@@ -1,3 +1,12 @@
+export class ApiError extends Error {
+  constructor(
+    message: string,
+    readonly status: number,
+  ) {
+    super(message);
+  }
+}
+
 const DEMO_TOKEN_KEY = "fireops-demo-access-token";
 
 export function demoRequestHeaders(): Record<string, string> {
@@ -36,7 +45,7 @@ export async function requestJson<T>(url: string, init?: RequestInit): Promise<T
               .map((item) => (typeof item?.msg === "string" ? item.msg : "Invalid input"))
               .join(". ")
           : `The service returned an error (${response.status}). Please try again.`;
-    throw new Error(message);
+    throw new ApiError(message, response.status);
   }
   if (payload === null)
     throw new Error("The service returned an unreadable response. Please try again.");

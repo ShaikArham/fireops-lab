@@ -78,14 +78,12 @@ def test_cors_configuration_rejects_wildcards_malformed_and_insecure_production_
         parse_cors_origins("https://example.com:invalid")
     with pytest.raises(ValueError, match="must use HTTPS"):
         parse_cors_origins("http://example.com", require_https=True)
-    assert parse_cors_origins("https://example.com", require_https=True) == [
-        "https://example.com"
-    ]
+    assert parse_cors_origins("https://example.com", require_https=True) == ["https://example.com"]
 
 
 def test_report_csv_neutralizes_formula_like_text() -> None:
     report = {
-        "metrics": {"example": "=HYPERLINK(\"https://attacker.example\")"},
+        "metrics": {"example": '=HYPERLINK("https://attacker.example")'},
         "definitions": {
             "example": "@SUM(A1:A2)",
             "root_cause_distribution": "Root cause counts.",
@@ -107,8 +105,43 @@ def test_report_csv_neutralizes_formula_like_text() -> None:
     rows = list(csv.reader(io.StringIO(report_csv(report))))
     flattened = [cell for row in rows for cell in row]
 
-    assert "'=HYPERLINK(\"https://attacker.example\")" in flattened
+    assert '\'=HYPERLINK("https://attacker.example")' in flattened
     assert "'@SUM(A1:A2)" in flattened
     assert "'-1+2" in flattened
     assert "'+SUM(1,1)" in flattened
     assert not any(cell.startswith(("=", "+", "-", "@")) for cell in flattened)
+
+
+@pytest.mark.parametrize(
+    "path", ["/api/v1/demo/session", "/api/v1/batches", "/api/v1/insights/latest"]
+)
+def test_isolated_demo_preflight_does_not_require_a_session(path, monkeypatch):
+    monkeypatch.setenv("FIREOPS_ISOLATED_DEMO", "true")
+    with TestClient(app) as client:
+        response = client.options(
+            path,
+            headers={
+                "Origin": "http://localhost:3000",
+                "Access-Control-Request-Method": "POST",
+                "Access-Control-Request-Headers": "authorization,x-fireops-demo,content-type",
+            },
+        )
+    assert response.status_code == 200
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+
+
+def test_isolated_auth_errors_are_readable_by_allowed_browser(monkeypatch):
+    monkeypatch.setenv("FIREOPS_ISOLATED_DEMO", "true")
+    with TestClient(app) as client:
+        response = client.get("/api/v1/batches", headers={"Origin": "http://localhost:3000"})
+        denied = client.options(
+            "/api/v1/demo/session",
+            headers={
+                "Origin": "https://attacker.example",
+                "Access-Control-Request-Method": "POST",
+            },
+        )
+    assert response.status_code == 401
+    assert response.headers["access-control-allow-origin"] == "http://localhost:3000"
+    assert denied.status_code == 400
+    assert "access-control-allow-origin" not in denied.headers

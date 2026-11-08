@@ -63,14 +63,6 @@ app = FastAPI(
     version="0.1.0",
 )
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=cors_origins,
-    allow_credentials=False,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type", "X-FireOps-Demo", "Authorization"],
-)
-
 
 @app.middleware("http")
 async def block_nonlocal_mutations(request: Request, call_next):
@@ -89,7 +81,9 @@ async def block_nonlocal_mutations(request: Request, call_next):
                 )
         except HTTPException as exc:
             return JSONResponse(
-                status_code=exc.status_code, content={"detail": exc.detail}, headers=exc.headers
+                status_code=exc.status_code,
+                content={"detail": exc.detail},
+                headers={"Cache-Control": "private, no-store", **(exc.headers or {})},
             )
         except SQLAlchemyError:
             return JSONResponse(status_code=503, content={"detail": "Demo database unavailable."})
@@ -107,7 +101,11 @@ async def block_nonlocal_mutations(request: Request, call_next):
 
 @app.get("/health", tags=["operations"])
 def health() -> dict[str, str]:
-    return {"status": "ok", "service": "fireops-api"}
+    return {
+        "status": "ok",
+        "service": "fireops-api",
+        "revision": os.getenv("RENDER_GIT_COMMIT", os.getenv("FIREOPS_REVISION", "local"))[:12],
+    }
 
 
 install_routes(app)
@@ -131,3 +129,13 @@ def readiness():
     with database_engine().connect() as connection:
         connection.execute(text("SELECT 1 FROM public.fireops_demo_sessions LIMIT 1"))
     return {"status": "ready", "database": "connected", "isolated_demo": enabled()}
+
+
+# CORS must be outermost: unauthenticated preflight and auth errors need CORS headers.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=cors_origins,
+    allow_credentials=False,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type", "X-FireOps-Demo", "Authorization"],
+)

@@ -3,7 +3,7 @@
 import { requestJson } from "../lib/api";
 import { activeScenario } from "./scenario-selector";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface ControlTotal {
   currency: string;
@@ -69,17 +69,30 @@ export default function OperationsWorkspace() {
   const [selectedPayment, setSelectedPayment] = useState("");
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
+  const [offset, setOffset] = useState(0);
+  const [total, setTotal] = useState(0);
   const [busy, setBusy] = useState(false);
+
+  const requestVersion = useRef(0);
 
   useEffect(() => {
     let active = true;
     const refresh = async () => {
+      const version = ++requestVersion.current;
       try {
+        setBusy(true);
+        setError("");
+        setPayments([]);
+        setSelectedPayment("");
+        setEvents([]);
+        setOffset(0);
+        setTotal(0);
+        setSelectedBatch("");
         const result = await apiRequest<{
           batches: Batch[];
           settlement_batches: SettlementBatch[];
         }>("/batches");
-        if (!active) return;
+        if (!active || version !== requestVersion.current) return;
         setBatches(result.batches);
         setSettlementBatches(result.settlement_batches);
         if (result.batches.length) {
@@ -87,21 +100,28 @@ export default function OperationsWorkspace() {
             result.batches.find((batch) => batch.batch_id === activeScenario()) ??
             result.batches[0];
           setSelectedBatch(first.batch_id);
-          const records = await apiRequest<{ payments: PaymentRecord[] }>(
+          const records = await apiRequest<{ payments: PaymentRecord[]; total: number }>(
             `/batches/${encodeURIComponent(first.batch_id)}/payments?limit=25`,
           );
-          if (active) setPayments(records.payments);
+          if (active && version === requestVersion.current) {
+            setPayments(records.payments);
+            setTotal(records.total);
+          }
         }
       } catch (cause) {
-        if (active)
+        if (active && version === requestVersion.current)
           setError(cause instanceof Error ? cause.message : "Could not load payment records.");
+      } finally {
+        if (active && version === requestVersion.current) setBusy(false);
       }
     };
     void refresh();
+    window.addEventListener("fireops:operations-updated", refresh);
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:scenario-changed", refresh);
     return () => {
       active = false;
+      window.removeEventListener("fireops:operations-updated", refresh);
       window.removeEventListener("fireops:demo-ready", refresh);
       window.removeEventListener("fireops:scenario-changed", refresh);
     };
@@ -120,19 +140,33 @@ export default function OperationsWorkspace() {
     }
   };
 
-  const loadBatch = (batch: Batch) =>
+  const loadBatch = (batch: Batch, nextOffset = 0) =>
     withFeedback(async () => {
       setSelectedBatch(batch.batch_id);
+      setOffset(nextOffset);
       setPayments([]);
       setSelectedPayment("");
       setEvents([]);
-      const result = await apiRequest<{ payments: PaymentRecord[] }>(
-        `/batches/${encodeURIComponent(batch.batch_id)}/payments?limit=25`,
+      const result = await apiRequest<{ payments: PaymentRecord[]; total: number }>(
+        `/batches/${encodeURIComponent(batch.batch_id)}/payments?limit=25&offset=${nextOffset}`,
       );
       setPayments(result.payments);
+      setTotal(result.total);
       setMessage(
-        `Loaded the first ${result.payments.length} payment records from ${batch.batch_id}.`,
+        `Showing ${nextOffset + 1}–${nextOffset + result.payments.length} of ${result.total} payments.`,
       );
+    });
+
+  const simulate = () =>
+    withFeedback(async () => {
+      const result = await apiRequest<{ settled_count: number; failed_count: number }>(
+        `/batches/${encodeURIComponent(selectedBatch)}/simulate`,
+        { method: "POST", body: JSON.stringify({}) },
+      );
+      setMessage(
+        `Simulation complete: ${result.settled_count} settled and ${result.failed_count} failed. No real money moved.`,
+      );
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
   const loadHistory = (paymentId: string) =>
@@ -194,7 +228,6 @@ export default function OperationsWorkspace() {
                 if (batch) {
                   window.localStorage.setItem("fireops-active-scenario", batch.batch_id);
                   window.dispatchEvent(new Event("fireops:scenario-changed"));
-                  void loadBatch(batch);
                 }
               }}
             >
@@ -205,6 +238,19 @@ export default function OperationsWorkspace() {
                 </option>
               ))}
             </select>
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                disabled={busy || !selectedBatch}
+                onClick={() => void simulate()}
+                className="rounded-lg bg-teal-800 px-4 py-3 text-sm font-semibold text-white disabled:opacity-50"
+              >
+                Simulate processing
+              </button>
+              <span className="self-center text-xs text-slate-500">
+                Synthetic lifecycle only. Repeat runs do not duplicate settlements.
+              </span>
+            </div>
             {batches
               .find((batch) => batch.batch_id === selectedBatch)
               ?.control_totals.map((total) => (
@@ -269,6 +315,33 @@ export default function OperationsWorkspace() {
                   </button>
                 </div>
               ))}
+              <nav aria-label="Payment record pages" className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  disabled={busy || offset === 0}
+                  onClick={() => {
+                    const batch = batches.find((b) => b.batch_id === selectedBatch);
+                    if (batch) void loadBatch(batch, Math.max(0, offset - 25));
+                  }}
+                  className="rounded-lg border border-slate-300 px-3 py-2 disabled:opacity-50"
+                >
+                  Previous payments
+                </button>
+                <span className="text-sm">
+                  {total ? offset + 1 : 0}–{offset + payments.length} of {total}
+                </span>
+                <button
+                  type="button"
+                  disabled={busy || offset + payments.length >= total}
+                  onClick={() => {
+                    const batch = batches.find((b) => b.batch_id === selectedBatch);
+                    if (batch) void loadBatch(batch, offset + 25);
+                  }}
+                  className="rounded-lg border border-slate-300 px-3 py-2 disabled:opacity-50"
+                >
+                  Next payments
+                </button>
+              </nav>
               {selectedPayment && (
                 <ol aria-label={`Event history for ${selectedPayment}`} className="grid gap-2">
                   {events.map((event) => (

@@ -11,7 +11,12 @@ from sqlalchemy.pool import NullPool
 
 @lru_cache(maxsize=2)
 def _session_factory(database_url: str) -> sessionmaker[Session]:
-    engine = create_engine(database_url, pool_pre_ping=True, poolclass=NullPool)
+    options = (
+        {"poolclass": NullPool}
+        if database_url.startswith("sqlite")
+        else {"pool_size": 3, "max_overflow": 2, "pool_timeout": 10, "pool_recycle": 300}
+    )
+    engine = create_engine(database_url, pool_pre_ping=True, **options)
     return sessionmaker(bind=engine, autoflush=False, expire_on_commit=False)
 
 

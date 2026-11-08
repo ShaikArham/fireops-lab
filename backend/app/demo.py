@@ -106,16 +106,7 @@ def require_browser_write(request: Request) -> None:
     }
     if not allowed_origins:
         allowed_origins = {f"{request.url.scheme}://{request.url.netloc}"}
-    # Vercel gives every deployment a new hostname. Accept only deployment aliases
-    # belonging to this exact frontend project and account, never arbitrary origins.
-    trusted_preview = bool(
-        origin
-        and re.fullmatch(
-            r"https://fireops-workspace-preview-[a-z0-9]{9}(?:-shaikarhamsaquib1188113-7684)?\.vercel\.app",
-            origin.rstrip("/"),
-        )
-    )
-    if origin and origin.rstrip("/") not in allowed_origins and not trusted_preview:
+    if origin and origin.rstrip("/") not in allowed_origins:
         raise HTTPException(403, "Cross-origin demo writes are not allowed.")
     # A cross-site browser request is permitted only from an explicitly configured
     # origin and must still carry the demo header and a valid workspace token.
@@ -185,7 +176,9 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
     # For a cross-origin GitHub Pages client, return an opaque token to the
     # browser instead of relying on third-party cookies. Never log this token.
     browser_origin = request.headers.get("origin", "").rstrip("/")
-    cross_origin = bool(browser_origin and browser_origin != f"{request.url.scheme}://{request.url.netloc}")
+    cross_origin = bool(
+        browser_origin and browser_origin != f"{request.url.scheme}://{request.url.netloc}"
+    )
     response.set_cookie(
         COOKIE,
         token,
@@ -225,19 +218,29 @@ def load_demo(session: Annotated[Session, Depends(get_session)]) -> dict[str, ob
     )
     prepared = []
     for payment_batch, settlement_batch in scenarios:
-        existing = session.scalar(select(ReconciliationRun).where(
-            ReconciliationRun.payment_batch_id == payment_batch,
-            ReconciliationRun.settlement_batch_id == settlement_batch,
-        ).order_by(ReconciliationRun.finished_at.desc()).limit(1))
+        existing = session.scalar(
+            select(ReconciliationRun)
+            .where(
+                ReconciliationRun.payment_batch_id == payment_batch,
+                ReconciliationRun.settlement_batch_id == settlement_batch,
+            )
+            .order_by(ReconciliationRun.finished_at.desc())
+            .limit(1)
+        )
         if existing is None:
             result = run_reconciliation(session, payment_batch, settlement_batch, 3)
             run_id = str(result["run_id"])
         else:
             run_id = existing.run_id
-        exceptions = session.scalars(select(ReconciliationResult).where(
-            ReconciliationResult.run_id == run_id,
-            ReconciliationResult.classification.notin_(("MATCHED_EXACT", "MATCHED_LATE")),
-        ).order_by(ReconciliationResult.result_id).limit(8)).all()
+        exceptions = session.scalars(
+            select(ReconciliationResult)
+            .where(
+                ReconciliationResult.run_id == run_id,
+                ReconciliationResult.classification.notin_(("MATCHED_EXACT", "MATCHED_LATE")),
+            )
+            .order_by(ReconciliationResult.result_id)
+            .limit(8)
+        ).all()
         for exception in exceptions:
             existing_case = session.scalar(
                 select(ExceptionCase).where(ExceptionCase.result_id == exception.result_id)
@@ -273,11 +276,13 @@ def prepared_scenarios(session: Annotated[Session, Depends(get_session)]) -> dic
             .order_by(ReconciliationRun.finished_at.desc())
             .limit(1)
         )
-        result.append({
-            "payment_batch_id": payment_batch,
-            "settlement_batch_id": settlement_batch,
-            "reconciliation_run_id": run.run_id if run else None,
-        })
+        result.append(
+            {
+                "payment_batch_id": payment_batch,
+                "settlement_batch_id": settlement_batch,
+                "reconciliation_run_id": run.run_id if run else None,
+            }
+        )
     return {"scenarios": result}
 
 
