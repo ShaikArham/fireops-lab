@@ -1,0 +1,35 @@
+name: Format dark theme CSS
+
+on:
+  push:
+    paths:
+      - ".github/workflows/format-dark-theme.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npx biome format --write src/app/globals.css
+        working-directory: frontend
+      - name: Commit formatting
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/app/globals.css
+          if ! git diff --cached --quiet; then
+            git commit -m "Format dark-mode CSS with Biome"
+            git push origin main
+          fi
