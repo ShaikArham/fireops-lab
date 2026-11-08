@@ -48,3 +48,11 @@ Transform the independent fictional FireOPS payment operations portfolio from a 
 - Commits ff647b3 and 46af632: landing-flow builder introduction and CSS scroll-reveal with reduced-motion respect and fallback. Vercel preview dpl_6unNdpdvkvhFGwsKBt1xqShinJy9 requested; must verify READY/HTTP 200 and actual animation on devices.
 - User requires after EVERY run: completed, pending, preview URL, deploy status, commit SHA, and next step. Update this handoff continuously.
 - Keep app-first, not portfolio-first. Builder section must be discoverable on landing and sidebar, without presenting as official Fire product.
+
+## Run 4: actual workspace routes
+- Previous builder-animation deployment dpl_6unNdpdvkvhFGwsKBt1xqShinJy9 reached READY.
+- Commit 22e01298: created frontend/src/app/workspace/[section]/page.tsx with routes overview, payments, reconciliation, investigations, monitoring, insights, about; persistent sidebar and mobile menu. Existing operations components reused.
+- Commit 3a33a371: landing CTA now opens /workspace/overview.
+- Requested deployment dpl_ECBJSRaXFHw7s9isrGSkxmdu9usS URL https://fireops-26jhq2fgr-shaikarhamsaquib1188113-7684.vercel.app; build and route HTTP checks pending.
+- Note: investigation route currently embeds reconciliation with its case panel; dedicated queue not yet built. API still unconnected; do not claim full functionality.
+- Next: verify deployment, check all seven routes, audit backend routes and DB requirements, connect API in an isolated test environment.
