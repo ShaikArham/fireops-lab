@@ -104,6 +104,7 @@ function Metric({
 
 export default function InsightsWorkspace() {
   const [report, setReport] = useState<Report | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [baselineMinutes, setBaselineMinutes] = useState("");
@@ -401,12 +402,12 @@ export default function InsightsWorkspace() {
               {report.exception_categories.length ? (
                 <ul className="mt-3 divide-y divide-slate-100">
                   {report.exception_categories.map((item) => (
-                    <li
-                      key={item.classification}
-                      className="flex justify-between gap-4 py-2 text-sm"
-                    >
-                      <span>{item.classification.replaceAll("_", " ")}</span>
-                      <span className="font-semibold tabular-nums">{item.count}</span>
+                    <li key={item.classification} className="py-1">
+                      <button type="button" aria-pressed={selectedCategory === item.classification} onClick={() => setSelectedCategory((current) => current === item.classification ? null : item.classification)} className={`fireops-interactive flex min-h-11 w-full items-center justify-between gap-4 rounded-lg px-3 text-left text-sm hover:bg-blue-50 focus-visible:outline-blue-500 ${selectedCategory === item.classification ? "bg-blue-50 ring-1 ring-blue-300" : ""}`}>
+                        <span>{item.classification.replaceAll("_", " ")}</span>
+                        <span className="font-semibold tabular-nums">{item.count}</span>
+                      </button>
+                      {selectedCategory === item.classification && <p role="status" className="rounded-lg bg-blue-50 px-3 pb-3 text-xs leading-5 text-slate-700">This category contains {item.count} saved reconciliation result{item.count === 1 ? "" : "s"}. Open Reconciliation to inspect the underlying evidence. <a href="/workspace/reconciliation" className="font-semibold text-blue-700 underline">View reconciliation</a></p>}
                     </li>
                   ))}
                 </ul>
