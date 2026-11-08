@@ -105,15 +105,28 @@ export default function InsightsWorkspace() {
   const [assistedMinutes, setAssistedMinutes] = useState("");
   const [downloadError, setDownloadError] = useState("");
 
-  useEffect(() => {
+  const refreshReport = () => {
     if (!API) return;
     setLoading(true);
+    setError("");
     void fetchReport()
       .then(setReport)
       .catch((cause: unknown) =>
         setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
       )
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    if (!API) return;
+    const refresh = () => refreshReport();
+    refresh();
+    window.addEventListener("focus", refresh);
+    window.addEventListener("fireops:operations-updated", refresh);
+    return () => {
+      window.removeEventListener("focus", refresh);
+      window.removeEventListener("fireops:operations-updated", refresh);
+    };
   }, []);
 
   const downloadRun = async () => {
@@ -170,6 +183,12 @@ export default function InsightsWorkspace() {
         review. Each value has a stated denominator and boundary. Currency amounts stay grouped by
         currency.
       </p>
+
+      {API && (
+        <button type="button" disabled={loading} onClick={refreshReport} className="mt-4 rounded-lg border border-slate-300 px-4 py-2 text-sm font-semibold disabled:opacity-50">
+          {loading ? "Refreshing…" : "Refresh live metrics"}
+        </button>
+      )}
 
       {API && (
         <p className="mt-5 rounded-xl border border-teal-200 bg-teal-50 p-4 text-sm leading-6 text-teal-950">
