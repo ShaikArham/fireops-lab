@@ -129,18 +129,26 @@ export default function MonitoringWorkspace() {
 
   useEffect(() => {
     if (!API) return;
-    void Promise.all([
-      apiRequest<{ batches: Array<{ batch_id: string }> }>("/batches"),
-      apiRequest<{ rules: MonitoringRule[] }>("/monitoring/rules"),
-      loadAlerts(),
-    ])
-      .then(([batchResult, ruleResult]) => {
-        setBatches(batchResult.batches.map((batch) => batch.batch_id));
-        setRules(ruleResult.rules);
-      })
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : "Could not load monitoring data."),
-      );
+    const refresh = () => {
+      void Promise.all([
+        apiRequest<{ batches: Array<{ batch_id: string }> }>("/batches"),
+        apiRequest<{ rules: MonitoringRule[] }>("/monitoring/rules"),
+        loadAlerts(),
+      ])
+        .then(([batchResult, ruleResult]) => {
+          setBatches(batchResult.batches.map((batch) => batch.batch_id));
+          setRules(ruleResult.rules);
+        })
+        .catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load monitoring data."),
+        );
+    };
+    refresh();
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#monitoring") refresh();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    return () => window.removeEventListener("hashchange", refreshOnNavigation);
   }, [loadAlerts]);
 
   const act = async (operation: () => Promise<Alert>) => {

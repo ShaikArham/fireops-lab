@@ -78,6 +78,15 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     void loadCases().catch((cause: unknown) =>
       setError(cause instanceof Error ? cause.message : "Could not load cases."),
     );
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#investigation") {
+        void loadCases().catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load cases."),
+        );
+      }
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    return () => window.removeEventListener("hashchange", refreshOnNavigation);
   }, [loadCases]);
 
   const act = async (operation: () => Promise<CaseRecord>) => {

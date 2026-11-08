@@ -34,12 +34,22 @@ test("record the full synthetic payment operations website walkthrough", async (
   await expect(operations.getByText(/1,230 rows passed validation/)).toBeVisible();
   await operations.getByRole("button", { name: "Import validated file" }).click();
   await expect(operations.getByText(/Imported 1,230 records atomically/)).toBeVisible();
+  const normalPaymentCsv = path.resolve(
+    process.cwd(),
+    "../data/synthetic/normal_day/payment_instructions.csv",
+  );
+  await operations.getByLabel("CSV file").setInputFiles(normalPaymentCsv);
+  await operations.getByRole("button", { name: "Preview file" }).click();
+  await expect(operations.getByText(/100 rows passed validation/)).toBeVisible();
+  await operations.getByRole("button", { name: "Import validated file" }).click();
+  await expect(operations.getByText(/Imported 100 records atomically/)).toBeVisible();
   await page.waitForTimeout(6_000);
 
-  await operations.getByRole("button", { name: "Inspect batch" }).first().click();
-  await operations.getByRole("button", { name: "Simulate processing" }).click();
+  const normalBatch = operations.locator("article").filter({ hasText: "BATCH-N-20261014" });
+  await normalBatch.getByRole("button", { name: "Inspect batch" }).click();
+  await normalBatch.getByRole("button", { name: "Simulate processing" }).click();
   await expect(operations.getByText(/Simulation complete: .* settled and .* failed/)).toBeVisible({
-    timeout: 120_000,
+    timeout: 60_000,
   });
   await page.waitForTimeout(6_000);
 

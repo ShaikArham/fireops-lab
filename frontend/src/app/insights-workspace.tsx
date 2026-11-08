@@ -107,13 +107,21 @@ export default function InsightsWorkspace() {
 
   useEffect(() => {
     if (!API) return;
-    setLoading(true);
-    void fetchReport()
-      .then(setReport)
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
-      )
-      .finally(() => setLoading(false));
+    const refresh = () => {
+      setLoading(true);
+      void fetchReport()
+        .then(setReport)
+        .catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load operational insights."),
+        )
+        .finally(() => setLoading(false));
+    };
+    refresh();
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#insights") refresh();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    return () => window.removeEventListener("hashchange", refreshOnNavigation);
   }, []);
 
   const downloadRun = async () => {

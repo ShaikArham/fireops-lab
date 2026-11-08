@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
 import CaseWorkspace from "./case-workspace";
 
@@ -104,9 +104,9 @@ export default function ReconciliationWorkspace() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!API) return;
-    void fetch(`${API}/api/v1/batches`)
+  const loadBatches = useCallback(() => {
+    if (!API) return Promise.resolve();
+    return fetch(`${API}/api/v1/batches`)
       .then(async (response) => {
         if (!response.ok) throw new Error("Could not load imported batches.");
         const result = (await response.json()) as {
@@ -120,6 +120,15 @@ export default function ReconciliationWorkspace() {
         setError(cause instanceof Error ? cause.message : "Could not connect to API."),
       );
   }, []);
+
+  useEffect(() => {
+    void loadBatches();
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#reconciliation") void loadBatches();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    return () => window.removeEventListener("hashchange", refreshOnNavigation);
+  }, [loadBatches]);
 
   const startRun = async () => {
     setBusy(true);
