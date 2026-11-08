@@ -1,6 +1,7 @@
 "use client";
 
 import { requestJson } from "../lib/api";
+import { activeScenario } from "./scenario-selector";
 
 import { useCallback, useEffect, useRef, useState } from "react";
 
@@ -130,7 +131,7 @@ export default function MonitoringWorkspace() {
   const loadAlerts = useCallback(async () => {
     if (!API) return;
     const requestId = ++queueRequest.current;
-    const query = new URLSearchParams({ limit: "25", offset: String(queueOffset) });
+    const query = new URLSearchParams({ limit: "25", offset: String(queueOffset), batch_id: activeScenario() });
     if (statusFilter) query.set("status", statusFilter);
     if (severityFilter) query.set("severity", severityFilter);
     const result = await apiRequest<{ alerts: Alert[] }>(`/monitoring/alerts?${query.toString()}`);
@@ -149,6 +150,7 @@ export default function MonitoringWorkspace() {
       ])
         .then(([batchResult, ruleResult]) => {
           setBatches(batchResult.batches.map((batch) => batch.batch_id));
+          setBatchId(activeScenario());
           setRules(ruleResult.rules);
         })
         .catch((cause: unknown) =>
@@ -162,10 +164,12 @@ export default function MonitoringWorkspace() {
     window.addEventListener("hashchange", refreshOnNavigation);
     window.addEventListener("fireops:demo-ready", refresh);
     window.addEventListener("fireops:operations-updated", refresh);
+    window.addEventListener("fireops:scenario-changed", refresh);
     return () => {
       window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:demo-ready", refresh);
       window.removeEventListener("fireops:operations-updated", refresh);
+      window.removeEventListener("fireops:scenario-changed", refresh);
     };
   }, [loadAlerts]);
 
