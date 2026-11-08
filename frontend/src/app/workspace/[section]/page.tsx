@@ -18,6 +18,7 @@ import DemoSessionControls from "../../demo-session-controls";
 import AboutBuilder from "../../about-builder";
 import JourneyNavigation from "../../journey-navigation";
 import ScenarioSelector from "../../scenario-selector";
+import LiveOverview from "../../live-overview";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -112,6 +113,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         {current !== "about" && <ScenarioSelector />}
         {current === "overview" && (
           <div className="space-y-8">
+            <LiveOverview />
             <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
               <p className="text-xs font-bold uppercase tracking-widest text-teal-300">
                 Payment operations
