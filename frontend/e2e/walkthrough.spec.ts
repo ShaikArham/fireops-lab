@@ -45,7 +45,7 @@ test("record the full synthetic payment operations website walkthrough", async (
   await expect(
     page.getByRole("heading", { name: "Compare every payment with its settlement" }),
   ).toBeVisible();
-  await page.getByLabel("Payment batch").selectOption("BATCH-E-20261015");
+  await page.getByLabel("Payment batch").first().selectOption("BATCH-E-20261015");
   await page.getByLabel("Settlement batch").selectOption("SETTLE-E-20261016");
   await page.getByRole("button", { name: "Run reconciliation" }).click();
   await expect(page.getByText("1,260 results", { exact: false })).toBeVisible();
