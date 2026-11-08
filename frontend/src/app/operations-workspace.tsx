@@ -151,6 +151,7 @@ export default function OperationsWorkspace() {
           : `Imported ${result.imported_count.toLocaleString()} records atomically.`,
       );
       await refreshBatches();
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
   const loadBatch = (batch: Batch) =>
@@ -187,6 +188,7 @@ export default function OperationsWorkspace() {
         `/batches/${encodeURIComponent(batchId)}/payments?limit=25`,
       );
       setPayments(current.payments);
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     });
 
   const loadHistory = (paymentId: string) =>
