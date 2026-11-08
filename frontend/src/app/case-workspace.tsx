@@ -1,8 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { requestJson } from "../lib/api";
+import { getPreparedScenario } from "./scenario-selector";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 const EXCEPTIONS = new Set([
   "UNMATCHED_INSTRUCTION",
   "UNMATCHED_SETTLEMENT",
@@ -44,19 +47,20 @@ interface CaseRecord {
 }
 
 async function request<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API}/api/v1${path}`, {
+  return requestJson<T>(`${API}/api/v1${path}`, {
     ...init,
     headers: { "Content-Type": "application/json", ...init?.headers },
   });
-  const body = (await response.json()) as T & { detail?: string };
-  if (!response.ok) throw new Error(body.detail ?? "Case action failed.");
-  return body;
 }
 
 export default function CaseWorkspace({ results }: { results: ResultOption[] }) {
+  const [queueOffset, setQueueOffset] = useState(0);
+  const queueRequest = useRef(0);
   const [cases, setCases] = useState<CaseRecord[]>([]);
   const [selected, setSelected] = useState<CaseRecord | null>(null);
   const [statusFilter, setStatusFilter] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
   const [assignedFilter, setAssignedFilter] = useState("");
   const [assignee, setAssignee] = useState("");
   const [note, setNote] = useState("");
@@ -65,19 +69,55 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const selectedId = selected?.case_id;
+  useEffect(() => {
+    if (!selectedId) return;
+    setNote("");
+    setActionReason("");
+    setAssignee("");
+    setResolutionRootCause("");
+  }, [selectedId]);
+
   const loadCases = useCallback(async () => {
     if (!API) return;
-    const query = new URLSearchParams();
+    const requestId = ++queueRequest.current;
+    const query = new URLSearchParams({ limit: "25", offset: String(queueOffset) });
+    if (priorityFilter) query.set("priority", priorityFilter);
+    if (searchFilter) query.set("search", searchFilter);
     if (statusFilter) query.set("status", statusFilter);
     if (assignedFilter) query.set("assigned_to", assignedFilter);
+    const scenario = await getPreparedScenario();
+    if (scenario?.reconciliation_run_id) query.set("run_id", scenario.reconciliation_run_id);
     const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
+    if (requestId !== queueRequest.current) return;
     setCases(payload.cases);
-  }, [statusFilter, assignedFilter]);
+    setError("");
+  }, [statusFilter, assignedFilter, priorityFilter, searchFilter, queueOffset]);
 
   useEffect(() => {
     void loadCases().catch((cause: unknown) =>
       setError(cause instanceof Error ? cause.message : "Could not load cases."),
     );
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#investigation") {
+        void loadCases().catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load cases."),
+        );
+      }
+    };
+    const refreshCasesFromEvent = () => {
+      void loadCases().catch(() => setError("Could not refresh cases."));
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    window.addEventListener("fireops:operations-updated", refreshCasesFromEvent);
+    window.addEventListener("fireops:demo-ready", refreshCasesFromEvent);
+    window.addEventListener("fireops:scenario-changed", refreshCasesFromEvent);
+    return () => {
+      window.removeEventListener("hashchange", refreshOnNavigation);
+      window.removeEventListener("fireops:operations-updated", refreshCasesFromEvent);
+      window.removeEventListener("fireops:demo-ready", refreshCasesFromEvent);
+      window.removeEventListener("fireops:scenario-changed", refreshCasesFromEvent);
+    };
   }, [loadCases]);
 
   const act = async (operation: () => Promise<CaseRecord>) => {
@@ -87,6 +127,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
       const updated = await operation();
       setSelected(updated);
       await loadCases();
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Case action failed.");
     } finally {
@@ -120,11 +161,12 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     return (
       <section
         id="investigation"
+        tabIndex={-1}
         className="mt-8 rounded-2xl border border-teal-200 bg-teal-50/60 p-5 sm:p-8"
         aria-labelledby="case-preview-heading"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-900">
-          Phase 5 · investigation walkthrough
+          Investigation walkthrough
         </p>
         <h2 id="case-preview-heading" className="mt-2 text-2xl font-semibold text-slate-950">
           Take one unmatched payment to its next evidence check
@@ -172,11 +214,14 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
     <>
       {previewPanel}
       <section
+        id={previewPanel ? "case-workspace" : "investigation"}
+        tabIndex={-1}
+        aria-busy={busy}
         className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
         aria-labelledby="case-heading"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-          Phase 5 · investigations
+          Investigations
         </p>
         <h2 id="case-heading" className="mt-2 text-2xl font-semibold text-slate-950">
           Exception cases and audit history
@@ -228,10 +273,14 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
               <label className="grid gap-1 text-sm font-medium">
                 Filter status
                 <select
+                  disabled={busy}
                   aria-label="Filter cases by status"
                   className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                   value={statusFilter}
-                  onChange={(event) => setStatusFilter(event.target.value)}
+                  onChange={(event) => {
+                    setQueueOffset(0);
+                    setStatusFilter(event.target.value);
+                  }}
                 >
                   <option value="">All statuses</option>
                   <option>OPEN</option>
@@ -243,11 +292,50 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
               <label className="grid gap-1 text-sm font-medium">
                 Filter owner
                 <input
+                  disabled={busy}
                   aria-label="Filter cases by owner"
                   className="min-h-11 rounded-lg border border-slate-300 px-3"
                   value={assignedFilter}
-                  onChange={(event) => setAssignedFilter(event.target.value)}
+                  onChange={(event) => {
+                    setQueueOffset(0);
+                    setAssignedFilter(event.target.value);
+                  }}
                   placeholder="Analyst name"
+                />
+              </label>
+            </div>
+            <div className="mt-2 grid gap-2 sm:grid-cols-2">
+              <label className="grid gap-1 text-sm font-medium">
+                Priority
+                <select
+                  aria-label="Filter cases by priority"
+                  disabled={busy}
+                  value={priorityFilter}
+                  onChange={(e) => {
+                    setQueueOffset(0);
+                    setPriorityFilter(e.target.value);
+                  }}
+                  className="min-h-11 rounded-lg border border-slate-300 px-3"
+                >
+                  <option value="">All priorities</option>
+                  <option>HIGH</option>
+                  <option>NORMAL</option>
+                  <option>LOW</option>
+                </select>
+              </label>
+              <label className="grid gap-1 text-sm font-medium">
+                Search cases
+                <input
+                  aria-label="Search cases"
+                  maxLength={128}
+                  disabled={busy}
+                  value={searchFilter}
+                  onChange={(e) => {
+                    setQueueOffset(0);
+                    setSearchFilter(e.target.value);
+                  }}
+                  placeholder="Case, payment or owner"
+                  className="min-h-11 rounded-lg border border-slate-300 px-3"
                 />
               </label>
             </div>
@@ -257,13 +345,9 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   <button
                     type="button"
                     className={`min-h-14 w-full rounded-lg border p-3 text-left ${selected?.case_id === item.case_id ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}
-                    onClick={() =>
-                      void request<CaseRecord>(`/cases/${item.case_id}`)
-                        .then(setSelected)
-                        .catch((cause: unknown) =>
-                          setError(cause instanceof Error ? cause.message : "Could not load case."),
-                        )
-                    }
+                    disabled={busy}
+                    aria-pressed={selected?.case_id === item.case_id}
+                    onClick={() => void act(() => request<CaseRecord>(`/cases/${item.case_id}`))}
                   >
                     <span className="block font-semibold">
                       {item.classification.replaceAll("_", " ")}
@@ -281,6 +365,27 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 </li>
               )}
             </ul>
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                disabled={busy || queueOffset === 0}
+                onClick={() => setQueueOffset(Math.max(0, queueOffset - 25))}
+                className="rounded-lg border border-slate-300 px-3 text-sm"
+              >
+                Previous cases
+              </button>
+              <span className="text-xs text-slate-600">
+                Page {Math.floor(queueOffset / 25) + 1} · {cases.length} records
+              </span>
+              <button
+                type="button"
+                disabled={busy || cases.length < 25}
+                onClick={() => setQueueOffset(queueOffset + 25)}
+                className="rounded-lg border border-slate-300 px-3 text-sm"
+              >
+                Next cases
+              </button>
+            </div>
           </div>
           <div className="rounded-xl border border-slate-200 p-4">
             {selected ? (
@@ -297,10 +402,31 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                     {selected.case_id.slice(0, 8)}
                   </span>
                 </div>
+                <div className="mt-4 rounded-lg bg-slate-50 p-4 text-sm">
+                  <h4 className="font-semibold">Source evidence for this case</h4>
+                  <p className="mt-2 break-all">
+                    Run: {selected.run_id} · Result: {selected.result_id}
+                  </p>
+                  <dl className="mt-3 grid gap-2">
+                    <dt className="font-medium">Payment instruction</dt>
+                    <dd>
+                      {selected.payment
+                        ? `${selected.payment.payment_id ?? "Unknown ID"} · ${selected.payment.client_reference ?? "No reference"} · ${selected.payment.currency ?? ""} ${Number(selected.payment.amount_minor ?? 0) / 100}`
+                        : "No corresponding payment record"}
+                    </dd>
+                    <dt className="font-medium">Settlement record</dt>
+                    <dd>
+                      {selected.settlement
+                        ? `${selected.settlement.settlement_id ?? "Unknown ID"} · ${selected.settlement.payment_reference ?? "No reference"} · ${selected.settlement.currency ?? ""} ${Number(selected.settlement.amount_minor ?? 0) / 100}`
+                        : "No corresponding settlement record"}
+                    </dd>
+                  </dl>
+                </div>
                 <div className="mt-3 grid gap-2 sm:grid-cols-[1fr_auto]">
                   <label className="grid gap-1 text-sm">
                     Assign to analyst
                     <input
+                      disabled={busy}
                       className="min-h-11 rounded-lg border border-slate-300 px-3"
                       value={assignee}
                       onChange={(event) => setAssignee(event.target.value)}
@@ -327,6 +453,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   <label className="grid gap-1 text-sm">
                     Investigation note
                     <textarea
+                      disabled={busy}
                       className="min-h-20 rounded-lg border border-slate-300 p-3"
                       value={note}
                       onChange={(event) => setNote(event.target.value)}
@@ -355,6 +482,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 <label className="mt-3 grid gap-1 text-sm">
                   Action reason
                   <textarea
+                    disabled={busy}
                     className="min-h-16 rounded-lg border border-slate-300 p-3"
                     value={actionReason}
                     onChange={(event) => setActionReason(event.target.value)}
@@ -365,6 +493,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   <label className="mt-3 grid gap-1 text-sm">
                     Resolution root cause
                     <select
+                      disabled={busy}
                       aria-label="Resolution root cause"
                       className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                       value={resolutionRootCause}
@@ -495,6 +624,11 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
             )}
           </div>
         </div>
+        {busy && (
+          <p role="status" className="mt-4 text-sm text-teal-900">
+            Updating case records…
+          </p>
+        )}
         {error && (
           <p role="alert" className="mt-4 rounded-lg bg-rose-50 p-3 text-sm text-rose-900">
             {error}

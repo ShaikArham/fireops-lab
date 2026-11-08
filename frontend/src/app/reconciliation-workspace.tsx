@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { requestJson } from "../lib/api";
+
+import { useCallback, useEffect, useState } from "react";
 import preview from "./phase4-preview.json";
 import CaseWorkspace from "./case-workspace";
+import { getPreparedScenario } from "./scenario-selector";
 
 type Item = Record<string, string | number> | null;
 interface ReconciliationItem {
@@ -23,9 +26,11 @@ interface RunResult {
   result_count: number;
   classification_counts: Record<string, number>;
   results: ReconciliationItem[];
+  offset?: number;
+  limit?: number;
 }
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 const sample = preview as {
   title: string;
   rules_version: string;
@@ -104,28 +109,58 @@ export default function ReconciliationWorkspace() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!API) return;
-    void fetch(`${API}/api/v1/batches`)
-      .then(async (response) => {
-        if (!response.ok) throw new Error("Could not load imported batches.");
-        const result = (await response.json()) as {
-          batches: Array<{ batch_id: string }>;
-          settlement_batches: Array<{ settlement_batch_id: string }>;
-        };
+  const loadBatches = useCallback(() => {
+    if (!API) return Promise.resolve();
+    setError("");
+    return requestJson<{
+      batches: Array<{ batch_id: string }>;
+      settlement_batches: Array<{ settlement_batch_id: string }>;
+    }>(`${API}/api/v1/batches`)
+      .then((result) => {
         setPaymentBatches(result.batches.map((batch) => batch.batch_id));
         setSettlementBatches(result.settlement_batches.map((batch) => batch.settlement_batch_id));
+        return getPreparedScenario().then(async (selected) => {
+          if (!selected) return;
+          setPaymentBatch(selected.payment_batch_id);
+          setSettlementBatch(selected.settlement_batch_id);
+          if (selected.reconciliation_run_id) {
+            const prepared = await requestJson<RunResult>(
+              `${API}/api/v1/reconciliation/runs/${encodeURIComponent(selected.reconciliation_run_id)}`,
+            );
+            setRun(prepared);
+          } else setRun(null);
+        });
       })
       .catch((cause: unknown) =>
         setError(cause instanceof Error ? cause.message : "Could not connect to API."),
       );
   }, []);
 
+  useEffect(() => {
+    void loadBatches();
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#reconciliation") void loadBatches();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    const changed = () => {
+      void loadBatches();
+    };
+    window.addEventListener("fireops:operations-updated", changed);
+    window.addEventListener("fireops:demo-ready", changed);
+    window.addEventListener("fireops:scenario-changed", changed);
+    return () => {
+      window.removeEventListener("hashchange", refreshOnNavigation);
+      window.removeEventListener("fireops:operations-updated", changed);
+      window.removeEventListener("fireops:demo-ready", changed);
+      window.removeEventListener("fireops:scenario-changed", changed);
+    };
+  }, [loadBatches]);
+
   const startRun = async () => {
     setBusy(true);
     setError("");
     try {
-      const response = await fetch(`${API}/api/v1/reconciliation/runs`, {
+      const payload = await requestJson<RunResult>(`${API}/api/v1/reconciliation/runs`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -134,11 +169,28 @@ export default function ReconciliationWorkspace() {
           late_window_days: 3,
         }),
       });
-      const payload = (await response.json()) as RunResult & { detail?: string };
-      if (!response.ok) throw new Error(payload.detail ?? "Reconciliation failed.");
+
       setRun(payload);
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Reconciliation failed.");
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  const loadPage = async (offset: number) => {
+    if (!run) return;
+    setBusy(true);
+    setError("");
+    try {
+      setRun(
+        await requestJson<RunResult>(
+          `${API}/api/v1/reconciliation/runs/${encodeURIComponent(run.run_id)}?limit=100&offset=${offset}`,
+        ),
+      );
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Could not load results.");
     } finally {
       setBusy(false);
     }
@@ -147,11 +199,12 @@ export default function ReconciliationWorkspace() {
   return (
     <section
       id="reconciliation"
+      tabIndex={-1}
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
       aria-labelledby="reconciliation-heading"
     >
       <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-        Phase 4 · reconciliation
+        Reconciliation
       </p>
       <h2 id="reconciliation-heading" className="mt-2 text-2xl font-semibold text-slate-950">
         Compare every payment with its settlement
@@ -167,8 +220,12 @@ export default function ReconciliationWorkspace() {
             Payment batch
             <select
               className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+              disabled={busy}
               value={paymentBatch}
-              onChange={(event) => setPaymentBatch(event.target.value)}
+              onChange={(event) => {
+                setPaymentBatch(event.target.value);
+                setRun(null);
+              }}
             >
               <option value="">Select a payment batch</option>
               {paymentBatches.map((batch) => (
@@ -180,8 +237,12 @@ export default function ReconciliationWorkspace() {
             Settlement batch
             <select
               className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
+              disabled={busy}
               value={settlementBatch}
-              onChange={(event) => setSettlementBatch(event.target.value)}
+              onChange={(event) => {
+                setSettlementBatch(event.target.value);
+                setRun(null);
+              }}
             >
               <option value="">Select a settlement batch</option>
               {settlementBatches.map((batch) => (
@@ -199,6 +260,16 @@ export default function ReconciliationWorkspace() {
           </button>
         </div>
       )}
+      {API && (
+        <button
+          type="button"
+          disabled={busy}
+          onClick={() => void loadBatches()}
+          className="mt-3 rounded-lg border border-slate-300 px-3 py-2 text-sm"
+        >
+          Refresh available batches
+        </button>
+      )}
       {error && (
         <p role="alert" className="mt-3 rounded-lg bg-rose-50 p-3 text-sm text-rose-900">
           {error}
@@ -210,6 +281,11 @@ export default function ReconciliationWorkspace() {
           reconciliation rules from fictional CSV fixtures. The API and database are not hosted on
           GitHub Pages.
         </div>
+      )}
+      {!run && (
+        <p className="mt-4 text-sm font-medium text-teal-900">
+          Showing the committed sample fixture, not a new reconciliation run.
+        </p>
       )}
       <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm text-slate-700">
         <span>{run ? run.result_count : sample.result_count} results</span>
@@ -237,7 +313,7 @@ export default function ReconciliationWorkspace() {
         </span>
       </div>
       <div className="mt-4 grid gap-3">
-        {(run?.results.slice(0, 30) ?? sample.samples).map((row) => (
+        {(run?.results ?? sample.samples).map((row) => (
           <Comparison
             key={`${row.classification}-${row.payment?.payment_id ?? row.settlement?.settlement_id}`}
             row={row}
@@ -246,8 +322,29 @@ export default function ReconciliationWorkspace() {
       </div>
       {run && (
         <p className="mt-4 break-all text-xs text-slate-500">
-          Saved run {run.run_id} · batch {run.payment_batch_id} · showing up to 30 results
+          Saved run {run.run_id} · batch {run.payment_batch_id} · results {(run.offset ?? 0) + 1}–
+          {(run.offset ?? 0) + run.results.length} of {run.result_count}
         </p>
+      )}
+      {run && (
+        <nav className="mt-3 flex flex-wrap gap-3" aria-label="Reconciliation result pages">
+          <button
+            type="button"
+            disabled={busy || (run.offset ?? 0) === 0}
+            onClick={() => void loadPage(Math.max(0, (run.offset ?? 0) - 100))}
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm"
+          >
+            Previous results
+          </button>
+          <button
+            type="button"
+            disabled={busy || (run.offset ?? 0) + run.results.length >= run.result_count}
+            onClick={() => void loadPage((run.offset ?? 0) + run.results.length)}
+            className="rounded-lg border border-slate-300 px-4 py-2 text-sm"
+          >
+            Next results
+          </button>
+        </nav>
       )}
       <CaseWorkspace results={run?.results ?? sample.samples} />
       {!run && (

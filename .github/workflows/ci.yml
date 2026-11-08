@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main, develop]
+    branches: [main, develop, feat/hiring-manager-workspace]
   pull_request:
     branches: [main, develop]
 
@@ -63,6 +63,7 @@ jobs:
           --health-retries 5
     env:
       DATABASE_URL: postgresql+psycopg://fireops@127.0.0.1:5432/fireops_test
+      FIREOPS_TEST_DATABASE_URL: postgresql+psycopg://fireops@127.0.0.1:5432/fireops_test
     steps:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v6

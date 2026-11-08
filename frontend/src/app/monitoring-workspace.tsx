@@ -1,8 +1,11 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { requestJson } from "../lib/api";
+import { activeScenario } from "./scenario-selector";
 
-const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "";
+import { useCallback, useEffect, useRef, useState } from "react";
+
+const API = process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/$/, "") ?? "/backend";
 const RULES = [
   {
     rule_id: "HIGH_VALUE_PAYMENT",
@@ -87,13 +90,10 @@ interface EscalationSummary {
 }
 
 async function apiRequest<T>(path: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(`${API}/api/v1${path}`, {
+  return requestJson<T>(`${API}/api/v1${path}`, {
     ...init,
     headers: { "Content-Type": "application/json", ...init?.headers },
   });
-  const payload = (await response.json()) as T & { detail?: string };
-  if (!response.ok) throw new Error(payload.detail ?? "Monitoring request failed.");
-  return payload;
 }
 
 function pretty(value: string): string {
@@ -107,6 +107,8 @@ export default function MonitoringWorkspace() {
   const [batches, setBatches] = useState<string[]>([]);
   const [rules, setRules] = useState<MonitoringRule[]>(RULES);
   const [batchId, setBatchId] = useState("");
+  const [queueOffset, setQueueOffset] = useState(0);
+  const queueRequest = useRef(0);
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [selected, setSelected] = useState<Alert | null>(null);
   const [statusFilter, setStatusFilter] = useState("");
@@ -118,29 +120,61 @@ export default function MonitoringWorkspace() {
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
 
+  const selectedId = selected?.alert_id;
+  useEffect(() => {
+    if (!selectedId) return;
+    setNote("");
+    setReason("");
+    setSummary(null);
+  }, [selectedId]);
+
   const loadAlerts = useCallback(async () => {
     if (!API) return;
-    const query = new URLSearchParams();
+    const requestId = ++queueRequest.current;
+    const query = new URLSearchParams({
+      limit: "25",
+      offset: String(queueOffset),
+      batch_id: activeScenario(),
+    });
     if (statusFilter) query.set("status", statusFilter);
     if (severityFilter) query.set("severity", severityFilter);
     const result = await apiRequest<{ alerts: Alert[] }>(`/monitoring/alerts?${query.toString()}`);
+    if (requestId !== queueRequest.current) return;
     setAlerts(result.alerts);
-  }, [statusFilter, severityFilter]);
+    setError("");
+  }, [statusFilter, severityFilter, queueOffset]);
 
   useEffect(() => {
     if (!API) return;
-    void Promise.all([
-      apiRequest<{ batches: Array<{ batch_id: string }> }>("/batches"),
-      apiRequest<{ rules: MonitoringRule[] }>("/monitoring/rules"),
-      loadAlerts(),
-    ])
-      .then(([batchResult, ruleResult]) => {
-        setBatches(batchResult.batches.map((batch) => batch.batch_id));
-        setRules(ruleResult.rules);
-      })
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : "Could not load monitoring data."),
-      );
+    const refresh = () => {
+      void Promise.all([
+        apiRequest<{ batches: Array<{ batch_id: string }> }>("/batches"),
+        apiRequest<{ rules: MonitoringRule[] }>("/monitoring/rules"),
+        loadAlerts(),
+      ])
+        .then(([batchResult, ruleResult]) => {
+          setBatches(batchResult.batches.map((batch) => batch.batch_id));
+          setBatchId(activeScenario());
+          setRules(ruleResult.rules);
+        })
+        .catch((cause: unknown) =>
+          setError(cause instanceof Error ? cause.message : "Could not load monitoring data."),
+        );
+    };
+    refresh();
+    const refreshOnNavigation = () => {
+      if (window.location.hash === "#monitoring") refresh();
+    };
+    window.addEventListener("hashchange", refreshOnNavigation);
+    window.addEventListener("fireops:demo-ready", refresh);
+    window.addEventListener("fireops:operations-updated", refresh);
+    window.addEventListener("fireops:scenario-changed", refresh);
+    return () => {
+      window.removeEventListener("hashchange", refreshOnNavigation);
+      window.removeEventListener("fireops:demo-ready", refresh);
+      window.removeEventListener("fireops:operations-updated", refresh);
+      window.removeEventListener("fireops:scenario-changed", refresh);
+    };
   }, [loadAlerts]);
 
   const act = async (operation: () => Promise<Alert>) => {
@@ -153,6 +187,7 @@ export default function MonitoringWorkspace() {
       const updated = await operation();
       setSelected(updated);
       await loadAlerts();
+      window.dispatchEvent(new Event("fireops:operations-updated"));
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Monitoring action failed.");
     } finally {
@@ -166,15 +201,20 @@ export default function MonitoringWorkspace() {
     setMessage("");
     setSelected(null);
     setSummary(null);
+    setQueueOffset(0);
+    setStatusFilter("");
+    setSeverityFilter("");
     try {
       const result = await apiRequest<{
         alerts: Alert[];
         alert_count: number;
         idempotent: boolean;
       }>("/monitoring/runs", { method: "POST", body: JSON.stringify({ batch_id: batchId }) });
-      setAlerts(result.alerts);
+      queueRequest.current += 1;
+      setAlerts(result.alerts.slice(0, 25));
+      window.dispatchEvent(new Event("fireops:operations-updated"));
       setMessage(
-        `${result.alert_count} rule alert${result.alert_count === 1 ? "" : "s"} created. ${result.idempotent ? "This unchanged source batch was already reviewed by the rules." : "Each alert requires human review."}`,
+        `${result.alert_count} rule alert${result.alert_count === 1 ? "" : "s"} created. ${result.idempotent ? "This unchanged source batch was already evaluated by the rules; human review is separate." : "Each alert requires human review."}`,
       );
     } catch (cause) {
       setError(cause instanceof Error ? cause.message : "Monitoring run failed.");
@@ -202,11 +242,13 @@ export default function MonitoringWorkspace() {
   return (
     <section
       id="monitoring"
+      tabIndex={-1}
+      aria-busy={busy}
       className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
       aria-labelledby="monitoring-heading"
     >
       <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
-        Phase 6 · monitoring and human review
+        Monitoring and human review
       </p>
       <h2 id="monitoring-heading" className="mt-2 text-2xl font-semibold text-slate-950">
         Review explainable operational alerts
@@ -251,6 +293,7 @@ export default function MonitoringWorkspace() {
             <label className="grid gap-2 text-sm font-medium">
               Synthetic payment batch
               <select
+                disabled={busy}
                 className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                 value={batchId}
                 onChange={(event) => setBatchId(event.target.value)}
@@ -277,10 +320,14 @@ export default function MonitoringWorkspace() {
                 <label className="grid gap-1 text-sm font-medium">
                   Filter by status
                   <select
+                    disabled={busy}
                     aria-label="Filter alerts by status"
                     className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                     value={statusFilter}
-                    onChange={(event) => setStatusFilter(event.target.value)}
+                    onChange={(event) => {
+                      setQueueOffset(0);
+                      setStatusFilter(event.target.value);
+                    }}
                   >
                     <option value="">All statuses</option>
                     <option>OPEN</option>
@@ -292,10 +339,14 @@ export default function MonitoringWorkspace() {
                 <label className="grid gap-1 text-sm font-medium">
                   Filter by severity
                   <select
+                    disabled={busy}
                     aria-label="Filter alerts by severity"
                     className="min-h-11 rounded-lg border border-slate-300 bg-white px-3"
                     value={severityFilter}
-                    onChange={(event) => setSeverityFilter(event.target.value)}
+                    onChange={(event) => {
+                      setQueueOffset(0);
+                      setSeverityFilter(event.target.value);
+                    }}
                   >
                     <option value="">All severities</option>
                     <option>INFO</option>
@@ -310,7 +361,12 @@ export default function MonitoringWorkspace() {
                     <button
                       type="button"
                       className={`min-h-16 w-full rounded-lg border p-3 text-left ${selected?.alert_id === alert.alert_id ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}
+                      disabled={busy}
+                      aria-pressed={selected?.alert_id === alert.alert_id}
                       onClick={() => {
+                        setBusy(true);
+                        setError("");
+                        setSelected(null);
                         setSummary(null);
                         void apiRequest<Alert>(`/monitoring/alerts/${alert.alert_id}`)
                           .then(setSelected)
@@ -318,7 +374,8 @@ export default function MonitoringWorkspace() {
                             setError(
                               cause instanceof Error ? cause.message : "Could not load alert.",
                             ),
-                          );
+                          )
+                          .finally(() => setBusy(false));
                       }}
                     >
                       <span className="block font-semibold">{alert.title}</span>
@@ -335,6 +392,27 @@ export default function MonitoringWorkspace() {
                   </li>
                 )}
               </ul>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  disabled={busy || queueOffset === 0}
+                  onClick={() => setQueueOffset(Math.max(0, queueOffset - 25))}
+                  className="rounded-lg border border-slate-300 px-3 text-sm"
+                >
+                  Previous alerts
+                </button>
+                <span className="text-xs text-slate-600">
+                  Page {Math.floor(queueOffset / 25) + 1} · {alerts.length} records
+                </span>
+                <button
+                  type="button"
+                  disabled={busy || alerts.length < 25}
+                  onClick={() => setQueueOffset(queueOffset + 25)}
+                  className="rounded-lg border border-slate-300 px-3 text-sm"
+                >
+                  Next alerts
+                </button>
+              </div>
             </div>
 
             <div className="rounded-xl border border-slate-200 p-4">
@@ -375,6 +453,7 @@ export default function MonitoringWorkspace() {
                       <label className="mt-4 grid gap-1 text-sm">
                         Analyst note
                         <textarea
+                          disabled={busy}
                           className="min-h-20 rounded-lg border border-slate-300 p-3"
                           value={note}
                           onChange={(event) => setNote(event.target.value)}
@@ -406,6 +485,7 @@ export default function MonitoringWorkspace() {
                     <label className="mt-4 grid gap-1 text-sm">
                       Review reason
                       <textarea
+                        disabled={busy}
                         className="min-h-16 rounded-lg border border-slate-300 p-3"
                         value={reason}
                         onChange={(event) => setReason(event.target.value)}
@@ -542,6 +622,11 @@ export default function MonitoringWorkspace() {
         </>
       )}
 
+      {busy && (
+        <p role="status" className="mt-4 text-sm text-teal-900">
+          Updating monitoring records…
+        </p>
+      )}
       {message && (
         <p role="status" className="mt-4 rounded-lg bg-teal-50 p-3 text-sm text-teal-950">
           {message}

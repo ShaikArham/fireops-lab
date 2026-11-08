@@ -384,6 +384,8 @@ def open_case(
 @router.get("/cases")
 def cases_queue(
     session: Annotated[Session, Depends(get_session)],
+    priority: Annotated[str | None, Query(pattern="^(LOW|NORMAL|HIGH)$")] = None,
+    search: Annotated[str | None, Query(max_length=128)] = None,
     case_status: Annotated[
         str | None, Query(alias="status", pattern="^(OPEN|IN_REVIEW|ESCALATED|RESOLVED)$")
     ] = None,
@@ -394,14 +396,18 @@ def cases_queue(
             pattern="^(UNMATCHED_INSTRUCTION|UNMATCHED_SETTLEMENT|AMOUNT_MISMATCH|DUPLICATE_CANDIDATE|AMBIGUOUS_MATCH)$"
         ),
     ] = None,
+    run_id: Annotated[str | None, Query(max_length=36)] = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> dict[str, object]:
     return list_cases(
         session,
         case_status=case_status,
+        priority=priority,
+        search=search,
         assigned_to=assigned_to,
         classification=classification,
+        run_id=run_id,
         limit=limit,
         offset=offset,
     )
@@ -508,6 +514,7 @@ def monitoring_alert_queue(
             pattern="^(HIGH_VALUE_PAYMENT|PAYER_VELOCITY|REPEATED_FAILURES|DUPLICATE_REFERENCE)$"
         ),
     ] = None,
+    batch_id: Annotated[str | None, Query(max_length=64)] = None,
     limit: Annotated[int, Query(ge=1, le=100)] = 25,
     offset: Annotated[int, Query(ge=0)] = 0,
 ) -> dict[str, object]:
@@ -516,6 +523,7 @@ def monitoring_alert_queue(
         alert_status=alert_status,
         severity=severity,
         rule_id=rule_id,
+        batch_id=batch_id,
         limit=limit,
         offset=offset,
     )

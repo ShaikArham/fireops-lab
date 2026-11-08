@@ -1,11 +1,15 @@
 import os
 from urllib.parse import urlsplit
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from sqlalchemy.exc import SQLAlchemyError
+from starlette.concurrency import run_in_threadpool
 
 from app.api import install_routes
+from app.demo import authenticate, enabled, require_browser_write
+from app.demo import router as demo_router
 
 DEFAULT_CORS_ORIGINS = "http://localhost:3000,http://127.0.0.1:3000"
 MUTATING_METHODS = {"POST", "PUT", "PATCH", "DELETE"}
@@ -64,7 +68,7 @@ app.add_middleware(
     allow_origins=cors_origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_headers=["Content-Type", "X-FireOps-Demo", "Authorization"],
 )
 
 
@@ -75,12 +79,30 @@ async def block_nonlocal_mutations(request: Request, call_next):
         os.getenv("FIREOPS_ENV", "production").strip().lower() == "development"
         and os.getenv("FIREOPS_ENABLE_DEMO_WRITES", "false").strip().lower() == "true"
     )
-    if is_api_write and not local_write_opt_in:
+    if enabled() and request.url.path.startswith("/api/v1/"):
+        try:
+            if is_api_write:
+                require_browser_write(request)
+            if not (request.method == "POST" and request.url.path == "/api/v1/demo/session"):
+                request.state.demo_schema = await run_in_threadpool(
+                    authenticate, request, write=is_api_write
+                )
+        except HTTPException as exc:
+            return JSONResponse(
+                status_code=exc.status_code, content={"detail": exc.detail}, headers=exc.headers
+            )
+        except SQLAlchemyError:
+            return JSONResponse(status_code=503, content={"detail": "Demo database unavailable."})
+    elif is_api_write and not local_write_opt_in:
         return JSONResponse(
             status_code=503,
             content={"detail": "Demo API writes are disabled outside local development."},
         )
-    return await call_next(request)
+    response = await call_next(request)
+    if request.url.path.startswith("/api/"):
+        response.headers["Cache-Control"] = "private, no-store"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+    return response
 
 
 @app.get("/health", tags=["operations"])
@@ -89,3 +111,23 @@ def health() -> dict[str, str]:
 
 
 install_routes(app)
+
+app.include_router(demo_router)
+
+
+@app.exception_handler(SQLAlchemyError)
+async def database_error(request: Request, exc: SQLAlchemyError):
+    return JSONResponse(
+        status_code=503, content={"detail": "Demo database unavailable. Please retry later."}
+    )
+
+
+@app.get("/ready", tags=["operations"])
+def readiness():
+    from sqlalchemy import text
+
+    from app.db.session import database_engine
+
+    with database_engine().connect() as connection:
+        connection.execute(text("SELECT 1 FROM public.fireops_demo_sessions LIMIT 1"))
+    return {"status": "ready", "database": "connected", "isolated_demo": enabled()}
