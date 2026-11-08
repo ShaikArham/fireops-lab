@@ -12,6 +12,11 @@ from fastapi import APIRouter, Depends, HTTPException, Request, Response
 from sqlalchemy import Column, Integer, MetaData, String, Table, delete, func, select, text
 from sqlalchemy.orm import Session
 
+from app.models import ReconciliationResult, ReconciliationRun, ExceptionCase
+from app.services.reconciliation_operations import run_reconciliation
+from app.services.case_management import create_case
+from app.services.monitoring_operations import run_monitoring
+
 from app.db.base import Base
 from app.db.session import database_engine, get_session
 from app.services.payment_operations import import_source_file
@@ -196,7 +201,35 @@ def load_demo(session: Annotated[Session, Depends(get_session)]) -> dict[str, ob
                 session, file_name=f"{scenario}-{kind}.csv", content=path.read_bytes(), kind=kind
             )
             imported += result.imported_count
+    # Prepare a deterministic guided journey once per isolated workspace.
+    scenarios = (
+        ("BATCH-N-20261014", "SETTLE-N-20261015"),
+        ("BATCH-E-20261015", "SETTLE-E-20261016"),
+    )
+    prepared = []
+    for payment_batch, settlement_batch in scenarios:
+        existing = session.scalar(select(ReconciliationRun).where(
+            ReconciliationRun.payment_batch_id == payment_batch,
+            ReconciliationRun.settlement_batch_id == settlement_batch,
+        ).order_by(ReconciliationRun.finished_at.desc()).limit(1))
+        if existing is None:
+            result = run_reconciliation(session, payment_batch, settlement_batch, 3)
+            run_id = str(result["run_id"])
+        else:
+            run_id = existing.run_id
+        exceptions = session.scalars(select(ReconciliationResult).where(
+            ReconciliationResult.run_id == run_id,
+            ReconciliationResult.classification.notin_(("MATCHED_EXACT", "MATCHED_LATE")),
+        ).order_by(ReconciliationResult.result_id).limit(8)).all()
+        for exception in exceptions:
+            if not session.scalar(select(ExceptionCase).where(ExceptionCase.result_id == exception.result_id)):
+                create_case(session, exception.result_id, "system:demo-seed", "NORMAL")
+        session.commit()
+        run_monitoring(session, payment_batch, "system:demo-seed")
+        session.commit()
+        prepared.append({"payment_batch": payment_batch, "reconciliation_run": run_id})
     return {
+        "prepared": prepared,
         "status": "loaded",
         "imported_count": imported,
         "message": "Normal and exception days loaded into your workspace.",
