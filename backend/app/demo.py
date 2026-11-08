@@ -56,7 +56,11 @@ def checked_schema(value: str) -> str:
 
 def authenticate(request: Request, *, write: bool) -> str:
     authorization = request.headers.get("authorization", "")
-    token = authorization.removeprefix("Bearer ").strip() if authorization.startswith("Bearer ") else request.cookies.get(COOKIE, "")
+    token = (
+        authorization.removeprefix("Bearer ").strip()
+        if authorization.startswith("Bearer ")
+        else request.cookies.get(COOKIE, "")
+    )
     if not re.fullmatch(r"[A-Za-z0-9_-]{43}", token):
         raise HTTPException(401, "Start your demo workspace first.")
     now = int(time.time())
@@ -124,7 +128,9 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
     if not enabled():
         raise HTTPException(503, "Isolated demo is not configured.")
     require_browser_write(request)
-    if request.cookies.get(COOKIE) or request.headers.get("authorization", "").startswith("Bearer "):
+    if request.cookies.get(COOKIE) or request.headers.get("authorization", "").startswith(
+        "Bearer "
+    ):
         try:
             authenticate(request, write=False)
             return {"status": "ready", "expires_in_hours": 24, "reused": True}
