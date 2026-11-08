@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./e2e",
+  testIgnore: "**/walkthrough.spec.ts",
   fullyParallel: true,
   reporter: "list",
   use: {
@@ -32,7 +33,7 @@ export default defineConfig({
     timeout: 120_000,
     env: {
       ...process.env,
-      NEXT_PUBLIC_API_BASE_URL: "https://api.fireops.test",
+      NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL ?? "https://api.fireops.test",
     },
   },
 });

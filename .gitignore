@@ -19,4 +19,5 @@ uvicorn.log
 Thumbs.db
 playwright-report/
 test-results/
+/video/output/
 
