@@ -98,19 +98,14 @@ a {
 
 /* About & Application: native, keyboard-friendly section navigation. */
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 .about-sections {
-  scroll-snap-type: y proximity;
+  scroll-snap-type: none;
 }
 .about-section {
   scroll-margin-top: 5.5rem;
-  scroll-snap-align: start;
-}
-@media (min-width: 768px) {
-  .about-section {
-    min-height: min(76vh, 820px);
-  }
+  min-height: 0;
 }
 @media (prefers-reduced-motion: reduce) {
   html {
