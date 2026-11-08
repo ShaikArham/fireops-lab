@@ -32,6 +32,12 @@ export default function Home() {
               >
                 <a
                   className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
+                  href="#walkthrough"
+                >
+                  Video walkthrough
+                </a>
+                <a
+                  className="rounded-lg px-3 py-3 text-sm font-medium hover:bg-slate-50"
                   href="#reconciliation"
                 >
                   Payment day and reconciliation
@@ -68,6 +74,9 @@ export default function Home() {
             >
               <a className="hover:text-teal-900" href="#reconciliation">
                 Payment day
+              </a>
+              <a className="hover:text-teal-900" href="#walkthrough">
+                Walkthrough
               </a>
               <a className="hover:text-teal-900" href="#investigation">
                 Investigation
@@ -111,6 +120,12 @@ export default function Home() {
                   className="inline-flex min-h-12 items-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
                 >
                   Project boundaries
+                </a>
+                <a
+                  href="#walkthrough"
+                  className="inline-flex min-h-12 items-center rounded-lg border border-slate-300 bg-white px-5 py-3 font-medium text-slate-800 hover:bg-slate-50"
+                >
+                  Watch the full walkthrough
                 </a>
               </div>
             </div>
@@ -168,6 +183,66 @@ export default function Home() {
                 Review defined operational measures
               </span>
             </a>
+          </section>
+
+          <section
+            id="walkthrough"
+            className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-8"
+            aria-labelledby="walkthrough-heading"
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.14em] text-teal-800">
+              Full website walkthrough · 68 seconds
+            </p>
+            <h2 id="walkthrough-heading" className="mt-2 text-2xl font-semibold text-slate-950">
+              See the complete synthetic operations journey
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-6 text-slate-600">
+              Follow file validation, payment simulation, reconciliation, case review, monitoring
+              and the run-scoped CSV export. This review cut has no spoken narration; the English
+              captions describe each visible step.
+            </p>
+            <video
+              className="mt-5 aspect-video w-full rounded-xl bg-slate-950"
+              controls
+              playsInline
+              preload="metadata"
+              poster="videos/fireops-lab-walkthrough-thumbnail.webp"
+              aria-label="Silent FireOps Lab website walkthrough with English descriptive captions"
+            >
+              <source src="videos/fireops-lab-walkthrough.mp4" type="video/mp4" />
+              <track
+                default
+                kind="captions"
+                label="English descriptive captions"
+                src="videos/fireops-lab-walkthrough.vtt"
+                srcLang="en"
+              />
+              Your browser does not support HTML video. Download the{" "}
+              <a href="videos/fireops-lab-walkthrough.mp4">MP4 walkthrough</a>.
+            </video>
+            <div className="mt-4 flex flex-wrap gap-4 text-sm font-medium">
+              <a
+                className="text-teal-900 underline"
+                href="videos/fireops-lab-walkthrough.mp4"
+                download
+              >
+                Download MP4
+              </a>
+              <a
+                className="text-teal-900 underline"
+                href="videos/fireops-lab-walkthrough-thumbnail.webp"
+                download
+              >
+                Download WebP thumbnail
+              </a>
+              <a
+                className="text-teal-900 underline"
+                href="videos/fireops-lab-walkthrough.vtt"
+                download
+              >
+                Download captions
+              </a>
+            </div>
           </section>
 
           <ReconciliationWorkspace />

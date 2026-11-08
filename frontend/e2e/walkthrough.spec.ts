@@ -8,6 +8,17 @@ test("record the full synthetic payment operations website walkthrough", async (
   await page.goto("/");
   await expect(page.getByRole("heading", { name: /Reconcile the day/i })).toBeVisible();
   await expect(page.getByText("Fictional data only")).toBeVisible();
+  const video = page.locator("#walkthrough video");
+  await expect(video).toBeVisible();
+  await page.waitForFunction(() => {
+    const element = document.querySelector<HTMLVideoElement>("#walkthrough video");
+    return element !== null && element.readyState >= 1 && Number.isFinite(element.duration);
+  });
+  const duration = await video.evaluate((element: HTMLVideoElement) => element.duration);
+  expect(duration).toBeGreaterThanOrEqual(60);
+  expect(duration).toBeLessThanOrEqual(90);
+  const captionResponse = await page.request.get("/videos/fireops-lab-walkthrough.vtt");
+  expect(captionResponse.ok()).toBe(true);
   await page.waitForTimeout(8_000);
 
   await page.locator("#operations").scrollIntoViewIfNeeded();

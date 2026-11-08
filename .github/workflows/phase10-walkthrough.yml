@@ -67,7 +67,7 @@ jobs:
       - name: Start the local API
         run: |
           mkdir -p ../video/output
-          nohup uv run uvicorn app.main:app --host 127.0.0.1 --port 8000 > ../video/output/fireops-api.log 2>&1 &
+          nohup .venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8000 > ../video/output/fireops-api.log 2>&1 &
           python - <<'PY'
           import time
           import urllib.request

@@ -37,11 +37,13 @@ Phases 0–9 have passed their gates. Phase 10 is open; that is 10 of 11 phase g
 
 ## Phase 10 current state
 
-- PR [#18](https://github.com/ShaikArham/fireops-lab/pull/18) contains the Fire role alignment, application-answer draft, case-study draft and expanded 90-second full-site narration/shot plan. It remains a draft; no new deployment has been made.
+- PR [#18](https://github.com/ShaikArham/fireops-lab/pull/18) contains the Fire role alignment, application-answer draft, case-study draft, full-site walkthrough player and release assets. It remains a draft; no new deployment has been made.
 - The case-study draft now reports the verified deterministic exception-day output: 1,260 comparison rows, comprising 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates and 20 unmatched rows. These are fictional fixture results only.
-- The video-plan and case-study commit passed frontend and backend CI in run [42448130265](https://github.com/ShaikArham/fireops-lab/actions/runs/42448130265). Later changes on PR #18 update only the handoff, release checklist and narration timing; check PR #18 for the current branch head and latest CI result before relying on it.
-- The actual MP4, WebP thumbnail, timed VTT and final transcript have not been produced or verified. The public website is still the earlier static, read-only Pages preview; API-backed workflows are not publicly available.
-- The user is handling the final CV copy. After receiving it, verify claims, dates, formatting and download, then attach it at the end of the website/application materials.
+- The capture workflow produced a 68.16-second H.264 MP4 at 25 fps from the optimized static export, served locally with the real API and fresh PostgreSQL. The browser journey covered CSV validation/import, 100-row payment simulation, exception-day reconciliation, case assignment/note/resolution and audit history, monitoring review/escalation, insights and a CSV download. Run [42453087080](https://github.com/ShaikArham/fireops-lab/actions/runs/42453087080) passed capture and encoding but its cleanup step failed because a background uv run process held the dependency-cache lock; the workflow now starts the project virtualenv's uvicorn directly.
+- The MP4, 1280×720 WebP thumbnail and English descriptive VTT are in frontend/public/videos/, linked from the website with download controls. The VTT describes visible sections; it is not aligned to speech. The MP4 is a silent review cut. The proposed human narration is in [docs/phase10/video-transcript-draft.md](phase10/video-transcript-draft.md); spoken audio, speech-aligned captions and audio playback verification remain open.
+- The local static production build and browser capture passed, and frontend/backend CI passed on the earlier capture commit. The latest asset-integrated capture and the direct-uvicorn cleanup fix still need their CI rerun before this handoff is treated as current release evidence.
+- The public website is still the earlier static, read-only Pages preview; API-backed workflows are not publicly available. No deployment has been made from PR #18.
+- The user will provide the final CV copy later. Keep it deferred. After receiving it, verify claims, dates, formatting and download, then attach it at the end of the website/application materials.
 
 ## Phase 4 details and verified evidence
 
@@ -70,7 +72,7 @@ Phase 9 is complete. PR #16 merged as `48986c68edca884ff426ad083a16f2e3d61f4d1b`
 
 ## Later phases still pending
 
-- **Phase 10:** produce and verify the full website walkthrough video (MP4, WebP thumbnail, VTT and transcript); finalize the one-page case study and short application answers; receive and attach the user's final Fire-specific two-page ATS CV; complete the free GitHub Pages release, real-browser/mobile checks and all download tests. No 100% claim before those gates pass.
+- **Phase 10:** complete the human voice recording and speech-aligned captions/transcript; verify desktop and mobile video playback and downloads; finalize the one-page case study and short application answers; receive and attach the user's final Fire-specific two-page ATS CV; complete the free GitHub Pages release and real-browser/mobile checks. The API/database are not hosted by GitHub Pages, so the published Pages experience remains read-only unless the release architecture changes. No 100% claim before those gates pass.
 
 ## User-provided video reference
 
