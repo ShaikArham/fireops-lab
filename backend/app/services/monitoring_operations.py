@@ -238,10 +238,15 @@ def list_alerts(
     alert_status: str | None,
     severity: str | None,
     rule_id: str | None,
+    batch_id: str | None = None,
     limit: int,
     offset: int,
 ) -> dict[str, object]:
     statement = select(MonitoringAlert)
+    if batch_id:
+        statement = statement.join(
+            MonitoringRun, MonitoringAlert.run_id == MonitoringRun.run_id
+        ).where(MonitoringRun.batch_id == batch_id)
     if alert_status:
         statement = statement.where(MonitoringAlert.status == alert_status)
     if severity:
