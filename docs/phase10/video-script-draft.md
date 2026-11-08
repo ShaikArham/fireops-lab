@@ -1,45 +1,54 @@
-# FireOps Lab introduction video — narration and capture plan
+# FireOps Lab full website walkthrough
 
-**Target runtime:** 75 seconds at normal 1× speed  
-**Deliverables:** MP4, WebP thumbnail, VTT captions, written transcript  
-**Production:** OBS Studio screen capture, Audacity narration, Remotion composition, FFmpeg encoding/optimisation, WhisperX caption alignment. Keep all tools and services free; use no subscription-only assets.
+**Target runtime:** 90 seconds at normal 1× speed
+**Audience:** Fire Operations Analyst hiring team
+**Deliverables:** MP4, WebP thumbnail, VTT captions and written transcript
+**Status:** Narration and capture plan prepared. Final recording and playback verification are still pending.
 
 ## Narration draft
 
-Every payment leaves a trail across systems. When references do not line up, a settlement arrives late, or a record is duplicated, an operations analyst needs clear evidence and a reliable way to decide what happens next.
+Every payment creates records in more than one system. When references, amounts or dates disagree, an operations analyst needs to see the evidence, understand the exception and choose a clear next step.
 
-FireOps Lab is an independent payment-operations simulator built around that work. It uses fictional data and explainable rules.
+FireOps Lab is an independent payment-operations simulator built with fictional data.
 
-Here, I select payment and settlement batches and run a reconciliation. Exact matches, late records, amount differences, duplicates and missing references are classified side by side, with the source evidence available for review.
+The local demo validates CSV files and records a simulated payment lifecycle without moving money. This exception-day fixture contains twelve hundred and fifty payment instructions and twelve hundred and thirty settlement records. The reconciliation run compares them with explicit reference, amount and date rules. Ambiguous duplicates stay visible for review instead of being forced into a match.
 
-An exception can then be investigated through a controlled case workflow. Notes, decisions and status changes stay in an audit history.
+From an exception, I can open a case, assign an owner, record evidence and keep status changes in an audit history.
 
-The monitoring view surfaces rule evidence and possible benign explanations. An analyst makes the decision; an alert is not treated as proof of fraud or money laundering.
+Transaction-monitoring rules show their thresholds and a possible benign explanation. Alerts prompt human review; they are not findings of fraud or money laundering.
 
-Operational reports stay tied to the selected run and can be exported for follow-up.
+The dashboard ties operational measures and downloadable results to a reconciliation run.
 
-FireOps Lab is a portfolio project, not a live payment service and not affiliated with Fire. Explore the read-only demo and the code on GitHub.
+The public preview is read-only. FireOps Lab does not move money and is not affiliated with Fire Financial Services. Explore the demo and source code on GitHub.
 
-## Shot plan
+## Full-site shot list
 
-| Time | Screen or visual | Required capture |
+| Time | Website area | Capture and proof point |
 |---|---|---|
-| 0–7s | Payment records split across two sources; restrained title | Use actual app/table visuals or simple Remotion typography. No fake bank branding or real customer information. |
-| 7–15s | FireOps Lab title and synthetic-data label | Capture the real project header and read-only notice. |
-| 15–31s | Reconciliation workspace | Show selecting both batches and running the fixture. Hold long enough to read exact match, late, mismatch, duplicate and unmatched classifications. |
-| 31–45s | Exception investigation | Open a real synthetic exception. Show source evidence and audit activity without implying a regulated production case. |
-| 45–58s | Transaction monitoring | Show rule, evidence and benign explanation, then the human review/disposition control. Do not label an alert as a confirmed crime. |
-| 58–68s | Operational insights and export | Show run-scoped figures and download the corresponding report. Verify displayed totals against the selected run before recording. |
-| 68–75s | Project name, GitHub and public preview links | End with a concise call to explore. Keep the independence and fictional-data statement visible. |
+| 0–10s | Opening and problem | Show the FireOps Lab title, then frame two fictional source files. Keep the problem statement legible. |
+| 10–20s | Homepage and project boundary | Show the hero, independent-project label and fictional-data notice. |
+| 20–34s | Payment operations | Show CSV validation, the batch list and a simulated lifecycle event. Keep the “does not move money” boundary visible. |
+| 34–50s | Reconciliation | Select the normal and exception-day batches, run reconciliation, and show exact, late, mismatch, duplicate and unmatched outcomes with source evidence. |
+| 50–63s | Case investigation | Open an exception, show its source records, assignment, analyst note and audit history. Do not include personal or live financial data. |
+| 63–76s | Transaction monitoring | Show a rule, threshold, evidence, benign explanation and human review. Never label the alert a confirmed crime or regulatory finding. |
+| 76–84s | Operational insights | Show run-scoped definitions and the CSV export control. If the local API is used, verify the metrics against the selected run before capture. |
+| 84–90s | Closing and limits | Show the method/limits section and repository link. State that the public GitHub Pages preview is read-only and the API is not hosted there. |
 
-## Recording and edit checks
+## Capture setup
 
-- Capture actual application screens in OBS at readable desktop resolution; do not fabricate workflow states in motion graphics.
-- Record narration in Audacity, then align captions to the accepted final audio.
-- Compose titles, transitions and captions in Remotion. Use FFmpeg to encode MP4 and WebP thumbnail.
-- Keep narration and screen recording at normal speed. Do not speed up, time-stretch or pitch-shift narration.
-- Confirm the final runtime is 60–90 seconds, the audio is intelligible, captions match the audio, the VTT is valid, and the transcript matches.
-- Play the MP4 at 1× in a desktop browser and a mobile browser/device; inspect caption display and the thumbnail.
-- Do not mark video delivery complete until the actual exported assets and playback checks are recorded in the release checklist.
+- Record the locally running frontend and API against a fresh temporary database and the checked-in synthetic fixtures. Do not use personal or live financial information.
+- Keep the capture on the current code branch. The public GitHub Pages site is read-only and must not be described as running the API-backed workflows.
+- Record the narration in Audacity. Keep a natural speaking pace and normal 1× playback; do not time-stretch, pitch-shift or speed up the video.
+- Compose titles, transitions and captions in Remotion. Use FFmpeg for H.264/AAC MP4 encoding and WebP thumbnail output. Prefer system fonts, self-created graphics and software already available at no cost.
+- Align captions to the final narration with WhisperX if it can run locally without a paid service; otherwise time the VTT against the recorded audio and verify it by listening.
+- Add a short transcript and the required synthetic-data and independence disclosures alongside the video.
 
-**Status:** Script/shot-plan draft only. No final recording or video asset is claimed.
+## Acceptance checks
+
+- MP4 duration is 60–90 seconds and plays at normal 1× speed.
+- Audio is clear, complete, and matches the written transcript.
+- VTT cues cover the narration, parse successfully, and match the spoken wording and timing.
+- Thumbnail is a readable WebP and matches a real frame in the final video.
+- Desktop and mobile playback both work; captions can be enabled and remain legible at mobile width.
+- Video, thumbnail, captions and transcript are linked from the website only after all assets exist and have been inspected.
+- Save the final capture/playback evidence in the release checklist. Do not mark the video gate complete from the script alone.

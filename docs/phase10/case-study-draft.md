@@ -14,7 +14,7 @@ The reconciliation engine compares selected input batches and preserves its rule
 
 ## Demonstration result
 
-The included exception-day dataset contains 1,250 fictional payment instructions and 1,230 fictional settlement records. Its expected classifications include exact matches, a late match, an amount mismatch, duplicate candidates and unmatched records on both sides. These are fixture expectations used to validate the rules, not live payment results or a claim of real-world detection performance.
+The included exception-day dataset contains 1,250 fictional payment instructions and 1,230 fictional settlement records. A local API run returned 1,260 comparison rows: 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates and 20 unmatched rows split across both sources. The run therefore reported 1,219 matched rows, 20 unmatched source rows and 41 exception rows. These are outputs from a deterministic fixture, not live payment results or a claim of real-world detection performance.
 
 ## Operational value demonstrated
 
@@ -30,7 +30,7 @@ Next.js and TypeScript frontend; FastAPI and Python backend; SQLAlchemy, Alembic
 
 ## Honest release status
 
-The public GitHub Pages site is a static, read-only preview. The API and database are not hosted. API-backed workflows require a separately configured local backend. The final video, CV download, and complete release browser verification remain in progress.
+The public GitHub Pages site is a static, read-only preview. The API and database are not hosted. API-backed workflows require a separately configured local backend. The final narrated walkthrough, CV attachment, and complete release browser verification remain in progress.
 
 ## Candidate relevance
 
