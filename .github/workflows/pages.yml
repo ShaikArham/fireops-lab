@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - design/motion-ui-exploration
 
 permissions:
   contents: read
