@@ -5,6 +5,7 @@ import ReconciliationWorkspace from "../../reconciliation-workspace";
 import MonitoringWorkspace from "../../monitoring-workspace";
 import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
+import ApiConnectionStatus from "../../api-connection-status";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -58,6 +59,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           <div><p className="text-xs font-bold uppercase tracking-widest text-teal-800">Operations / {title}</p><h1 className="mt-2 text-3xl font-semibold tracking-tight">{title}</h1></div>
           <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">Synthetic environment</span>
         </header>
+        <ApiConnectionStatus />
         {current === "overview" && (
           <div className="space-y-8">
             <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
