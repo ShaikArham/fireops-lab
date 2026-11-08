@@ -1,6 +1,7 @@
 "use client";
 
 import { requestJson } from "../lib/api";
+import { activeScenario } from "./scenario-selector";
 
 import { useEffect, useState } from "react";
 
@@ -79,7 +80,7 @@ export default function OperationsWorkspace() {
         setBatches(result.batches);
         setSettlementBatches(result.settlement_batches);
         if (result.batches.length) {
-          const first = result.batches[0];
+          const first = result.batches.find((batch) => batch.batch_id === activeScenario()) ?? result.batches[0];
           setSelectedBatch(first.batch_id);
           const records = await apiRequest<{ payments: PaymentRecord[] }>(`/batches/${encodeURIComponent(first.batch_id)}/payments?limit=25`);
           if (active) setPayments(records.payments);
@@ -90,6 +91,7 @@ export default function OperationsWorkspace() {
     };
     void refresh();
     window.addEventListener("fireops:demo-ready", refresh);
+    window.addEventListener("fireops:scenario-changed", refresh);
     return () => { active = false; window.removeEventListener("fireops:demo-ready", refresh); };
   }, []);
 
@@ -167,7 +169,7 @@ export default function OperationsWorkspace() {
         <div className="mt-7 grid min-w-0 gap-8">
           <div className="grid min-w-0 gap-3">
             <label htmlFor="fireops-batch" className="text-sm font-semibold text-slate-800">Choose a fictional payment batch</label>
-            <select id="fireops-batch" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm sm:max-w-lg" value={selectedBatch} disabled={busy || batches.length === 0} onChange={(event) => { const batch = batches.find((item) => item.batch_id === event.target.value); if (batch) void loadBatch(batch); }}>
+            <select id="fireops-batch" className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm sm:max-w-lg" value={selectedBatch} disabled={busy || batches.length === 0} onChange={(event) => { const batch = batches.find((item) => item.batch_id === event.target.value); if (batch) { window.localStorage.setItem("fireops-active-scenario", batch.batch_id); window.dispatchEvent(new Event("fireops:scenario-changed")); void loadBatch(batch); } }}>
               {batches.length === 0 && <option value="">Preparing payment records…</option>}
               {batches.map((batch) => <option key={batch.batch_id} value={batch.batch_id}>{batch.batch_id}</option>)}
             </select>
