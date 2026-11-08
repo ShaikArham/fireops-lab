@@ -16,6 +16,7 @@ import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
 import DemoSessionControls from "../../demo-session-controls";
 import AboutBuilder from "../../about-builder";
+import JourneyNavigation from "../../journey-navigation";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -186,6 +187,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
         {current === "monitoring" && <MonitoringWorkspace />}
         {current === "insights" && <InsightsWorkspace />}
         {current === "about" && <AboutBuilder />}
+        <JourneyNavigation section={current} />
 
       </main>
     </div>
