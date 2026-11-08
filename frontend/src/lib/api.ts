@@ -20,7 +20,9 @@ export async function requestJson<T>(url: string, init?: RequestInit): Promise<T
     if (error instanceof Error && (error.name === "TimeoutError" || error.name === "AbortError")) {
       throw new Error("The request timed out. Refresh the records before retrying a write action.");
     }
-    throw new Error("The demo service is unavailable or blocked by the browser. It may be waking up after inactivity. Please retry in a minute.");
+    throw new Error(
+      "The demo service is unavailable or blocked by the browser. It may be waking up after inactivity. Please retry in a minute.",
+    );
   }
   const payload: unknown = await response.json().catch(() => null);
   if (!response.ok) {
