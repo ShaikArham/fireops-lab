@@ -27,7 +27,7 @@ export default function Home() {
         aria-modal="true"
         aria-labelledby="film-title"
         aria-describedby="film-description"
-        className="relative z-10 w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-700 bg-slate-900 shadow-2xl"
+        className="relative z-10 w-full max-w-4xl overflow-hidden rounded-3xl border border-slate-700 bg-slate-900 shadow-2xl motion-safe:animate-[fireops-enter_650ms_cubic-bezier(0.22,1,0.36,1)_both]"
       >
         <div className="flex items-center justify-between border-b border-slate-700 px-5 py-4 sm:px-8">
           <span className="text-xl font-bold">
@@ -68,8 +68,10 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-teal-950 px-5 text-center">
-            <PlayCircle size={52} className="text-teal-300" aria-hidden="true" />
+          <div className="relative flex aspect-video flex-col items-center justify-center gap-3 overflow-hidden rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-teal-950 px-5 text-center">
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(94,234,212,.10)_1px,transparent_1px),linear-gradient(90deg,rgba(94,234,212,.10)_1px,transparent_1px)] [background-size:28px_28px] [mask-image:linear-gradient(to_bottom,transparent,black,transparent)]" />
+            <div aria-hidden="true" className="relative mb-2 flex items-center gap-2 text-xs font-semibold tracking-wide text-teal-200"><span className="h-3 w-3 rounded-full bg-teal-300 motion-safe:animate-pulse" /><span className="h-px w-10 bg-teal-500/70" /><span className="rounded-md border border-amber-400/60 bg-amber-400/10 px-2 py-1 text-amber-200">EXCEPTION</span /><span className="h-px w-10 bg-teal-500/70" /><span className="h-3 w-3 rounded-full border border-teal-300" /></div>
+            <PlayCircle size={52} className="relative text-teal-300 transition-transform duration-300 motion-safe:hover:scale-105" aria-hidden="true" />
             <h2 className="text-lg font-semibold">FireOPS introduction film</h2>
             <p className="max-w-xs text-sm leading-6 text-slate-300">
               Film in production. You can explore the interactive application now.
@@ -88,6 +90,7 @@ export default function Home() {
           </a>
         </footer>
       </section>
+      <style jsx global>{`@keyframes fireops-enter { from { opacity: 0; transform: translateY(16px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }`}</style>
     </main>
   );
 }
