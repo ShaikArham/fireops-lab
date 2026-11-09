@@ -59,11 +59,7 @@ export default function DemoSessionControls({
           className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
         >
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p
-              role="status"
-              aria-live="polite"
-              className="text-slate-600"
-            >
+            <p role="status" aria-live="polite" className="text-slate-600">
               {message}
             </p>
             {state === "ready" && (

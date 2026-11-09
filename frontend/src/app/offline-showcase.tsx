@@ -26,7 +26,11 @@ const classifications = [
   ["Late matches", 1],
 ] as const;
 
-export default function OfflineShowcase({ initialSection = "Overview" }: { initialSection?: Section }) {
+export default function OfflineShowcase({
+  initialSection = "Overview",
+}: {
+  initialSection?: Section;
+}) {
   const [section, setSection] = useState<Section>(initialSection);
   return (
     <section
