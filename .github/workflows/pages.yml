@@ -33,6 +33,7 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_REVIEW_MODE: "static"
+          NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT: "https://fireops-lab.onrender.com/api/reviewer-activity"
           NEXT_PUBLIC_API_BASE_URL: "https://fireops-lab.onrender.com"
       - name: Publish CV with GitHub Pages project link
         working-directory: frontend
