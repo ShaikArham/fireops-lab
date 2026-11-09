@@ -1,5 +1,8 @@
 # Planned demonstration scenarios
 
+> **Current release note (9 November 2026):** GitHub Pages builds from `main` with `NEXT_PUBLIC_REVIEW_MODE=static`. Six public workspace routes show immediate read-only synthetic reconciliation data without starting a private API session. The static edition does not offer live case edits or payment simulations; the separate interactive API requires independent deployment and security verification. About/CV and the introduction video are separate assets. Historical branch, phase and test results below are retained as evidence of earlier work, not as current production verification. Check [GitHub Actions](https://github.com/ShaikArham/fireops-lab/actions) for passing CI, Pages and browser runs on the **same release commit**.
+
+
 The Phase 2 `normal_day` fixture contains 100 instructions and 100 settlements. The Phase 4 `exception_day` fixture contains 1,250 instructions and 1,230 settlements: 10 missing settlements, 10 duplicated payment references (20 candidate instruction rows), one amount mismatch, and one settlement two days late. Its tested result totals are 1,218 exact matches, one late match, one amount mismatch, 20 duplicate candidates, 10 unmatched instructions and 10 unmatched settlements. No duplicate candidate is force-matched.
 
 | Scenario | Expected classification / alert | Analyst action |
