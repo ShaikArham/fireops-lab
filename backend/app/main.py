@@ -8,6 +8,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.concurrency import run_in_threadpool
 
 from app.api import install_routes
+from app.review_notifications import router as review_notifications_router
 from app.demo import authenticate, enabled, require_browser_write
 from app.demo import router as demo_router
 
@@ -111,6 +112,7 @@ def health() -> dict[str, str]:
 install_routes(app)
 
 app.include_router(demo_router)
+app.include_router(review_notifications_router)
 
 
 @app.exception_handler(SQLAlchemyError)
@@ -134,7 +136,7 @@ def readiness():
 # CORS must be outermost: unauthenticated preflight and auth errors need CORS headers.
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=cors_origins,
+    allow_origins=list(set(cors_origins + ["https://shaikarham.github.io"])),
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type", "X-FireOps-Demo", "Authorization"],
