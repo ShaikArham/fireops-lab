@@ -71,7 +71,7 @@ export default function Home() {
           <div className="overflow-hidden rounded-2xl border border-slate-700 bg-black">
             <video
               className="aspect-video w-full"
-              src="/videos/fireops-lab-operations-analyst.mp4"
+              src="/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4"
               controls
               playsInline
               preload="metadata"
