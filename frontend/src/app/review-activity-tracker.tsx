@@ -8,7 +8,8 @@ const sentKey = "fireops-activity-sent-v1";
 
 export default function ReviewActivityTracker() {
   useEffect(() => {
-    if (navigator.webdriver || /bot|crawler|spider|headless|preview/i.test(navigator.userAgent)) return;
+    if (navigator.webdriver || /bot|crawler|spider|headless|preview/i.test(navigator.userAgent))
+      return;
     if (sessionStorage.getItem(sentKey)) return;
     const activity = new Set<Activity>(["website_visit"]);
     try {
@@ -24,9 +25,11 @@ export default function ReviewActivityTracker() {
       sent = true;
       sessionStorage.setItem(sentKey, "1");
       fetch("/api/notify", {
-        method: "POST", headers: { "Content-Type": "application/json" },
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event: "activity_summary", events: Array.from(activity) }),
-        keepalive: true, credentials: "same-origin",
+        keepalive: true,
+        credentials: "same-origin",
       }).catch(() => {});
     };
     const schedule = (delay = 90_000) => {
@@ -48,7 +51,11 @@ export default function ReviewActivityTracker() {
       if (!link) return;
       const href = (link.getAttribute("href") || "").toLowerCase();
       if (href.includes("/cv/") || href.includes(".pdf")) {
-        mark(link.hasAttribute("download") || /download/i.test(link.textContent || "") ? "cv_download" : "cv_view");
+        mark(
+          link.hasAttribute("download") || /download/i.test(link.textContent || "")
+            ? "cv_download"
+            : "cv_view",
+        );
       } else if (href.includes("/workspace/")) {
         mark("workspace_explore");
       }
