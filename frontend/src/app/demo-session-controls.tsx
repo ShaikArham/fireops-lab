@@ -131,21 +131,71 @@ export default function DemoSessionControls({
           </p>
           {state === "error" && (
             <div className="mt-5 space-y-4">
-              <section aria-label="Read-only sample reconciliation" className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-slate-900">
-                <p className="text-xs font-bold uppercase tracking-widest text-teal-800">Offline sample · fictional_exception_day · reconciliation-v1</p>
+              <section
+                aria-label="Read-only sample reconciliation"
+                className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-slate-900"
+              >
+                <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
+                  Offline sample · fictional_exception_day · reconciliation-v1
+                </p>
                 <h3 className="mt-2 text-xl font-semibold">Payment reconciliation evidence</h3>
-                <p className="mt-2 text-sm text-slate-700">These figures come from the committed synthetic reconciliation summary CSV. They are a fixed project sample, not live session data.</p>
+                <p className="mt-2 text-sm text-slate-700">
+                  These figures come from the committed synthetic reconciliation summary CSV. They
+                  are a fixed project sample, not live session data.
+                </p>
                 <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-                  {([["Payment instructions", "1,250"], ["Settlement records", "1,230"], ["Exact matches", "1,218"], ["Reconciliation results", "1,260"]] as const).map(([label, value]) => (
-                    <div key={label} className="rounded-lg border border-teal-100 bg-white p-4"><p className="text-xs text-slate-600">{label}</p><p className="mt-1 text-2xl font-bold">{value}</p></div>
+                  {(
+                    [
+                      ["Payment instructions", "1,250"],
+                      ["Settlement records", "1,230"],
+                      ["Exact matches", "1,218"],
+                      ["Reconciliation results", "1,260"],
+                    ] as const
+                  ).map(([label, value]) => (
+                    <div key={label} className="rounded-lg border border-teal-100 bg-white p-4">
+                      <p className="text-xs text-slate-600">{label}</p>
+                      <p className="mt-1 text-2xl font-bold">{value}</p>
+                    </div>
                   ))}
                 </div>
                 <h4 className="mt-5 font-semibold">Exception breakdown</h4>
-                <div className="mt-2 overflow-x-auto"><table className="w-full text-left text-sm"><thead><tr className="border-b border-teal-200"><th className="py-2">Classification</th><th className="py-2 text-right">Count</th></tr></thead><tbody>
-                  {([["Duplicate candidates", 20], ["Unmatched instructions", 10], ["Unmatched settlements", 10], ["Amount mismatches", 1], ["Late matches", 1]] as const).map(([label, count]) => <tr className="border-b border-teal-100" key={label}><td className="py-2">{label}</td><td className="py-2 text-right tabular-nums">{count}</td></tr>)}
-                </tbody></table></div>
-                <p className="mt-3 text-xs text-slate-600">Source: data/sample-reconciliation-summary.csv · Fictional data only · Interactive investigation requires an available private session.</p>
-                <a className="mt-3 inline-block text-sm font-semibold text-teal-900 underline" href="../../data/sample-reconciliation-summary.csv" download>Download sample reconciliation CSV</a>
+                <div className="mt-2 overflow-x-auto">
+                  <table className="w-full text-left text-sm">
+                    <thead>
+                      <tr className="border-b border-teal-200">
+                        <th className="py-2">Classification</th>
+                        <th className="py-2 text-right">Count</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {(
+                        [
+                          ["Duplicate candidates", 20],
+                          ["Unmatched instructions", 10],
+                          ["Unmatched settlements", 10],
+                          ["Amount mismatches", 1],
+                          ["Late matches", 1],
+                        ] as const
+                      ).map(([label, count]) => (
+                        <tr className="border-b border-teal-100" key={label}>
+                          <td className="py-2">{label}</td>
+                          <td className="py-2 text-right tabular-nums">{count}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="mt-3 text-xs text-slate-600">
+                  Source: data/sample-reconciliation-summary.csv · Fictional data only ·
+                  Interactive investigation requires an available private session.
+                </p>
+                <a
+                  className="mt-3 inline-block text-sm font-semibold text-teal-900 underline"
+                  href="../../data/sample-reconciliation-summary.csv"
+                  download
+                >
+                  Download sample reconciliation CSV
+                </a>
               </section>
               <a
                 className="inline-flex rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white"
