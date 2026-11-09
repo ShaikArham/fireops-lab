@@ -1,6 +1,10 @@
 name: Format offline showcase
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'frontend/src/app/offline-showcase.tsx'
+      - '.github/workflows/format-offline-showcase.yml'
 permissions:
   contents: write
 jobs:
