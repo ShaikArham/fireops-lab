@@ -60,7 +60,6 @@ export default function Home() {
               >
                 Explore FireOPS <ArrowRight size={18} />
               </Link>
-
             </div>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-700 bg-black">
