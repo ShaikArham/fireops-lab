@@ -31,10 +31,14 @@ export default function ReviewActivityTracker() {
         body: JSON.stringify({ event: "activity_summary", events: Array.from(activity) }),
         keepalive: true,
         credentials: "same-origin",
-      }).then((response) => {
-        if (response.ok) sessionStorage.setItem(sentKey, "1");
-        else sent = false;
-      }).catch(() => { sent = false; });
+      })
+        .then((response) => {
+          if (response.ok) sessionStorage.setItem(sentKey, "1");
+          else sent = false;
+        })
+        .catch(() => {
+          sent = false;
+        });
     };
     const schedule = (delay = 8_000) => {
       if (timer) clearTimeout(timer);
