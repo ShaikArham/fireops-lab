@@ -4,7 +4,7 @@ import { useEffect } from "react";
 
 export default function CVPage() {
   useEffect(() => {
-    window.location.replace("../Shaik_Arham_Saquib_Updated_Link.pdf");
+    window.location.replace("../Shaik_Arham_Saquib.pdf");
   }, []);
 
   return (
@@ -15,7 +15,7 @@ export default function CVPage() {
       </p>
       <a
         className="mt-6 inline-block rounded-lg bg-teal-900 px-5 py-3 font-semibold text-white"
-        href="../Shaik_Arham_Saquib_Updated_Link.pdf"
+        href="../Shaik_Arham_Saquib.pdf"
       >
         View original CV (PDF)
       </a>
