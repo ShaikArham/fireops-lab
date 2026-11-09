@@ -1,0 +1,30 @@
+name: Format offline showcase
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+        working-directory: frontend
+      - run: npx biome format --write src/app/offline-showcase.tsx
+        working-directory: frontend
+      - name: Commit formatting correction
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add frontend/src/app/offline-showcase.tsx
+          if ! git diff --cached --quiet; then
+            git commit -m "Apply Biome formatting to offline showcase"
+            git push
+          fi
