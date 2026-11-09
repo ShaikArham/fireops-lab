@@ -4,7 +4,7 @@ test("approved application film is available and has playable metadata", async (
   page,
   request,
 }) => {
-  const videoPath = "/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4";
+  const videoPath = "/videos/fireops-introduction.mp4";
   const response = await request.get(videoPath);
   expect(response.status()).toBe(200);
   expect(response.headers()["content-type"]).toMatch(/video\/mp4|application\/octet-stream/);
@@ -13,7 +13,7 @@ test("approved application film is available and has playable metadata", async (
   const video = page.locator("video");
   await expect(video).toBeVisible();
   await expect(video).toHaveAttribute("controls", "");
-  await expect(video).toHaveAttribute("src", videoPath);
+  await expect(video).toHaveAttribute("src", "videos/fireops-introduction.mp4");
   await video.evaluate(async (element) => {
     const media = element as HTMLVideoElement;
     if (media.readyState < 1) {
