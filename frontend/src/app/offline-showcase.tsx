@@ -26,8 +26,8 @@ const classifications = [
   ["Late matches", 1],
 ] as const;
 
-export default function OfflineShowcase() {
-  const [section, setSection] = useState<Section>("Overview");
+export default function OfflineShowcase({ initialSection = "Overview" }: { initialSection?: Section }) {
+  const [section, setSection] = useState<Section>(initialSection);
   return (
     <section
       className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-slate-950"
