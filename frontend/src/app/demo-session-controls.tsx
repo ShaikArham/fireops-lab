@@ -140,7 +140,7 @@ export default function DemoSessionControls({
               <div className="overflow-hidden rounded-xl border border-slate-200">
                 <video
                   className="aspect-video w-full bg-slate-950"
-                  src="../../../videos/fireops-lab-operations-analyst.mp4"
+                  src="../../videos/fireops-lab-operations-analyst.mp4"
                   controls
                   playsInline
                   preload="metadata"
