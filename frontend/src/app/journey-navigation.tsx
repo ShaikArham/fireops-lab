@@ -67,21 +67,39 @@ export default function JourneyNavigation({ section }: { section: string }) {
   }, [next, router]);
 
   return (
-    <nav ref={bottomRef} aria-label="Guided workspace journey"
-      className="mt-10 flex flex-col gap-4 border-t border-slate-200 pb-8 pt-6 sm:flex-row sm:items-center sm:justify-between">
+    <nav
+      ref={bottomRef}
+      aria-label="Guided workspace journey"
+      className="mt-10 flex flex-col gap-4 border-t border-slate-200 pb-8 pt-6 sm:flex-row sm:items-center sm:justify-between"
+    >
       {previous ? (
-        <Link className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold"
-          href={`/workspace/${previous[0]}`}>← {previous[1]}</Link>
-      ) : <span />}
+        <Link
+          className="inline-flex min-h-12 items-center justify-center rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold"
+          href={`/workspace/${previous[0]}`}
+        >
+          ← {previous[1]}
+        </Link>
+      ) : (
+        <span />
+      )}
       <p className="text-center text-xs text-slate-500">
-        Step {position + 1} of {journey.length} · {next ? "Swipe up again at the bottom or tap Next" : "End of the guided journey"}
+        Step {position + 1} of {journey.length} ·{" "}
+        {next ? "Swipe up again at the bottom or tap Next" : "End of the guided journey"}
       </p>
       {next ? (
-        <Link className="inline-flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 py-3 text-center text-sm font-semibold text-white"
-          href={`/workspace/${next[0]}`}>Next: {next[1]} →</Link>
+        <Link
+          className="inline-flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 py-3 text-center text-sm font-semibold text-white"
+          href={`/workspace/${next[0]}`}
+        >
+          Next: {next[1]} →
+        </Link>
       ) : (
-        <Link className="inline-flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 py-3 text-sm font-semibold text-white"
-          href="/workspace/overview">Return to overview ↺</Link>
+        <Link
+          className="inline-flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 py-3 text-sm font-semibold text-white"
+          href="/workspace/overview"
+        >
+          Return to overview ↺
+        </Link>
       )}
     </nav>
   );
