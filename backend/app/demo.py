@@ -21,7 +21,7 @@ from app.services.payment_operations import import_source_file
 from app.services.reconciliation_operations import run_reconciliation
 
 COOKIE = "fireops_demo"
-TTL = 86400
+TTL = 7200
 SCHEMA_VERSION = 1
 registry = MetaData(schema="public")
 sessions = Table(
@@ -151,7 +151,7 @@ def start_demo(request: Request, response: Response) -> dict[str, object]:
             )
             or 0
         )
-        if count >= 20 or recent >= 5:
+        if count >= 40 or recent >= 5:
             raise HTTPException(
                 429,
                 "The demo is at capacity. Please try again later.",
