@@ -46,7 +46,10 @@ export default function OfflineShowcase({
         This offline showcase uses the repository’s fictional_exception_day reconciliation summary.
         It is not connected to the private demo API. No records are changed.
       </p>
-      <nav aria-label="Offline showcase sections" className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
+      <nav
+        aria-label="Offline showcase sections"
+        className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
+      >
         {sections.map((item) => (
           <button
             key={item}
@@ -83,19 +86,33 @@ export default function OfflineShowcase({
         {section === "Payments" && (
           <div className="min-w-0">
             <p className="mt-2 text-sm text-slate-600">
-              Inspect the committed fictional payment-day aggregates. Switch between the
-              source totals and the exception classification. This public reviewer edition
-              does not execute or modify payments.
+              Inspect the committed fictional payment-day aggregates. Switch between the source
+              totals and the exception classification. This public reviewer edition does not execute
+              or modify payments.
             </p>
             <div role="group" aria-label="Payment data view" className="mt-4 flex flex-wrap gap-2">
-              <button type="button" aria-pressed={paymentView === "summary"}
+              <button
+                type="button"
+                aria-pressed={paymentView === "summary"}
                 onClick={() => setPaymentView("summary")}
-                className={paymentView === "summary" ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white" : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"}>
+                className={
+                  paymentView === "summary"
+                    ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white"
+                    : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"
+                }
+              >
                 Payment totals
               </button>
-              <button type="button" aria-pressed={paymentView === "exceptions"}
+              <button
+                type="button"
+                aria-pressed={paymentView === "exceptions"}
                 onClick={() => setPaymentView("exceptions")}
-                className={paymentView === "exceptions" ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white" : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"}>
+                className={
+                  paymentView === "exceptions"
+                    ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white"
+                    : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"
+                }
+              >
                 Exception breakdown
               </button>
             </div>
@@ -111,22 +128,30 @@ export default function OfflineShowcase({
             ) : (
               <div className="mt-4 min-w-0 overflow-x-auto rounded-xl border border-slate-200">
                 <table className="w-full min-w-[280px] text-left text-sm">
-                  <thead className="bg-slate-50"><tr>
-                    <th scope="col" className="px-3 py-3">Classification</th>
-                    <th scope="col" className="px-3 py-3 text-right">Results</th>
-                  </tr></thead>
-                  <tbody>{classifications.map(([name, count]) => (
-                    <tr key={name} className="border-t border-slate-200">
-                      <td className="px-3 py-3">{name}</td>
-                      <td className="px-3 py-3 text-right tabular-nums">{count}</td>
+                  <thead className="bg-slate-50">
+                    <tr>
+                      <th scope="col" className="px-3 py-3">
+                        Classification
+                      </th>
+                      <th scope="col" className="px-3 py-3 text-right">
+                        Results
+                      </th>
                     </tr>
-                  ))}</tbody>
+                  </thead>
+                  <tbody>
+                    {classifications.map(([name, count]) => (
+                      <tr key={name} className="border-t border-slate-200">
+                        <td className="px-3 py-3">{name}</td>
+                        <td className="px-3 py-3 text-right tabular-nums">{count}</td>
+                      </tr>
+                    ))}
+                  </tbody>
                 </table>
               </div>
             )}
             <p className="mt-4 text-xs text-slate-600">
-              Dataset: fictional_exception_day · reconciliation-v1. Counts represent
-              different source populations and should not be added together.
+              Dataset: fictional_exception_day · reconciliation-v1. Counts represent different
+              source populations and should not be added together.
             </p>
           </div>
         )}
