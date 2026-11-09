@@ -1,5 +1,8 @@
 # Requirement-to-feature traceability
 
+> **Current release note (9 November 2026):** GitHub Pages builds from `main` with `NEXT_PUBLIC_REVIEW_MODE=static`. Six public workspace routes show immediate read-only synthetic reconciliation data without starting a private API session. The static edition does not offer live case edits or payment simulations; the separate interactive API requires independent deployment and security verification. About/CV and the introduction video are separate assets. Historical branch, phase and test results below are retained as evidence of earlier work, not as current production verification. Check [GitHub Actions](https://github.com/ShaikArham/fireops-lab/actions) for passing CI, Pages and browser runs on the **same release commit**.
+
+
 | Fire Operations Analyst responsibility | Planned visible feature | Data / rules evidence | Verification gate |
 |---|---|---|---|
 | Payment file intake and data quality | Synthetic CSV preview with all-or-nothing validation and row-level errors | Exact schema, byte/row bounds, SHA-256, synthetic account tokens, integer minor units, deterministic fixtures | Phase 2: import validation tests; Phase 3: persistence and idempotent import tests |
