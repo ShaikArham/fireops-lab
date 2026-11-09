@@ -60,12 +60,7 @@ export default function Home() {
               >
                 Explore FireOPS <ArrowRight size={18} />
               </Link>
-              <Link
-                href="/workspace/payments"
-                className="inline-flex min-h-12 items-center rounded-lg border border-slate-600 px-5 py-3 font-semibold hover:bg-slate-800"
-              >
-                Payments
-              </Link>
+
             </div>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-700 bg-black">
