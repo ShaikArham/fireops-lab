@@ -1,0 +1,64 @@
+"""Privacy-minimising reviewer activity summaries for the public portfolio."""
+import json
+import os
+import time
+from threading import Lock
+from urllib.error import HTTPError, URLError
+from urllib.request import Request as UrlRequest, urlopen
+
+from fastapi import APIRouter, HTTPException, Request
+from pydantic import BaseModel, Field
+
+router = APIRouter()
+ALLOWED = {"website_visit", "video_play", "cv_view", "cv_download", "workspace_explore"}
+_last_sent: dict[str, float] = {}
+_lock = Lock()
+
+
+class ActivitySummary(BaseModel):
+    event: str
+    events: list[str] = Field(min_length=1, max_length=5)
+
+
+@router.post("/api/reviewer-activity", status_code=202)
+def notify_reviewer(summary: ActivitySummary, request: Request):
+    origin = request.headers.get("origin", "")
+    if origin != "https://shaikarham.github.io":
+        raise HTTPException(status_code=403, detail="Origin not allowed.")
+    if summary.event != "activity_summary" or any(event not in ALLOWED for event in summary.events):
+        raise HTTPException(status_code=422, detail="Invalid activity summary.")
+    key = os.getenv("RESEND_API_KEY", "").strip()
+    sender = os.getenv("REVIEW_ALERT_FROM", "").strip()
+    recipient = os.getenv("REVIEW_ALERT_TO", "").strip()
+    if not all((key, sender, recipient)):
+        raise HTTPException(status_code=503, detail="Notification delivery not configured.")
+    # Coarse global cooldown: avoids flooding the mailbox and stores no visitor identifiers.
+    now = time.monotonic()
+    with _lock:
+        if now - _last_sent.get("global", 0) < 20:
+            return {"status": "rate_limited"}
+        _last_sent["global"] = now
+    safe_events = sorted(set(summary.events))
+    payload = json.dumps({
+        "from": sender,
+        "to": [recipient],
+        "subject": "FireOPS Lab: portfolio activity",
+        "text": "Anonymous FireOPS Lab activity summary\\n\\n"
+                + "\\n".join("- " + event.replace("_", " ") for event in safe_events)
+                + "\\n\\nNo visitor identity is collected. Events are client-reported and not proof of recruiter identity.",
+    }).encode()
+    outbound = UrlRequest(
+        "https://api.resend.com/emails",
+        data=payload,
+        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        method="POST",
+    )
+    try:
+        with urlopen(outbound, timeout=8) as response:
+            if response.status not in (200, 201, 202):
+                raise HTTPException(status_code=502, detail="Email provider rejected delivery.")
+    except (HTTPError, URLError, TimeoutError) as exc:
+        with _lock:
+            _last_sent.pop("global", None)
+        raise HTTPException(status_code=502, detail="Email delivery unavailable.") from exc
+    return {"status": "accepted"}
