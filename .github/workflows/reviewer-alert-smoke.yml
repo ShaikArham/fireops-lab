@@ -1,0 +1,31 @@
+name: Reviewer email alert smoke test
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/reviewer-alert-smoke.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  alert:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check public notification endpoint and Resend delivery acceptance
+        run: |
+          set -euo pipefail
+          code="$(curl --silent --show-error --max-time 35 --retry 2 --retry-delay 5 \
+            --output /tmp/fireops-alert-response.json --write-out '%{http_code}' \
+            -H 'Origin: https://shaikarham.github.io' \
+            -H 'Content-Type: application/json' \
+            -X POST 'https://fireops-lab.onrender.com/api/reviewer-activity' \
+            --data '{"event":"activity_summary","events":["website_visit"]}')"
+          echo "Notification endpoint returned HTTP ${code}"
+          if [ "${code}" != "202" ]; then
+            echo "::error::Email alert is not ready. Check RESEND_API_KEY and REVIEW_ALERT_FROM on Render."
+            exit 1
+          fi
+          echo "Notification request accepted by endpoint. Confirm arrival in recipient mailbox."
