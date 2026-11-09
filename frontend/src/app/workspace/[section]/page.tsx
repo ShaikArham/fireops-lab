@@ -6,6 +6,7 @@ import {
   ChartNoAxesCombined,
   CreditCard,
   LayoutDashboard,
+  PlayCircle,
   Scale,
   SearchCheck,
 } from "lucide-react";
@@ -124,6 +125,11 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
             <h1 className="mt-2 text-3xl font-semibold tracking-tight">{title}</h1>
           </div>
           <div className="flex flex-wrap items-center gap-3">
+            {current === "overview" && (
+              <Link href="/" className="inline-flex min-h-11 items-center gap-2 rounded-lg border border-teal-700 bg-white px-4 py-2 text-sm font-semibold text-teal-900 hover:bg-teal-50" aria-label="Watch the introduction video again">
+                <PlayCircle size={18} aria-hidden="true" /> Watch video again
+              </Link>
+            )}
             <ThemeToggle />
             <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
               Synthetic environment
