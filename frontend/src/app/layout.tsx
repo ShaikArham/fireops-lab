@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ReviewActivityTracker from "./review-activity-tracker";
 
 export const metadata: Metadata = {
   title: "FireOps Lab | Fictional Payment Operations Sandbox",
@@ -22,6 +23,7 @@ export default function RootLayout({
           Skip to main content
         </a>
         {children}
+        <ReviewActivityTracker />
       </body>
     </html>
   );
