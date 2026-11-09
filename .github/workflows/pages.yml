@@ -33,13 +33,18 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_API_BASE_URL: "https://fireops-lab.onrender.com"
+      - name: Publish CV with GitHub Pages project link
+        working-directory: frontend
+        run: |
+          python -m pip install --disable-pip-version-check pymupdf==1.26.5
+          python scripts/publish_cv.py
       - name: Verify deployed CV PDF and About links
         working-directory: frontend
         run: |
           test -s out/index.html
-          test -s out/Shaik_Arham_Saquib_Updated_Link.pdf
+          test -s out/Shaik_Arham_Saquib.pdf
           test -s out/workspace/about/index.html
-          grep -q "../../Shaik_Arham_Saquib_Updated_Link.pdf" out/workspace/about/index.html
+          grep -q "../../Shaik_Arham_Saquib.pdf" out/workspace/about/index.html
       - name: Install ffprobe for media validation
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Verify film is published and browser-compatible
