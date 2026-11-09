@@ -29,12 +29,15 @@ jobs:
             fi
             sleep 15
           done
-          cors=$(curl --silent --show-error --output /dev/null --write-out '%{http_code}' \
+          cors=$(curl --silent --show-error --dump-header /tmp/fireops-cors-headers --output /tmp/fireops-cors-body --write-out '%{http_code}' \
             --request OPTIONS \
             --header 'Origin: https://fireops-lab.vercel.app' \
             --header 'Access-Control-Request-Method: POST' \
             --header 'Access-Control-Request-Headers: x-fireops-demo,content-type' \
             https://fireops-demo-api.vercel.app/api/v1/demo/session)
+          echo "CORS status: $cors"
+          cat /tmp/fireops-cors-headers
+          cat /tmp/fireops-cors-body
           test "$cors" = "200"
           for route in / /workspace/overview/ /workspace/payments/ /workspace/reconciliation/ /workspace/investigations/ /workspace/monitoring/ /workspace/insights/ /workspace/about/; do
             code=$(curl --silent --location --output /dev/null --write-out '%{http_code}' --max-time 30 "$site$route")
