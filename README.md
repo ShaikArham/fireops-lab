@@ -110,3 +110,7 @@ Read [project brief](docs/PROJECT_BRIEF.md), [test plan](docs/TEST_PLAN.md), and
 ## License
 
 **All rights reserved.** This is source-available for portfolio review, not open source. Copying, modifying, or redistributing the original code or assets is not permitted without authorization, subject to applicable law and GitHub's terms. See [LICENSE](LICENSE). Third-party dependencies retain their own licenses.
+
+### Mobile navigation and reviewer alerts
+
+On mobile, the reviewer journey has a visible **Next** link at the end of each section, and a second upward swipe while the bottom navigation is visible advances to the next section. All six public sections use static fictional data and do not wait for the API. GitHub Pages cannot run Next.js server routes: the former `/api/notify` email alert endpoint is **not** hosted there. The activity tracker now sends only to an explicitly configured `NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT` and marks delivery successful only after an HTTP success response. Until a separate authenticated, rate-limited, CORS-configured server endpoint is deployed and the Pages build receives that URL, **email alerts are not enabled**. Never place Resend API keys in public frontend variables or the repository.
