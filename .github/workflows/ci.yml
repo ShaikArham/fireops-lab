@@ -25,6 +25,8 @@ jobs:
         working-directory: frontend
       - name: Verify approved film has video and audio streams
         run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq ffmpeg
           film="public/videos/FireOPS_Lab_Speech_Aligned_Review_v2 (1).mp4"
           test -s "$film"
           ffprobe -v error -select_streams v:0 -show_entries stream=codec_name -of csv=p=0 "$film" | grep -q .
