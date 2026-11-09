@@ -40,6 +40,15 @@ jobs:
           test -s out/Shaik_Arham_Saquib_Updated_Link.pdf
           test -s out/workspace/about/index.html
           grep -q "../../Shaik_Arham_Saquib_Updated_Link.pdf" out/workspace/about/index.html
+      - name: Verify film is published and browser-compatible
+        working-directory: frontend
+        run: |
+          test -s out/videos/fireops-introduction.mp4
+          test -s out/videos/fireops-captions.vtt
+          grep -q "videos/fireops-introduction.mp4" out/index.html
+          ffprobe -v error -show_entries stream=codec_type,codec_name -of csv=p=0 out/videos/fireops-introduction.mp4 | tee /tmp/fireops-streams.txt
+          grep -q "h264,video" /tmp/fireops-streams.txt
+          grep -q "aac,audio" /tmp/fireops-streams.txt
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/out
