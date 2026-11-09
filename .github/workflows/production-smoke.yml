@@ -1,0 +1,40 @@
+name: Production smoke check
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  live-smoke:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify public website, API proxy, and approved video
+        run: |
+          set -euo pipefail
+          site="https://fireops-lab.vercel.app"
+          echo "Waiting for production API proxy..."
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error --max-time 20 "$site/backend/health" \
+              | python3 -c 'import json,sys; assert json.load(sys.stdin)["status"] == "ok"' 2>/dev/null; then
+              echo "API proxy healthy"
+              break
+            fi
+            if [ "$attempt" -eq 20 ]; then
+              echo "::error::Production /backend/health did not return a healthy API response"
+              exit 1
+            fi
+            sleep 15
+          done
+          for route in / /workspace/overview/ /workspace/payments/ /workspace/reconciliation/ /workspace/investigations/ /workspace/monitoring/ /workspace/insights/ /workspace/about/; do
+            code=$(curl --silent --location --output /dev/null --write-out '%{http_code}' --max-time 30 "$site$route")
+            echo "$route: $code"
+            test "$code" = "200"
+          done
+          curl --fail --silent --show-error --location --max-time 30 \
+            --output /tmp/fireops.mp4 "$site/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4"
+          test "$(wc -c </tmp/fireops.mp4)" -gt 1000000
+          echo "Production routes, API proxy, and approved MP4 reachable"
