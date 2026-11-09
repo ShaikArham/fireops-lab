@@ -33,8 +33,13 @@ jobs:
         env:
           GITHUB_PAGES: "true"
           NEXT_PUBLIC_API_BASE_URL: "https://fireops-lab.onrender.com"
-      - run: test -s out/index.html
+      - name: Verify deployed CV PDF and About links
         working-directory: frontend
+        run: |
+          test -s out/index.html
+          test -s out/Shaik_Arham_Saquib_Updated_Link.pdf
+          test -s out/workspace/about/index.html
+          grep -q "../../Shaik_Arham_Saquib_Updated_Link.pdf" out/workspace/about/index.html
       - uses: actions/upload-pages-artifact@v3
         with:
           path: frontend/out
