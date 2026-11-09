@@ -5,6 +5,7 @@ on:
     paths:
       - 'frontend/src/app/offline-showcase.tsx'
       - 'frontend/src/app/demo-session-controls.tsx'
+      - 'frontend/src/app/workspace/[section]/page.tsx'
       - '.github/workflows/format-offline-showcase.yml'
 permissions:
   contents: write
@@ -22,13 +23,13 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
         working-directory: frontend
-      - run: npx biome format --write src/app/offline-showcase.tsx src/app/demo-session-controls.tsx
+      - run: npx biome format --write src/app/offline-showcase.tsx src/app/demo-session-controls.tsx 'src/app/workspace/[section]/page.tsx'
         working-directory: frontend
       - name: Commit formatting correction
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add frontend/src/app/offline-showcase.tsx frontend/src/app/demo-session-controls.tsx
+          git add frontend/src/app/offline-showcase.tsx frontend/src/app/demo-session-controls.tsx 'frontend/src/app/workspace/[section]/page.tsx'
           if ! git diff --cached --quiet; then
             git commit -m "Apply Biome formatting to offline showcase"
             git push
