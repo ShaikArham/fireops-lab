@@ -4,7 +4,8 @@ import os
 import time
 from threading import Lock
 from urllib.error import HTTPError, URLError
-from urllib.request import Request as UrlRequest, urlopen
+from urllib.request import Request as UrlRequest
+from urllib.request import urlopen
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -45,7 +46,8 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         "subject": "FireOPS Lab: portfolio activity",
         "text": "Anonymous FireOPS Lab activity summary\\n\\n"
                 + "\\n".join("- " + event.replace("_", " ") for event in safe_events)
-                + "\\n\\nNo visitor identity is collected. Events are client-reported and not proof of recruiter identity.",
+                + "\\n\\nNo visitor identity is collected. "
+                + "Events are client-reported and not proof of recruiter identity.",
     }).encode()
     outbound = UrlRequest(
         "https://api.resend.com/emails",
