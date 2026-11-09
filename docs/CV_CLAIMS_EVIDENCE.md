@@ -1,6 +1,9 @@
 # CV claims evidence
 
-No FireOps Lab claims are ready for the CV yet. Add a bullet only after the underlying feature and its tests have passed their gate.
+> **Current release note (9 November 2026):** The public GitHub Pages reviewer edition is configured to build from `main` with `NEXT_PUBLIC_REVIEW_MODE=static`. Overview, Payments, Reconciliation, Investigations, Monitoring and Insights show an immediate, read-only showcase based on committed fictional reconciliation data. They do not start a private session or require the Render/Neon backend. The About/CV route and introduction film are separate assets. API-backed editing, case decisions and session isolation are development/optional interactive capabilities, **not guaranteed features of the public static edition**. Historical phase/branch evidence below remains a record of work at that time; do not interpret it as proof of the current live release. Verify the latest [Pages](https://github.com/ShaikArham/fireops-lab/actions/workflows/pages.yml), [CI](https://github.com/ShaikArham/fireops-lab/actions) and browser checks for the same commit before declaring a complete release.
+
+
+The public read-only portfolio showcase is available as a documented feature; claims about live processing, case writes, or compliance operations require separate evidence. Add each CV bullet only when its exact underlying feature and tests support it.
 
 | Possible claim | Minimum evidence | Status |
 |---|---|---|
