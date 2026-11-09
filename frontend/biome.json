@@ -9,7 +9,13 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "preset": "recommended"
+      "preset": "recommended",
+      "complexity": {
+        "noImportantStyles": "off"
+      },
+      "performance": {
+        "noImgElement": "off"
+      }
     }
   },
   "assist": {
@@ -21,6 +27,12 @@
     }
   },
   "files": {
-    "includes": ["src/**", "e2e/**", "*.mjs", "*.ts", "*.mts"]
+    "includes": [
+      "src/**",
+      "e2e/**",
+      "*.mjs",
+      "*.ts",
+      "*.mts"
+    ]
   }
 }
