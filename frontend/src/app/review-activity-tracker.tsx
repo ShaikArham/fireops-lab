@@ -36,7 +36,7 @@ export default function ReviewActivityTracker() {
         else sent = false;
       }).catch(() => { sent = false; });
     };
-    const schedule = (delay = 90_000) => {
+    const schedule = (delay = 8_000) => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(flush, delay);
     };
@@ -44,7 +44,7 @@ export default function ReviewActivityTracker() {
       if (sent) return;
       activity.add(event);
       sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
-      schedule(event === "cv_download" ? 1500 : 90_000);
+      schedule(event === "cv_download" ? 1000 : 8_000);
     };
     const onPlay = (event: Event) => {
       if (event.target instanceof HTMLVideoElement) mark("video_play");
