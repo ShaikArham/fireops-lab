@@ -90,7 +90,7 @@ export default function OfflineShowcase({
               totals and the exception classification. This public reviewer edition does not execute
               or modify payments.
             </p>
-            <div role="group" aria-label="Payment data view" className="mt-4 flex flex-wrap gap-2">
+            <fieldset aria-label="Payment data view" className="mt-4 flex flex-wrap gap-2">
               <button
                 type="button"
                 aria-pressed={paymentView === "summary"}
@@ -115,7 +115,7 @@ export default function OfflineShowcase({
               >
                 Exception breakdown
               </button>
-            </div>
+            </fieldset>
             {paymentView === "summary" ? (
               <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 {counts.map(([label, value]) => (
