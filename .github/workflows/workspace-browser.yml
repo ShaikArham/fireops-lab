@@ -12,12 +12,17 @@ on:
       - ".github/workflows/workspace-browser.yml"
   workflow_dispatch:
 
+concurrency:
+  group: workspace-browser-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   workspace-browser:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     services:
       postgres:
         image: postgres:17.11
