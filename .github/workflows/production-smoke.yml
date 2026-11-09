@@ -41,6 +41,7 @@ jobs:
           test "$cors" = "200"
           python3 - <<'PY'
           import json
+          from urllib.error import HTTPError
           from urllib.request import Request, urlopen
           base = "https://fireops-demo-api.vercel.app"
           origin = "https://fireops-lab.vercel.app"
@@ -52,8 +53,12 @@ jobs:
                   headers["Content-Type"] = "application/json"
               req = Request(base + path, data=b"{}" if method == "POST" else None,
                             headers=headers, method=method)
-              with urlopen(req, timeout=90) as response:
-                  return json.load(response)
+              try:
+                  with urlopen(req, timeout=90) as response:
+                      return json.load(response)
+              except HTTPError as error:
+                  print("Demo API request failed:", path, error.code, error.read(500).decode("utf-8", "replace"))
+                  raise
           session = call("/api/v1/demo/session", "POST")
           token = session.get("access_token")
           assert token, "Missing cross-origin demo access token"
