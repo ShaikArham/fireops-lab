@@ -223,7 +223,7 @@ export default function AboutBuilder() {
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="/cv/Shaik_Arham_Saquib.pdf"
+            href="/Shaik_Arham_Saquib_Updated_Link.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -231,7 +231,7 @@ export default function AboutBuilder() {
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="/cv/Shaik_Arham_Saquib.pdf"
+            href="/Shaik_Arham_Saquib_Updated_Link.pdf"
             download="Shaik_Arham_Saquib.pdf"
             target="_blank"
             rel="noopener noreferrer"
