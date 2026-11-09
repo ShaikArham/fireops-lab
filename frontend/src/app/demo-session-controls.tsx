@@ -62,19 +62,10 @@ export default function DemoSessionControls({
             <p
               role="status"
               aria-live="polite"
-              className={state === "error" ? "text-red-800" : "text-slate-600"}
+              className="text-slate-600"
             >
               {message}
             </p>
-            {state === "error" && (
-              <button
-                type="button"
-                onClick={() => setAttempt((n) => n + 1)}
-                className="rounded-lg bg-teal-800 px-4 py-3 font-semibold text-white"
-              >
-                Retry connection
-              </button>
-            )}
             {state === "ready" && (
               <button
                 type="button"
@@ -85,12 +76,6 @@ export default function DemoSessionControls({
               </button>
             )}
           </div>
-          {state === "loading" && (
-            <p className="mt-2 text-xs text-slate-500">
-              The free demo service may take a minute to wake up. Your actions never move real
-              money.
-            </p>
-          )}
           {confirmReset && (
             <div className="mt-3 border-t border-slate-200 pt-3">
               <p>
