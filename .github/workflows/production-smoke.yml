@@ -39,6 +39,36 @@ jobs:
           cat /tmp/fireops-cors-headers
           cat /tmp/fireops-cors-body
           test "$cors" = "200"
+          python3 - <<'PY'
+          import json
+          from urllib.request import Request, urlopen
+          base = "https://fireops-demo-api.vercel.app"
+          origin = "https://fireops-lab.vercel.app"
+          def call(path, method="GET", token=None):
+              headers = {"Origin": origin, "X-FireOps-Demo": "1"}
+              if token:
+                  headers["Authorization"] = "Bearer " + token
+              if method == "POST":
+                  headers["Content-Type"] = "application/json"
+              req = Request(base + path, data=b"{}" if method == "POST" else None,
+                            headers=headers, method=method)
+              with urlopen(req, timeout=90) as response:
+                  return json.load(response)
+          session = call("/api/v1/demo/session", "POST")
+          token = session.get("access_token")
+          assert token, "Missing cross-origin demo access token"
+          scenarios = call("/api/v1/demo/scenarios", token=token)
+          if not scenarios.get("scenarios") or any(
+              not item.get("reconciliation_run_id") for item in scenarios["scenarios"]
+          ):
+              call("/api/v1/demo/load", "POST", token)
+              scenarios = call("/api/v1/demo/scenarios", token=token)
+          run_id = next(item["reconciliation_run_id"] for item in scenarios["scenarios"]
+                        if item.get("reconciliation_run_id"))
+          insights = call("/api/v1/insights/runs/" + run_id, token=token)
+          assert "metrics" in insights, "Overview metrics missing"
+          print("Production demo session, scenarios, and Overview metrics passed")
+          PY
           for route in / /workspace/overview/ /workspace/payments/ /workspace/reconciliation/ /workspace/investigations/ /workspace/monitoring/ /workspace/insights/ /workspace/about/; do
             code=$(curl --silent --location --output /dev/null --write-out '%{http_code}' --max-time 30 "$site$route")
             echo "$route: $code"
