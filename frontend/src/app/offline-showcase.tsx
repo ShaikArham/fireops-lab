@@ -32,9 +32,10 @@ export default function OfflineShowcase({
   initialSection?: Section;
 }) {
   const [section, setSection] = useState<Section>(initialSection);
+  const [paymentView, setPaymentView] = useState<"summary" | "exceptions">("summary");
   return (
     <section
-      className="rounded-xl border border-teal-200 bg-teal-50 p-5 text-slate-950"
+      className="min-w-0 rounded-xl border border-teal-200 bg-teal-50 p-3 text-slate-950 sm:p-5"
       aria-label="Offline project showcase"
     >
       <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
@@ -45,7 +46,7 @@ export default function OfflineShowcase({
         This offline showcase uses the repository’s fictional_exception_day reconciliation summary.
         It is not connected to the private demo API. No records are changed.
       </p>
-      <nav aria-label="Offline showcase sections" className="mt-5 flex flex-wrap gap-2">
+      <nav aria-label="Offline showcase sections" className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap">
         {sections.map((item) => (
           <button
             key={item}
@@ -62,7 +63,7 @@ export default function OfflineShowcase({
           </button>
         ))}
       </nav>
-      <div className="mt-5 rounded-xl border border-teal-100 bg-white p-5">
+      <div className="mt-5 min-w-0 rounded-xl border border-teal-100 bg-white p-3 sm:p-5">
         <h4 className="text-lg font-semibold">{section}</h4>
         {section === "Overview" && (
           <>
@@ -80,17 +81,54 @@ export default function OfflineShowcase({
           </>
         )}
         {section === "Payments" && (
-          <>
+          <div className="min-w-0">
             <p className="mt-2 text-sm text-slate-600">
-              The synthetic scenario contains 1,250 payment instructions. The interactive
-              application supports batch inspection, payment simulation and event history when a
-              private session is available.
+              Inspect the committed fictional payment-day aggregates. Switch between the
+              source totals and the exception classification. This public reviewer edition
+              does not execute or modify payments.
             </p>
-            <p className="mt-4 rounded-lg bg-slate-50 p-4 text-sm">
-              Source snapshot: <strong>fictional_exception_day</strong> · 1,250 instructions · 1,230
-              settlement records.
+            <div role="group" aria-label="Payment data view" className="mt-4 flex flex-wrap gap-2">
+              <button type="button" aria-pressed={paymentView === "summary"}
+                onClick={() => setPaymentView("summary")}
+                className={paymentView === "summary" ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white" : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"}>
+                Payment totals
+              </button>
+              <button type="button" aria-pressed={paymentView === "exceptions"}
+                onClick={() => setPaymentView("exceptions")}
+                className={paymentView === "exceptions" ? "rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white" : "rounded-lg border border-teal-300 bg-white px-4 py-3 text-sm font-semibold text-teal-950"}>
+                Exception breakdown
+              </button>
+            </div>
+            {paymentView === "summary" ? (
+              <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {counts.map(([label, value]) => (
+                  <div key={label} className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+                    <p className="text-sm text-slate-600">{label}</p>
+                    <p className="mt-2 text-2xl font-bold tabular-nums">{value}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-4 min-w-0 overflow-x-auto rounded-xl border border-slate-200">
+                <table className="w-full min-w-[280px] text-left text-sm">
+                  <thead className="bg-slate-50"><tr>
+                    <th scope="col" className="px-3 py-3">Classification</th>
+                    <th scope="col" className="px-3 py-3 text-right">Results</th>
+                  </tr></thead>
+                  <tbody>{classifications.map(([name, count]) => (
+                    <tr key={name} className="border-t border-slate-200">
+                      <td className="px-3 py-3">{name}</td>
+                      <td className="px-3 py-3 text-right tabular-nums">{count}</td>
+                    </tr>
+                  ))}</tbody>
+                </table>
+              </div>
+            )}
+            <p className="mt-4 text-xs text-slate-600">
+              Dataset: fictional_exception_day · reconciliation-v1. Counts represent
+              different source populations and should not be added together.
             </p>
-          </>
+          </div>
         )}
         {section === "Reconciliation" && (
           <>
