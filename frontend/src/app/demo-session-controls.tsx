@@ -146,6 +146,13 @@ export default function DemoSessionControls({
                   preload="metadata"
                   aria-label="Recorded FireOPS Lab introduction film"
                 >
+                  <track
+                    kind="captions"
+                    src="../../videos/fireops-captions.vtt"
+                    srcLang="en"
+                    label="English captions"
+                    default
+                  />
                   Your browser does not support HTML video.
                 </video>
               </div>
