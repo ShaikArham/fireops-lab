@@ -186,8 +186,8 @@ export default function DemoSessionControls({
                   </table>
                 </div>
                 <p className="mt-3 text-xs text-slate-600">
-                  Source: data/sample-reconciliation-summary.csv · Fictional data only ·
-                  Interactive investigation requires an available private session.
+                  Source: data/sample-reconciliation-summary.csv · Fictional data only · Interactive
+                  investigation requires an available private session.
                 </p>
                 <a
                   className="mt-3 inline-block text-sm font-semibold text-teal-900 underline"
