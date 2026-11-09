@@ -68,11 +68,11 @@ export async function POST(request: NextRequest) {
     "FireOPS Lab | Activity summary",
     "",
     ...Array.from(allowed).map(
-      (event) => labels[event] + ": " + (events.includes(event) ? "Yes" : "No"),
+      (event) => `${labels[event]}: ${events.includes(event) ? "Yes" : "No"}`,
     ),
     "",
-    "Time (Ireland): " + time,
-    "Device: " + device,
+    `Time (Ireland): ${time}`,
+    `Device: ${device}`,
     "",
     "Anonymous activity only. Visitor identity is not known.",
     "A video play or CV click does not prove the visitor watched or read the content.",
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
   try {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { Authorization: "Bearer " + key, "Content-Type": "application/json" },
+      headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
       body: JSON.stringify({
         from: process.env.FIREOPS_ALERT_FROM || "FireOPS Alerts <onboarding@resend.dev>",
         to: [recipient],
