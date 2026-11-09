@@ -13,6 +13,7 @@ export default function DemoSessionControls({
   const [message, setMessage] = useState("Preparing your fictional payment workspace…");
   const [attempt, setAttempt] = useState(0);
   const [confirmReset, setConfirmReset] = useState(false);
+  const atCapacity = state === "error" && /at capacity/i.test(message);
   useEffect(() => {
     if (!enabled) return;
     let active = true;
@@ -115,13 +116,44 @@ export default function DemoSessionControls({
           aria-busy={state === "loading"}
         >
           <h2 className="text-lg font-semibold text-slate-900">
-            {state === "loading" ? "Connecting to the demo" : "Demo connection unavailable"}
+            {state === "loading"
+              ? "Connecting to the demo"
+              : atCapacity
+                ? "All interactive demo workspaces are currently in use"
+                : "Demo connection unavailable"}
           </h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600">
             {state === "loading"
               ? "Preparing your private fictional payment records. You can still browse the other sections using the sidebar while the service starts."
-              : "The interactive records could not be loaded. Use Retry connection above, or visit About the builder to learn about the project."}
+              : atCapacity
+                ? "This free demo limits simultaneous private workspaces. The recorded product walkthrough below remains available, and you can retry the interactive workspace later."
+                : "The interactive records could not be loaded. Use Retry connection above, or visit About the builder to learn about the project."}
           </p>
+          {state === "error" && (
+            <div className="mt-5 space-y-4">
+              <a
+                className="inline-flex rounded-lg bg-teal-900 px-4 py-3 text-sm font-semibold text-white"
+                href="../about/"
+              >
+                Explore the project and CV
+              </a>
+              <div className="overflow-hidden rounded-xl border border-slate-200">
+                <video
+                  className="aspect-video w-full bg-slate-950"
+                  src="../../../videos/fireops-lab-operations-analyst.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  aria-label="Recorded FireOPS Lab introduction film"
+                >
+                  Your browser does not support HTML video.
+                </video>
+              </div>
+              <p className="text-xs text-slate-500">
+                Recorded walkthrough only. The interactive demo requires an available session.
+              </p>
+            </div>
+          )}
         </div>
       )}
     </>
