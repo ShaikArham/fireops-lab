@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { ArrowRight, Code2, PlayCircle, X } from "lucide-react";
+import { ArrowRight, Code2, X } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
@@ -68,12 +68,20 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="flex aspect-video flex-col items-center justify-center gap-3 rounded-2xl border border-slate-700 bg-gradient-to-br from-slate-800 to-teal-950 px-5 text-center">
-            <PlayCircle size={52} className="text-teal-300" aria-hidden="true" />
-            <h2 className="text-lg font-semibold">FireOPS introduction film</h2>
-            <p className="max-w-xs text-sm leading-6 text-slate-300">
-              Film in production. You can explore the interactive application now.
-            </p>
+          <div className="overflow-hidden rounded-2xl border border-slate-700 bg-black">
+            <video
+              className="aspect-video w-full"
+              src="/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4"
+              controls
+              playsInline
+              preload="metadata"
+              aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
+            >
+              Your browser does not support HTML video.
+            </video>
+            <div className="px-4 py-3 text-xs text-slate-300">
+              FireOPS Lab · Operations Analyst at Fire.com · Independent project
+            </div>
           </div>
         </div>
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-700 px-6 py-4 text-xs text-slate-400 sm:px-9">
