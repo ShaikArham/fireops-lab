@@ -4,7 +4,7 @@
 
 [Public website](https://shaikarham.github.io/fireops-lab/) · [Architecture](docs/ARCHITECTURE.md) · [Development guide](docs/DEVELOPMENT.md) · [Release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) · [Test plan](docs/TEST_PLAN.md)
 
-> **Deployment status:** The GitHub Pages website currently publishes from `main` and is **not yet the fully interactive hiring-manager workspace** on `feat/hiring-manager-workspace`. GitHub Pages hosts static assets only. Interactive operations require a separately deployed FastAPI service, PostgreSQL, secure browser-session handling, and verified cross-origin configuration. Do not describe the public website as fully interactive until the release gate passes.
+> **Public reviewer edition:** GitHub Pages builds with `NEXT_PUBLIC_REVIEW_MODE=static`. The six workspace routes immediately display a read-only synthetic reconciliation showcase without waiting for the hosted API, starting a session, or showing retry/capacity prompts. The About page, project video and CV remain available. The full interactive FastAPI workflows remain in the repository for local development and are **not claimed as continuously available on GitHub Pages**. No real funds or banking connections are used.
 
 ## What a reviewer can explore
 
@@ -55,6 +55,10 @@ npm run dev
 
 Open `http://localhost:3000`; API health: `http://localhost:8000/health`. Demo writes are enabled **only for this local development example**. Never apply development write settings to a public deployment.
 
+## Reviewer release verification
+
+The public entry point is [FireOPS Lab](https://shaikarham.github.io/fireops-lab/). The reviewer flow is: play the film, select Explore, navigate Overview → Payments → Reconciliation → Investigations → Monitoring → Insights, then inspect About and the CV. The six workspaces use the committed synthetic reconciliation summary and require no network request to the private demo service. Check the [GitHub Actions runs](https://github.com/ShaikArham/fireops-lab/actions) for commit-specific build, CI, smoke and browser results. A successful static deployment does not prove the separate interactive API is available.
+
 ## Validation
 
 ```bash
@@ -90,7 +94,7 @@ See the [interactive public release gate](docs/PUBLIC_INTERACTIVE_RELEASE.md) fo
 4. Test the **actual published URL** end-to-end: demo load/reset, payment simulation, reconciliation, case lifecycle, monitoring, insights CSV, mobile navigation, and accessibility.
 5. Only then publish the updated branch and mark the release gate complete.
 
-The existing [GitHub Pages workflow](.github/workflows/pages.yml) is manually triggered. It publishes a frontend artifact, **not** the backend or database.
+The [GitHub Pages workflow](.github/workflows/pages.yml) runs on pushes to `main` and supports manual triggering. It publishes the static reviewer edition, **not** the backend or database.
 
 ## Data and evidence
 
