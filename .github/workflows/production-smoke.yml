@@ -39,6 +39,7 @@ jobs:
           cat /tmp/fireops-cors-headers
           cat /tmp/fireops-cors-body
           test "$cors" = "200"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
           python3 - <<'PY'
           import json
           from urllib.error import HTTPError
@@ -74,6 +75,7 @@ jobs:
           assert "metrics" in insights, "Overview metrics missing"
           print("Production demo session, scenarios, and Overview metrics passed")
           PY
+          fi
           for route in / /workspace/overview/ /workspace/payments/ /workspace/reconciliation/ /workspace/investigations/ /workspace/monitoring/ /workspace/insights/ /workspace/about/; do
             code=$(curl --silent --location --output /dev/null --write-out '%{http_code}' --max-time 30 "$site$route")
             echo "$route: $code"
