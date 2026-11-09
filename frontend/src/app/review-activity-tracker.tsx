@@ -10,6 +10,8 @@ export default function ReviewActivityTracker() {
   useEffect(() => {
     if (navigator.webdriver || /bot|crawler|spider|headless|preview/i.test(navigator.userAgent))
       return;
+    const endpoint = process.env.NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT;
+    if (!endpoint) return;
     if (sessionStorage.getItem(sentKey)) return;
     const activity = new Set<Activity>(["website_visit"]);
     try {
@@ -23,14 +25,16 @@ export default function ReviewActivityTracker() {
     const flush = () => {
       if (sent) return;
       sent = true;
-      sessionStorage.setItem(sentKey, "1");
-      fetch("/api/notify", {
+      fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ event: "activity_summary", events: Array.from(activity) }),
         keepalive: true,
         credentials: "same-origin",
-      }).catch(() => {});
+      }).then((response) => {
+        if (response.ok) sessionStorage.setItem(sentKey, "1");
+        else sent = false;
+      }).catch(() => { sent = false; });
     };
     const schedule = (delay = 90_000) => {
       if (timer) clearTimeout(timer);
