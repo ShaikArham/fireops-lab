@@ -15,6 +15,7 @@ import MonitoringWorkspace from "../../monitoring-workspace";
 import InsightsWorkspace from "../../insights-workspace";
 import CaseWorkspace from "../../case-workspace";
 import DemoSessionControls from "../../demo-session-controls";
+import OfflineShowcase from "../../offline-showcase";
 import AboutBuilder from "../../about-builder";
 import JourneyNavigation from "../../journey-navigation";
 import ScenarioSelector from "../../scenario-selector";
@@ -48,6 +49,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
   }
   const current = section as Section;
   const title = sections.find((item) => item.slug === current)?.label ?? "Overview";
+  const reviewerMode = process.env.NEXT_PUBLIC_REVIEW_MODE === "static";
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 lg:pl-64">
       <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 px-4 py-7 text-slate-100 lg:flex">
@@ -128,6 +130,12 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
             </span>
           </div>
         </header>
+        {reviewerMode && current !== "about" ? (
+          <div className="space-y-6">
+            <OfflineShowcase initialSection={title as "Overview" | "Payments" | "Reconciliation" | "Investigations" | "Monitoring" | "Insights"} />
+            <p className="text-sm text-slate-600">This public reviewer edition is read-only and uses committed fictional reconciliation data. No server connection, waiting, or login is required.</p>
+          </div>
+        ) : (
         <DemoSessionControls enabled={current !== "about"}>
           {current !== "about" && <ScenarioSelector />}
           {current === "overview" && (
@@ -243,6 +251,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           {current === "insights" && <InsightsWorkspace />}
           {current === "about" && <AboutBuilder />}
         </DemoSessionControls>
+        )}
         <JourneyNavigation section={current} />
       </main>
     </div>
