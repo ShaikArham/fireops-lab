@@ -8,9 +8,9 @@ from sqlalchemy.exc import SQLAlchemyError
 from starlette.concurrency import run_in_threadpool
 
 from app.api import install_routes
-from app.review_notifications import router as review_notifications_router
 from app.demo import authenticate, enabled, require_browser_write
 from app.demo import router as demo_router
+from app.review_notifications import router as review_notifications_router
 
 DEFAULT_CORS_ORIGINS = "http://localhost:3000,http://127.0.0.1:3000"
 MUTATING_METHODS = {"POST", "PUT", "PATCH", "DELETE"}
