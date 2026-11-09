@@ -40,6 +40,8 @@ jobs:
           test -s out/Shaik_Arham_Saquib_Updated_Link.pdf
           test -s out/workspace/about/index.html
           grep -q "../../Shaik_Arham_Saquib_Updated_Link.pdf" out/workspace/about/index.html
+      - name: Install ffprobe for media validation
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
       - name: Verify film is published and browser-compatible
         working-directory: frontend
         run: |
