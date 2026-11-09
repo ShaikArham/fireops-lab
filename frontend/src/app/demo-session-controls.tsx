@@ -53,63 +53,66 @@ export default function DemoSessionControls({
   if (!enabled) return <>{children}</>;
   return (
     <>
-      {state === "ready" && <section
-        aria-label="Your demo workspace"
-        className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
-      >
-        <div className="flex flex-wrap items-center justify-between gap-3">
-          <p
-            role="status"
-            aria-live="polite"
-            className={state === "error" ? "text-red-800" : "text-slate-600"}
-          >
-            {message}
-          </p>
-          {state === "error" && (
-            <button
-              type="button"
-              onClick={() => setAttempt((n) => n + 1)}
-              className="rounded-lg bg-teal-800 px-4 py-3 font-semibold text-white"
+      {state === "ready" && (
+        <section
+          aria-label="Your demo workspace"
+          className="mb-5 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm"
+        >
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p
+              role="status"
+              aria-live="polite"
+              className={state === "error" ? "text-red-800" : "text-slate-600"}
             >
-              Retry connection
-            </button>
-          )}
-          {state === "ready" && (
-            <button
-              type="button"
-              onClick={() => setConfirmReset(true)}
-              className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold"
-            >
-              Reset My Demo
-            </button>
-          )}
-        </div>
-        {state === "loading" && (
-          <p className="mt-2 text-xs text-slate-500">
-            The free demo service may take a minute to wake up. Your actions never move real money.
-          </p>
-        )}
-        {confirmReset && (
-          <div className="mt-3 border-t border-slate-200 pt-3">
-            <p>
-              Replace your cases, notes and records with the original fictional scenarios? Other
-              visitors are unaffected.
+              {message}
             </p>
-            <div className="mt-2 flex gap-3">
+            {state === "error" && (
               <button
                 type="button"
-                onClick={() => void reset()}
-                className="rounded-lg bg-red-800 px-4 py-3 text-white"
+                onClick={() => setAttempt((n) => n + 1)}
+                className="rounded-lg bg-teal-800 px-4 py-3 font-semibold text-white"
               >
-                Reset my records
+                Retry connection
               </button>
-              <button type="button" onClick={() => setConfirmReset(false)} className="px-4 py-3">
-                Cancel
+            )}
+            {state === "ready" && (
+              <button
+                type="button"
+                onClick={() => setConfirmReset(true)}
+                className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold"
+              >
+                Reset My Demo
               </button>
-            </div>
+            )}
           </div>
-        )}
-      </section>}
+          {state === "loading" && (
+            <p className="mt-2 text-xs text-slate-500">
+              The free demo service may take a minute to wake up. Your actions never move real
+              money.
+            </p>
+          )}
+          {confirmReset && (
+            <div className="mt-3 border-t border-slate-200 pt-3">
+              <p>
+                Replace your cases, notes and records with the original fictional scenarios? Other
+                visitors are unaffected.
+              </p>
+              <div className="mt-2 flex gap-3">
+                <button
+                  type="button"
+                  onClick={() => void reset()}
+                  className="rounded-lg bg-red-800 px-4 py-3 text-white"
+                >
+                  Reset my records
+                </button>
+                <button type="button" onClick={() => setConfirmReset(false)} className="px-4 py-3">
+                  Cancel
+                </button>
+              </div>
+            </div>
+          )}
+        </section>
+      )}
       {state === "ready" ? (
         children
       ) : (
@@ -120,7 +123,8 @@ export default function DemoSessionControls({
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-700">
               Review fictional payment processing, reconciliation, exception handling, monitoring
-              and insights. This read-only project tour works even when private demo sessions are full.
+              and insights. This read-only project tour works even when private demo sessions are
+              full.
             </p>
             <div className="mt-4">
               <OfflineShowcase />
