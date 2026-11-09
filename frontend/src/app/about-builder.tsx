@@ -223,19 +223,20 @@ export default function AboutBuilder() {
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="https://shaikarham.github.io/fireops-lab/cv/"
+            href="/cv/Shaik_Arham_Saquib.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
-            View CV ↗
+            View CV (PDF) ↗
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
-            href="https://shaikarham.github.io/fireops-lab/cv/"
+            href="/cv/Shaik_Arham_Saquib.pdf"
+            download="Shaik_Arham_Saquib.pdf"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Open CV to save as PDF ↗
+            Download CV (PDF) ↓
           </a>
           <a
             className="inline-flex min-h-11 items-center rounded-lg border border-slate-300 px-5 py-3 text-sm font-semibold text-slate-900"
