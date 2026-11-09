@@ -1,0 +1,35 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.715
+A payment can succeed, yet the settlement still doesn't match.
+What happens next?
+
+00:00:04.715 --> 00:00:09.894
+I built FireOPS Lab to explore that question.
+Follow a fictional payment batch from processing through reconciliation.
+
+00:00:09.894 --> 00:00:14.363
+Spot an exception, trace the records,
+investigate the cause and document a decision.
+
+00:00:14.363 --> 00:00:20.370
+Then review monitoring alerts, audit trails
+and operational insights.
+
+00:00:20.370 --> 00:00:27.903
+Every transaction is synthetic, but the workflow
+reflects the discipline of real operations.
+
+00:00:27.903 --> 00:00:32.272
+I'm Shaik Arham.
+
+00:00:32.272 --> 00:00:42.597
+My background in business intelligence, SQL, data validation
+and production incident support taught me to follow evidence, not assumptions.
+
+00:00:42.597 --> 00:00:46.975
+That's the approach I'd bring to the Operations Analyst
+team at Fire.com.
+
+00:00:46.975 --> 00:00:50.200
+Explore the interactive project and its source code.
