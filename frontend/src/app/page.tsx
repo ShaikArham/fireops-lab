@@ -91,7 +91,11 @@ export default function Home() {
           </div>
         </div>
         <footer className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-700 px-6 py-4 text-xs text-slate-400 sm:px-9">
-          <span>Fictional records only · Not affiliated with fire.com · Anonymous page, video and CV interactions may be summarised by email to the project owner. No visitor identity is collected.</span>
+          <span>
+            Fictional records only · Not affiliated with fire.com · Anonymous page, video and CV
+            interactions may be summarised by email to the project owner. No visitor identity is
+            collected.
+          </span>
           <a
             href="https://github.com/ShaikArham/fireops-lab"
             target="_blank"
