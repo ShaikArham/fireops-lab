@@ -77,6 +77,12 @@ export default function Home() {
               preload="metadata"
               aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
             >
+              <track
+                kind="captions"
+                src="/videos/fireops-captions.vtt"
+                srcLang="en"
+                label="English"
+              />
               Your browser does not support HTML video.
             </video>
             <div className="px-4 py-3 text-xs text-slate-300">

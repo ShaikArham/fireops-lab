@@ -1,4 +1,3 @@
-import Link from "next/link";
 import AboutScrollNavigator from "./about-scroll-navigator";
 
 const strengths = [
