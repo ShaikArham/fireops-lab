@@ -3,6 +3,7 @@ name: FireOPS workspace browser checks
 on:
   push:
     branches:
+      - main
       - feat/hiring-manager-workspace
   pull_request:
     paths:
