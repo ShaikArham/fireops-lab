@@ -2,7 +2,7 @@
 
 **An independent, fictional-data payment operations workspace.** Explore payment batches, settlement reconciliation, exception investigations, monitoring, operational insights, and case audit trails.
 
-[Public website](https://shaikarham.github.io/fireops-lab/) · [Architecture](docs/ARCHITECTURE.md) · [Development guide](docs/DEVELOPMENT.md) · [Release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) · [Test plan](docs/TEST_PLAN.md)
+[Public website](https://shaikarham.github.io/fireops-lab/) · [Architecture](docs/ARCHITECTURE.md) · [Development guide](docs/DEVELOPMENT.md) · [Release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) · [Branch and documentation inventory](docs/BRANCH_AND_DOCUMENT_INVENTORY.md) · [Test plan](docs/TEST_PLAN.md)
 
 > **Public reviewer edition:** GitHub Pages builds with `NEXT_PUBLIC_REVIEW_MODE=static`. The six workspace routes immediately display a read-only synthetic reconciliation showcase without waiting for the hosted API, starting a session, or showing retry/capacity prompts. The About page, project video and CV remain available. The full interactive FastAPI workflows remain in the repository for local development and are **not claimed as continuously available on GitHub Pages**. No real funds or banking connections are used.
 
