@@ -1,6 +1,9 @@
 import { expect, test } from "@playwright/test";
 
-test("approved application film is available and has playable metadata", async ({ page, request }) => {
+test("approved application film is available and has playable metadata", async ({
+  page,
+  request,
+}) => {
   const videoPath = "/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4";
   const response = await request.get(videoPath);
   expect(response.status()).toBe(200);
@@ -16,8 +19,22 @@ test("approved application film is available and has playable metadata", async (
     if (media.readyState < 1) {
       await new Promise<void>((resolve, reject) => {
         const timeout = setTimeout(() => reject(new Error("Video metadata timed out")), 20_000);
-        media.addEventListener("loadedmetadata", () => { clearTimeout(timeout); resolve(); }, { once: true });
-        media.addEventListener("error", () => { clearTimeout(timeout); reject(new Error("Video decode error")); }, { once: true });
+        media.addEventListener(
+          "loadedmetadata",
+          () => {
+            clearTimeout(timeout);
+            resolve();
+          },
+          { once: true },
+        );
+        media.addEventListener(
+          "error",
+          () => {
+            clearTimeout(timeout);
+            reject(new Error("Video decode error"));
+          },
+          { once: true },
+        );
       });
     }
   });
