@@ -25,7 +25,7 @@ test("keyboard navigation and reduced-motion accessibility on the workspace", as
 test("mobile menu is keyboard operable and links to every workspace section", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/workspace/about/");
-  const toggle = page.locator("summary", { hasText: "Workspaces" });
+  const toggle = page.locator("summary", { hasText: "Sections" });
   await expect(toggle).toBeVisible();
   await toggle.focus();
   await page.keyboard.press("Enter");
