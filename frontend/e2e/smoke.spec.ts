@@ -67,5 +67,7 @@ test("small-screen navigation reaches About and remains within viewport", async 
     .click();
   await expect(page).toHaveURL(/\/workspace\/about\/?$/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeGreaterThanOrEqual(390);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeGreaterThanOrEqual(
+    390,
+  );
 });
