@@ -303,7 +303,19 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 >
                   <option value="">All analysts</option>
                   <option value="unassigned">Unassigned</option>
-                  {[...new Set(cases.map((item) => item.assigned_to).filter((name): name is string => Boolean(name)))].sort().map((name) => <option key={name} value={name}>{name}</option>)}
+                  {[
+                    ...new Set(
+                      cases
+                        .map((item) => item.assigned_to)
+                        .filter((name): name is string => Boolean(name)),
+                    ),
+                  ]
+                    .sort()
+                    .map((name) => (
+                      <option key={name} value={name}>
+                        {name}
+                      </option>
+                    ))}
                 </select>
               </label>
             </div>

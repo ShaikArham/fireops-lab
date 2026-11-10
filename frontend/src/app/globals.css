@@ -307,10 +307,26 @@ html {
 
 /* Responsive workspace: preserve real interactive controls and accessible navigation on phones. */
 @media (max-width: 1023px) {
-  body { overflow-x: clip; }
-  .fireops-workspace-shell { min-width: 0; padding-left: 0; }
-  .fireops-desktop-sidebar { display: none; }
-  .fireops-mobile-header { display: block; }
-  .fireops-workspace-main { width: 100%; max-width: 100%; min-width: 0; padding: 24px 16px; }
-  .fireops-workspace-main table { max-width: 100%; }
+  body {
+    overflow-x: clip;
+  }
+  .fireops-workspace-shell {
+    min-width: 0;
+    padding-left: 0;
+  }
+  .fireops-desktop-sidebar {
+    display: none;
+  }
+  .fireops-mobile-header {
+    display: block;
+  }
+  .fireops-workspace-main {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 24px 16px;
+  }
+  .fireops-workspace-main table {
+    max-width: 100%;
+  }
 }

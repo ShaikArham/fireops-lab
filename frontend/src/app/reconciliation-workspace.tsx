@@ -211,7 +211,9 @@ export default function ReconciliationWorkspace() {
         Compare every payment with its settlement
       </h2>
       <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-        Match payment instructions against settlement records. Start with exceptions, select a result to inspect both records, and use the next page for more. Unclear matches remain unresolved.
+        Match payment instructions against settlement records. Start with exceptions, select a
+        result to inspect both records, and use the next page for more. Unclear matches remain
+        unresolved.
       </p>
       {API && (
         <div className="mt-5 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
@@ -311,14 +313,36 @@ export default function ReconciliationWorkspace() {
           exceptions
         </span>
       </div>
-      <div className="mt-4 flex flex-wrap items-center gap-3"><label htmlFor="reconciliation-filter" className="text-sm font-semibold">Show results</label><select id="reconciliation-filter" value={resultFilter} onChange={(event) => setResultFilter(event.target.value)} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"><option value="EXCEPTIONS">Exceptions needing review</option><option value="ALL">All results</option><option value="MATCHED">Matched payments</option></select></div>
+      <div className="mt-4 flex flex-wrap items-center gap-3">
+        <label htmlFor="reconciliation-filter" className="text-sm font-semibold">
+          Show results
+        </label>
+        <select
+          id="reconciliation-filter"
+          value={resultFilter}
+          onChange={(event) => setResultFilter(event.target.value)}
+          className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"
+        >
+          <option value="EXCEPTIONS">Exceptions needing review</option>
+          <option value="ALL">All results</option>
+          <option value="MATCHED">Matched payments</option>
+        </select>
+      </div>
       <div className="mt-4 grid gap-3">
-        {(run?.results ?? sample.samples).filter((row) => resultFilter === "ALL" || (resultFilter === "MATCHED" ? row.classification.startsWith("MATCHED") : !row.classification.startsWith("MATCHED"))).map((row) => (
-          <Comparison
-            key={`${row.classification}-${row.payment?.payment_id ?? row.settlement?.settlement_id}`}
-            row={row}
-          />
-        ))}
+        {(run?.results ?? sample.samples)
+          .filter(
+            (row) =>
+              resultFilter === "ALL" ||
+              (resultFilter === "MATCHED"
+                ? row.classification.startsWith("MATCHED")
+                : !row.classification.startsWith("MATCHED")),
+          )
+          .map((row) => (
+            <Comparison
+              key={`${row.classification}-${row.payment?.payment_id ?? row.settlement?.settlement_id}`}
+              row={row}
+            />
+          ))}
       </div>
       {run && (
         <p className="mt-4 break-all text-xs text-slate-500">
