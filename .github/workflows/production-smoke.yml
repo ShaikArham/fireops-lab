@@ -94,6 +94,15 @@ jobs:
           done
           curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-introduction.mp4"
           curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/Shaik_Arham_Saquib_Updated_Link.pdf"
-          curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-thumbnail.svg"
+          poster_ready=false
+          for attempt in $(seq 1 20); do
+            if curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-thumbnail.svg"; then
+              poster_ready=true
+              break
+            fi
+            echo "Waiting for GitHub Pages poster deployment ($attempt/20)"
+            sleep 15
+          done
+          test "$poster_ready" = true
           echo "Public reviewer routes, film, poster, and CV reachable"
 
