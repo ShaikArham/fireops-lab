@@ -3,6 +3,7 @@
 import { demoRequestHeaders, requestJson } from "../lib/api";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import preview from "./phase4-preview.json";
 import { getPreparedScenario } from "./scenario-selector";
 
@@ -111,6 +112,8 @@ export default function InsightsWorkspace() {
   const [downloading, setDownloading] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
   const [downloadError, setDownloadError] = useState("");
+  const [dashboardView, setDashboardView] = useState<"exceptions" | "trends" | "cases">("exceptions");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     if (!API || refreshKey < 0) return;
@@ -323,6 +326,52 @@ export default function InsightsWorkspace() {
             </p>
           )}
 
+          <section aria-label="Interactive insights dashboard" className="mt-5 rounded-2xl border border-slate-200 bg-slate-50 p-4 sm:p-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div><p className="text-xs font-semibold uppercase tracking-wider text-teal-800">Interactive dashboard</p><h3 className="mt-1 text-xl font-semibold">Explore operational performance</h3></div>
+              <div className="flex flex-wrap gap-2" role="group" aria-label="Dashboard view">
+                {(["exceptions", "trends", "cases"] as const).map((view) => (
+                  <button key={view} type="button" aria-pressed={dashboardView === view}
+                    onClick={() => { setDashboardView(view); setSelectedCategory(null); }}
+                    className={`rounded-lg px-4 py-2 text-sm font-semibold capitalize ${dashboardView === view ? "bg-teal-900 text-white" : "border border-slate-300 bg-white text-slate-900"}`}>
+                    {view}
+                  </button>
+                ))}
+              </div>
+            </div>
+            {dashboardView === "exceptions" && (
+              <div className="mt-5 space-y-3">
+                <p className="text-sm text-slate-600">Select a category to inspect its share of classified exceptions.</p>
+                {report.exception_categories.length === 0 && <p>No exceptions in this run.</p>}
+                {report.exception_categories.map((item) => {
+                  const total = report.exception_categories.reduce((sum, row) => sum + row.count, 0);
+                  const percentage = total ? (item.count / total) * 100 : 0;
+                  return <button key={item.classification} type="button" onClick={() => setSelectedCategory(item.classification)}
+                    aria-pressed={selectedCategory === item.classification}
+                    className={`block w-full rounded-lg border p-3 text-left transition hover:border-teal-600 ${selectedCategory === item.classification ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-white"}`}>
+                    <span className="flex justify-between gap-3 text-sm"><span>{item.classification.replaceAll("_", " ")}</span><strong>{item.count.toLocaleString()} · {percentage.toFixed(1)}%</strong></span>
+                    <span className="mt-2 block h-2 overflow-hidden rounded-full bg-slate-200"><span className="block h-full rounded-full bg-teal-700" style={{ width: `${percentage}%` }} /></span>
+                  </button>;
+                })}
+                {selectedCategory && <p role="status" className="rounded-lg bg-white p-3 text-sm">Selected: <strong>{selectedCategory.replaceAll("_", " ")}</strong>. Review the individual reconciliation evidence in the <Link className="font-semibold text-teal-800 underline" href="/workspace/reconciliation">Reconciliation workspace</Link>.</p>}
+              </div>
+            )}
+            {dashboardView === "trends" && (
+              <div className="mt-5 space-y-3">
+                <p className="text-sm text-slate-600">Saved reconciliation runs · exact-match percentage</p>
+                {report.reconciliation_run_trend.length === 0 && <p>No saved trend data yet.</p>}
+                {report.reconciliation_run_trend.map((item) => <div key={item.run_id} className="rounded-lg bg-white p-3">
+                  <div className="flex flex-wrap justify-between gap-2 text-sm"><span className="break-all">{item.payment_batch_id}</span><strong>{item.exact_match_rate_pct.toFixed(1)}% · {item.exception_result_count} exceptions</strong></div>
+                  <div className="mt-2 h-3 overflow-hidden rounded-full bg-slate-200"><div className="h-full rounded-full bg-teal-700" style={{ width: `${Math.min(100, Math.max(0, item.exact_match_rate_pct))}%` }} /></div>
+                </div>)}
+              </div>
+            )}
+            {dashboardView === "cases" && (
+              <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                {([["Under 24 hours", report.metrics.open_case_ageing.under_24h], ["1–3 days", report.metrics.open_case_ageing["1_to_3_days"]], ["Over 3 days", report.metrics.open_case_ageing.over_3_days]] as const).map(([label, value]) => <Link key={label} href="/workspace/investigations" className="rounded-xl border border-slate-200 bg-white p-4 hover:border-teal-700"><p className="text-sm text-slate-600">{label}</p><p className="mt-2 text-3xl font-bold">{value}</p><p className="mt-3 text-xs font-semibold text-teal-800">Explore investigations →</p></Link>)}
+              </div>
+            )}
+          </section>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
             <Metric
               label="Payment instructions"
