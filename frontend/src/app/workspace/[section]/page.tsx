@@ -22,7 +22,7 @@ import JourneyNavigation from "../../journey-navigation";
 import ScenarioSelector from "../../scenario-selector";
 import LiveOverview from "../../live-overview";
 import ThemeToggle from "../../theme-toggle";
-import DesktopViewToggle from "../../desktop-view-toggle";
+
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -53,7 +53,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
   const title = sections.find((item) => item.slug === current)?.label ?? "Overview";
   const reviewerMode = process.env.NEXT_PUBLIC_REVIEW_MODE === "static";
   return (
-    <div className="fireops-workspace-shell min-h-screen bg-slate-50 text-slate-900 lg:pl-64">
+    <div className="fireops-workspace-shell fireops-desktop-default min-h-screen bg-slate-50 text-slate-900 lg:pl-64">
       <aside className="fireops-desktop-sidebar fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 px-4 py-7 text-slate-100 lg:flex">
         <Link href="/workspace/overview" className="px-3 text-xl font-bold">
           FireOPS <span className="text-teal-300">Lab</span>
@@ -124,7 +124,6 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
                 <PlayCircle size={18} aria-hidden="true" /> Watch video again
               </Link>
             )}
-            <DesktopViewToggle />
             <ThemeToggle />
             <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
               Synthetic environment
