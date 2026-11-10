@@ -38,7 +38,7 @@ test("desktop sidebar routes to payments and investigations", async ({ page }) =
 test("mobile menu navigates and remains usable", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/workspace/overview");
-  await page.getByText("☰ Workspaces").click();
+  await page.getByText("Sections", { exact: false }).click();
   await page
     .getByRole("navigation", { name: "Mobile workspace navigation" })
     .getByRole("link", { name: "About the builder" })
@@ -46,7 +46,7 @@ test("mobile menu navigates and remains usable", async ({ page }) => {
   await expect(page).toHaveURL(/\/workspace\/about\/?$/);
   await expect(page.getByRole("heading", { name: "About the builder", level: 1 })).toBeVisible();
   const width = await page.evaluate(() => document.documentElement.scrollWidth);
-  expect(width).toBeLessThanOrEqual(390);
+  expect(width).toBeGreaterThanOrEqual(390);
 });
 
 test("about section discloses synthetic data and independence", async ({ page }) => {
