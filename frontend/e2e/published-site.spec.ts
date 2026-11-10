@@ -53,7 +53,7 @@ test("published film, captions, and CV are reachable", async ({ page, request })
   expect(film.headers()["content-type"]).toMatch(/video\/mp4|application\/octet-stream/);
   const captions = await request.get(`${publishedBasePath}/videos/fireops-captions.vtt`);
   expect(captions.status()).toBe(200);
-  const cv = await request.get(`${publishedBasePath}/Shaik_Arham_Saquib_Updated_Link.pdf`, {
+  const cv = await request.get(`${publishedBasePath}/Shaik_Arham_Saquib.pdf`, {
     headers: { Range: "bytes=0-1023" },
   });
   expect([200, 206]).toContain(cv.status());
