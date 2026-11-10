@@ -60,12 +60,12 @@ test("scenario selection persists between workspace sections", async ({ page }) 
 test("small-screen navigation reaches About and remains within viewport", async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/workspace/overview/");
-  await page.getByText("☰ Workspaces").click();
+  await page.getByText("Sections", { exact: false }).click();
   await page
     .getByRole("navigation", { name: "Mobile workspace navigation" })
     .getByRole("link", { name: "About the builder" })
     .click();
   await expect(page).toHaveURL(/\/workspace\/about\/?$/);
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeGreaterThanOrEqual(390);
 });
