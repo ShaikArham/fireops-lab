@@ -59,6 +59,7 @@ test("published film, captions, and CV are reachable", async ({ page, request })
   const video = page.locator("video");
   await expect(video).toBeVisible();
   await expect(video.locator("source")).toHaveAttribute("src", "videos/fireops-introduction.mp4");
+  await expect(video).toHaveAttribute("poster", "videos/fireops-thumbnail.svg");
   await expect(video).toHaveAttribute("controls", "");
   await expect(video).toHaveAttribute("playsinline", "");
 });
