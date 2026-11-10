@@ -46,26 +46,6 @@ export default function OfflineShowcase({
         This offline showcase uses the repository’s fictional_exception_day reconciliation summary.
         It is not connected to the private demo API. No records are changed.
       </p>
-      <nav
-        aria-label="Offline showcase sections"
-        className="mt-5 grid grid-cols-2 gap-2 sm:flex sm:flex-wrap"
-      >
-        {sections.map((item) => (
-          <button
-            key={item}
-            type="button"
-            aria-pressed={section === item}
-            onClick={() => setSection(item)}
-            className={
-              section === item
-                ? "rounded-lg bg-teal-900 px-3 py-2 text-sm font-semibold text-white"
-                : "rounded-lg border border-teal-200 bg-white px-3 py-2 text-sm font-semibold text-teal-950"
-            }
-          >
-            {item}
-          </button>
-        ))}
-      </nav>
       <div className="mt-5 min-w-0 rounded-xl border border-teal-100 bg-white p-3 sm:p-5">
         <h4 className="text-lg font-semibold">{section}</h4>
         {section === "Overview" && (
