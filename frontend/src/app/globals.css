@@ -305,26 +305,12 @@ html {
   color: #ffffff !important;
 }
 
-/* Explicit desktop presentation on phones. The full sidebar and desktop
-   workspace are shown at their natural width, with horizontal scrolling
-   rather than compressing controls into the mobile layout. */
+/* Responsive workspace: preserve real interactive controls and accessible navigation on phones. */
 @media (max-width: 1023px) {
-  body {
-    overflow-x: auto;
-  }
-  .fireops-workspace-shell {
-    min-width: 1180px;
-    padding-left: 256px;
-  }
-  .fireops-desktop-sidebar {
-    display: flex;
-  }
-  .fireops-mobile-header {
-    display: none;
-  }
-  .fireops-workspace-main {
-    width: 924px;
-    max-width: none;
-    padding: 32px 36px;
-  }
+  body { overflow-x: clip; }
+  .fireops-workspace-shell { min-width: 0; padding-left: 0; }
+  .fireops-desktop-sidebar { display: none; }
+  .fireops-mobile-header { display: block; }
+  .fireops-workspace-main { width: 100%; max-width: 100%; min-width: 0; padding: 24px 16px; }
+  .fireops-workspace-main table { max-width: 100%; }
 }
