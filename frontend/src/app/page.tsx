@@ -65,12 +65,12 @@ export default function Home() {
           <div className="overflow-hidden rounded-2xl border border-slate-700 bg-black">
             <video
               className="aspect-video w-full"
-              src="videos/fireops-introduction.mp4"
               controls
               playsInline
               preload="metadata"
               aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
             >
+              <source src="videos/fireops-introduction.mp4" type="video/mp4" />
               <track
                 kind="captions"
                 src="videos/fireops-captions.vtt"
@@ -79,8 +79,16 @@ export default function Home() {
               />
               Your browser does not support HTML video.
             </video>
-            <div className="px-4 py-3 text-xs text-slate-300">
-              FireOPS Lab · Operations Analyst at Fire.com · Independent project
+            <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-slate-300">
+              <span>FireOPS Lab · Operations Analyst at Fire.com · Independent project</span>
+              <a
+                href="videos/fireops-introduction.mp4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-semibold text-teal-300 underline underline-offset-4"
+              >
+                Open video directly ↗
+              </a>
             </div>
           </div>
         </div>
