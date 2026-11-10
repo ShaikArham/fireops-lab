@@ -13,7 +13,7 @@ test("approved application film is available and has playable metadata", async (
   const video = page.locator("video");
   await expect(video).toBeVisible();
   await expect(video).toHaveAttribute("controls", "");
-  await expect(video).toHaveAttribute("src", "videos/fireops-introduction.mp4");
+  await expect(video.locator("source")).toHaveAttribute("src", "videos/fireops-introduction.mp4");
   await video.evaluate(async (element) => {
     const media = element as HTMLVideoElement;
     if (media.readyState < 1) {
