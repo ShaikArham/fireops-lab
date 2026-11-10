@@ -108,6 +108,7 @@ export default function ReconciliationWorkspace() {
   const [run, setRun] = useState<RunResult | null>(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [resultFilter, setResultFilter] = useState("EXCEPTIONS");
 
   const loadBatches = useCallback(() => {
     if (!API) return Promise.resolve();
@@ -186,7 +187,7 @@ export default function ReconciliationWorkspace() {
     try {
       setRun(
         await requestJson<RunResult>(
-          `${API}/api/v1/reconciliation/runs/${encodeURIComponent(run.run_id)}?limit=100&offset=${offset}`,
+          `${API}/api/v1/reconciliation/runs/${encodeURIComponent(run.run_id)}?limit=10&offset=${offset}`,
         ),
       );
     } catch (cause) {
@@ -210,9 +211,7 @@ export default function ReconciliationWorkspace() {
         Compare every payment with its settlement
       </h2>
       <p className="mt-3 max-w-3xl leading-7 text-slate-600">
-        Each comparison shows the source records side by side. Exact references, integer minor units
-        and a three-day date window make every outcome explainable. Ambiguous records stay
-        unresolved.
+        Match payment instructions against settlement records. Start with exceptions, select a result to inspect both records, and use the next page for more. Unclear matches remain unresolved.
       </p>
       {API && (
         <div className="mt-5 grid gap-3 rounded-xl border border-slate-200 bg-slate-50 p-4 sm:grid-cols-[1fr_1fr_auto] sm:items-end">
@@ -312,8 +311,9 @@ export default function ReconciliationWorkspace() {
           exceptions
         </span>
       </div>
+      <div className="mt-4 flex flex-wrap items-center gap-3"><label htmlFor="reconciliation-filter" className="text-sm font-semibold">Show results</label><select id="reconciliation-filter" value={resultFilter} onChange={(event) => setResultFilter(event.target.value)} className="rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm"><option value="EXCEPTIONS">Exceptions needing review</option><option value="ALL">All results</option><option value="MATCHED">Matched payments</option></select></div>
       <div className="mt-4 grid gap-3">
-        {(run?.results ?? sample.samples).map((row) => (
+        {(run?.results ?? sample.samples).filter((row) => resultFilter === "ALL" || (resultFilter === "MATCHED" ? row.classification.startsWith("MATCHED") : !row.classification.startsWith("MATCHED"))).map((row) => (
           <Comparison
             key={`${row.classification}-${row.payment?.payment_id ?? row.settlement?.settlement_id}`}
             row={row}
@@ -331,7 +331,7 @@ export default function ReconciliationWorkspace() {
           <button
             type="button"
             disabled={busy || (run.offset ?? 0) === 0}
-            onClick={() => void loadPage(Math.max(0, (run.offset ?? 0) - 100))}
+            onClick={() => void loadPage(Math.max(0, (run.offset ?? 0) - 10))}
             className="rounded-lg border border-slate-300 px-4 py-2 text-sm"
           >
             Previous results
