@@ -63,7 +63,16 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
                 raise HTTPException(status_code=502, detail="Email provider rejected delivery.")
     except (HTTPError, URLError, TimeoutError) as exc:
         if isinstance(exc, HTTPError):
-            logger.error("Reviewer email provider rejected request: HTTP %s", exc.code)
+            provider_error = "unknown"
+            try:
+                provider_payload = json.loads(exc.read(4096).decode("utf-8", errors="replace"))
+                if isinstance(provider_payload, dict):
+                    candidate = provider_payload.get("name", "unknown")
+                    if isinstance(candidate, str) and candidate.replace("_", "").isalnum() and len(candidate) < 64:
+                        provider_error = candidate
+            except (ValueError, UnicodeError, OSError):
+                pass
+            logger.error("Reviewer email provider rejected request: HTTP %s, category %s", exc.code, provider_error)
         else:
             logger.error("Reviewer email provider connection failed: %s", type(exc).__name__)
         with _lock:
