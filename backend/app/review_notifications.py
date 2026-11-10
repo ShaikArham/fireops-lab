@@ -67,7 +67,10 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             response_type = exc.headers.get("Content-Type", "unknown").split(";")[0]
             response_body = exc.read(4096).decode("utf-8", errors="replace")
             failure_hint = "unclassified"
-            for term in ("domain", "recipient", "sender", "permission", "api key", "cloudflare", "verify", "testing"):
+            for term in (
+                "domain", "recipient", "sender", "permission",
+                "api key", "cloudflare", "verify", "testing",
+            ):
                 if term in response_body.lower():
                     failure_hint = term.replace(" ", "_")
                     break
