@@ -65,6 +65,7 @@ export default function OperationsWorkspace() {
   const [settlementBatches, setSettlementBatches] = useState<SettlementBatch[]>([]);
   const [payments, setPayments] = useState<PaymentRecord[]>([]);
   const [events, setEvents] = useState<PaymentEvent[]>([]);
+  const [groupFilter, setGroupFilter] = useState<{status:string;direction:string}|null>(null);
   const [selectedBatch, setSelectedBatch] = useState("");
   const [selectedPayment, setSelectedPayment] = useState("");
   const [message, setMessage] = useState("");
@@ -143,6 +144,7 @@ export default function OperationsWorkspace() {
   const loadBatch = (batch: Batch, nextOffset = 0) =>
     withFeedback(async () => {
       setSelectedBatch(batch.batch_id);
+      setGroupFilter(null);
       setOffset(nextOffset);
       setPayments([]);
       setSelectedPayment("");
@@ -177,7 +179,7 @@ export default function OperationsWorkspace() {
         `/payments/${encodeURIComponent(paymentId)}/events`,
       );
       setEvents(result.events);
-      setMessage(`Loaded ${result.events.length} events for ${paymentId}.`);
+      setMessage(result.events.length ? `Loaded ${result.events.length} events for ${paymentId}.` : `No processing events have been recorded for ${paymentId} yet. Run the fictional processing simulation to generate lifecycle events.`);
     });
 
   return (
@@ -251,17 +253,19 @@ export default function OperationsWorkspace() {
                 Synthetic lifecycle only. Repeat runs do not duplicate settlements.
               </span>
             </div>
-            {batches
-              .find((batch) => batch.batch_id === selectedBatch)
-              ?.control_totals.map((total) => (
-                <p
-                  key={`${total.currency}-${total.direction}-${total.status}`}
-                  className="rounded-lg bg-slate-50 p-3 text-sm text-slate-700"
-                >
-                  <strong>{total.status}</strong> · {total.direction} · {total.record_count} records
-                  · {formatMoney(total.total_minor, total.currency)}
-                </p>
+            <p className="text-sm text-slate-600">Select a payment group to inspect its individual records below.</p>
+            {batches.find((batch) => batch.batch_id === selectedBatch)?.control_totals
+              .filter((item) => item.currency === "EUR")
+              .map((item) => (
+                <button type="button" key={`${item.currency}-${item.direction}-${item.status}`}
+                  aria-pressed={groupFilter?.direction === item.direction && groupFilter?.status === item.status}
+                  onClick={() => { setGroupFilter({status:item.status,direction:item.direction}); setSelectedPayment(""); setEvents([]); }}
+                  className={`rounded-lg border p-3 text-left text-sm transition hover:border-teal-600 ${groupFilter?.direction === item.direction && groupFilter?.status === item.status ? "border-teal-700 bg-teal-50" : "border-slate-200 bg-slate-50"}`}>
+                  <strong>{item.status}</strong> · {item.direction} · {item.record_count} records · {formatMoney(item.total_minor,"EUR")}
+                  <span className="ml-2 font-semibold text-teal-800">View records →</span>
+                </button>
               ))}
+            {groupFilter && <button type="button" className="w-fit rounded-lg border border-slate-300 px-3 py-2 text-sm" onClick={() => setGroupFilter(null)}>Show all payments</button>}
             <h3 className="mt-2 text-lg font-semibold text-slate-900">Settlement batch controls</h3>
             {settlementBatches.length === 0 ? (
               <p className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
@@ -295,7 +299,7 @@ export default function OperationsWorkspace() {
               <h3 className="text-lg font-semibold text-slate-900">
                 Processing history · {selectedBatch}
               </h3>
-              {payments.map((payment) => (
+              {payments.filter((payment) => payment.currency === "EUR" && (!groupFilter || (payment.status === groupFilter.status && payment.direction === groupFilter.direction))).map((payment) => (
                 <div
                   className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3"
                   key={payment.payment_id}
@@ -342,7 +346,8 @@ export default function OperationsWorkspace() {
                   Next payments
                 </button>
               </nav>
-              {selectedPayment && (
+              {selectedPayment && events.length === 0 && <p role="status" className="rounded-lg bg-amber-50 p-3 text-sm text-amber-950">No lifecycle events are recorded for this payment yet. Select Simulate processing to create fictional processing events, then reopen its history.</p>}
+              {selectedPayment && events.length > 0 && (
                 <ol aria-label={`Event history for ${selectedPayment}`} className="grid gap-2">
                   {events.map((event) => (
                     <li className="rounded-lg bg-slate-50 p-3 text-sm" key={event.event_id}>
