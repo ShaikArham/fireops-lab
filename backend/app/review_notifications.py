@@ -64,8 +64,15 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
     except (HTTPError, URLError, TimeoutError) as exc:
         if isinstance(exc, HTTPError):
             provider_error = "unknown"
+            response_type = exc.headers.get("Content-Type", "unknown").split(";")[0]
+            response_body = exc.read(4096).decode("utf-8", errors="replace")
+            failure_hint = "unclassified"
+            for term in ("domain", "recipient", "sender", "permission", "api key", "cloudflare", "verify", "testing"):
+                if term in response_body.lower():
+                    failure_hint = term.replace(" ", "_")
+                    break
             try:
-                provider_payload = json.loads(exc.read(4096).decode("utf-8", errors="replace"))
+                provider_payload = json.loads(response_body)
                 if isinstance(provider_payload, dict):
                     candidate = provider_payload.get("name", "unknown")
                     if (
@@ -77,9 +84,11 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             except (ValueError, UnicodeError, OSError):
                 pass
             logger.error(
-                "Reviewer email provider rejected request: HTTP %s, category %s",
+                "Reviewer email provider rejected request: HTTP %s, category %s, type %s, hint %s",
                 exc.code,
                 provider_error,
+                response_type,
+                failure_hint,
             )
         else:
             logger.error("Reviewer email provider connection failed: %s", type(exc).__name__)
