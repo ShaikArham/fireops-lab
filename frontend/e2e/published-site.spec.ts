@@ -14,9 +14,7 @@ for (const viewport of [
   { name: "desktop", width: 1440, height: 900 },
   { name: "iPhone-sized", width: 390, height: 844 },
 ]) {
-  test(`published site: all seven routes and navigation on ${viewport.name}`, async ({
-    page,
-  }) => {
+  test(`published site: all seven routes and navigation on ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     for (const section of sections) {
       const response = await page.goto(`/workspace/${section}/`, {
@@ -60,10 +58,7 @@ test("published film, captions, and CV are reachable", async ({ page, request })
   await page.goto("/");
   const video = page.locator("video");
   await expect(video).toBeVisible();
-  await expect(video.locator("source")).toHaveAttribute(
-    "src",
-    "videos/fireops-introduction.mp4",
-  );
+  await expect(video.locator("source")).toHaveAttribute("src", "videos/fireops-introduction.mp4");
   await expect(video).toHaveAttribute("controls", "");
   await expect(video).toHaveAttribute("playsinline", "");
 });
