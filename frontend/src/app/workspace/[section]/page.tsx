@@ -76,28 +76,35 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           Synthetic demo data only. No real banking connections or payment execution.
         </p>
       </aside>
-      <div className="fireops-mobile-header sticky top-0 z-40 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+      <div className="fireops-mobile-header sticky top-0 z-40 border-b border-slate-700 bg-slate-950 px-4 py-3 text-white lg:hidden">
         <div className="flex items-center justify-between gap-3">
-          <Link href="/workspace/overview" className="font-bold text-slate-950">
-            FireOPS <span className="text-teal-700">Lab</span>
+          <Link href="/workspace/overview" className="font-bold text-white">
+            FireOPS <span className="text-teal-300">Lab</span>
           </Link>
-          <Link href="/" className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-900">
-            Watch film
-          </Link>
-        </div>
-        <nav aria-label="Mobile workspace navigation" className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {sections.map(({ slug, label, Icon }) => (
-            <Link
-              key={slug}
-              href={`/workspace/${slug}`}
-              aria-current={slug === current ? "page" : undefined}
-              className={`flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold ${slug === current ? "border-teal-800 bg-teal-800 text-white" : "border-slate-200 bg-slate-50 text-slate-900"}`}
-            >
-              <Icon size={16} aria-hidden="true" />
-              {label}
+          <div className="flex items-center gap-2">
+            <Link href="/" className="rounded-lg border border-slate-500 px-3 py-2 text-xs font-semibold text-white">
+              Watch film
             </Link>
-          ))}
-        </nav>
+            <details className="group relative">
+              <summary className="flex min-h-11 cursor-pointer list-none items-center rounded-lg border border-slate-500 px-3 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300">
+                Sections <span aria-hidden="true" className="ml-2">☰</span>
+              </summary>
+              <nav aria-label="Mobile workspace navigation" className="absolute right-0 top-full z-50 mt-2 grid max-h-[70dvh] w-[min(85vw,320px)] gap-1 overflow-y-auto rounded-xl border border-slate-600 bg-slate-950 p-2 shadow-2xl">
+                {sections.map(({ slug, label, Icon }) => (
+                  <Link
+                    key={slug}
+                    href={`/workspace/${slug}`}
+                    aria-current={slug === current ? "page" : undefined}
+                    className={`flex min-h-11 items-center gap-3 rounded-lg px-3 py-2 text-sm font-semibold ${slug === current ? "bg-teal-800 text-white" : "text-slate-100 hover:bg-slate-800"}`}
+                  >
+                    <Icon size={18} aria-hidden="true" />
+                    {label}
+                  </Link>
+                ))}
+              </nav>
+            </details>
+          </div>
+        </div>
       </div>
       <main id="main-content" className="fireops-workspace-main mx-auto max-w-7xl px-5 py-8 sm:px-9">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-6">
