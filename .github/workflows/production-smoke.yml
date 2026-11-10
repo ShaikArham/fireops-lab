@@ -85,3 +85,14 @@ jobs:
             --output /tmp/fireops.mp4 "$site/videos/FireOPS_Lab_Speech_Aligned_Review_v2%20(1).mp4"
           test "$(wc -c </tmp/fireops.mp4)" -gt 1000000
           echo "Production routes, API service, and approved MP4 reachable"
+          echo "Verifying the public GitHub Pages reviewer destination..."
+          pages="https://shaikarham.github.io/fireops-lab"
+          for route in / /workspace/overview/ /workspace/payments/ /workspace/reconciliation/ /workspace/investigations/ /workspace/monitoring/ /workspace/insights/ /workspace/about/; do
+            code=$(curl --silent --location --output /dev/null --write-out '%{http_code}' --max-time 30 "$pages$route")
+            echo "GitHub Pages $route: $code"
+            test "$code" = "200"
+          done
+          curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-introduction.mp4"
+          curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/Shaik_Arham_Saquib.pdf"
+          echo "Public reviewer routes, film, and CV reachable"
+
