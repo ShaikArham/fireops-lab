@@ -68,6 +68,7 @@ export default function Home() {
               controls
               playsInline
               preload="metadata"
+              poster="videos/fireops-thumbnail.svg"
               aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
             >
               <source src="videos/fireops-introduction.mp4" type="video/mp4" />
