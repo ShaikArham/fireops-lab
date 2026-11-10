@@ -1,0 +1,36 @@
+name: Published reviewer browser QA
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: ["Publish GitHub Pages"]
+    types: [completed]
+permissions:
+  contents: read
+jobs:
+  published-browser:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium firefox webkit
+      - name: Verify real public URL on Chromium, Firefox and WebKit
+        run: npx playwright test --config=playwright.published.config.ts
+      - name: Upload browser traces on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: published-browser-traces
+          path: frontend/test-results/
+          if-no-files-found: ignore
