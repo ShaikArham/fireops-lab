@@ -1,6 +1,6 @@
 "use client";
 import { type ReactNode, useEffect, useState } from "react";
-import { prepareDemo, resetDemo } from "../lib/demo-session";
+import { prepareDemo } from "../lib/demo-session";
 import OfflineShowcase from "./offline-showcase";
 
 export default function DemoSessionControls({
@@ -13,7 +13,6 @@ export default function DemoSessionControls({
   const [state, setState] = useState<"loading" | "ready" | "error">("loading");
   const [message, setMessage] = useState("Preparing your fictional payment workspace…");
   const [attempt, setAttempt] = useState(0);
-  const [confirmReset, setConfirmReset] = useState(false);
   const [showLiveStatus, setShowLiveStatus] = useState(false);
   const atCapacity = state === "error" && /at capacity/i.test(message);
   useEffect(() => {
@@ -37,19 +36,6 @@ export default function DemoSessionControls({
       active = false;
     };
   }, [attempt, enabled]);
-  async function reset() {
-    setConfirmReset(false);
-    setState("loading");
-    setMessage("Resetting only your fictional workspace…");
-    try {
-      await resetDemo();
-      setState("ready");
-      setMessage("Your demo has been reset.");
-    } catch (error) {
-      setState("error");
-      setMessage(error instanceof Error ? error.message : "Reset failed. Please retry.");
-    }
-  }
   if (!enabled) return <>{children}</>;
   return (
     <>
