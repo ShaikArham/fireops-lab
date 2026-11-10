@@ -46,6 +46,9 @@ export default function OfflineShowcase({
         This offline showcase uses the repository’s fictional_exception_day reconciliation summary.
         It is not connected to the private demo API. No records are changed.
       </p>
+      <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Dashboard sections">
+        {sections.map((item) => <button type="button" key={item} onClick={() => setSection(item)} aria-pressed={section === item} className={`rounded-lg px-3 py-2 text-sm font-semibold ${section === item ? "bg-teal-900 text-white" : "border border-teal-300 bg-white text-teal-950"}`}>{item}</button>)}
+      </div>
       <div className="mt-5 min-w-0 rounded-xl border border-teal-100 bg-white p-3 sm:p-5">
         <h4 className="text-lg font-semibold">{section}</h4>
         {section === "Overview" && (
@@ -60,6 +63,15 @@ export default function OfflineShowcase({
                   <p className="mt-1 text-2xl font-bold">{value}</p>
                 </div>
               ))}
+            </div>
+            <div className="mt-5 rounded-xl border border-slate-200 p-4">
+              <p className="text-sm font-semibold">Reconciliation dashboard · select a result category</p>
+              <div className="mt-3 space-y-2">
+                {classifications.map(([name, count]) => <button key={name} type="button" onClick={() => setSection("Reconciliation")} className="block w-full rounded-lg p-2 text-left hover:bg-teal-50">
+                  <span className="flex justify-between gap-3 text-xs"><span>{name}</span><strong>{count.toLocaleString()}</strong></span>
+                  <span className="mt-1 block h-2 overflow-hidden rounded-full bg-slate-100"><span className="block h-full rounded-full bg-teal-700" style={{ width: `${(count / 1260) * 100}%` }} /></span>
+                </button>)}
+              </div>
             </div>
           </>
         )}
