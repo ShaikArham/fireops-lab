@@ -10,36 +10,39 @@ test("new and returning visitors retain isolated demo sessions without duplicate
   try {
     const page = await first.newPage();
     await page.goto("/workspace/payments/");
-    await expect.poll(async () => (await page.request.get("/backend/api/v1/batches")).status(), { timeout: 90_000 }).toBe(200);
-    const initial = await (await page.request.get("/backend/api/v1/batches")).json();
+    await expect.poll(async () => page.evaluate(() => sessionStorage.getItem("fireops-demo-access-token")), { timeout: 90_000 }).not.toBeNull();
+    const token = await page.evaluate(() => sessionStorage.getItem("fireops-demo-access-token"));
+    const headers = { Authorization: `Bearer ${token}` };
+    await expect.poll(async () => (await page.request.get("/backend/api/v1/batches", { headers })).status(), { timeout: 90_000 }).toBe(200);
+    const initial = await (await page.request.get("/backend/api/v1/batches", { headers })).json();
     expect(initial.batches.map((item: { batch_id: string }) => item.batch_id)).toEqual(
       expect.arrayContaining(["BATCH-N-20261014", "BATCH-E-20261015"]),
     );
-    const cookie = (await first.cookies()).find((item) => item.name === "fireops_demo");
-    expect(cookie?.httpOnly).toBe(true);
-    const saved = await (await page.request.get("/backend/api/v1/demo/scenarios")).json();
+    expect(token).toBeTruthy();
+    const saved = await (await page.request.get("/backend/api/v1/demo/scenarios", { headers })).json();
     expect(saved.scenarios).toHaveLength(2);
     expect(saved.scenarios.every((item: { reconciliation_run_id: string | null }) => Boolean(item.reconciliation_run_id))).toBe(true);
 
     await page.reload();
-    await expect.poll(async () => (await page.request.get("/backend/api/v1/batches")).status()).toBe(200);
-    const reloaded = await (await page.request.get("/backend/api/v1/batches")).json();
+    await expect.poll(async () => (await page.request.get("/backend/api/v1/batches", { headers })).status()).toBe(200);
+    const reloaded = await (await page.request.get("/backend/api/v1/batches", { headers })).json();
     expect(reloaded.batches.map((item: { batch_id: string }) => item.batch_id).sort()).toEqual(
       initial.batches.map((item: { batch_id: string }) => item.batch_id).sort(),
     );
-    expect(await (await page.request.get("/backend/api/v1/demo/scenarios")).json()).toEqual(saved);
+    expect(await (await page.request.get("/backend/api/v1/demo/scenarios", { headers })).json()).toEqual(saved);
 
     const returning = await first.newPage();
     await returning.goto("/workspace/overview/");
-    expect(await (await returning.request.get("/backend/api/v1/demo/scenarios")).json()).toEqual(saved);
+    expect(await (await returning.request.get("/backend/api/v1/demo/scenarios", { headers })).json()).toEqual(saved);
 
     const visitor = await second.newPage();
     expect((await visitor.request.get("/backend/api/v1/batches")).status()).toBe(401);
     await visitor.goto("/workspace/payments/");
-    await expect.poll(async () => (await visitor.request.get("/backend/api/v1/batches")).status(), { timeout: 90_000 }).toBe(200);
-    const otherCookie = (await second.cookies()).find((item) => item.name === "fireops_demo");
-    expect(otherCookie).toBeDefined();
-    expect(otherCookie?.value).not.toBe(cookie?.value);
+    await expect.poll(async () => visitor.evaluate(() => sessionStorage.getItem("fireops-demo-access-token")), { timeout: 90_000 }).not.toBeNull();
+    const otherToken = await visitor.evaluate(() => sessionStorage.getItem("fireops-demo-access-token"));
+    expect(otherToken).toBeTruthy();
+    expect(otherToken).not.toBe(token);
+    await expect.poll(async () => (await visitor.request.get("/backend/api/v1/batches", { headers: { Authorization: `Bearer ${otherToken}` } })).status(), { timeout: 90_000 }).toBe(200);
   } finally {
     await first.close();
     await second.close();
