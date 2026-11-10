@@ -22,6 +22,7 @@ export default function LiveOverview() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
   const [refreshKey, setRefreshKey] = useState(0);
+  const [focus, setFocus] = useState<"all" | "exceptions" | "cases" | "alerts">("all");
 
   useEffect(() => {
     let active = true;
@@ -93,6 +94,12 @@ export default function LiveOverview() {
           </button>
         </div>
       )}
+      <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Overview focus">
+        {(["all", "exceptions", "cases", "alerts"] as const).map((item) => (
+          <button key={item} type="button" aria-pressed={focus === item} onClick={() => setFocus(item)} className={`rounded-lg px-4 py-2 text-sm font-semibold capitalize ${focus === item ? "bg-teal-900 text-white" : "border border-slate-300 bg-white text-slate-900"}`}>{item === "all" ? "All metrics" : item}</button>
+        ))}
+        <button type="button" onClick={() => setRefreshKey((value) => value + 1)} className="rounded-lg border border-slate-300 bg-white px-4 py-2 text-sm font-semibold">Refresh data</button>
+      </div>
       {summary && !loading && (
         <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-5">
           {[
@@ -101,11 +108,12 @@ export default function LiveOverview() {
             ["Exceptions", summary.metrics.exception_result_count.toLocaleString()],
             ["Open cases", summary.metrics.open_case_count.toLocaleString()],
             ["Monitoring alerts", summary.metrics.monitoring_alert_count.toLocaleString()],
-          ].map(([label, value]) => (
-            <div key={label} className="rounded-xl border border-slate-200 bg-white p-4">
+          ].filter(([label]) => focus === "all" || (focus === "exceptions" && label === "Exceptions") || (focus === "cases" && label === "Open cases") || (focus === "alerts" && label === "Monitoring alerts")).map(([label, value]) => (
+            <Link key={label} href={label === "Payments" ? "/workspace/payments" : label === "Exact matches" || label === "Exceptions" ? "/workspace/reconciliation" : label === "Open cases" ? "/workspace/investigations" : "/workspace/monitoring"} className="rounded-xl border border-slate-200 bg-white p-4 transition hover:border-teal-700 hover:shadow-md">
               <p className="text-sm text-slate-600">{label}</p>
               <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p>
-            </div>
+              <p className="mt-3 text-xs font-semibold text-teal-800">Open details →</p>
+            </Link>
           ))}
         </div>
       )}
