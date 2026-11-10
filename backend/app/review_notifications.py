@@ -1,5 +1,6 @@
 """Privacy-minimising reviewer activity summaries for the public portfolio."""
 import json
+import logging
 import os
 import time
 from threading import Lock
@@ -11,6 +12,7 @@ from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
 
 router = APIRouter()
+logger = logging.getLogger(__name__)
 ALLOWED = {"website_visit", "video_play", "cv_view", "cv_download", "workspace_explore"}
 _last_sent: dict[str, float] = {}
 _lock = Lock()
@@ -60,6 +62,10 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             if response.status not in (200, 201, 202):
                 raise HTTPException(status_code=502, detail="Email provider rejected delivery.")
     except (HTTPError, URLError, TimeoutError) as exc:
+        if isinstance(exc, HTTPError):
+            logger.error("Reviewer email provider rejected request: HTTP %s", exc.code)
+        else:
+            logger.error("Reviewer email provider connection failed: %s", type(exc).__name__)
         with _lock:
             _last_sent.pop("global", None)
         raise HTTPException(status_code=502, detail="Email delivery unavailable.") from exc
