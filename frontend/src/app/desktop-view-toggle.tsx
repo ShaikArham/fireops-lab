@@ -40,7 +40,11 @@ export default function DesktopViewToggle() {
       aria-pressed={desktop}
       className="inline-flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-semibold text-slate-900"
     >
-      {desktop ? <Smartphone size={17} aria-hidden="true" /> : <Monitor size={17} aria-hidden="true" />}
+      {desktop ? (
+        <Smartphone size={17} aria-hidden="true" />
+      ) : (
+        <Monitor size={17} aria-hidden="true" />
+      )}
       {desktop ? "Mobile view" : "Desktop view"}
     </button>
   );
