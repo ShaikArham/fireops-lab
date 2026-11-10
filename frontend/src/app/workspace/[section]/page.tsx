@@ -23,7 +23,6 @@ import ScenarioSelector from "../../scenario-selector";
 import LiveOverview from "../../live-overview";
 import ThemeToggle from "../../theme-toggle";
 
-
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
   { slug: "payments", label: "Payments", Icon: CreditCard },
@@ -82,14 +81,23 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
             FireOPS <span className="text-teal-300">Lab</span>
           </Link>
           <div className="flex items-center gap-2">
-            <Link href="/" className="rounded-lg border border-slate-500 px-3 py-2 text-xs font-semibold text-white">
+            <Link
+              href="/"
+              className="rounded-lg border border-slate-500 px-3 py-2 text-xs font-semibold text-white"
+            >
               Watch film
             </Link>
             <details className="group relative">
               <summary className="flex min-h-11 cursor-pointer list-none items-center rounded-lg border border-slate-500 px-3 text-sm font-semibold text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-300">
-                Sections <span aria-hidden="true" className="ml-2">☰</span>
+                Sections{" "}
+                <span aria-hidden="true" className="ml-2">
+                  ☰
+                </span>
               </summary>
-              <nav aria-label="Mobile workspace navigation" className="absolute right-0 top-full z-50 mt-2 grid max-h-[70dvh] w-[min(85vw,320px)] gap-1 overflow-y-auto rounded-xl border border-slate-600 bg-slate-950 p-2 shadow-2xl">
+              <nav
+                aria-label="Mobile workspace navigation"
+                className="absolute right-0 top-full z-50 mt-2 grid max-h-[70dvh] w-[min(85vw,320px)] gap-1 overflow-y-auto rounded-xl border border-slate-600 bg-slate-950 p-2 shadow-2xl"
+              >
                 {sections.map(({ slug, label, Icon }) => (
                   <Link
                     key={slug}
@@ -106,7 +114,10 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           </div>
         </div>
       </div>
-      <main id="main-content" className="fireops-workspace-main mx-auto max-w-7xl px-5 py-8 sm:px-9">
+      <main
+        id="main-content"
+        className="fireops-workspace-main mx-auto max-w-7xl px-5 py-8 sm:px-9"
+      >
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
