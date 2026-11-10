@@ -17,7 +17,7 @@ test("real cross-origin payment, case, monitoring and export workflow", async ({
   await page.setViewportSize({ width: 1440, height: 900 });
   let started = Date.now();
   await page.goto(route("overview"));
-  await expect(page.getByRole("region", { name: "Live operational overview" })).toBeVisible({ timeout: 120_000 });
+  await expect(page.locator('section[aria-label="Live operational overview"]')).toBeVisible({ timeout: 120_000 });
   await expect(page.getByText("1,250", { exact: true })).toBeVisible({ timeout: 30_000 });
   timings.coldWorkspaceMs = Date.now() - started;
   await capture("01-overview");
@@ -95,7 +95,7 @@ test("real cross-origin payment, case, monitoring and export workflow", async ({
   const second = await browser.newContext();
   const secondPage = await second.newPage();
   await secondPage.goto(new URL(route("overview"), page.url()).href);
-  await expect(secondPage.getByRole("region", { name: "Live operational overview" })).toBeVisible({ timeout: 120_000 });
+  await expect(secondPage.locator('section[aria-label="Live operational overview"]')).toBeVisible({ timeout: 120_000 });
   const otherToken = await secondPage.evaluate(() => sessionStorage.getItem("fireops-demo-access-token"));
   expect(otherToken).toBeTruthy();
   expect(otherToken).not.toBe(token);
@@ -106,7 +106,7 @@ test("real cross-origin payment, case, monitoring and export workflow", async ({
   for (const section of ["overview", "payments", "reconciliation", "investigations", "monitoring", "insights", "about"]) {
     await page.goto(route(section));
     await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-    if (section === "overview") await expect(page.getByRole("region", { name: "Live operational overview" })).toBeVisible();
+    if (section === "overview") await expect(page.locator('section[aria-label="Live operational overview"]')).toBeVisible();
     for (const width of [360, 390, 430, 768, 1024, 1440]) {
       await page.setViewportSize({ width, height: 900 });
       expect(await page.evaluate(() => document.documentElement.scrollWidth), `${section} at ${width}px`).toBeLessThanOrEqual(width + 1);
