@@ -22,6 +22,7 @@ import JourneyNavigation from "../../journey-navigation";
 import ScenarioSelector from "../../scenario-selector";
 import LiveOverview from "../../live-overview";
 import ThemeToggle from "../../theme-toggle";
+import DesktopViewToggle from "../../desktop-view-toggle";
 
 const sections = [
   { slug: "overview", label: "Overview", Icon: LayoutDashboard },
@@ -52,8 +53,8 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
   const title = sections.find((item) => item.slug === current)?.label ?? "Overview";
   const reviewerMode = process.env.NEXT_PUBLIC_REVIEW_MODE === "static";
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 lg:pl-64">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 px-4 py-7 text-slate-100 lg:flex">
+    <div className="fireops-workspace-shell min-h-screen bg-slate-50 text-slate-900 lg:pl-64">
+      <aside className="fireops-desktop-sidebar fixed inset-y-0 left-0 hidden w-64 flex-col bg-slate-950 px-4 py-7 text-slate-100 lg:flex">
         <Link href="/workspace/overview" className="px-3 text-xl font-bold">
           FireOPS <span className="text-teal-300">Lab</span>
         </Link>
@@ -75,7 +76,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           Synthetic demo data only. No real banking connections or payment execution.
         </p>
       </aside>
-      <div className="sticky top-0 z-40 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+      <div className="fireops-mobile-header sticky top-0 z-40 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
         <div className="flex items-center justify-between gap-3">
           <Link href="/workspace/overview" className="font-bold text-slate-950">
             FireOPS <span className="text-teal-700">Lab</span>
@@ -98,7 +99,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           ))}
         </nav>
       </div>
-      <main id="main-content" className="mx-auto max-w-7xl px-5 py-8 sm:px-9">
+      <main id="main-content" className="fireops-workspace-main mx-auto max-w-7xl px-5 py-8 sm:px-9">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-6">
           <div>
             <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
@@ -116,6 +117,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
                 <PlayCircle size={18} aria-hidden="true" /> Watch video again
               </Link>
             )}
+            <DesktopViewToggle />
             <ThemeToggle />
             <span className="rounded-full border border-slate-200 bg-white px-3 py-2 text-xs text-slate-600">
               Synthetic environment
