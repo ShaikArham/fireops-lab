@@ -94,5 +94,6 @@ jobs:
           done
           curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-introduction.mp4"
           curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/Shaik_Arham_Saquib_Updated_Link.pdf"
-          echo "Public reviewer routes, film, and CV reachable"
+          curl --fail --silent --show-error --location --max-time 30 --output /dev/null "$pages/videos/fireops-thumbnail.svg"
+          echo "Public reviewer routes, film, poster, and CV reachable"
 
