@@ -1,0 +1,21 @@
+name: One-time notification delivery diagnostic
+on:
+  push:
+    paths:
+      - ".github/workflows/notification-diagnostic.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  notification:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit anonymous test activity
+        run: |
+          status=$(curl --silent --show-error --max-time 30 --output /dev/null --write-out '%{http_code}' \
+            -X POST 'https://fireops-lab.onrender.com/api/reviewer-activity' \
+            -H 'Origin: https://shaikarham.github.io' \
+            -H 'Content-Type: application/json' \
+            --data '{"event":"activity_summary","events":["website_visit"]}')
+          echo "Notification API HTTP status: $status"
+          test "$status" = "202"
