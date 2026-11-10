@@ -1,40 +1,67 @@
 # FireOPS Lab
 
-**An independent, fictional-data payment operations workspace.** Explore payment batches, settlement reconciliation, exception investigations, monitoring, operational insights, and case audit trails.
+### Follow the payment. Find the exception. Document the decision.
 
-[Public website](https://shaikarham.github.io/fireops-lab/) · [Architecture](docs/ARCHITECTURE.md) · [Development guide](docs/DEVELOPMENT.md) · [Release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) · [Branch and documentation inventory](docs/BRANCH_AND_DOCUMENT_INVENTORY.md) · [Test plan](docs/TEST_PLAN.md)
+**[Watch the introduction and explore FireOPS Lab](https://shaikarham.github.io/fireops-lab/)** · [Open the reviewer workspace](https://shaikarham.github.io/fireops-lab/workspace/overview/) · [Meet the builder](https://shaikarham.github.io/fireops-lab/workspace/about/)
 
-> **Public reviewer edition:** GitHub Pages builds with `NEXT_PUBLIC_REVIEW_MODE=static`. The six workspace routes immediately display a read-only synthetic reconciliation showcase without waiting for the hosted API, starting a session, or showing retry/capacity prompts. The About page, project video and CV remain available. The full interactive FastAPI workflows remain in the repository for local development and are **not claimed as continuously available on GitHub Pages**. No real funds or banking connections are used.
+FireOPS Lab is an **independent payment-operations portfolio project by Shaik Arham Saquib**, based in Dublin, Ireland. I built it to demonstrate how I approach operational data quality, reconciliation, exceptions and evidence-led investigations while applying for an Operations Analyst opportunity at Fire.
 
-## What a reviewer can explore
+**The scenario:** a fictional payment batch has processed, but its settlement does not reconcile. Where did the difference arise? Which evidence supports the finding? What should the next analyst do?
 
-| Area | Purpose |
+> **Reviewer note:** All records are fictional. The public GitHub Pages version is a **read-only reviewer showcase**, not the complete interactive API-backed application. It displays the desktop-width workspace on mobile, where horizontal scrolling may be needed. The full application, including state-changing investigations and simulation workflows, is available in the source code and local development setup. Do not mistake a static deployment for a working hosted backend.
+
+## A quick review
+
+1. [Watch the introduction](https://shaikarham.github.io/fireops-lab/) and choose **Explore FireOPS**.
+2. Open **Payments** to understand the fictional batch and its processing controls.
+3. Follow the mismatch through **Reconciliation** and **Investigations**.
+4. Explore **Monitoring** and **Insights**, then see [About the builder](https://shaikarham.github.io/fireops-lab/workspace/about/) for background, CV and project boundaries.
+
+| Workspace | What it demonstrates |
 | --- | --- |
-| Overview | Understand fictional batch outcomes and operational context |
-| Payments | Review batches, controls, and simulated processing |
-| Reconciliation | Compare payment instructions with settlements and classify exceptions |
-| Investigations | Assign cases, add notes, escalate, resolve, and inspect audit events |
-| Monitoring | Review alerts with evidence and possible benign explanations |
-| Insights | Examine run-scoped metrics and export consistent CSV reports |
-| About | Understand the builder, methodology, and project boundaries |
+| Overview | Operational context and synthetic batch outcomes |
+| Payments | Payment records, validation concepts and simulated processing |
+| Reconciliation | Matching instructions and settlements, and classifying exceptions |
+| Investigations | Evidence, case lifecycle, notes and auditability in the full app |
+| Monitoring | Alert review and evidence-led assessment |
+| Insights | Metrics, trends and consistent reporting outputs |
+| About | The builder's background, approach and source-code links |
 
-All data is synthetic. FireOPS Lab **does not transfer funds**, connect to banks, make actual fraud or AML decisions, or represent an employer's internal system. It is **not affiliated with, commissioned by, endorsed by, or connected to Fire Financial Services Limited**.
+## Why I built this
 
-## Architecture
+At **Hitachi Digital Services**, I worked with SQL and PL/SQL, enterprise BI and ETL monitoring, validation, troubleshooting and operational reporting. FireOPS Lab translates those transferable skills into a fictional payment-operations setting. It is a work sample and learning project, **not a claim of prior professional payment-processing, fraud investigation or AML compliance experience**.
 
-- **Frontend:** Next.js, TypeScript, React; static export supported for GitHub Pages.
-- **API:** Python FastAPI; validated import, simulation, reconciliation, investigation and reporting endpoints.
-- **Persistence:** PostgreSQL for hosted multi-user scenarios; SQLite for local development.
-- **Quality gates:** Type checks, formatting, linting, unit and integration tests, migrations, and Playwright browser journeys.
+The project deliberately distinguishes a recorded event from an analyst conclusion: reconciliation differences require supporting evidence, alert flags require investigation, and case actions should leave a traceable audit record.
 
-The static site and API are separate deployment units. A static export alone does **not** make the API-backed controls functional. See [architecture](docs/ARCHITECTURE.md), [data dictionary](docs/DATA_DICTIONARY.md), [requirements traceability](docs/REQUIREMENTS_TRACEABILITY.md), and [decision log](docs/DECISION_LOG.md).
+## What is actually deployed?
 
-## Local development
+| Component | Status / boundary |
+| --- | --- |
+| Public website | GitHub Pages static export; introduction, workspace showcase, About and CV |
+| Mobile presentation | Desktop-width workspace shown on mobile; scroll horizontally where necessary |
+| Reviewer data | Committed synthetic records; no real accounts or transfers |
+| Full interactive frontend | Implemented in the repository; requires a working API and session |
+| Backend | FastAPI service, with database-backed operations and tests |
+| Public write-enabled demo | **Not verified or enabled by the GitHub Pages static export** |
 
-Prerequisites: Node.js 24, Python 3.12, npm, `uv`.
+The website is not affiliated with, commissioned by, endorsed by, or connected to Fire Financial Services Limited. It does not move money, connect to banks or make real fraud or AML decisions.
+
+## How it is built
+
+- **Frontend:** Next.js 16, React 19, TypeScript, Tailwind CSS; static GitHub Pages export.
+- **Backend:** Python 3.12, FastAPI, SQLAlchemy, Alembic and PostgreSQL; SQLite for local development.
+- **Validation:** synthetic fixtures, backend tests, frontend unit tests, TypeScript checks, lint and formatting, Playwright browser journeys and GitHub Actions.
+- **Operational controls:** fictional payment processing, reconciliation, exception investigations, monitoring, reporting and audit trails.
+
+Read the [architecture](docs/ARCHITECTURE.md), [data dictionary](docs/DATA_DICTIONARY.md), [requirements traceability](docs/REQUIREMENTS_TRACEABILITY.md), [decision log](docs/DECISION_LOG.md) and [test plan](docs/TEST_PLAN.md).
+
+## Run the full interactive application locally
+
+Prerequisites: Node.js 24, Python 3.12, npm and `uv`.
+
+**Terminal 1: backend**
 
 ```bash
-# Terminal 1
 cd backend
 export DATABASE_URL=sqlite:///./fireops.db
 export FIREOPS_ENV=development
@@ -45,31 +72,30 @@ uv run alembic upgrade head
 uv run uvicorn app.main:app --reload --port 8000
 ```
 
+**Terminal 2: frontend**
+
 ```bash
-# Terminal 2
 cd frontend
 npm ci
 export NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
 npm run dev
 ```
 
-Open `http://localhost:3000`; API health: `http://localhost:8000/health`. Demo writes are enabled **only for this local development example**. Never apply development write settings to a public deployment.
+Open `http://localhost:3000` and check `http://localhost:8000/health`. The write-enabled settings above are **for local development only**. Never enable public writes without appropriate isolation, authentication, abuse controls and security testing.
 
-## Reviewer release verification
+## Quality and release evidence
 
-The public entry point is [FireOPS Lab](https://shaikarham.github.io/fireops-lab/). The reviewer flow is: play the film, select Explore, navigate Overview → Payments → Reconciliation → Investigations → Monitoring → Insights, then inspect About and the CV. The six workspaces use the committed synthetic reconciliation summary and require no network request to the private demo service. Check the [GitHub Actions runs](https://github.com/ShaikArham/fireops-lab/actions) for commit-specific build, CI, smoke and browser results. A successful static deployment does not prove the separate interactive API is available.
-
-## Validation
+[View GitHub Actions](https://github.com/ShaikArham/fireops-lab/actions) · [Release checklist](docs/RELEASE_CHECKLIST.md) · [Hiring-manager release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) · [Public interactive release requirements](docs/PUBLIC_INTERACTIVE_RELEASE.md)
 
 ```bash
 cd frontend
 npm ci
-npm run lint
 npm run format:check
+npm run lint
 npm run typecheck
 npm run test
 npm run build
-npx playwright install chromium
+npx playwright install chromium firefox webkit
 npm run test:e2e
 ```
 
@@ -82,35 +108,18 @@ uv run ruff check .
 uv run pytest
 ```
 
-CI results are commit-specific. A green branch workflow does not prove that the GitHub Pages URL contains that commit. Consult [the release gate](docs/HIRING_MANAGER_RELEASE_GATE.md) and [release checklist](docs/RELEASE_CHECKLIST.md) before describing a version as deployed.
+**Important:** A successful GitHub Pages build verifies publication, not live API-backed interactivity. Workflow results are specific to their commit. Check the latest Actions run and the actual published URL before treating a release as verified.
 
-See the [interactive public release gate](docs/PUBLIC_INTERACTIVE_RELEASE.md) for the verified Render/Neon status, browser security constraints, and exact release checklist.
+## Next release milestone
 
-## Public deployment requirements
+Restore the full interactive experience for public reviewers by hosting the API with safe, isolated synthetic demo sessions, validating cross-origin browser authentication and CORS/CSRF protections, and completing end-to-end tests on the published URL for desktop and mobile. Do not enable public write operations until these checks pass.
 
-1. Deploy the FastAPI service and a persistent PostgreSQL database with appropriate isolation and resource limits.
-2. Implement and test secure browser sessions across the GitHub Pages origin and the API origin. Review CORS, cookie attributes, CSRF protection, write authorization, and demo-session quotas.
-3. Configure the frontend's public API endpoint at build time and verify the static export's base path.
-4. Test the **actual published URL** end-to-end: demo load/reset, payment simulation, reconciliation, case lifecycle, monitoring, insights CSV, mobile navigation, and accessibility.
-5. Only then publish the updated branch and mark the release gate complete.
+## Additional resources
 
-The [GitHub Pages workflow](.github/workflows/pages.yml) runs on pushes to `main` and supports manual triggering. It publishes the static reviewer edition, **not** the backend or database.
+[Development guide](docs/DEVELOPMENT.md) · [Project brief](docs/PROJECT_BRIEF.md) · [CV claims evidence](docs/CV_CLAIMS_EVIDENCE.md) · [Branch and documentation inventory](docs/BRANCH_AND_DOCUMENT_INVENTORY.md)
 
-## Data and evidence
+## License and project boundaries
 
-Generate deterministic fictional fixtures with:
+**All rights reserved.** Source is available for portfolio review, not licensed as open source. See [LICENSE](LICENSE). Third-party components retain their respective licenses.
 
-```bash
-cd backend
-uv run python -m app.synthetic.generate
-```
-
-Read [project brief](docs/PROJECT_BRIEF.md), [test plan](docs/TEST_PLAN.md), and [CV claims evidence](docs/CV_CLAIMS_EVIDENCE.md) for scope and defensible claims.
-
-## License
-
-**All rights reserved.** This is source-available for portfolio review, not open source. Copying, modifying, or redistributing the original code or assets is not permitted without authorization, subject to applicable law and GitHub's terms. See [LICENSE](LICENSE). Third-party dependencies retain their own licenses.
-
-### Mobile navigation and reviewer alerts
-
-On mobile, the reviewer journey has a visible **Next** link at the end of each section, and a second upward swipe while the bottom navigation is visible advances to the next section. All six public sections use static fictional data and do not wait for the API. GitHub Pages cannot run Next.js server routes: the former `/api/notify` email alert endpoint is **not** hosted there. The activity tracker now sends only to an explicitly configured `NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT` and marks delivery successful only after an HTTP success response. Until a separate authenticated, rate-limited, CORS-configured server endpoint is deployed and the Pages build receives that URL, **email alerts are not enabled**. Never place Resend API keys in public frontend variables or the repository.
+**Built by Shaik Arham Saquib · Dublin, Ireland.**
