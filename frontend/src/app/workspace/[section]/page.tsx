@@ -75,47 +75,29 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
           Synthetic demo data only. No real banking connections or payment execution.
         </p>
       </aside>
-      <div className="sticky top-0 z-40 border-b border-slate-200 bg-white px-5 py-3 lg:hidden">
-        <div className="flex items-center justify-between">
-          <Link href="/workspace/overview" className="font-bold">
-            FireOPS Lab
+      <div className="sticky top-0 z-40 border-b border-slate-200 bg-white px-4 py-3 lg:hidden">
+        <div className="flex items-center justify-between gap-3">
+          <Link href="/workspace/overview" className="font-bold text-slate-950">
+            FireOPS <span className="text-teal-700">Lab</span>
           </Link>
-          <details className="relative">
-            <summary className="cursor-pointer rounded-lg border border-slate-300 px-4 py-2 text-sm">
-              ☰ Workspaces
-            </summary>
-            <nav
-              aria-label="Mobile workspace navigation"
-              className="absolute right-0 top-12 z-50 grid w-60 gap-1 rounded-xl border border-slate-200 bg-white p-2 shadow-xl"
-            >
-              {sections.map(({ slug, label }) => (
-                <Link
-                  key={slug}
-                  href={`/workspace/${slug}`}
-                  className="rounded-lg px-3 py-3 text-sm hover:bg-slate-100"
-                >
-                  {label}
-                </Link>
-              ))}
-            </nav>
-          </details>
+          <Link href="/" className="rounded-lg border border-slate-300 px-3 py-2 text-xs font-semibold text-slate-900">
+            Watch film
+          </Link>
         </div>
+        <nav aria-label="Mobile workspace navigation" className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {sections.map(({ slug, label, Icon }) => (
+            <Link
+              key={slug}
+              href={`/workspace/${slug}`}
+              aria-current={slug === current ? "page" : undefined}
+              className={`flex min-h-11 items-center gap-2 rounded-lg border px-3 py-2 text-xs font-semibold ${slug === current ? "border-teal-800 bg-teal-800 text-white" : "border-slate-200 bg-slate-50 text-slate-900"}`}
+            >
+              <Icon size={16} aria-hidden="true" />
+              {label}
+            </Link>
+          ))}
+        </nav>
       </div>
-      <nav
-        aria-label="Quick workspace navigation"
-        className="flex gap-2 overflow-x-auto border-b border-slate-200 bg-white px-5 py-2 lg:hidden"
-      >
-        {sections.map(({ slug, label }) => (
-          <Link
-            key={slug}
-            href={`/workspace/${slug}`}
-            aria-current={slug === current ? "page" : undefined}
-            className={`shrink-0 rounded-full px-3 py-2 text-xs font-semibold ${slug === current ? "bg-teal-900 text-white" : "bg-slate-100 text-slate-700"}`}
-          >
-            {label}
-          </Link>
-        ))}
-      </nav>
       <main id="main-content" className="mx-auto max-w-7xl px-5 py-8 sm:px-9">
         <header className="mb-8 flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 pb-6">
           <div>
