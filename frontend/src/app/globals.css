@@ -304,3 +304,27 @@ html {
   background-color: #334155 !important;
   color: #ffffff !important;
 }
+
+/* Explicit desktop presentation on phones. The full sidebar and desktop
+   workspace are shown at their natural width, with horizontal scrolling
+   rather than compressing controls into the mobile layout. */
+@media (max-width: 1023px) {
+  html[data-workspace-layout="desktop"] body {
+    overflow-x: auto;
+  }
+  html[data-workspace-layout="desktop"] .fireops-workspace-shell {
+    min-width: 1180px;
+    padding-left: 256px;
+  }
+  html[data-workspace-layout="desktop"] .fireops-desktop-sidebar {
+    display: flex;
+  }
+  html[data-workspace-layout="desktop"] .fireops-mobile-header {
+    display: none;
+  }
+  html[data-workspace-layout="desktop"] .fireops-workspace-main {
+    width: 924px;
+    max-width: none;
+    padding: 32px 36px;
+  }
+}
