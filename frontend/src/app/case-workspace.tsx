@@ -290,8 +290,8 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                 </select>
               </label>
               <label className="grid gap-1 text-sm font-medium">
-                Filter owner
-                <input
+                Assigned analyst
+                <select
                   disabled={busy}
                   aria-label="Filter cases by owner"
                   className="min-h-11 rounded-lg border border-slate-300 px-3"
@@ -300,8 +300,11 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                     setQueueOffset(0);
                     setAssignedFilter(event.target.value);
                   }}
-                  placeholder="Analyst name"
-                />
+                >
+                  <option value="">All analysts</option>
+                  <option value="unassigned">Unassigned</option>
+                  {[...new Set(cases.map((item) => item.assigned_to).filter((name): name is string => Boolean(name)))].sort().map((name) => <option key={name} value={name}>{name}</option>)}
+                </select>
               </label>
             </div>
             <div className="mt-2 grid gap-2 sm:grid-cols-2">
