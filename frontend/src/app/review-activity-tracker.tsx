@@ -21,8 +21,15 @@ export default function ReviewActivityTracker() {
       // Invalid session state is ignored.
     }
     const timeline: Array<{ at: string; section: string; action: string }> = [];
-    const record = (action: string, section = window.location.pathname.split("/").filter(Boolean).pop() || "home") => {
-      timeline.push({ at: new Date().toISOString(), section: section.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40), action });
+    const record = (
+      action: string,
+      section = window.location.pathname.split("/").filter(Boolean).pop() || "home",
+    ) => {
+      timeline.push({
+        at: new Date().toISOString(),
+        section: section.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40),
+        action,
+      });
       if (timeline.length > 30) timeline.shift();
     };
     record("website_visit");
@@ -84,7 +91,14 @@ export default function ReviewActivityTracker() {
         );
       } else if (href.includes("/workspace/")) {
         activity.add("workspace_explore");
-        record("section_open", href.split("/").filter(Boolean).pop()?.replace(/[^a-z0-9_-]/g, "") || "workspace");
+        record(
+          "section_open",
+          href
+            .split("/")
+            .filter(Boolean)
+            .pop()
+            ?.replace(/[^a-z0-9_-]/g, "") || "workspace",
+        );
         sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
         schedule();
       }
