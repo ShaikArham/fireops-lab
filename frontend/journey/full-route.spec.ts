@@ -37,6 +37,8 @@ test("real cross-origin payment, case, monitoring and export workflow", async ({
 
   await page.getByLabel("Guided scenario").selectOption("BATCH-E-20261015");
   await page.goto(route("reconciliation"));
+  // Capture a useful diagnostic when the batch registry does not populate.
+  await expect(page.getByLabel("Payment batch", { exact: true })).toBeVisible();
   await expect(page.getByLabel("Payment batch", { exact: true }).locator('option[value="BATCH-E-20261015"]')).toHaveCount(1, { timeout: 90_000 });
   await page.getByLabel("Payment batch", { exact: true }).selectOption("BATCH-E-20261015", { timeout: 30_000 });
   await page.getByLabel("Settlement batch").selectOption("SETTLE-E-20261016");
