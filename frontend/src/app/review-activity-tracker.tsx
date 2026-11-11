@@ -59,7 +59,13 @@ export default function ReviewActivityTracker() {
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "activity_summary", events: Array.from(activity), timeline, browser, device }),
+        body: JSON.stringify({
+          event: "activity_summary",
+          events: Array.from(activity),
+          timeline,
+          browser,
+          device,
+        }),
         keepalive: true,
         credentials: "same-origin",
       })
