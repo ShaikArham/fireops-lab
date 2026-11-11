@@ -166,14 +166,14 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
               <div className="space-y-8">
                 <LiveOverview />
                 <OfflineShowcase initialSection="Overview" />
-                <div className="rounded-2xl bg-slate-950 p-7 text-white sm:p-10">
-                  <p className="text-xs font-bold uppercase tracking-widest text-teal-300">
+                <div className="rounded-2xl border border-teal-200 bg-teal-50 p-7 text-slate-950 sm:p-10">
+                  <p className="text-xs font-bold uppercase tracking-widest text-teal-800">
                     Payment operations
                   </p>
                   <h2 className="mt-3 text-3xl font-semibold">
                     A payment day, explained from start to finish.
                   </h2>
-                  <p className="mt-3 max-w-2xl text-slate-300">
+                  <p className="mt-3 max-w-2xl text-slate-700">
                     Follow a fictional payment batch through its lifecycle. See what was expected,
                     what actually settled, where the exceptions arose, how they were investigated
                     and what the resulting dashboard tells an operations team. No uploads or setup
@@ -181,7 +181,7 @@ export default async function WorkspacePage({ params }: { params: Promise<{ sect
                   </p>
                   <Link
                     href="/workspace/payments"
-                    className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-white px-5 py-3 text-sm font-semibold text-slate-950"
+                    className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-lg bg-teal-900 px-5 py-3 text-sm font-semibold text-white"
                   >
                     Explore the preloaded payments <ArrowRight size={17} />
                   </Link>
