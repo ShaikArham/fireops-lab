@@ -76,17 +76,15 @@ function RecordCard({ title, item, dateLabel }: { title: string; item: Item; dat
 
 function Comparison({ row }: { row: ReconciliationItem }) {
   return (
-    <article
-      className="rounded-xl border border-slate-200 p-4"
+    <details
+      className="group rounded-xl border border-slate-200 bg-white p-4 transition hover:border-teal-300 open:shadow-sm"
       key={`${row.classification}-${row.payment?.payment_id ?? row.settlement?.settlement_id}`}
     >
-      <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
-        <h4 className="font-semibold text-slate-900">{row.classification.replaceAll("_", " ")}</h4>
-        <span className="rounded-full bg-slate-100 px-2.5 py-1 text-xs text-slate-700">
-          {row.explanation_code.replaceAll("_", " ")}
-        </span>
-      </div>
-      <div className="grid gap-3 md:grid-cols-2">
+      <summary className="flex cursor-pointer list-none flex-wrap items-center justify-between gap-3 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700">
+        <span className="flex flex-col gap-1"><strong className="text-sm text-slate-900">{row.classification.replaceAll("_", " ")}</strong><span className="font-mono text-xs text-slate-500">{String(row.payment?.payment_id ?? row.settlement?.settlement_id ?? "Unlinked record")}</span></span>
+        <span className="flex items-center gap-2"><span className="rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-900">{row.explanation_code.replaceAll("_", " ")}</span><span className="text-sm font-semibold text-teal-800 group-open:hidden">Inspect ↓</span><span className="hidden text-sm font-semibold text-teal-800 group-open:inline">Close ↑</span></span>
+      </summary>
+      <div className="mt-4 grid gap-3 border-t border-slate-100 pt-4 md:grid-cols-2">
         <RecordCard title="Payment instruction" item={row.payment} dateLabel="Expected date" />
         <RecordCard title="Settlement record" item={row.settlement} dateLabel="Settlement date" />
       </div>
@@ -96,7 +94,7 @@ function Comparison({ row }: { row: ReconciliationItem }) {
           {row.difference_minor} minor units
         </p>
       )}
-    </article>
+    </details>
   );
 }
 
@@ -109,6 +107,7 @@ export default function ReconciliationWorkspace() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [resultFilter, setResultFilter] = useState("EXCEPTIONS");
+  const [resultSearch, setResultSearch] = useState("");
 
   const loadBatches = useCallback(() => {
     if (!API) return Promise.resolve();
@@ -328,14 +327,19 @@ export default function ReconciliationWorkspace() {
           <option value="MATCHED">Matched payments</option>
         </select>
       </div>
+      <label className="mt-4 grid max-w-md gap-1 text-sm font-semibold text-slate-800">Search visible results
+        <input type="search" value={resultSearch} onChange={(event) => setResultSearch(event.target.value)} placeholder="Payment ID, reference or exception type" className="min-h-11 rounded-lg border border-slate-300 px-3 font-normal" />
+      </label>
+      <p className="mt-2 text-xs text-slate-500">Compact queue: select a row to inspect its payment and settlement evidence. Search applies to the current results page.</p>
       <div className="mt-4 grid gap-3">
         {(run?.results ?? sample.samples)
           .filter(
             (row) =>
-              resultFilter === "ALL" ||
+              (resultFilter === "ALL" ||
               (resultFilter === "MATCHED"
                 ? row.classification.startsWith("MATCHED")
-                : !row.classification.startsWith("MATCHED")),
+                : !row.classification.startsWith("MATCHED"))) &&
+              (!resultSearch.trim() || [row.classification, row.explanation_code, row.payment?.payment_id, row.settlement?.settlement_id, row.payment?.client_reference, row.settlement?.payment_reference].some((value) => String(value ?? "").toLowerCase().includes(resultSearch.trim().toLowerCase()))),
           )
           .map((row) => (
             <Comparison
