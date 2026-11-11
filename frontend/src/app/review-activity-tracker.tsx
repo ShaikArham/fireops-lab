@@ -20,18 +20,24 @@ export default function ReviewActivityTracker() {
     } catch {
       // Invalid session state is ignored.
     }
+    const timeline: Array<{ at: string; section: string; action: string }> = [];
+    const record = (action: string, section = window.location.pathname.split("/").filter(Boolean).pop() || "home") => {
+      timeline.push({ at: new Date().toISOString(), section: section.replace(/[^a-zA-Z0-9_-]/g, "").slice(0, 40), action });
+      if (timeline.length > 30) timeline.shift();
+    };
+    record("website_visit");
     let timer: ReturnType<typeof setTimeout> | undefined;
     let sending = false;
     let lastSent = sessionStorage.getItem(sentKey) || "";
     const flush = () => {
       if (sending) return;
-      const snapshot = JSON.stringify(Array.from(activity).sort());
+      const snapshot = JSON.stringify({ events: Array.from(activity).sort(), timeline });
       if (snapshot === lastSent) return;
       sending = true;
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "activity_summary", events: Array.from(activity) }),
+        body: JSON.stringify({ event: "activity_summary", events: Array.from(activity), timeline }),
         keepalive: true,
         credentials: "same-origin",
       })
@@ -52,6 +58,7 @@ export default function ReviewActivityTracker() {
     };
     const mark = (event: Activity) => {
       activity.add(event);
+      record(event);
       sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
       schedule(event === "cv_download" ? 1000 : 8_000);
     };
@@ -74,6 +81,7 @@ export default function ReviewActivityTracker() {
         );
       } else if (href.includes("/workspace/")) {
         mark("workspace_explore");
+        record("section_open", href.split("/").filter(Boolean).pop()?.replace(/[^a-z0-9_-]/g, "") || "workspace");
       }
     };
     onRoute();
