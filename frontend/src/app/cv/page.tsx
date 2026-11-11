@@ -4,9 +4,7 @@ import { useEffect } from "react";
 
 export default function CVPage() {
   useEffect(() => {
-    window.location.replace(
-      "../Shaik_Arham_Saquib.pdf",
-    );
+    window.location.replace("../Shaik_Arham_Saquib.pdf");
   }, []);
 
   return (
