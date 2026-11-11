@@ -46,7 +46,7 @@ export default function OfflineShowcase({
         This offline showcase uses the repository’s fictional_exception_day reconciliation summary.
         It is not connected to the private demo API. No records are changed.
       </p>
-      <div className="mt-5 flex flex-wrap gap-2" role="group" aria-label="Dashboard sections">
+      <div className="mt-5 flex flex-wrap gap-2" role="toolbar" aria-label="Dashboard sections">
         {sections.map((item) => (
           <button
             type="button"
