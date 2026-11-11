@@ -146,9 +146,9 @@ export default function ReconciliationWorkspace() {
           } else setRun(null);
         });
       })
-      .catch((cause: unknown) =>
-        setError(cause instanceof Error ? cause.message : "Could not connect to API."),
-      );
+      .catch((cause: unknown) => {
+        setError(cause instanceof Error ? cause.message : "Could not connect to API.");
+      });
   }, []);
 
   useEffect(() => {
@@ -162,8 +162,14 @@ export default function ReconciliationWorkspace() {
     };
     window.addEventListener("fireops:operations-updated", changed);
     window.addEventListener("fireops:demo-ready", changed);
+    // Retry after the demo session has acquired its bearer token.
+    const retry = window.setTimeout(() => {
+      if (!window.sessionStorage.getItem("fireops-demo-access-token")) return;
+      void loadBatches();
+    }, 2500);
     window.addEventListener("fireops:scenario-changed", changed);
     return () => {
+      window.clearTimeout(retry);
       window.removeEventListener("hashchange", refreshOnNavigation);
       window.removeEventListener("fireops:operations-updated", changed);
       window.removeEventListener("fireops:demo-ready", changed);
