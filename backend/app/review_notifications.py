@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import time
-from datetime import UTC, datetime
+from datetime import datetime
 from threading import Lock
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as UrlRequest
@@ -53,7 +53,11 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             return {"status": "rate_limited"}
         _last_sent[cooldown_key] = now
     safe_events = sorted(set(summary.events))
-    browser = summary.browser if summary.browser in {"Safari", "Chrome", "Firefox", "Edge", "Other"} else "Unknown"
+    browser = (
+        summary.browser
+        if summary.browser in {"Safari", "Chrome", "Firefox", "Edge", "Other"}
+        else "Unknown"
+    )
     device = summary.device if summary.device in {"Mobile", "Tablet", "Desktop"} else "Unknown"
     safe_timeline = []
     for item in summary.timeline:
@@ -64,7 +68,6 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         valid = all(ch.isalnum() or ch in allowed_chars for ch in action + section + timestamp)
         if len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40 and valid:
             safe_timeline.append(f"- {timestamp} UTC | {section} | {action}")
-    received_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
     ireland_time = datetime.now(ZoneInfo("Europe/Dublin")).strftime("%d %b %Y, %H:%M:%S %Z")
     actions = {item.get("action", "") for item in summary.timeline}
     actions.update(safe_events)
