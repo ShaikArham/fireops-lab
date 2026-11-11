@@ -41,10 +41,13 @@ export default function ReviewActivityTracker() {
         keepalive: true,
         credentials: "same-origin",
       })
-        .then((response) => {
+        .then(async (response) => {
           if (response.ok) {
-            lastSent = snapshot;
-            sessionStorage.setItem(sentKey, snapshot);
+            const result = (await response.json().catch(() => ({}))) as { status?: string };
+            if (result.status !== "rate_limited") {
+              lastSent = snapshot;
+              sessionStorage.setItem(sentKey, snapshot);
+            }
           }
           sending = false;
         })
@@ -80,8 +83,10 @@ export default function ReviewActivityTracker() {
             : "cv_view",
         );
       } else if (href.includes("/workspace/")) {
-        mark("workspace_explore");
+        activity.add("workspace_explore");
         record("section_open", href.split("/").filter(Boolean).pop()?.replace(/[^a-z0-9_-]/g, "") || "workspace");
+        sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
+        schedule();
       }
     };
     onRoute();
