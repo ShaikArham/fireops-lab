@@ -58,29 +58,34 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
     ireland_time = datetime.now(ZoneInfo("Europe/Dublin")).strftime("%d %b %Y, %H:%M:%S %Z")
     actions = {item.get("action", "") for item in summary.timeline}
     actions.update(safe_events)
+    labels = {
+        "website_visit": "Website opened",
+        "video_play": "Introduction video played",
+        "workspace_explore": "Workspace explored",
+        "cv_view": "View CV clicked",
+        "cv_download": "Download CV clicked",
+    }
     summary_lines = [
-        "FireOps Lab activity summary",
+        "FIREOPS LAB  |  VISITOR ACTIVITY",
         "",
-        f"Website opened: {'Yes' if 'website_visit' in actions else 'No'}",
-        f"Introduction video played: {'Yes' if 'video_play' in actions else 'No'}",
-        f"View CV clicked: {'Yes' if 'cv_view' in actions else 'No'}",
-        f"Download CV clicked: {'Yes' if 'cv_download' in actions else 'No'}",
+        "ACTIVITY OVERVIEW",
+        *(f"{label}: {'Yes' if event in actions else 'No'}" for event, label in labels.items()),
         "",
-        "Time (Ireland): " + ireland_time,
-        "Server received (UTC): " + received_at,
-        "Approximate location: Not collected",
+        f"Time (Ireland): {ireland_time}",
         "Visitor identity: Not available",
+        "Location: Not collected",
         "",
-        "Activity timeline (client-reported, UTC):",
-        *(safe_timeline or ["- No additional activity recorded"]),
+        "RECENT ACTIVITY (visitor-reported, UTC)",
+        *(safe_timeline or ["No additional activity recorded"]),
         "",
-        "A click does not confirm the video was watched fully or the PDF read or saved.",
-        "Activity is client-reported and does not prove recruiter identity.",
+        "Note: A play event does not confirm the entire film was watched.",
+        "A CV click does not confirm the document was read.",
+        "Activity is anonymous and cannot identify a recruiter.",
     ]
     payload = json.dumps({
         "from": sender,
         "to": [recipient],
-        "subject": "FireOps Lab: activity summary",
+        "subject": "FireOps Lab | Visitor activity",
         "text": "\\n".join(summary_lines),
     }).encode()
     outbound = UrlRequest(
