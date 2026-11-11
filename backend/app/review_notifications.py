@@ -96,7 +96,7 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             except (ValueError, UnicodeError, OSError):
                 pass
             logger.error(
-                "Reviewer email provider rejected request: HTTP %s, category %s, type %s, hint %s, size %s",
+                "Reviewer email rejected: HTTP %s, category %s, type %s, hint %s, size %s",
                 exc.code,
                 provider_error,
                 response_type,
