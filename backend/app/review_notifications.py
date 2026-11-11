@@ -54,7 +54,12 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
     outbound = UrlRequest(
         "https://api.resend.com/emails",
         data=payload,
-        headers={"Authorization": f"Bearer {key}", "Content-Type": "application/json"},
+        headers={
+            "Authorization": f"Bearer {key}",
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "User-Agent": "fireops-lab/1.0",
+        },
         method="POST",
     )
     try:
@@ -67,6 +72,10 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             response_type = exc.headers.get("Content-Type", "unknown").split(";")[0]
             response_body = exc.read(4096).decode("utf-8", errors="replace")
             failure_hint = "unclassified"
+            response_size = len(response_body)
+            response_prefix = response_body.strip().lower()[:80]
+            if response_prefix in ("forbidden", "access denied", "unauthorized"):
+                failure_hint = response_prefix.replace(" ", "_")
             for term in (
                 "domain", "recipient", "sender", "permission",
                 "api key", "cloudflare", "verify", "testing",
@@ -87,11 +96,12 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             except (ValueError, UnicodeError, OSError):
                 pass
             logger.error(
-                "Reviewer email provider rejected request: HTTP %s, category %s, type %s, hint %s",
+                "Reviewer email provider rejected request: HTTP %s, category %s, type %s, hint %s, size %s",
                 exc.code,
                 provider_error,
                 response_type,
                 failure_hint,
+                response_size,
             )
         else:
             logger.error("Reviewer email provider connection failed: %s", type(exc).__name__)
