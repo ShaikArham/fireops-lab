@@ -54,16 +54,31 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         if len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40 and valid:
             safe_timeline.append(f"- {timestamp} UTC | {section} | {action}")
     received_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    actions = {item.get("action", "") for item in summary.timeline}
+    actions.update(safe_events)
+    summary_lines = [
+        "FireOps Lab activity summary",
+        "",
+        f"Website opened: {'Yes' if 'website_visit' in actions else 'No'}",
+        f"Introduction video played: {'Yes' if 'video_play' in actions else 'No'}",
+        f"View CV clicked: {'Yes' if 'cv_view' in actions else 'No'}",
+        f"Download CV clicked: {'Yes' if 'cv_download' in actions else 'No'}",
+        "",
+        "Time (UTC): " + received_at,
+        "Approximate location: Not collected",
+        "Visitor identity: Not available",
+        "",
+        "Activity timeline (client-reported, UTC):",
+        *(safe_timeline or ["- No additional activity recorded"]),
+        "",
+        "A click does not confirm the video was watched fully or the PDF read or saved.",
+        "Activity is client-reported and does not prove recruiter identity.",
+    ]
     payload = json.dumps({
         "from": sender,
         "to": [recipient],
-        "subject": "FireOPS Lab: portfolio activity",
-        "text": "Anonymous FireOPS Lab activity summary\n\n"
-                + "\n".join("- " + event.replace("_", " ") for event in safe_events)
-                + "\n\nServer received: " + received_at
-                + ("\n\nClient-reported activity timeline (UTC):\n" + "\n".join(safe_timeline) if safe_timeline else "")
-                + "\n\nNo visitor identity is collected. "
-                + "Events are client-reported and not proof of recruiter identity.",
+        "subject": "FireOps Lab: activity summary",
+        "text": "\\n".join(summary_lines),
     }).encode()
     outbound = UrlRequest(
         "https://api.resend.com/emails",
