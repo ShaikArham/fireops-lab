@@ -40,12 +40,18 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
     recipient = os.getenv("REVIEW_ALERT_TO", "").strip()
     if not all((key, sender, recipient)):
         raise HTTPException(status_code=503, detail="Notification delivery not configured.")
-    # Coarse global cooldown: avoids flooding the mailbox and stores no visitor identifiers.
+    # CV interactions are high-signal: do not discard them because an earlier
+    # page-visit email was sent within the general cooldown.
+    actions_reported = {item.get("action", "") for item in summary.timeline}
+    actions_reported.update(summary.events)
+    is_cv_event = "cv_view" in actions_reported or "cv_download" in actions_reported
+    cooldown_key = "cv" if is_cv_event else "general"
+    cooldown_seconds = 3 if is_cv_event else 20
     now = time.monotonic()
     with _lock:
-        if now - _last_sent.get("global", 0) < 20:
+        if now - _last_sent.get(cooldown_key, 0) < cooldown_seconds:
             return {"status": "rate_limited"}
-        _last_sent["global"] = now
+        _last_sent[cooldown_key] = now
     safe_events = sorted(set(summary.events))
     browser = summary.browser if summary.browser in {"Safari", "Chrome", "Firefox", "Edge", "Other"} else "Unknown"
     device = summary.device if summary.device in {"Mobile", "Tablet", "Desktop"} else "Unknown"
@@ -149,6 +155,6 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         else:
             logger.error("Reviewer email provider connection failed: %s", type(exc).__name__)
         with _lock:
-            _last_sent.pop("global", None)
+            _last_sent.pop(cooldown_key, None)
         raise HTTPException(status_code=502, detail="Email delivery unavailable.") from exc
     return {"status": "accepted"}
