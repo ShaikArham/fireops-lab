@@ -76,7 +76,8 @@ export default function ReviewActivityTracker() {
       if (window.location.pathname.startsWith("/workspace/")) mark("workspace_explore");
     };
     const onPlay = (event: Event) => {
-      if (event.target instanceof HTMLVideoElement) mark("video_play");
+      if (event.target instanceof HTMLVideoElement && !activity.has("video_play"))
+        mark("video_play");
     };
     const onClick = (event: MouseEvent) => {
       if (!(event.target instanceof Element)) return;
