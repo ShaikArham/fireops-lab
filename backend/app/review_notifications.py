@@ -24,6 +24,8 @@ class ActivitySummary(BaseModel):
     event: str
     events: list[str] = Field(min_length=1, max_length=5)
     timeline: list[dict[str, str]] = Field(default_factory=list, max_length=30)
+    browser: str = Field(default="Unknown", max_length=20)
+    device: str = Field(default="Unknown", max_length=20)
 
 
 @router.post("/api/reviewer-activity", status_code=202)
@@ -45,6 +47,8 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             return {"status": "rate_limited"}
         _last_sent["global"] = now
     safe_events = sorted(set(summary.events))
+    browser = summary.browser if summary.browser in {"Safari", "Chrome", "Firefox", "Edge", "Other"} else "Unknown"
+    device = summary.device if summary.device in {"Mobile", "Tablet", "Desktop"} else "Unknown"
     safe_timeline = []
     for item in summary.timeline:
         action = item.get("action", "")
@@ -72,6 +76,8 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         *(f"{label}: {'Yes' if event in actions else 'No'}" for event, label in labels.items()),
         "",
         f"Time (Ireland): {ireland_time}",
+        f"Browser: {browser}",
+        f"Device: {device}",
         "Visitor identity: Not available",
         "Location: Not collected",
         "",
