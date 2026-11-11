@@ -59,6 +59,8 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         "subject": "FireOPS Lab: portfolio activity",
         "text": "Anonymous FireOPS Lab activity summary\\n\\n"
                 + "\\n".join("- " + event.replace("_", " ") for event in safe_events)
+                + "\\n\\nServer received: " + received_at
+                + ("\\n\\nClient-reported activity timeline (UTC):\\n" + "\\n".join(safe_timeline) if safe_timeline else "")
                 + "\\n\\nNo visitor identity is collected. "
                 + "Events are client-reported and not proof of recruiter identity.",
     }).encode()
