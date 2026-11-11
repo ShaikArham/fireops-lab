@@ -5,6 +5,7 @@ import os
 import time
 from datetime import UTC, datetime
 from threading import Lock
+from zoneinfo import ZoneInfo
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as UrlRequest
 from urllib.request import urlopen
@@ -54,6 +55,7 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         if len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40 and valid:
             safe_timeline.append(f"- {timestamp} UTC | {section} | {action}")
     received_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
+    ireland_time = datetime.now(ZoneInfo("Europe/Dublin")).strftime("%d %b %Y, %H:%M:%S %Z")
     actions = {item.get("action", "") for item in summary.timeline}
     actions.update(safe_events)
     summary_lines = [
@@ -64,7 +66,8 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         f"View CV clicked: {'Yes' if 'cv_view' in actions else 'No'}",
         f"Download CV clicked: {'Yes' if 'cv_download' in actions else 'No'}",
         "",
-        "Time (UTC): " + received_at,
+        "Time (Ireland): " + ireland_time,
+        "Server received (UTC): " + received_at,
         "Approximate location: Not collected",
         "Visitor identity: Not available",
         "",
