@@ -94,7 +94,7 @@ export default function Home() {
               />
               Your browser does not support HTML video.
             </video>
-            )
+            )}
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-slate-300">
               <span>FireOPS Lab · Operations Analyst at Fire.com · Independent project</span>
               <a
