@@ -76,24 +76,24 @@ export default function Home() {
                 </div>
               </div>
             ) : (
-            <video
-              className="aspect-video w-full bg-slate-900 object-contain"
-              controls
-              playsInline
-              preload="metadata"
-              onError={() => setVideoFailed(true)}
-              poster="/fireops-lab/videos/fireops-thumbnail.svg"
-              aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
-            >
-              <source src="/fireops-lab/videos/fireops-introduction.mp4" type="video/mp4" />
-              <track
-                kind="captions"
-                src="/fireops-lab/videos/fireops-captions.vtt"
-                srcLang="en"
-                label="English"
-              />
-              Your browser does not support HTML video.
-            </video>
+              <video
+                className="aspect-video w-full bg-slate-900 object-contain"
+                controls
+                playsInline
+                preload="metadata"
+                onError={() => setVideoFailed(true)}
+                poster="/fireops-lab/videos/fireops-thumbnail.svg"
+                aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
+              >
+                <source src="/fireops-lab/videos/fireops-introduction.mp4" type="video/mp4" />
+                <track
+                  kind="captions"
+                  src="/fireops-lab/videos/fireops-captions.vtt"
+                  srcLang="en"
+                  label="English"
+                />
+                Your browser does not support HTML video.
+              </video>
             )}
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-slate-300">
               <span>FireOPS Lab · Operations Analyst at Fire.com · Independent project</span>
