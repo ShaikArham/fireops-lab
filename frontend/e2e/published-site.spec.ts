@@ -53,10 +53,11 @@ test("published film, captions, and CV are reachable", async ({ page, request })
   expect(film.headers()["content-type"]).toMatch(/video\/mp4|application\/octet-stream/);
   const captions = await request.get(`${publishedBasePath}/videos/fireops-captions.vtt`);
   expect(captions.status()).toBe(200);
-  const cv = await request.get(`${publishedBasePath}/Shaik_Arham_Saquib.pdf`, {
-    headers: { Range: "bytes=0-1023" },
-  });
-  expect([200, 206]).toContain(cv.status());
+  await page.goto(`${publishedBasePath}/workspace/about/`);
+  await expect(page.getByRole("link", { name: /View CV \(PDF\)/ })).toHaveAttribute(
+    "href",
+    "https://shaikarham.github.io/arham-portfolio/assets/Shaik_Arham_Saquib.pdf",
+  );
   await page.goto(`${publishedBasePath}/`);
   const video = page.locator("video");
   await expect(video).toBeVisible();
