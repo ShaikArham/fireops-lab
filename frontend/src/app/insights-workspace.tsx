@@ -95,11 +95,12 @@ function Metric({
   definition: string;
 }) {
   return (
-    <article className="rounded-xl border border-slate-200 bg-slate-50 p-4">
+    <Link href={/alert/i.test(label) ? "/workspace/monitoring" : /case|triage|resolution/i.test(label) ? "/workspace/investigations" : /instruction|settled payment/i.test(label) ? "/workspace/payments" : "/workspace/reconciliation"} className="group block rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:-translate-y-0.5 hover:border-teal-600 hover:bg-teal-50 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-teal-700">
       <h3 className="text-sm font-medium text-slate-600">{label}</h3>
       <p className="mt-2 text-2xl font-semibold tabular-nums text-slate-950">{value}</p>
       <p className="mt-2 text-xs leading-5 text-slate-600">{definition}</p>
-    </article>
+      <p className="mt-3 text-xs font-semibold text-teal-800 group-hover:underline">Explore related records →</p>
+    </Link>
   );
 }
 
