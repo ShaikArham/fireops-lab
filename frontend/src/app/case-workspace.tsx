@@ -396,10 +396,34 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                     "Could not load cases. Use Retry cases below."
                   ) : queueLoaded ? (
                     <div className="grid gap-3">
-                      <p>No cases match the current scenario and filters. Cases are created from reconciliation exceptions, not automatically from payment history.</p>
-                      <p>Choose Settlement exception day in Guided scenario, then run reconciliation and open an investigation case.</p>
-                      <Link href="/workspace/reconciliation" className="font-semibold text-teal-800 underline">Go to reconciliation</Link>
-                      <button type="button" className="w-fit rounded-lg border border-slate-300 px-3 py-2 font-medium" onClick={() => { setStatusFilter(""); setAssignedFilter(""); setPriorityFilter(""); setSearchFilter(""); setQueueOffset(0); void loadCases(); }}>Clear filters and retry</button>
+                      <p>
+                        No cases match the current scenario and filters. Cases are created from
+                        reconciliation exceptions, not automatically from payment history.
+                      </p>
+                      <p>
+                        Choose Settlement exception day in Guided scenario, then run reconciliation
+                        and open an investigation case.
+                      </p>
+                      <Link
+                        href="/workspace/reconciliation"
+                        className="font-semibold text-teal-800 underline"
+                      >
+                        Go to reconciliation
+                      </Link>
+                      <button
+                        type="button"
+                        className="w-fit rounded-lg border border-slate-300 px-3 py-2 font-medium"
+                        onClick={() => {
+                          setStatusFilter("");
+                          setAssignedFilter("");
+                          setPriorityFilter("");
+                          setSearchFilter("");
+                          setQueueOffset(0);
+                          void loadCases();
+                        }}
+                      >
+                        Clear filters and retry
+                      </button>
                     </div>
                   ) : (
                     "Preparing investigation cases…"
