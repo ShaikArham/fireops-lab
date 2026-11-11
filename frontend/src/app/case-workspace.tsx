@@ -1,6 +1,7 @@
 "use client";
 
 import { requestJson } from "../lib/api";
+import Link from "next/link";
 import { getPreparedScenario } from "./scenario-selector";
 
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -68,6 +69,8 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
   const [resolutionRootCause, setResolutionRootCause] = useState("");
   const [error, setError] = useState("");
   const [busy, setBusy] = useState(false);
+  const [queueLoading, setQueueLoading] = useState(true);
+  const [queueLoaded, setQueueLoaded] = useState(false);
 
   const selectedId = selected?.case_id;
   useEffect(() => {
@@ -81,17 +84,28 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
   const loadCases = useCallback(async () => {
     if (!API) return;
     const requestId = ++queueRequest.current;
+    setQueueLoading(true);
     const query = new URLSearchParams({ limit: "25", offset: String(queueOffset) });
     if (priorityFilter) query.set("priority", priorityFilter);
     if (searchFilter) query.set("search", searchFilter);
     if (statusFilter) query.set("status", statusFilter);
     if (assignedFilter) query.set("assigned_to", assignedFilter);
-    const scenario = await getPreparedScenario();
-    if (scenario?.reconciliation_run_id) query.set("run_id", scenario.reconciliation_run_id);
-    const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
-    if (requestId !== queueRequest.current) return;
-    setCases(payload.cases);
-    setError("");
+    try {
+      const scenario = await getPreparedScenario();
+      if (scenario?.reconciliation_run_id) query.set("run_id", scenario.reconciliation_run_id);
+      const payload = await request<{ cases: CaseRecord[] }>(`/cases?${query.toString()}`);
+      if (requestId !== queueRequest.current) return;
+      setCases(payload.cases);
+      setQueueLoaded(true);
+      setError("");
+    } catch (cause) {
+      if (requestId === queueRequest.current) {
+        setError(cause instanceof Error ? cause.message : "Could not load cases.");
+        setQueueLoaded(false);
+      }
+    } finally {
+      if (requestId === queueRequest.current) setQueueLoading(false);
+    }
   }, [statusFilter, assignedFilter, priorityFilter, searchFilter, queueOffset]);
 
   useEffect(() => {
@@ -376,7 +390,20 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
               ))}
               {cases.length === 0 && (
                 <li className="rounded-lg border border-dashed border-slate-300 p-4 text-sm text-slate-600">
-                  No cases match these filters.
+                  {queueLoading ? (
+                    "Loading investigation cases…"
+                  ) : error ? (
+                    "Could not load cases. Use Retry cases below."
+                  ) : queueLoaded ? (
+                    <div className="grid gap-3">
+                      <p>No cases match the current scenario and filters. Cases are created from reconciliation exceptions, not automatically from payment history.</p>
+                      <p>Choose Settlement exception day in Guided scenario, then run reconciliation and open an investigation case.</p>
+                      <Link href="/workspace/reconciliation" className="font-semibold text-teal-800 underline">Go to reconciliation</Link>
+                      <button type="button" className="w-fit rounded-lg border border-slate-300 px-3 py-2 font-medium" onClick={() => { setStatusFilter(""); setAssignedFilter(""); setPriorityFilter(""); setSearchFilter(""); setQueueOffset(0); void loadCases(); }}>Clear filters and retry</button>
+                    </div>
+                  ) : (
+                    "Preparing investigation cases…"
+                  )}
                 </li>
               )}
             </ul>
