@@ -3,6 +3,7 @@ import json
 import logging
 import os
 import time
+from datetime import datetime, timezone
 from threading import Lock
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as UrlRequest
@@ -21,6 +22,7 @@ _lock = Lock()
 class ActivitySummary(BaseModel):
     event: str
     events: list[str] = Field(min_length=1, max_length=5)
+    timeline: list[dict[str, str]] = Field(default_factory=list, max_length=30)
 
 
 @router.post("/api/reviewer-activity", status_code=202)
@@ -42,6 +44,15 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
             return {"status": "rate_limited"}
         _last_sent["global"] = now
     safe_events = sorted(set(summary.events))
+    safe_timeline = []
+    for item in summary.timeline:
+        action = item.get("action", "")
+        section = item.get("section", "")
+        timestamp = item.get("at", "")
+        if (len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40
+                and all(ch.isalnum() or ch in " _-:./+TZ" for ch in action + section + timestamp)):
+            safe_timeline.append(f"- {timestamp} UTC | {section} | {action}")
+    received_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     payload = json.dumps({
         "from": sender,
         "to": [recipient],
