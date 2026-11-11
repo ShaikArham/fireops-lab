@@ -1,4 +1,58 @@
-# FireOPS Lab
+<div align="center">
+
+# FIREOPS LAB
+
+### FOLLOW THE PAYMENT. FIND THE EXCEPTION.
+
+**A synthetic payment-operations investigation and reconciliation work sample.**
+
+[**Explore the demo**](https://shaikarham.github.io/fireops-lab/) · [**Source repository**](https://github.com/ShaikArham/fireops-lab) · [**Arham's portfolio**](https://arham-bi.vercel.app/)
+
+![Project](https://img.shields.io/badge/Portfolio-Independent%20project-075d60?style=flat-square) ![Evidence](https://img.shields.io/badge/Approach-Evidence%20first-334155?style=flat-square)
+
+*Shaik Arham Saquib · Dublin, Ireland*
+
+</div>
+
+---
+
+## 01 / THE QUESTION
+
+**A fictional batch has processed, but settlement does not reconcile. What evidence explains the difference?**
+
+The project connects simulated payment events to reconciliation exceptions, case investigation, monitoring and evidence-led decisions.
+
+> **The goal:** Show the reasoning behind the result, not just the interface that displays it.
+
+## 02 / AT A GLANCE
+
+**Payments | Reconciliation | Investigations | Monitoring | Insights**
+
+| Reviewer's lens | What to look for |
+| :--- | :--- |
+| **Product thinking** | The operational question and intended user journey |
+| **Engineering** | Next.js 16, React 19, TypeScript, FastAPI, SQLAlchemy, Alembic, PostgreSQL and Playwright. |
+| **Evidence** | Reproducible examples, explicit rules and documented boundaries |
+| **Trust** | Public GitHub Pages is a read-only showcase, not a verified hosted write-enabled backend. No real payments or AML decisions. |
+
+## 03 / FIVE-MINUTE REVIEW
+
+Watch the introduction, trace a mismatch from Payments to Reconciliation and Investigations, then inspect the architectural and testing documentation.
+
+## 04 / WHAT IT DEMONSTRATES
+
+- **Problem framing:** Make the operational decision and its context explicit.
+- **Traceability:** Explain the inputs, transformations and outputs a reviewer can inspect.
+- **Responsible claims:** Separate fictional scenarios, demonstrated results and future work.
+- **Communication:** Make technical decisions understandable to both analysts and hiring managers.
+
+## 05 / IMPLEMENTATION AND REPRODUCTION
+
+The original project documentation follows below, including exact commands, metric definitions, architecture, test evidence and limitations where available. The project README remains the authoritative source for its own implementation details.
+
+---
+
+## Detailed project documentation
 
 ### Follow the payment. Find the exception. Document the decision.
 
