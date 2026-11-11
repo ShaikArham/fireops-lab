@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Submit anonymous test activity
         run: |
-          status=$(curl --silent --show-error --max-time 30 --output /dev/null --write-out '%{http_code}' \
+          status=$(curl --silent --show-error --max-time 75 --output /dev/null --write-out '%{http_code}' \
             -X POST 'https://fireops-lab.onrender.com/api/reviewer-activity' \
             -H 'Origin: https://shaikarham.github.io' \
             -H 'Content-Type: application/json' \
