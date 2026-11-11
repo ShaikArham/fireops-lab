@@ -94,7 +94,7 @@ export default function LiveOverview() {
           </button>
         </div>
       )}
-      <div className="flex flex-wrap items-center gap-2" role="group" aria-label="Overview focus">
+      <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Overview focus">
         {(["all", "exceptions", "cases", "alerts"] as const).map((item) => (
           <button
             key={item}
