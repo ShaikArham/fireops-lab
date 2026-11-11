@@ -62,7 +62,7 @@ export default function ReviewActivityTracker() {
           sending = false;
         });
     };
-    const schedule = (delay = 8_000) => {
+    const schedule = (delay = 3_000) => {
       if (timer) clearTimeout(timer);
       timer = setTimeout(flush, delay);
     };
@@ -70,7 +70,7 @@ export default function ReviewActivityTracker() {
       activity.add(event);
       record(event);
       sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
-      schedule(event === "cv_download" ? 1000 : 8_000);
+      schedule(event === "cv_download" ? 1000 : 3_000);
     };
     const onRoute = () => {
       if (window.location.pathname.startsWith("/workspace/")) mark("workspace_explore");
