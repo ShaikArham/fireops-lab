@@ -12,7 +12,7 @@ export default function ReviewActivityTracker() {
       return;
     const endpoint = process.env.NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT;
     if (!endpoint) return;
-    if (sessionStorage.getItem(sentKey)) return;
+    // Continue collecting activity after the first successful summary.
     const activity = new Set<Activity>(["website_visit"]);
     try {
       const saved = JSON.parse(sessionStorage.getItem(storageKey) || "[]") as Activity[];
@@ -21,10 +21,13 @@ export default function ReviewActivityTracker() {
       // Invalid session state is ignored.
     }
     let timer: ReturnType<typeof setTimeout> | undefined;
-    let sent = false;
+    let sending = false;
+    let lastSent = sessionStorage.getItem(sentKey) || "";
     const flush = () => {
-      if (sent) return;
-      sent = true;
+      if (sending) return;
+      const snapshot = JSON.stringify(Array.from(activity).sort());
+      if (snapshot === lastSent) return;
+      sending = true;
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,11 +36,14 @@ export default function ReviewActivityTracker() {
         credentials: "same-origin",
       })
         .then((response) => {
-          if (response.ok) sessionStorage.setItem(sentKey, "1");
-          else sent = false;
+          if (response.ok) {
+            lastSent = snapshot;
+            sessionStorage.setItem(sentKey, snapshot);
+          }
+          sending = false;
         })
         .catch(() => {
-          sent = false;
+          sending = false;
         });
     };
     const schedule = (delay = 8_000) => {
@@ -45,10 +51,12 @@ export default function ReviewActivityTracker() {
       timer = setTimeout(flush, delay);
     };
     const mark = (event: Activity) => {
-      if (sent) return;
       activity.add(event);
       sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
       schedule(event === "cv_download" ? 1000 : 8_000);
+    };
+    const onRoute = () => {
+      if (window.location.pathname.startsWith("/workspace/")) mark("workspace_explore");
     };
     const onPlay = (event: Event) => {
       if (event.target instanceof HTMLVideoElement) mark("video_play");
@@ -68,12 +76,15 @@ export default function ReviewActivityTracker() {
         mark("workspace_explore");
       }
     };
+    onRoute();
+    window.addEventListener("popstate", onRoute);
     document.addEventListener("play", onPlay, true);
     document.addEventListener("click", onClick);
     window.addEventListener("pagehide", flush);
     schedule();
     return () => {
       if (timer) clearTimeout(timer);
+      window.removeEventListener("popstate", onRoute);
       document.removeEventListener("play", onPlay, true);
       document.removeEventListener("click", onClick);
       window.removeEventListener("pagehide", flush);
