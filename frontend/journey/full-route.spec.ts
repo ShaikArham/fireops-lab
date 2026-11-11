@@ -18,7 +18,7 @@ test("real cross-origin payment, case, monitoring and export workflow", async ({
   let started = Date.now();
   await page.goto(route("overview"));
   await expect(page.locator('section[aria-label="Live operational overview"]')).toBeVisible({ timeout: 120_000 });
-  await expect(page.getByText("1,250", { exact: true })).toBeVisible({ timeout: 30_000 });
+  await expect(page.getByText("1,250", { exact: true }).first()).toBeVisible({ timeout: 30_000 });
   timings.coldWorkspaceMs = Date.now() - started;
   await capture("01-overview");
 
