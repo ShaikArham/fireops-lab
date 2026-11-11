@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { ArrowRight, Code2, X } from "lucide-react";
 
 export default function Home() {
   const router = useRouter();
+  const [videoFailed, setVideoFailed] = useState(false);
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") router.push("/workspace/overview");
@@ -63,11 +64,24 @@ export default function Home() {
             </div>
           </div>
           <div className="overflow-hidden rounded-2xl border border-slate-700 bg-slate-900">
+            {videoFailed ? (
+              <div className="relative aspect-video bg-slate-950">
+                <img
+                  src="/fireops-lab/videos/fireops-thumbnail.svg"
+                  alt="FireOps Lab introduction film cover"
+                  className="h-full w-full object-cover"
+                />
+                <div className="absolute inset-x-0 bottom-0 bg-slate-950/90 p-4 text-sm text-white">
+                  Video could not load in this browser. Use Open video directly below.
+                </div>
+              </div>
+            ) : (
             <video
               className="aspect-video w-full bg-slate-900 object-contain"
               controls
               playsInline
-              preload="none"
+              preload="metadata"
+              onError={() => setVideoFailed(true)}
               poster="/fireops-lab/videos/fireops-thumbnail.svg"
               aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
             >
@@ -80,6 +94,7 @@ export default function Home() {
               />
               Your browser does not support HTML video.
             </video>
+            )
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-slate-300">
               <span>FireOPS Lab · Operations Analyst at Fire.com · Independent project</span>
               <a
