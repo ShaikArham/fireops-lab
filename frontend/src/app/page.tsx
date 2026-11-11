@@ -68,13 +68,13 @@ export default function Home() {
               controls
               playsInline
               preload="none"
-              poster="videos/fireops-thumbnail.svg"
+              poster="/fireops-lab/videos/fireops-thumbnail.svg"
               aria-label="FireOPS Lab introduction film for Operations Analyst at Fire.com"
             >
-              <source src="videos/fireops-introduction.mp4" type="video/mp4" />
+              <source src="/fireops-lab/videos/fireops-introduction.mp4" type="video/mp4" />
               <track
                 kind="captions"
-                src="videos/fireops-captions.vtt"
+                src="/fireops-lab/videos/fireops-captions.vtt"
                 srcLang="en"
                 label="English"
               />
@@ -83,7 +83,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-3 text-xs text-slate-300">
               <span>FireOPS Lab · Operations Analyst at Fire.com · Independent project</span>
               <a
-                href="videos/fireops-introduction.mp4"
+                href="/fireops-lab/videos/fireops-introduction.mp4"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="font-semibold text-teal-300 underline underline-offset-4"
