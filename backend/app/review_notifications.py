@@ -86,7 +86,7 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         "from": sender,
         "to": [recipient],
         "subject": "FireOps Lab | Visitor activity",
-        "text": "\\n".join(summary_lines),
+        "text": "\n".join(summary_lines),
     }).encode()
     outbound = UrlRequest(
         "https://api.resend.com/emails",
