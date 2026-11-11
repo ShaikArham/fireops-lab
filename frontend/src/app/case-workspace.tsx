@@ -245,8 +245,8 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
           it through controlled review. Every action is retained in the case history.
         </p>
         {results.length > 0 && (
-          <div className="mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
-            <h3 className="font-semibold">Current run exceptions</h3>
+          <details className="group mt-5 rounded-xl border border-slate-200 bg-slate-50 p-4">
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-3 font-semibold text-slate-900">Current run exceptions <span className="text-sm font-medium text-teal-800 group-open:hidden">Show exception queue ↓</span><span className="hidden text-sm font-medium text-teal-800 group-open:inline">Hide queue ↑</span></summary>
             <ul className="mt-2 grid gap-2">
               {results
                 .filter((item) => EXCEPTIONS.has(item.classification))
@@ -278,7 +278,7 @@ export default function CaseWorkspace({ results }: { results: ResultOption[] }) 
                   </li>
                 ))}
             </ul>
-          </div>
+          </details>
         )}
 
         <div className="mt-5 grid gap-5 lg:grid-cols-[0.8fr_1.2fr]">
