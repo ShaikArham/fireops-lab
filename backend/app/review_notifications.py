@@ -3,7 +3,7 @@ import json
 import logging
 import os
 import time
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from threading import Lock
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as UrlRequest
@@ -49,10 +49,11 @@ def notify_reviewer(summary: ActivitySummary, request: Request):
         action = item.get("action", "")
         section = item.get("section", "")
         timestamp = item.get("at", "")
-        if (len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40
-                and all(ch.isalnum() or ch in " _-:./+TZ" for ch in action + section + timestamp)):
+        allowed_chars = " _-:./+TZ"
+        valid = all(ch.isalnum() or ch in allowed_chars for ch in action + section + timestamp)
+        if len(action) <= 48 and len(section) <= 48 and len(timestamp) <= 40 and valid:
             safe_timeline.append(f"- {timestamp} UTC | {section} | {action}")
-    received_at = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+    received_at = datetime.now(UTC).strftime("%Y-%m-%d %H:%M:%S UTC")
     payload = json.dumps({
         "from": sender,
         "to": [recipient],
