@@ -5,10 +5,10 @@ import os
 import time
 from datetime import UTC, datetime
 from threading import Lock
-from zoneinfo import ZoneInfo
 from urllib.error import HTTPError, URLError
 from urllib.request import Request as UrlRequest
 from urllib.request import urlopen
+from zoneinfo import ZoneInfo
 
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, Field
