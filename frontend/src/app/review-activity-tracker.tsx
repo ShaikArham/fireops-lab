@@ -10,6 +10,21 @@ export default function ReviewActivityTracker() {
   useEffect(() => {
     if (navigator.webdriver || /bot|crawler|spider|headless|preview/i.test(navigator.userAgent))
       return;
+    const agent = navigator.userAgent;
+    const browser = /Edg\//.test(agent)
+      ? "Edge"
+      : /CriOS|Chrome\//.test(agent)
+        ? "Chrome"
+        : /FxiOS|Firefox\//.test(agent)
+          ? "Firefox"
+          : /Safari\//.test(agent)
+            ? "Safari"
+            : "Other";
+    const device = /iPad|Tablet/i.test(agent)
+      ? "Tablet"
+      : /iPhone|Android.*Mobile|Mobile/i.test(agent)
+        ? "Mobile"
+        : "Desktop";
     const endpoint = process.env.NEXT_PUBLIC_REVIEW_ALERT_ENDPOINT;
     if (!endpoint) return;
     // Continue collecting activity after the first successful summary.
@@ -44,7 +59,7 @@ export default function ReviewActivityTracker() {
       fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ event: "activity_summary", events: Array.from(activity), timeline }),
+        body: JSON.stringify({ event: "activity_summary", events: Array.from(activity), timeline, browser, device }),
         keepalive: true,
         credentials: "same-origin",
       })
