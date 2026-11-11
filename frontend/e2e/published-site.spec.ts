@@ -60,8 +60,18 @@ test("published film, captions, and CV are reachable", async ({ page, request })
   await page.goto(`${publishedBasePath}/`);
   const video = page.locator("video");
   await expect(video).toBeVisible();
-  await expect(video.locator("source")).toHaveAttribute("src", "videos/fireops-introduction.mp4");
-  await expect(video).toHaveAttribute("poster", "videos/fireops-thumbnail.svg");
+  await expect(video.locator("source")).toHaveAttribute("src", `${publishedBasePath}/videos/fireops-introduction.mp4`);
+  await expect(video).toHaveAttribute("poster", `${publishedBasePath}/videos/fireops-thumbnail.svg`);
   await expect(video).toHaveAttribute("controls", "");
   await expect(video).toHaveAttribute("playsinline", "");
+  await video.evaluate(async (element) => {
+    const media = element as HTMLVideoElement;
+    media.load();
+    await new Promise<void>((resolve, reject) => {
+      if (media.readyState >= 2) return resolve();
+      media.addEventListener("loadeddata", () => resolve(), { once: true });
+      media.addEventListener("error", () => reject(new Error("Video failed to load")), { once: true });
+      setTimeout(() => reject(new Error("Video load timed out")), 20000);
+    });
+  });
 });
