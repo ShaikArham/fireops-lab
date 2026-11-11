@@ -105,7 +105,11 @@ export default function ReviewActivityTracker() {
       const link = event.target.closest("a[href]");
       if (!link) return;
       const href = (link.getAttribute("href") || "").toLowerCase();
-      if (href.includes("/cv/") || href.includes(".pdf") || /^(view|download) cv/i.test((link.textContent || "").trim())) {
+      if (
+        href.includes("/cv/") ||
+        href.includes(".pdf") ||
+        /^(view|download) cv/i.test((link.textContent || "").trim())
+      ) {
         mark(
           link.hasAttribute("download") || /download/i.test(link.textContent || "")
             ? "cv_download"
