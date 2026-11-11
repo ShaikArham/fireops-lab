@@ -339,7 +339,7 @@ export default function InsightsWorkspace() {
                 </p>
                 <h3 className="mt-1 text-xl font-semibold">Explore operational performance</h3>
               </div>
-              <div className="flex flex-wrap gap-2" role="group" aria-label="Dashboard view">
+              <div className="flex flex-wrap gap-2" role="toolbar" aria-label="Dashboard view">
                 {(["exceptions", "trends", "cases"] as const).map((view) => (
                   <button
                     key={view}
