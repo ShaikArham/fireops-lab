@@ -91,7 +91,7 @@ export default function ReviewActivityTracker() {
       activity.add(event);
       record(event);
       sessionStorage.setItem(storageKey, JSON.stringify(Array.from(activity)));
-      schedule(event === "cv_download" ? 1000 : 3_000);
+      schedule(event === "cv_download" || event === "cv_view" ? 250 : 3_000);
     };
     const onRoute = () => {
       if (window.location.pathname.startsWith("/workspace/")) mark("workspace_explore");
@@ -105,7 +105,7 @@ export default function ReviewActivityTracker() {
       const link = event.target.closest("a[href]");
       if (!link) return;
       const href = (link.getAttribute("href") || "").toLowerCase();
-      if (href.includes("/cv/") || href.includes(".pdf")) {
+      if (href.includes("/cv/") || href.includes(".pdf") || /^(view|download) cv/i.test((link.textContent || "").trim())) {
         mark(
           link.hasAttribute("download") || /download/i.test(link.textContent || "")
             ? "cv_download"
